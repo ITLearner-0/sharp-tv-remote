@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#16181d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="icon" href="/static/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/style.css">
+  <title>Télécommande Sharp</title>
+</head>
+<body>
+  <!-- Écran de connexion / appairage -->
+  <section id="setup" class="panel" hidden>
+    <h1>Télécommande Sharp</h1>
+    <p class="hint">La TV et cet appareil doivent être sur le même Wi-Fi.</p>
+
+    <div id="step-connect">
+      <button id="btn-discover" class="wide">🔍 Rechercher ma TV</button>
+      <ul id="tv-list"></ul>
+      <label for="host">…ou saisissez l'adresse IP de la TV</label>
+      <input id="host" inputmode="decimal" placeholder="192.168.1.42" autocomplete="off">
+      <button id="btn-connect" class="wide primary">Se connecter</button>
+      <p class="hint small">IP visible sur la TV : Paramètres → Réseau et Internet → votre Wi-Fi.</p>
+    </div>
+
+    <div id="step-pair" hidden>
+      <p>Un code à 6 caractères s'affiche sur la TV. Saisissez-le :</p>
+      <input id="code" maxlength="6" autocapitalize="characters" autocomplete="off" placeholder="A1B2C3">
+      <button id="btn-pair" class="wide primary">Valider</button>
+      <button id="btn-cancel" class="wide">Annuler</button>
+    </div>
+
+    <p id="setup-error" class="error" role="alert"></p>
+  </section>
+
+  <!-- Télécommande -->
+  <main id="remote" hidden>
+    <header class="topbar">
+      <span id="status-dot" class="dot"></span>
+      <span id="status-text">Connecté</span>
+      <button id="btn-settings" class="icon" aria-label="Réglages de connexion">⚙</button>
+    </header>
+
+    <div class="row">
+      <button class="key power" data-key="KEYCODE_POWER" aria-label="Marche / Arrêt">⏻</button>
+      <button class="key" data-key="KEYCODE_TV_INPUT" aria-label="Source">Source</button>
+      <button class="key" data-key="KEYCODE_SETTINGS" aria-label="Paramètres">Réglages</button>
+    </div>
+
+    <div class="dpad">
+      <button class="key up" data-key="KEYCODE_DPAD_UP" data-repeat aria-label="Haut">▲</button>
+      <button class="key left" data-key="KEYCODE_DPAD_LEFT" data-repeat aria-label="Gauche">◀</button>
+      <button class="key ok" data-key="KEYCODE_DPAD_CENTER" aria-label="OK">OK</button>
+      <button class="key right" data-key="KEYCODE_DPAD_RIGHT" data-repeat aria-label="Droite">▶</button>
+      <button class="key down" data-key="KEYCODE_DPAD_DOWN" data-repeat aria-label="Bas">▼</button>
+    </div>
+
+    <div class="row">
+      <button class="key" data-key="KEYCODE_BACK" aria-label="Retour">↩ Retour</button>
+      <button class="key" data-key="KEYCODE_HOME" aria-label="Accueil">⌂ Accueil</button>
+      <button class="key" data-key="KEYCODE_MENU" aria-label="Menu">☰ Menu</button>
+    </div>
+
+    <div class="rockers">
+      <div class="rocker">
+        <button class="key" data-key="KEYCODE_VOLUME_UP" data-repeat aria-label="Volume plus">＋</button>
+        <span>VOL</span>
+        <button class="key" data-key="KEYCODE_VOLUME_DOWN" data-repeat aria-label="Volume moins">－</button>
+      </div>
+      <div class="mid">
+        <button class="key" data-key="KEYCODE_VOLUME_MUTE" aria-label="Muet">🔇</button>
+        <button class="key" data-key="KEYCODE_GUIDE" aria-label="Guide TV">Guide</button>
+        <button class="key" data-key="KEYCODE_INFO" aria-label="Info">Info</button>
+      </div>
+      <div class="rocker">
+        <button class="key" data-key="KEYCODE_CHANNEL_UP" data-repeat aria-label="Chaîne suivante">⌃</button>
+        <span>CH</span>
+        <button class="key" data-key="KEYCODE_CHANNEL_DOWN" data-repeat aria-label="Chaîne précédente">⌄</button>
+      </div>
+    </div>
+
+    <div class="row media">
+      <button class="key" data-key="KEYCODE_MEDIA_REWIND" aria-label="Retour rapide">⏪</button>
+      <button class="key" data-key="KEYCODE_MEDIA_PLAY_PAUSE" aria-label="Lecture / Pause">⏯</button>
+      <button class="key" data-key="KEYCODE_MEDIA_STOP" aria-label="Stop">⏹</button>
+      <button class="key" data-key="KEYCODE_MEDIA_FAST_FORWARD" aria-label="Avance rapide">⏩</button>
+    </div>
+
+    <details class="drawer">
+      <summary>Pavé numérique et touches couleur</summary>
+      <div class="numpad">
+        <button class="key" data-key="KEYCODE_1">1</button>
+        <button class="key" data-key="KEYCODE_2">2</button>
+        <button class="key" data-key="KEYCODE_3">3</button>
+        <button class="key" data-key="KEYCODE_4">4</button>
+        <button class="key" data-key="KEYCODE_5">5</button>
+        <button class="key" data-key="KEYCODE_6">6</button>
+        <button class="key" data-key="KEYCODE_7">7</button>
+        <button class="key" data-key="KEYCODE_8">8</button>
+        <button class="key" data-key="KEYCODE_9">9</button>
+        <button class="key" data-key="KEYCODE_CAPTIONS" aria-label="Sous-titres">ST</button>
+        <button class="key" data-key="KEYCODE_0">0</button>
+        <button class="key" data-key="KEYCODE_LAST_CHANNEL" aria-label="Chaîne précédente">⟲</button>
+      </div>
+      <div class="row colors">
+        <button class="key red" data-key="KEYCODE_PROG_RED" aria-label="Rouge"></button>
+        <button class="key green" data-key="KEYCODE_PROG_GREEN" aria-label="Vert"></button>
+        <button class="key yellow" data-key="KEYCODE_PROG_YELLOW" aria-label="Jaune"></button>
+        <button class="key blue" data-key="KEYCODE_PROG_BLUE" aria-label="Bleu"></button>
+      </div>
+    </details>
+
+    <details class="drawer">
+      <summary>Applications</summary>
+      <div class="apps">
+        <button class="app" data-app="https://www.netflix.com/title">Netflix</button>
+        <button class="app" data-app="https://www.youtube.com">YouTube</button>
+        <button class="app" data-app="https://app.primevideo.com">Prime Video</button>
+        <button class="app" data-app="https://www.disneyplus.com">Disney+</button>
+        <button class="app" data-app="com.google.android.youtube.tvmusic">YT Music</button>
+        <button class="app" data-app="com.spotify.tv.android">Spotify</button>
+      </div>
+    </details>
+
+    <form id="text-form" class="text-form">
+      <input id="text" placeholder="Taper du texte sur la TV…" autocomplete="off">
+      <button type="submit" class="primary">Envoyer</button>
+      <button type="button" class="key" data-key="KEYCODE_DEL" aria-label="Effacer">⌫</button>
+    </form>
+  </main>
+
+  <div id="toast" role="status"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
