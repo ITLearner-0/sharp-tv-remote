@@ -23,6 +23,31 @@ et il fonctionne avec toutes les TV Sharp sous Android TV ou Google TV
 - Raccourcis clavier quand on l'utilise depuis un ordinateur (flèches, Entrée, Échap, +/−, espace)
 - Installable sur l'écran d'accueil du téléphone (PWA)
 
+## 📱 Application Android (version de test)
+
+Le dossier `android/` contient une **application Android autonome** : le
+téléphone pilote directement la TV, **sans ordinateur ni serveur**. Elle reprend
+toutes les fonctions (appairage, touches, texte, allumage par le réseau,
+liste des applications) et ajoute les **boutons de volume du téléphone**.
+
+**Installer la dernière version sur le téléphone :**
+
+1. Sur le téléphone, connecté à votre compte GitHub, ouvrez la page
+   [Releases du dépôt](../../releases/tag/android-latest) et téléchargez
+   **`telecommande-tv.apk`**.
+2. Ouvrez le fichier. Android demande d'autoriser l'installation
+   d'applications « de sources inconnues » pour votre navigateur ou
+   gestionnaire de fichiers : acceptez.
+3. Si Play Protect affiche un avertissement, choisissez « Installer quand même »
+   (l'application n'est pas encore publiée sur le Play Store).
+
+Chaque modification du dossier `android/` produit automatiquement une nouvelle
+version (GitHub Actions), qui s'installe par-dessus la précédente.
+
+> ⚠️ L'APK est signé avec une **clé de test publique** (`android/app/test-signing.keystore`).
+> Elle convient pour les essais, pas pour le Play Store : il faudra une clé
+> privée avant toute publication.
+
 ## Comment ça marche
 
 ```
@@ -141,6 +166,7 @@ sur le même protocole.
 ```
 server.py          serveur web + connexion à la TV (androidtvremote2) + Wake-on-LAN
 apps.py            liste des applications (ADB + applications déjà ouvertes)
+android/           application Android autonome (Kotlin, Jetpack Compose)
 static/index.html  interface de la télécommande
 static/app.js      logique (touches, répétition, appairage, texte)
 static/style.css   apparence

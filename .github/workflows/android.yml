@@ -1,0 +1,52 @@
+name: Application Android
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "android/**"
+      - ".github/workflows/android.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Tests et compilation de l'APK
+        env:
+          VERSION_CODE: ${{ github.run_number }}
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon testReleaseUnitTest assembleRelease
+          cp app/build/outputs/apk/release/app-release.apk telecommande-tv.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: telecommande-tv-apk
+          path: android/telecommande-tv.apk
+
+      - name: Publier l'APK (dernière version)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete android-latest --yes --cleanup-tag || true
+          gh release create android-latest telecommande-tv.apk \
+            --title "Application Android (dernière version)" \
+            --notes "Version de test n°${{ github.run_number }}. Téléchargez telecommande-tv.apk depuis le téléphone puis ouvrez-le pour l'installer." \
+            --prerelease \
+            --target "$GITHUB_SHA"
