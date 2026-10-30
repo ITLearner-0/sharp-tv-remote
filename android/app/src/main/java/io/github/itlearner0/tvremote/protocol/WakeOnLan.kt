@@ -20,10 +20,15 @@ object WakeOnLan {
         return ByteArray(6) { 0xFF.toByte() } + (1..16).fold(ByteArray(0)) { acc, _ -> acc + macBytes }
     }
 
-    /** Envoie le paquet en diffusion générale, sur le sous-réseau de la TV et à la TV elle-même. */
-    fun send(mac: String, host: String?, repeat: Int = 3) {
+    /**
+     * Envoie le paquet en diffusion générale, sur le sous-réseau de la TV, à la
+     * TV elle-même et aux adresses de diffusion supplémentaires [broadcasts]
+     * (celles du réseau du téléphone).
+     */
+    fun send(mac: String, host: String?, broadcasts: Collection<String> = emptyList(), repeat: Int = 5) {
         val data = packet(mac)
         val targets = linkedSetOf("255.255.255.255")
+        targets += broadcasts
         if (host != null) {
             targets += host
             val parts = host.split('.')
@@ -37,7 +42,7 @@ object WakeOnLan {
                         runCatching { socket.send(DatagramPacket(data, data.size, InetAddress.getByName(target), port)) }
                     }
                 }
-                Thread.sleep(200)
+                Thread.sleep(300)
             }
         }
     }

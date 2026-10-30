@@ -68,4 +68,13 @@ class ProtocolTest {
         assertEquals("A4:B1:C2:D3:E4:F5", WakeOnLan.normalizeMac("a4b1c2d3e4f5"))
         assertNull(WakeOnLan.normalizeMac("zz"))
     }
+
+    @Test
+    fun macAddressFromCertificateSubject() {
+        assertEquals("AA:BB:CC:DD:EE:FF", RemoteSession.parseMacFromSubject("CN=atvremote/darcy/darcy/SHIELD Android TV/aa:bb:cc:dd:ee:ff"))
+        assertEquals("A4:B1:C2:D3:E4:F5", RemoteSession.parseMacFromSubject("CN=atvremote/sharp/4T-C55FN/A4-B1-C2-D3-E4-F5"))
+        assertEquals("A4:B1:C2:D3:E4:F5", RemoteSession.parseMacFromSubject("CN=atvremote/sharp/a4b1c2d3e4f5"))
+        assertNull(RemoteSession.parseMacFromSubject("CN=atvremote/sharp/00:00:00:00:00:00"))
+        assertNull(RemoteSession.parseMacFromSubject("CN=Sharp TV"))
+    }
 }

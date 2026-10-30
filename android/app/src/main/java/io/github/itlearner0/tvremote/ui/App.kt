@@ -1,16 +1,20 @@
 package io.github.itlearner0.tvremote.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -26,13 +30,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import io.github.itlearner0.tvremote.protocol.RemoteSession
 
 @Composable
 fun App(state: UiState, message: String?, vm: RemoteViewModel) {
     val snackbar = remember { SnackbarHostState() }
     var showSettings by rememberSaveable { mutableStateOf(false) }
+    var showTvs by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(message) {
         if (message != null) {
@@ -47,47 +53,98 @@ fun App(state: UiState, message: String?, vm: RemoteViewModel) {
             contentAlignment = Alignment.TopCenter,
         ) {
             Column(Modifier.widthIn(max = 420.dp).fillMaxWidth().padding(16.dp)) {
-                val showRemote = state.connection == Connection.CONNECTED || state.connection == Connection.OFFLINE
-                if (showRemote) {
-                    RemoteScreen(state, vm, onSettings = { showSettings = true })
-                } else {
+                if (state.showSetup) {
                     SetupScreen(state, vm)
+                } else {
+                    RemoteScreen(state, vm, onSettings = { showSettings = true }, onSwitchTv = { showTvs = true })
                 }
             }
         }
     }
 
-    if (showSettings) SettingsDialog(state, vm, onDismiss = { showSettings = false })
+    if (showSettings && state.current != null) SettingsDialog(state, vm, onDismiss = { showSettings = false })
+    if (showTvs) TvListDialog(state, vm, onDismiss = { showTvs = false })
+}
+
+@Composable
+private fun TvListDialog(state: UiState, vm: RemoteViewModel, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Mes TV") },
+        text = {
+            Column {
+                for (tv in state.tvs) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth().clickable {
+                            vm.selectTv(tv.id)
+                            onDismiss()
+                        },
+                    ) {
+                        RadioButton(selected = tv.id == state.current?.id, onClick = null)
+                        Column(Modifier.padding(start = 8.dp)) {
+                            Text(tv.name)
+                            Text(tv.host, color = Muted, style = MaterialTheme.typography.bodySmall)
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = {
+                vm.addTv()
+                onDismiss()
+            }) { Text("＋ Ajouter une TV") }
+        },
+        dismissButton = { TextButton(onClick = onDismiss) { Text("Fermer") } },
+    )
 }
 
 @Composable
 private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () -> Unit) {
-    var mac by rememberSaveable { mutableStateOf(state.mac.orEmpty()) }
+    val tv = state.current ?: return
+    var name by rememberSaveable(tv.id) { mutableStateOf(tv.name) }
+    var host by rememberSaveable(tv.id) { mutableStateOf(tv.host) }
+    var mac by rememberSaveable(tv.id, tv.mac) { mutableStateOf(tv.mac.orEmpty()) }
     var error by remember { mutableStateOf<String?>(null) }
-    var confirmForget by remember { mutableStateOf(false) }
+    var confirmRemove by remember { mutableStateOf(false) }
 
-    if (confirmForget) {
+    if (confirmRemove) {
         AlertDialog(
-            onDismissRequest = { confirmForget = false },
-            title = { Text("Changer de TV") },
-            text = { Text("Oublier cette TV pour en choisir une autre ?") },
+            onDismissRequest = { confirmRemove = false },
+            title = { Text("Supprimer cette TV") },
+            text = { Text("Supprimer « ${tv.name} » de la télécommande ? Il faudra refaire l'appairage pour la retrouver.") },
             confirmButton = {
                 TextButton(onClick = {
-                    vm.forgetTv()
+                    vm.removeCurrentTv()
                     onDismiss()
-                }) { Text("Oublier") }
+                }) { Text("Supprimer") }
             },
-            dismissButton = { TextButton(onClick = { confirmForget = false }) { Text("Annuler") } },
+            dismissButton = { TextButton(onClick = { confirmRemove = false }) { Text("Annuler") } },
         )
         return
     }
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Réglages") },
+        title = { Text("Réglages de la TV") },
         text = {
-            Column {
-                state.host?.let { Text("TV : $it", color = Muted) }
+            Column(Modifier.verticalScroll(rememberScrollState())) {
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("Nom") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                OutlinedTextField(
+                    value = host,
+                    onValueChange = { host = it; error = null },
+                    label = { Text("Adresse IP") },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                )
                 OutlinedTextField(
                     value = mac,
                     onValueChange = { mac = it; error = null },
@@ -95,25 +152,41 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                     placeholder = { Text("A4:B1:C2:D3:E4:F5") },
                     singleLine = true,
                     isError = error != null,
-                    supportingText = error?.let { message -> @Composable { Text(message) } },
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters),
-                    modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
                 )
+                error?.let { Text(it, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall) }
+                TextButton(onClick = vm::detectMac, enabled = !state.detectingMac) {
+                    Text(if (state.detectingMac) "Détection en cours…" else "Détecter l'adresse MAC automatiquement")
+                }
                 Text(
-                    "Détectée automatiquement à la connexion. Pour que l'allumage fonctionne, activez aussi " +
-                        "sur la TV « Wake on LAN / Réveil par le réseau » ou « Veille réseau » " +
-                        "(Réseau et Internet, ou Système → Alimentation).",
+                    "Pour allumer la TV éteinte, elle doit garder le réseau en veille. Sur la TV, activez " +
+                        "selon le modèle « Wake on LAN », « Réveil par le réseau », « Veille réseau » ou " +
+                        "« Démarrage rapide » (Paramètres → Réseau et Internet, ou Système → Alimentation). " +
+                        "Une TV branchée en câble Ethernet se réveille plus sûrement qu'en Wi-Fi.",
                     color = Muted,
                     style = MaterialTheme.typography.bodySmall,
                 )
-                TextButton(onClick = { confirmForget = true }, modifier = Modifier.padding(top = 8.dp)) {
-                    Text("Changer de TV")
+                if (state.connection == Connection.CONNECTED) {
+                    val features = state.tv.features
+                    val power = features and RemoteSession.FEATURE_POWER != 0
+                    Text(
+                        "Diagnostic : la TV annonce les fonctions 0x${features.toString(16)} " +
+                            "(marche/arrêt ${if (power) "pris en charge" else "non annoncé"}).",
+                        color = Muted,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(top = 8.dp),
+                    )
+                }
+                TextButton(onClick = { confirmRemove = true }, modifier = Modifier.padding(top = 8.dp)) {
+                    Text("Supprimer cette TV", color = MaterialTheme.colorScheme.error)
                 }
             }
         },
         confirmButton = {
             TextButton(onClick = {
-                if (vm.setMac(mac)) onDismiss() else error = "Adresse MAC invalide"
+                val problem = vm.editCurrentTv(name, host, mac)
+                if (problem == null) onDismiss() else error = problem
             }) { Text("Enregistrer") }
         },
         dismissButton = { TextButton(onClick = onDismiss) { Text("Fermer") } },

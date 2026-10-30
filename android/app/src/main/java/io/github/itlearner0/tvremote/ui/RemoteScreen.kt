@@ -60,11 +60,22 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit) {
+fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, onSwitchTv: () -> Unit) {
     val offline = state.connection != Connection.CONNECTED
     val dim = Modifier.alpha(if (offline) 0.4f else 1f)
     Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        StatusBar(state, onSettings)
+        StatusBar(state, onSettings, onSwitchTv)
+        if (state.needsPairing) {
+            Column(
+                Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(PadColor).padding(12.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Text("La TV ne reconnaît plus ce téléphone.", color = MaterialTheme.colorScheme.error)
+                FilledTonalButton(onClick = vm::repairCurrentTv, modifier = Modifier.fillMaxWidth()) {
+                    Text("Refaire l'appairage")
+                }
+            }
+        }
 
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             RemoteKey("⏻", Modifier.weight(1f), color = Accent, fontSize = 22.sp, onPress = vm::power)
@@ -104,25 +115,30 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit) {
 }
 
 @Composable
-private fun StatusBar(state: UiState, onSettings: () -> Unit) {
+private fun StatusBar(state: UiState, onSettings: () -> Unit, onSwitchTv: () -> Unit) {
     val tv = state.tv
-    val text = when (state.connection) {
-        Connection.CONNECTED -> {
-            val name = listOfNotNull(tv.device?.manufacturer, tv.device?.model).joinToString(" ").ifBlank { "TV" }
-            if (!tv.isOn) "$name · en veille" else name
-        }
-        else -> "TV éteinte · ⏻ pour l'allumer"
+    val name = state.current?.name ?: "TV"
+    val status = when {
+        state.connection != Connection.CONNECTED -> "éteinte · ⏻ pour l'allumer"
+        !tv.isOn -> "en veille"
+        else -> "allumée"
     }
     val on = state.connection == Connection.CONNECTED && tv.isOn
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Box(Modifier.size(10.dp).clip(CircleShape).background(if (on) Color(0xFF3CCF7A) else Color(0xFF777777)))
-        Text(
-            text,
-            color = Muted,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(start = 8.dp).weight(1f),
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.weight(1f).clip(RoundedCornerShape(8.dp)).clickable(onClick = onSwitchTv).padding(vertical = 6.dp),
+        ) {
+            Box(Modifier.size(10.dp).clip(CircleShape).background(if (on) Color(0xFF3CCF7A) else Color(0xFF777777)))
+            Text(
+                "$name ▾",
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(start = 8.dp).weight(1f, fill = false),
+            )
+            Text(" · $status", color = Muted, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        }
         IconButton(onClick = onSettings) { Icon(Icons.Filled.Settings, contentDescription = "Réglages") }
     }
 }

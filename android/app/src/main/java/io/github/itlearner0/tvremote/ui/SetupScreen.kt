@@ -46,22 +46,27 @@ fun SetupScreen(state: UiState, vm: RemoteViewModel) {
             Connection.CONNECTING -> Row(verticalAlignment = Alignment.CenterVertically) {
                 CircularProgressIndicator(Modifier.size(24.dp))
                 Spacer(Modifier.size(12.dp))
-                Text("Connexion à ${state.host}…")
+                Text("Connexion à ${state.pendingHost}…")
             }
             else -> ChooseTvStep(state, vm)
         }
         state.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+        if (state.tvs.isNotEmpty() && state.connection != Connection.PAIRING) {
+            TextButton(onClick = vm::cancelSetup, modifier = Modifier.fillMaxWidth()) {
+                Text("← Revenir à la télécommande")
+            }
+        }
     }
 }
 
 @Composable
 private fun ChooseTvStep(state: UiState, vm: RemoteViewModel) {
-    var host by rememberSaveable { mutableStateOf(state.host.orEmpty()) }
+    var host by rememberSaveable { mutableStateOf(state.pendingHost.orEmpty()) }
     FilledTonalButton(onClick = vm::discover, enabled = !state.discovering, modifier = Modifier.fillMaxWidth()) {
         Text(if (state.discovering) "Recherche en cours…" else "🔍  Rechercher ma TV")
     }
     for (tv in state.discovered) {
-        FilledTonalButton(onClick = { vm.connect(tv.host) }, modifier = Modifier.fillMaxWidth()) {
+        FilledTonalButton(onClick = { vm.connect(tv.host, tv.name) }, modifier = Modifier.fillMaxWidth()) {
             Text("📺  ${tv.name} (${tv.host})")
         }
     }
@@ -110,7 +115,7 @@ private fun PairingStep(vm: RemoteViewModel) {
         enabled = code.length == 6,
         modifier = Modifier.fillMaxWidth().height(52.dp),
     ) { Text("Valider", fontWeight = FontWeight.SemiBold) }
-    TextButton(onClick = vm::cancelPairing, modifier = Modifier.fillMaxWidth().padding(top = 4.dp)) {
+    TextButton(onClick = vm::cancelSetup, modifier = Modifier.fillMaxWidth().padding(top = 4.dp)) {
         Text("Annuler")
     }
 }

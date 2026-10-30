@@ -30,11 +30,14 @@ object Keys {
     const val GUIDE = 172
     const val CAPTIONS = 175
     const val SETTINGS = 176
+    const val TV_POWER = 177
     const val TV_INPUT = 178
     const val PROG_RED = 183
     const val PROG_GREEN = 184
     const val PROG_YELLOW = 185
     const val PROG_BLUE = 186
+    const val SLEEP = 223
+    const val WAKEUP = 224
     const val LAST_CHANNEL = 229
 
     fun digit(n: Int): Int = NUM_0 + n

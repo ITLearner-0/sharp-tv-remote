@@ -24,6 +24,8 @@ data class TvState(
     val currentApp: String = "",
     val device: DeviceInfo? = null,
     val volume: VolumeInfo? = null,
+    /** Fonctions annoncées par la TV (masque de bits du protocole), pour le diagnostic. */
+    val features: Int = 0,
 )
 
 /**
@@ -57,7 +59,7 @@ class RemoteSession(
         private set
 
     val macAddress: String?
-        get() = serverCertificate?.subjectX500Principal?.name?.let { MAC_REGEX.find(it)?.value?.uppercase() }
+        get() = serverCertificate?.subjectX500Principal?.name?.let(::parseMacFromSubject)
 
     fun connect() {
         val s = identity.sslContext().socketFactory.createSocket() as SSLSocket
@@ -149,7 +151,9 @@ class RemoteSession(
                 val configure = msg.message(1)!!
                 val info = configure.message(2)
                 activeFeatures = FEATURES and configure.int(1)
-                updateState { copy(device = DeviceInfo(info?.string(2).orEmpty(), info?.string(1).orEmpty())) }
+                updateState {
+                    copy(device = DeviceInfo(info?.string(2).orEmpty(), info?.string(1).orEmpty()), features = configure.int(1))
+                }
                 send {
                     message(1) {
                         int(1, activeFeatures)
@@ -194,6 +198,19 @@ class RemoteSession(
         private const val IDLE_TIMEOUT_MS = 16_000
         // PING | KEY | IME | POWER | VOLUME | APP_LINK
         private const val FEATURES = 1 or 2 or 4 or 32 or 64 or 512
-        private val MAC_REGEX = Regex("([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}")
+        const val FEATURE_POWER = 32
+        private val MAC_SEPARATED = Regex("(?<![0-9A-Fa-f])([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}(?![0-9A-Fa-f])")
+        private val MAC_BARE = Regex("(?<=[/=])[0-9A-Fa-f]{12}(?=$|[/,])")
+
+        /**
+         * Adresse MAC inscrite par la TV dans son certificat, par exemple
+         * « CN=atvremote/darcy/darcy/SHIELD Android TV/XX:XX:XX:XX:XX:XX ».
+         */
+        fun parseMacFromSubject(subject: String): String? {
+            val raw = MAC_SEPARATED.find(subject)?.value ?: MAC_BARE.find(subject)?.value ?: return null
+            val digits = raw.filter { it.isLetterOrDigit() }.uppercase()
+            if (digits == "000000000000" || digits == "FFFFFFFFFFFF") return null
+            return digits.chunked(2).joinToString(":")
+        }
     }
 }
