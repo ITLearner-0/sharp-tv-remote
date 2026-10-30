@@ -1,5 +1,6 @@
 package io.github.itlearner0.tvremote.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,6 +30,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -47,7 +49,11 @@ fun App(state: UiState, message: String?, vm: RemoteViewModel) {
         }
     }
 
-    Scaffold(snackbarHost = { SnackbarHost(snackbar) }) { padding ->
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbar) },
+        containerColor = Color.Transparent,
+        modifier = Modifier.background(BackgroundBrush),
+    ) { padding ->
         Box(
             Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()),
             contentAlignment = Alignment.TopCenter,

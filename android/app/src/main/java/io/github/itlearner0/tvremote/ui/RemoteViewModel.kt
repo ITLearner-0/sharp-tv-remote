@@ -92,6 +92,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     @Volatile private var session: RemoteSession? = null
     private var pairing: PairingSession? = null
     private var pendingName: String? = null
+    private var pendingMac: String? = null
     private var keepAlive: Job? = null
     private var discoveryJob: Job? = null
     private var foreground = false
@@ -202,19 +203,44 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     // --- Choix d'une nouvelle TV et appairage ---
 
-    fun discover() {
-        discoveryJob?.cancel()
-        _state.update { it.copy(discovering = true, discovered = emptyList(), error = null) }
+    /** Recherche les TV en continu tant que l'écran d'ajout est affiché. */
+    fun startAutoDiscovery() {
+        if (discoveryJob?.isActive == true) return
         discoveryJob = viewModelScope.launch {
-            withTimeoutOrNull(6_000) {
-                discovery.discover().collect { tv ->
-                    _state.update { s ->
-                        if (s.discovered.any { it.host == tv.host }) s else s.copy(discovered = s.discovered + tv)
+            while (isActive) {
+                _state.update { it.copy(discovering = true) }
+                withTimeoutOrNull(6_000) {
+                    discovery.discover().collect { tv ->
+                        _state.update { s ->
+                            if (s.discovered.any { it.host == tv.host }) s else s.copy(discovered = s.discovered + tv)
+                        }
                     }
                 }
+                _state.update { it.copy(discovering = false) }
+                delay(3_000)
             }
-            _state.update { it.copy(discovering = false) }
         }
+    }
+
+    fun stopAutoDiscovery() {
+        discoveryJob?.cancel()
+        discoveryJob = null
+        _state.update { it.copy(discovering = false) }
+    }
+
+    /** Réveille une TV pas encore ajoutée (éteinte, donc invisible) grâce à son adresse MAC. */
+    fun wakeByMac(value: String) {
+        val mac = WakeOnLan.normalizeMac(value)
+        if (mac == null) {
+            say("Adresse MAC invalide (exemple : A4:B1:C2:D3:E4:F5)")
+            return
+        }
+        pendingMac = mac
+        wakeRequestedAt = System.currentTimeMillis()
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching { WakeOnLan.send(mac, null, phoneBroadcastAddresses()) }
+        }
+        say("Signal de réveil envoyé : la TV devrait apparaître dans la liste d'ici 30 secondes.")
     }
 
     fun connect(host: String, name: String? = null) {
@@ -306,9 +332,10 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             id = existing?.id ?: store.newId(),
             name = existing?.name ?: pendingName ?: model.ifBlank { "TV" },
             host = host,
-            mac = existing?.mac ?: s.macAddress,
+            mac = existing?.mac ?: s.macAddress ?: pendingMac,
             serviceName = existing?.serviceName ?: pendingName,
         )
+        pendingMac = null
         store.save(tv)
         store.select(tv.id)
         catalog = AppCatalog(prefs, tv.id)
@@ -526,6 +553,26 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             if (_state.value.connection != Connection.CONNECTED && _state.value.current?.id == tv.id) {
                 say("La TV ne répond pas au réveil : activez sur la TV la veille réseau / « Wake on LAN » (voir ⚙)")
             }
+        }
+    }
+
+    /** Met la TV en veille (touche Veille, puis ADB si elle ne réagit pas). */
+    fun sleep() {
+        val tv = _state.value.current ?: return
+        val s = session
+        if (s == null || !s.isOpen || _state.value.connection != Connection.CONNECTED) {
+            say("La TV est déjà éteinte")
+            return
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching { s.sendKey(Keys.SLEEP) }
+            if (waitForPower(s, on = false)) return@launch
+            if (adbAuthorized(tv)) {
+                runCatching { adb.keyEvent(tv.host, Keys.SLEEP) }
+                if (waitForPower(s, on = false)) return@launch
+            }
+            runCatching { s.sendKey(Keys.POWER) }
+            if (!waitForPower(s, on = false)) say("La TV n'a pas réagi à la mise en veille.")
         }
     }
 

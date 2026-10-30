@@ -1,17 +1,20 @@
 package io.github.itlearner0.tvremote.ui
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,17 +25,47 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Apps
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Backspace
+import androidx.compose.material.icons.filled.ClosedCaption
+import androidx.compose.material.icons.filled.Dialpad
+import androidx.compose.material.icons.filled.FastForward
+import androidx.compose.material.icons.filled.FastRewind
+import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Input
+import androidx.compose.material.icons.filled.Keyboard
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.LiveTv
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.NightsStay
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.PowerSettingsNew
+import androidx.compose.material.icons.filled.Remove
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.Stop
+import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.icons.filled.VolumeOff
+import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -43,17 +76,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.github.itlearner0.tvremote.data.TvApp
 import io.github.itlearner0.tvremote.protocol.Keys
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -62,12 +98,13 @@ import kotlinx.coroutines.launch
 @Composable
 fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, onSwitchTv: () -> Unit) {
     val offline = state.connection != Connection.CONNECTED
-    val dim = Modifier.alpha(if (offline) 0.4f else 1f)
-    Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        StatusBar(state, onSettings, onSwitchTv)
+    val dim = Modifier.alpha(if (offline) 0.45f else 1f)
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        Header(state, onSettings, onSwitchTv)
+
         if (state.needsPairing) {
             Column(
-                Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(PadColor).padding(12.dp),
+                Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(PadColor).padding(14.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Text("La TV ne reconnaît plus ce téléphone.", color = MaterialTheme.colorScheme.error)
@@ -77,93 +114,129 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
             }
         }
 
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            RemoteKey("⏻", Modifier.weight(1f), color = Accent, fontSize = 22.sp, onPress = vm::power)
-            RemoteKey("Source", Modifier.weight(1f).then(dim)) { vm.key(Keys.TV_INPUT) }
-            RemoteKey("Réglages", Modifier.weight(1f).then(dim)) { vm.key(Keys.SETTINGS) }
-        }
-
-        DPad(vm, dim)
-
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = dim) {
-            RemoteKey("↩ Retour", Modifier.weight(1f)) { vm.key(Keys.BACK) }
-            RemoteKey("⌂ Accueil", Modifier.weight(1f)) { vm.key(Keys.HOME) }
-            RemoteKey("☰ Menu", Modifier.weight(1f)) { vm.key(Keys.MENU) }
-        }
-
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = dim.height(170.dp)) {
-            Rocker("VOL", "＋", "－", Modifier.weight(1f), { vm.key(Keys.VOLUME_UP) }, { vm.key(Keys.VOLUME_DOWN) })
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                RemoteKey("🔇", Modifier.fillMaxWidth().weight(1f)) { vm.key(Keys.VOLUME_MUTE) }
-                RemoteKey("Guide", Modifier.fillMaxWidth().weight(1f)) { vm.key(Keys.GUIDE) }
-                RemoteKey("Info", Modifier.fillMaxWidth().weight(1f)) { vm.key(Keys.INFO) }
+        // Boîtier de la télécommande
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(36.dp))
+                .background(BodyBrush)
+                .border(1.dp, BorderColor, RoundedCornerShape(36.dp))
+                .padding(horizontal = 18.dp, vertical = 22.dp),
+            verticalArrangement = Arrangement.spacedBy(22.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                RoundKey(Icons.Filled.PowerSettingsNew, "Marche", color = Accent, onPress = vm::power)
+                RoundKey(Icons.Filled.NightsStay, "Veille", dim, onPress = vm::sleep)
+                RoundKey(Icons.Filled.Input, "Source", dim) { vm.key(Keys.TV_INPUT) }
+                RoundKey(Icons.Filled.Tune, "Réglages", dim) { vm.key(Keys.SETTINGS) }
             }
-            Rocker("CH", "⌃", "⌄", Modifier.weight(1f), { vm.key(Keys.CHANNEL_UP) }, { vm.key(Keys.CHANNEL_DOWN) })
+
+            DPad(vm, dim)
+
+            Row(Modifier.fillMaxWidth().then(dim), horizontalArrangement = Arrangement.SpaceEvenly) {
+                RoundKey(Icons.Filled.ArrowBack, "Retour") { vm.key(Keys.BACK) }
+                RoundKey(Icons.Filled.Home, "Accueil") { vm.key(Keys.HOME) }
+                RoundKey(Icons.Filled.Menu, "Menu") { vm.key(Keys.MENU) }
+            }
+
+            Row(
+                Modifier.fillMaxWidth().height(176.dp).then(dim),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                Rocker("VOL", Icons.Filled.Add, Icons.Filled.Remove, { vm.key(Keys.VOLUME_UP) }, { vm.key(Keys.VOLUME_DOWN) })
+                Column(Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    IconKey(Icons.Filled.VolumeOff, "Muet", Modifier.fillMaxWidth().weight(1f)) { vm.key(Keys.VOLUME_MUTE) }
+                    IconKey(Icons.Filled.LiveTv, "Guide", Modifier.fillMaxWidth().weight(1f)) { vm.key(Keys.GUIDE) }
+                    IconKey(Icons.Filled.Info, "Info", Modifier.fillMaxWidth().weight(1f)) { vm.key(Keys.INFO) }
+                }
+                Rocker(
+                    "CH",
+                    Icons.Filled.KeyboardArrowUp,
+                    Icons.Filled.KeyboardArrowDown,
+                    { vm.key(Keys.CHANNEL_UP) },
+                    { vm.key(Keys.CHANNEL_DOWN) },
+                )
+            }
+
+            Row(Modifier.fillMaxWidth().then(dim), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                IconKey(Icons.Filled.FastRewind, "Retour rapide", Modifier.weight(1f)) { vm.key(Keys.MEDIA_REWIND) }
+                IconKey(Icons.Filled.PlayArrow, "Lecture / pause", Modifier.weight(1f)) { vm.key(Keys.MEDIA_PLAY_PAUSE) }
+                IconKey(Icons.Filled.Stop, "Stop", Modifier.weight(1f)) { vm.key(Keys.MEDIA_STOP) }
+                IconKey(Icons.Filled.FastForward, "Avance rapide", Modifier.weight(1f)) { vm.key(Keys.MEDIA_FAST_FORWARD) }
+            }
         }
 
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = dim) {
-            RemoteKey("⏪", Modifier.weight(1f)) { vm.key(Keys.MEDIA_REWIND) }
-            RemoteKey("⏯", Modifier.weight(1f)) { vm.key(Keys.MEDIA_PLAY_PAUSE) }
-            RemoteKey("⏹", Modifier.weight(1f)) { vm.key(Keys.MEDIA_STOP) }
-            RemoteKey("⏩", Modifier.weight(1f)) { vm.key(Keys.MEDIA_FAST_FORWARD) }
-        }
-
-        Drawer("Pavé numérique et touches couleur", dim) { NumPad(vm) }
-        Drawer("Applications", dim) { Apps(state, vm) }
-        TextInput(vm, dim)
+        ExtraPanels(state, vm, dim)
     }
 }
 
 @Composable
-private fun StatusBar(state: UiState, onSettings: () -> Unit, onSwitchTv: () -> Unit) {
+private fun Header(state: UiState, onSettings: () -> Unit, onSwitchTv: () -> Unit) {
     val tv = state.tv
-    val name = state.current?.name ?: "TV"
     val status = when {
-        state.connection != Connection.CONNECTED -> "éteinte · ⏻ pour l'allumer"
-        !tv.isOn -> "en veille"
-        else -> "allumée"
+        state.connection != Connection.CONNECTED -> "Éteinte · appuyez sur Marche"
+        !tv.isOn -> "En veille"
+        else -> "Allumée"
     }
     val on = state.connection == Connection.CONNECTED && tv.isOn
     Row(verticalAlignment = Alignment.CenterVertically) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.weight(1f).clip(RoundedCornerShape(8.dp)).clickable(onClick = onSwitchTv).padding(vertical = 6.dp),
+            modifier = Modifier
+                .weight(1f)
+                .clip(RoundedCornerShape(20.dp))
+                .background(PadColor)
+                .clickable(onClick = onSwitchTv)
+                .padding(horizontal = 14.dp, vertical = 10.dp),
         ) {
-            Box(Modifier.size(10.dp).clip(CircleShape).background(if (on) Color(0xFF3CCF7A) else Color(0xFF777777)))
-            Text(
-                "$name ▾",
-                fontWeight = FontWeight.SemiBold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(start = 8.dp).weight(1f, fill = false),
-            )
-            Text(" · $status", color = Muted, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Box(Modifier.size(10.dp).clip(CircleShape).background(if (on) OnColor else Color(0xFF6B7078)))
+            Column(Modifier.padding(start = 10.dp).weight(1f)) {
+                Text(
+                    state.current?.name ?: "TV",
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Text(status, color = Muted, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            }
+            Icon(Icons.Filled.KeyboardArrowDown, contentDescription = "Changer de TV", tint = Muted)
         }
-        IconButton(onClick = onSettings) { Icon(Icons.Filled.Settings, contentDescription = "Réglages") }
+        IconButton(onClick = onSettings, modifier = Modifier.padding(start = 8.dp)) {
+            Icon(Icons.Filled.Settings, contentDescription = "Réglages de la TV", tint = Muted)
+        }
     }
 }
 
-/** Touche de télécommande : vibration au toucher, répétition si [repeat] et maintenue. */
+/**
+ * Surface pressable : vibration au toucher, répétition si [repeat] et
+ * maintenue (volume, flèches…).
+ */
 @Composable
-fun RemoteKey(
-    label: String,
-    modifier: Modifier = Modifier,
+fun PressSurface(
+    modifier: Modifier,
+    shape: Shape,
     color: Color = KeyColor,
-    shape: Shape = RoundedCornerShape(12.dp),
-    fontSize: androidx.compose.ui.unit.TextUnit = 16.sp,
+    brush: Brush? = null,
     repeat: Boolean = false,
     onPress: () -> Unit,
+    content: @Composable BoxScope.() -> Unit,
 ) {
     var pressed by remember { mutableStateOf(false) }
     val currentOnPress by rememberUpdatedState(onPress)
     val haptic = LocalHapticFeedback.current
     val scope = rememberCoroutineScope()
+    val background = when {
+        pressed -> Modifier.background(KeyPressed)
+        brush != null -> Modifier.background(brush)
+        else -> Modifier.background(color)
+    }
     Box(
         contentAlignment = Alignment.Center,
+        content = content,
         modifier = modifier
-            .height(48.dp)
             .clip(shape)
-            .background(if (pressed) color.copy(alpha = 0.6f) else color)
+            .then(background)
             .pointerInput(repeat) {
                 awaitEachGesture {
                     awaitFirstDown()
@@ -185,7 +258,39 @@ fun RemoteKey(
                     pressed = false
                 }
             },
-    ) {
+    )
+}
+
+/** Bouton rond avec légende (Marche, Retour, Accueil…). */
+@Composable
+private fun RoundKey(
+    icon: ImageVector,
+    caption: String,
+    modifier: Modifier = Modifier,
+    color: Color = KeyColor,
+    size: Dp = 56.dp,
+    onPress: () -> Unit,
+) {
+    Column(modifier, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        PressSurface(Modifier.size(size), CircleShape, color = color, onPress = onPress) {
+            Icon(icon, contentDescription = caption, tint = Color.White, modifier = Modifier.size(26.dp))
+        }
+        Text(caption, color = Muted, fontSize = 11.sp)
+    }
+}
+
+/** Touche rectangulaire à icône. */
+@Composable
+private fun IconKey(icon: ImageVector, description: String, modifier: Modifier, repeat: Boolean = false, onPress: () -> Unit) {
+    PressSurface(modifier.height(48.dp), RoundedCornerShape(14.dp), repeat = repeat, onPress = onPress) {
+        Icon(icon, contentDescription = description, tint = Color.White)
+    }
+}
+
+/** Touche rectangulaire à texte (pavé numérique). */
+@Composable
+private fun TextKey(label: String, modifier: Modifier, fontSize: TextUnit = 20.sp, onPress: () -> Unit) {
+    PressSurface(modifier.height(52.dp), RoundedCornerShape(14.dp), onPress = onPress) {
         Text(label, fontSize = fontSize, color = Color.White)
     }
 }
@@ -193,78 +298,116 @@ fun RemoteKey(
 @Composable
 private fun DPad(vm: RemoteViewModel, dim: Modifier) {
     Box(
-        Modifier.fillMaxWidth(0.82f).aspectRatio(1f).clip(CircleShape).background(PadColor).then(dim),
+        Modifier
+            .fillMaxWidth(0.84f)
+            .aspectRatio(1f)
+            .then(dim)
+            .clip(CircleShape)
+            .background(Brush.radialGradient(listOf(Color(0xFF2A2E37), PadColor)))
+            .border(1.dp, BorderColor, CircleShape),
     ) {
-        val arrow = Modifier.size(72.dp)
-        PadKey("▲", arrow.align(Alignment.TopCenter).padding(top = 6.dp)) { vm.key(Keys.DPAD_UP) }
-        PadKey("▼", arrow.align(Alignment.BottomCenter).padding(bottom = 6.dp)) { vm.key(Keys.DPAD_DOWN) }
-        PadKey("◀", arrow.align(Alignment.CenterStart).padding(start = 6.dp)) { vm.key(Keys.DPAD_LEFT) }
-        PadKey("▶", arrow.align(Alignment.CenterEnd).padding(end = 6.dp)) { vm.key(Keys.DPAD_RIGHT) }
-        RemoteKey(
-            "OK",
-            Modifier.align(Alignment.Center).size(96.dp),
-            shape = CircleShape,
-            fontSize = 22.sp,
-        ) { vm.key(Keys.DPAD_CENTER) }
+        val arrow = Modifier.fillMaxSize(0.3f)
+        PadArrow(Icons.Filled.KeyboardArrowUp, "Haut", arrow.align(Alignment.TopCenter)) { vm.key(Keys.DPAD_UP) }
+        PadArrow(Icons.Filled.KeyboardArrowDown, "Bas", arrow.align(Alignment.BottomCenter)) { vm.key(Keys.DPAD_DOWN) }
+        PadArrow(Icons.Filled.KeyboardArrowLeft, "Gauche", arrow.align(Alignment.CenterStart)) { vm.key(Keys.DPAD_LEFT) }
+        PadArrow(Icons.Filled.KeyboardArrowRight, "Droite", arrow.align(Alignment.CenterEnd)) { vm.key(Keys.DPAD_RIGHT) }
+        PressSurface(
+            Modifier.align(Alignment.Center).fillMaxSize(0.38f).border(2.dp, Accent.copy(alpha = 0.7f), CircleShape),
+            CircleShape,
+            brush = Brush.verticalGradient(listOf(Color(0xFF353A45), Color(0xFF262A32))),
+            onPress = { vm.key(Keys.DPAD_CENTER) },
+        ) {
+            Text("OK", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.White)
+        }
     }
 }
 
 @Composable
-private fun PadKey(label: String, modifier: Modifier, onPress: () -> Unit) {
-    RemoteKey(label, modifier, color = PadColor, shape = CircleShape, fontSize = 22.sp, repeat = true, onPress = onPress)
+private fun PadArrow(icon: ImageVector, description: String, modifier: Modifier, onPress: () -> Unit) {
+    PressSurface(modifier.padding(6.dp), CircleShape, color = Color.Transparent, repeat = true, onPress = onPress) {
+        Icon(icon, contentDescription = description, tint = Color.White, modifier = Modifier.size(36.dp))
+    }
 }
 
 @Composable
-private fun Rocker(
+private fun RowScope.Rocker(
     label: String,
-    up: String,
-    down: String,
-    modifier: Modifier,
+    up: ImageVector,
+    down: ImageVector,
     onUp: () -> Unit,
     onDown: () -> Unit,
 ) {
     Column(
-        modifier.fillMaxSize().clip(RoundedCornerShape(30.dp)).background(KeyColor),
+        Modifier
+            .weight(1f)
+            .fillMaxHeight()
+            .clip(RoundedCornerShape(32.dp))
+            .background(Brush.verticalGradient(listOf(Color(0xFF323741), Color(0xFF272B33)))),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        RemoteKey(up, Modifier.fillMaxWidth().weight(1f), shape = RoundedCornerShape(0.dp), fontSize = 24.sp, repeat = true, onPress = onUp)
-        Text(label, color = Muted, fontSize = 12.sp)
-        RemoteKey(down, Modifier.fillMaxWidth().weight(1f), shape = RoundedCornerShape(0.dp), fontSize = 24.sp, repeat = true, onPress = onDown)
+        PressSurface(Modifier.fillMaxWidth().weight(1f), RoundedCornerShape(0.dp), color = Color.Transparent, repeat = true, onPress = onUp) {
+            Icon(up, contentDescription = "$label +", tint = Color.White, modifier = Modifier.size(30.dp))
+        }
+        Text(label, color = Muted, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+        PressSurface(Modifier.fillMaxWidth().weight(1f), RoundedCornerShape(0.dp), color = Color.Transparent, repeat = true, onPress = onDown) {
+            Icon(down, contentDescription = "$label −", tint = Color.White, modifier = Modifier.size(30.dp))
+        }
     }
 }
 
+/** Onglets sous la télécommande : applications, pavé numérique, clavier. */
 @Composable
-private fun Drawer(title: String, modifier: Modifier, content: @Composable () -> Unit) {
-    var open by rememberSaveable(title) { mutableStateOf(false) }
+private fun ExtraPanels(state: UiState, vm: RemoteViewModel, dim: Modifier) {
+    var tab by rememberSaveable { mutableIntStateOf(0) }
+    val tabs = listOf(
+        Icons.Filled.Apps to "Applications",
+        Icons.Filled.Dialpad to "Pavé",
+        Icons.Filled.Keyboard to "Clavier",
+    )
     Column(
-        modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(PadColor).padding(horizontal = 12.dp, vertical = 10.dp),
+        Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(28.dp))
+            .background(PadColor)
+            .border(1.dp, BorderColor, RoundedCornerShape(28.dp)),
     ) {
-        Text(
-            (if (open) "▾ " else "▸ ") + title,
-            color = Muted,
-            modifier = Modifier.fillMaxWidth().clickable { open = !open }.padding(vertical = 4.dp),
-        )
-        AnimatedVisibility(open) {
-            Column(Modifier.padding(top = 10.dp)) { content() }
+        TabRow(selectedTabIndex = tab, containerColor = Color.Transparent, contentColor = Color.White) {
+            tabs.forEachIndexed { i, (icon, title) ->
+                Tab(
+                    selected = tab == i,
+                    onClick = { tab = i },
+                    text = { Text(title, fontSize = 13.sp) },
+                    icon = { Icon(icon, contentDescription = null) },
+                    selectedContentColor = Color.White,
+                    unselectedContentColor = Muted,
+                )
+            }
+        }
+        Column(Modifier.padding(14.dp).then(dim)) {
+            when (tab) {
+                0 -> AppsPanel(state, vm)
+                1 -> NumPad(vm)
+                else -> TextInput(vm)
+            }
         }
     }
 }
 
 @Composable
 private fun NumPad(vm: RemoteViewModel) {
-    val rows = listOf(
-        listOf("1" to Keys.digit(1), "2" to Keys.digit(2), "3" to Keys.digit(3)),
-        listOf("4" to Keys.digit(4), "5" to Keys.digit(5), "6" to Keys.digit(6)),
-        listOf("7" to Keys.digit(7), "8" to Keys.digit(8), "9" to Keys.digit(9)),
-        listOf("ST" to Keys.CAPTIONS, "0" to Keys.digit(0), "⟲" to Keys.LAST_CHANNEL),
-    )
+    val rows = listOf(listOf(1, 2, 3), listOf(4, 5, 6), listOf(7, 8, 9))
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         for (row in rows) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                for ((label, key) in row) RemoteKey(label, Modifier.weight(1f), fontSize = 20.sp) { vm.key(key) }
+                for (n in row) TextKey(n.toString(), Modifier.weight(1f)) { vm.key(Keys.digit(n)) }
             }
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 4.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            IconKey(Icons.Filled.ClosedCaption, "Sous-titres", Modifier.weight(1f)) { vm.key(Keys.CAPTIONS) }
+            TextKey("0", Modifier.weight(1f)) { vm.key(Keys.digit(0)) }
+            IconKey(Icons.Filled.History, "Chaîne précédente", Modifier.weight(1f)) { vm.key(Keys.LAST_CHANNEL) }
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 6.dp)) {
             ColorKey(Color(0xFFD93636)) { vm.key(Keys.PROG_RED) }
             ColorKey(Color(0xFF2FA84F)) { vm.key(Keys.PROG_GREEN) }
             ColorKey(Color(0xFFE0B31B)) { vm.key(Keys.PROG_YELLOW) }
@@ -275,49 +418,11 @@ private fun NumPad(vm: RemoteViewModel) {
 
 @Composable
 private fun RowScope.ColorKey(color: Color, onPress: () -> Unit) {
-    RemoteKey("", Modifier.weight(1f).height(24.dp), color = color, onPress = onPress)
+    PressSurface(Modifier.weight(1f).height(26.dp), RoundedCornerShape(13.dp), color = color, onPress = onPress) {}
 }
 
 @Composable
-private fun Apps(state: UiState, vm: RemoteViewModel) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        for (row in state.apps.chunked(3)) {
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                for (app in row) AppButton(app, Modifier.weight(1f)) { vm.launch(app) }
-                repeat(3 - row.size) { Box(Modifier.weight(1f)) }
-            }
-        }
-        FilledTonalButton(
-            onClick = vm::scanApps,
-            enabled = !state.scanningApps,
-            modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
-        ) { Text(if (state.scanningApps) "Lecture en cours…" else "🔄  Lister toutes les applications de la TV") }
-        if (state.scanningApps) LinearProgressIndicator(Modifier.fillMaxWidth())
-        val hint = state.appsMessage ?: if (state.appsComplete) null else
-            "Seules les applications courantes et celles déjà ouvertes sur la TV s'affichent. " +
-                "Pour toutes les voir, activez le « Débogage USB » sur la TV, puis touchez le bouton ci-dessus."
-        hint?.let { Text(it, color = Muted, style = MaterialTheme.typography.bodySmall) }
-    }
-}
-
-@Composable
-private fun AppButton(app: TvApp, modifier: Modifier, onClick: () -> Unit) {
-    val hue = (app.packageName.sumOf { it.code } % 360).toFloat()
-    Column(
-        modifier.clip(RoundedCornerShape(12.dp)).background(KeyColor).clickable(onClick = onClick).padding(vertical = 10.dp, horizontal = 4.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(6.dp),
-    ) {
-        Box(
-            Modifier.size(36.dp).clip(RoundedCornerShape(10.dp)).background(Color.hsl(hue, 0.55f, 0.42f)),
-            contentAlignment = Alignment.Center,
-        ) { Text(app.label.take(1).uppercase(), fontWeight = FontWeight.Bold, color = Color.White) }
-        Text(app.label, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
-    }
-}
-
-@Composable
-private fun TextInput(vm: RemoteViewModel, modifier: Modifier) {
+private fun TextInput(vm: RemoteViewModel) {
     var text by rememberSaveable { mutableStateOf("") }
     val send = {
         if (text.isNotEmpty()) {
@@ -325,17 +430,30 @@ private fun TextInput(vm: RemoteViewModel, modifier: Modifier) {
             text = ""
         }
     }
-    Row(modifier, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        OutlinedTextField(
-            value = text,
-            onValueChange = { text = it },
-            placeholder = { Text("Taper du texte sur la TV…") },
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
-            keyboardActions = KeyboardActions(onSend = { send() }),
-            modifier = Modifier.weight(1f),
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Text(
+            "Placez d'abord le curseur dans une zone de saisie sur la TV (recherche, mot de passe…), puis tapez ici.",
+            color = Muted,
+            fontSize = 13.sp,
         )
-        Button(onClick = send) { Text("Envoyer") }
-        RemoteKey("⌫", Modifier.size(48.dp), repeat = true) { vm.key(Keys.DEL) }
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            OutlinedTextField(
+                value = text,
+                onValueChange = { text = it },
+                placeholder = { Text("Texte à envoyer…") },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
+                keyboardActions = KeyboardActions(onSend = { send() }),
+                modifier = Modifier.weight(1f),
+            )
+            FilledIconButton(
+                onClick = send,
+                colors = IconButtonDefaults.filledIconButtonColors(containerColor = Accent),
+            ) { Icon(Icons.Filled.Send, contentDescription = "Envoyer") }
+            PressSurface(Modifier.size(48.dp), CircleShape, repeat = true, onPress = { vm.key(Keys.DEL) }) {
+                Icon(Icons.Filled.Backspace, contentDescription = "Effacer", tint = Color.White)
+            }
+        }
+        Spacer(Modifier.height(2.dp))
     }
 }
