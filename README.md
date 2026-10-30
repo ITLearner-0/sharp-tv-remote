@@ -11,12 +11,12 @@ et il fonctionne avec toutes les TV Sharp sous Android TV ou Google TV
 
 ## Fonctionnalités
 
-- Marche/arrêt, source (HDMI…), réglages
+- Marche/arrêt, **y compris pour allumer la TV éteinte** (Wake-on-LAN), source (HDMI…), réglages
 - Pavé directionnel + OK, Retour, Accueil, Menu
 - Volume (+/−, muet) et chaînes, avec répétition en maintenant le bouton
 - Lecture / pause / stop / avance et retour rapides
 - Pavé numérique, touches couleur, sous-titres, guide, info
-- Lancement direct d'applications (Netflix, YouTube, Prime Video, Disney+…)
+- **Toutes les applications de la TV** listées et lançables d'un geste
 - **Saisie de texte** depuis le clavier du téléphone (recherches, mots de passe Wi-Fi…)
 - Recherche automatique de la TV sur le réseau
 - Reconnexion automatique, appairage mémorisé
@@ -71,13 +71,57 @@ la connexion est automatique.
 > Astuce : dans le navigateur du téléphone, utilisez « Ajouter à l'écran
 > d'accueil » pour l'ouvrir comme une vraie application.
 
+## Allumer la TV quand elle est éteinte
+
+Le bouton ⏻ fonctionne aussi quand la TV est éteinte : la télécommande
+envoie un « paquet de réveil » réseau (Wake-on-LAN) à l'adresse MAC de la TV.
+Cette adresse est détectée automatiquement lors de la première connexion
+(visible et modifiable dans ⚙).
+
+Pour que la TV puisse être réveillée, elle doit garder le réseau actif en
+veille. Selon le modèle Sharp, activez **une** de ces options :
+
+- *Paramètres → Réseau et Internet → « Wake on LAN » / « Réveil par le réseau »*
+- *Paramètres → Système → Alimentation et énergie → « Veille réseau » / « Démarrage rapide »*
+- *Paramètres → Préférences de l'appareil → Alimentation → « Mise en veille rapide »*
+
+Le réveil est plus fiable si la TV est branchée **en câble Ethernet** :
+certaines TV ne se réveillent pas par le Wi-Fi.
+
+Quand la TV est éteinte, la télécommande l'indique en haut
+(« TV éteinte ») et grise les autres touches. Elle se reconnecte toute seule
+dès que la TV est allumée.
+
+## Lister toutes les applications de la TV
+
+Le menu **Applications** affiche d'abord les applications courantes et
+retient automatiquement toutes celles que vous ouvrez sur la TV.
+
+Pour afficher **d'un coup toutes les applications installées**, la TV doit
+autoriser le « débogage » (ADB). C'est à faire une seule fois :
+
+1. Sur la TV : *Paramètres → Préférences de l'appareil → À propos*
+   (ou *Paramètres → Système → À propos* sur Google TV).
+2. Sélectionnez **« Build » / « Version de l'OS Android TV »** et appuyez
+   **7 fois sur OK** : le message « Vous êtes désormais développeur » s'affiche.
+3. Revenez en arrière : *Préférences de l'appareil → Options pour les développeurs*
+   (ou *Système → Options pour les développeurs*) et activez **« Débogage USB »**
+   (et **« Débogage réseau / ADB sur le réseau »** si l'option existe).
+4. Dans la télécommande : *Applications → 🔄 Lister toutes les applications de la TV*.
+5. La TV demande « Autoriser le débogage ? » : cochez **« Toujours autoriser »**
+   et validez **OK** avec les flèches de la télécommande web (1 minute pour le faire).
+
+La liste est ensuite mémorisée ; touchez à nouveau le bouton après avoir
+installé de nouvelles applications.
+
 ## Dépannage
 
 | Problème | Solution |
 |---|---|
 | « Impossible de joindre la TV » | Vérifiez que la TV est allumée et sur le même Wi-Fi. Réessayez avec l'IP exacte. |
 | La TV n'est pas trouvée par la recherche | Certains box bloquent la découverte mDNS : saisissez l'IP manuellement. |
-| La TV en veille ne répond plus | Activez sur la TV *Paramètres → Système → Alimentation → « Réveil par le réseau / Wake on LAN »* (ou « Mise en veille rapide »). |
+| La TV ne s'allume pas avec ⏻ | Vérifiez l'adresse MAC dans ⚙ et activez le réveil par le réseau (voir « Allumer la TV quand elle est éteinte »). Essayez en Ethernet. |
+| « Lecture impossible » des applications | Vérifiez que le débogage USB est activé et acceptez la demande sur la TV. Si rien ne s'affiche, désactivez puis réactivez le débogage USB. |
 | Le téléphone n'ouvre pas la page | Le pare-feu de l'ordinateur bloque peut-être le port 8080 : autorisez Python sur les réseaux privés. |
 | Le code est refusé | Touchez « Annuler » puis reconnectez-vous : un nouveau code s'affiche. |
 | Changer de TV | Bouton ⚙ en haut de la télécommande. |
@@ -95,12 +139,13 @@ sur le même protocole.
 ## Structure du projet
 
 ```
-server.py          serveur web + connexion à la TV (androidtvremote2)
+server.py          serveur web + connexion à la TV (androidtvremote2) + Wake-on-LAN
+apps.py            liste des applications (ADB + applications déjà ouvertes)
 static/index.html  interface de la télécommande
 static/app.js      logique (touches, répétition, appairage, texte)
 static/style.css   apparence
 start.sh / .bat    lanceurs
-data/              certificat d'appairage et IP de la TV (créé au besoin, non versionné)
+data/              appairage, IP/MAC de la TV, clé ADB, applications (créé au besoin, non versionné)
 ```
 
 ## Licence

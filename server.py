@@ -3,15 +3,19 @@
 Lance un petit serveur web sur le réseau local. Ouvrez l'adresse affichée
 sur votre téléphone pour obtenir une télécommande complète. Le serveur
 dialogue avec la TV via le protocole officiel « Android TV Remote v2 »
-(le même que l'application Google TV), ports 6466/6467.
+(le même que l'application Google TV), ports 6466/6467, et la réveille
+par Wake-on-LAN quand elle est éteinte.
 """
 
 from __future__ import annotations
 
 import argparse
 import asyncio
+import contextlib
+import ipaddress
 import json
 import logging
+import re
 import socket
 from pathlib import Path
 
@@ -23,14 +27,19 @@ from androidtvremote2 import (
     InvalidAuth,
 )
 
+from apps import AppCatalog, scan_installed_apps
+
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 DATA_DIR = BASE_DIR / "data"
 CONFIG_FILE = DATA_DIR / "config.json"
 CERT_FILE = DATA_DIR / "cert.pem"
 KEY_FILE = DATA_DIR / "key.pem"
+ADB_KEY_FILE = DATA_DIR / "adbkey"
+APPS_FILE = DATA_DIR / "apps.json"
 CLIENT_NAME = "Telecommande Sharp"
 SERVICE_TYPE = "_androidtvremote2._tcp.local."
+RETRY_SECONDS = 10
 
 LOGGER = logging.getLogger("sharp-remote")
 
@@ -42,19 +51,56 @@ def load_config() -> dict:
         return {}
 
 
-def save_config(config: dict) -> None:
+def save_config(**changes: str | None) -> None:
+    config = load_config()
+    for key, value in changes.items():
+        if value is None:
+            config.pop(key, None)
+        else:
+            config[key] = value
     DATA_DIR.mkdir(exist_ok=True)
     CONFIG_FILE.write_text(json.dumps(config, indent=2), "utf-8")
 
 
+def normalize_mac(mac: str) -> str:
+    digits = re.sub(r"[^0-9A-Fa-f]", "", mac)
+    if len(digits) != 12:
+        raise ValueError("Adresse MAC invalide (exemple : A4:B1:C2:D3:E4:F5)")
+    return ":".join(digits[i:i + 2] for i in range(0, 12, 2)).upper()
+
+
+def send_magic_packet(mac: str, host: str | None) -> None:
+    """Envoie un paquet Wake-on-LAN, sur plusieurs adresses pour plus de fiabilité."""
+    packet = b"\xff" * 6 + bytes.fromhex(normalize_mac(mac).replace(":", "")) * 16
+    targets = {"255.255.255.255"}
+    if host:
+        with contextlib.suppress(ValueError):
+            targets.add(str(ipaddress.ip_network(f"{host}/24", strict=False).broadcast_address))
+            targets.add(host)
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+        for target in targets:
+            for port in (9, 7):
+                with contextlib.suppress(OSError):
+                    sock.sendto(packet, (target, port))
+
+
 class TVController:
-    """Garde une connexion unique vers la TV et expose son état."""
+    """Garde une connexion unique vers la TV et expose son état.
+
+    États : disconnected (aucune TV choisie), pairing (code attendu),
+    offline (TV appairée mais éteinte ou injoignable), connected.
+    """
 
     def __init__(self) -> None:
         self.remote: AndroidTVRemote | None = None
         self.host: str | None = None
-        self.state = "disconnected"  # disconnected | pairing | connected
+        self.mac: str | None = None
+        self.state = "disconnected"
         self.error: str | None = None
+        self._watcher: asyncio.Task | None = None
+        self._lock = asyncio.Lock()
+        self.apps = AppCatalog(APPS_FILE)
 
     def _new_remote(self, host: str) -> AndroidTVRemote:
         return AndroidTVRemote(
@@ -65,7 +111,12 @@ class TVController:
         )
 
     def status(self) -> dict:
-        info: dict = {"state": self.state, "host": self.host, "error": self.error}
+        info: dict = {
+            "state": self.state,
+            "host": self.host,
+            "mac": self.mac,
+            "error": self.error,
+        }
         if self.remote and self.state == "connected":
             info["is_on"] = self.remote.is_on
             info["current_app"] = self.remote.current_app
@@ -73,26 +124,39 @@ class TVController:
             info["device"] = self.remote.device_info
         return info
 
+    def restore(self) -> None:
+        """Au démarrage : reprend la TV déjà appairée et tente de s'y connecter."""
+        config = load_config()
+        self.host = config.get("host")
+        with contextlib.suppress(TypeError, ValueError):
+            self.mac = normalize_mac(config["mac"]) if config.get("mac") else None
+        if self.host:
+            self.state = "offline"
+            self._start_watcher()
+
     async def connect(self, host: str) -> dict:
-        """Se connecte à la TV ; démarre l'appairage si nécessaire."""
+        """Choisit une TV : se connecte, ou démarre l'appairage si nécessaire."""
         self.disconnect()
-        DATA_DIR.mkdir(exist_ok=True)
+        if host != load_config().get("host"):
+            self.mac = None
         self.host = host
         self.error = None
-        self.remote = self._new_remote(host)
-        await self.remote.async_generate_cert_if_missing()
+        DATA_DIR.mkdir(exist_ok=True)
+        remote = self._new_remote(host)
+        await remote.async_generate_cert_if_missing()
         try:
-            await self.remote.async_connect()
+            await remote.async_connect()
         except InvalidAuth:
             # Pas encore appairé : la TV va afficher un code à 6 caractères.
-            await self.remote.async_start_pairing()
+            self.remote = remote
+            await remote.async_start_pairing()
             self.state = "pairing"
             return self.status()
         except (CannotConnect, ConnectionClosed, OSError) as exc:
             self.state = "disconnected"
             self.error = f"Impossible de joindre la TV ({exc})"
             return self.status()
-        self._on_connected()
+        await self._on_connected(remote)
         return self.status()
 
     async def finish_pairing(self, code: str) -> dict:
@@ -114,28 +178,122 @@ class TVController:
             self.state = "disconnected"
             self.error = f"Connexion après appairage échouée ({exc})"
             return self.status()
-        self._on_connected()
+        await self._on_connected(self.remote)
         return self.status()
 
-    def _on_connected(self) -> None:
-        assert self.remote and self.host
+    async def _on_connected(self, remote: AndroidTVRemote) -> None:
+        assert self.host
+        self.remote = remote
         self.state = "connected"
         self.error = None
-        self.remote.keep_reconnecting(invalid_auth_callback=self._on_invalid_auth)
-        save_config({"host": self.host})
+        remote.add_is_available_updated_callback(self._on_available)
+        remote.add_current_app_updated_callback(self.apps.remember)
+        self.apps.remember(remote.current_app)
+        remote.keep_reconnecting(invalid_auth_callback=self._on_invalid_auth)
+        save_config(host=self.host)
         LOGGER.info("Connecté à la TV %s", self.host)
+        if not self.mac:
+            # L'adresse MAC (lue dans le certificat de la TV) sert à la réveiller.
+            with contextlib.suppress(CannotConnect, OSError, ValueError):
+                _, mac = await remote.async_get_name_and_mac()
+                self.set_mac(mac)
+
+    def set_mac(self, mac: str | None) -> None:
+        self.mac = normalize_mac(mac) if mac else None
+        save_config(mac=self.mac)
+        LOGGER.info("Adresse MAC de la TV : %s", self.mac)
+
+    def _on_available(self, available: bool) -> None:
+        if self.state in ("connected", "offline"):
+            self.state = "connected" if available else "offline"
 
     def _on_invalid_auth(self) -> None:
         self.state = "disconnected"
         self.error = "La TV a refusé la connexion : relancez l'appairage"
 
+    def _start_watcher(self) -> None:
+        if not self._watcher or self._watcher.done():
+            self._watcher = asyncio.get_running_loop().create_task(self._watch())
+
+    async def _watch(self) -> None:
+        """Retente la connexion tant que la TV appairée reste injoignable."""
+        while self.state == "offline" and not self.remote:
+            if await self._try_connect_paired():
+                return
+            await asyncio.sleep(RETRY_SECONDS)
+
+    async def _try_connect_paired(self) -> bool:
+        async with self._lock:
+            if self.remote or not self.host:
+                return bool(self.remote)
+            remote = self._new_remote(self.host)
+            await remote.async_generate_cert_if_missing()
+            try:
+                await remote.async_connect()
+            except InvalidAuth:
+                self.state = "disconnected"
+                self.error = "La TV ne reconnaît plus cet appareil : relancez l'appairage"
+                return True
+            except (CannotConnect, ConnectionClosed, OSError):
+                return False
+            await self._on_connected(remote)
+            return True
+
+    async def power(self) -> str:
+        """Allume la TV si elle est éteinte, l'éteint si elle est allumée."""
+        if self.state == "connected" and self.remote and self.remote.is_on:
+            self.send_key("KEYCODE_POWER")
+            return "off"
+        if self.state == "connected" and self.remote:
+            # En veille mais toujours joignable : la touche Marche suffit.
+            self.send_key("KEYCODE_POWER")
+        if self.mac:
+            for _ in range(3):
+                send_magic_packet(self.mac, self.host)
+                await asyncio.sleep(0.3)
+        elif self.state != "connected":
+            raise web.HTTPConflict(
+                text="TV injoignable et adresse MAC inconnue : renseignez-la dans ⚙"
+            )
+        if self.state == "offline" and not self.remote:
+            self._start_watcher()
+        return "on"
+
+    async def scan_apps(self) -> dict:
+        if not self.host or self.state != "connected":
+            raise web.HTTPConflict(text="TV non connectée")
+        try:
+            packages = await scan_installed_apps(self.host, ADB_KEY_FILE)
+        except ImportError as exc:
+            raise web.HTTPServiceUnavailable(
+                text="Module adb-shell manquant : relancez start.bat pour l'installer"
+            ) from exc
+        except Exception as exc:  # noqa: BLE001 - erreurs réseau/ADB très variées
+            LOGGER.info("Lecture ADB impossible : %r", exc)
+            raise web.HTTPServiceUnavailable(
+                text="Lecture impossible : activez le débogage USB sur la TV "
+                "et acceptez la demande d'autorisation (voir l'aide)"
+            ) from exc
+        self.apps.set_installed(packages)
+        return self.apps.listing()
+
     def disconnect(self) -> None:
+        if self._watcher:
+            self._watcher.cancel()
+            self._watcher = None
         if self.remote:
             self.remote.disconnect()
         self.remote = None
         self.state = "disconnected"
 
+    def forget(self) -> None:
+        self.disconnect()
+        self.host = self.mac = None
+        save_config(host=None, mac=None)
+
     def _require(self) -> AndroidTVRemote:
+        if self.state == "offline":
+            raise web.HTTPConflict(text="TV éteinte : appuyez d'abord sur ⏻")
         if not self.remote or self.state != "connected":
             raise web.HTTPConflict(text="TV non connectée")
         return self.remote
@@ -229,9 +387,33 @@ async def api_pair(request: web.Request) -> web.Response:
 
 @routes.post("/api/disconnect")
 async def api_disconnect(request: web.Request) -> web.Response:
-    request.app["tv"].disconnect()
-    save_config({})
+    request.app["tv"].forget()
     return web.json_response({"state": "disconnected"})
+
+
+@routes.post("/api/power")
+async def api_power(request: web.Request) -> web.Response:
+    return web.json_response({"ok": True, "action": await request.app["tv"].power()})
+
+
+@routes.post("/api/mac")
+async def api_mac(request: web.Request) -> web.Response:
+    body = await request.json()
+    try:
+        request.app["tv"].set_mac(str(body.get("mac", "")).strip() or None)
+    except ValueError as exc:
+        raise web.HTTPBadRequest(text=str(exc)) from exc
+    return web.json_response(request.app["tv"].status(), dumps=_dumps)
+
+
+@routes.get("/api/apps")
+async def api_apps(request: web.Request) -> web.Response:
+    return web.json_response(request.app["tv"].apps.listing())
+
+
+@routes.post("/api/apps/scan")
+async def api_apps_scan(request: web.Request) -> web.Response:
+    return web.json_response(await request.app["tv"].scan_apps())
 
 
 @routes.post("/api/key")
@@ -260,10 +442,7 @@ def _dumps(obj: object) -> str:
 
 
 async def on_startup(app: web.Application) -> None:
-    host = load_config().get("host")
-    if host:
-        LOGGER.info("Reconnexion automatique à %s…", host)
-        await app["tv"].connect(host)
+    app["tv"].restore()
 
 
 async def on_cleanup(app: web.Application) -> None:

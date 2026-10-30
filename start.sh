@@ -7,6 +7,6 @@ if [ ! -f server.py ]; then
   exit 1
 fi
 [ -x .venv/bin/python ] || python3 -m venv .venv
-.venv/bin/python -c "import androidtvremote2, aiohttp, zeroconf" 2>/dev/null \
+.venv/bin/python -c "import androidtvremote2, aiohttp, zeroconf, adb_shell, async_timeout" 2>/dev/null \
   || .venv/bin/pip install --disable-pip-version-check -r requirements.txt
 exec .venv/bin/python server.py "$@"

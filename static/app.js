@@ -22,17 +22,25 @@ function toast(msg) {
   toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
 }
 
+let lastStatus = {};
 function render(status) {
+  lastStatus = status;
   const connected = status.state === "connected";
-  remote.hidden = !connected;
-  setup.hidden = connected;
+  const offline = status.state === "offline";
+  remote.hidden = !(connected || offline);
+  setup.hidden = !remote.hidden;
   $("#step-connect").hidden = status.state === "pairing";
   $("#step-pair").hidden = status.state !== "pairing";
   $("#setup-error").textContent = status.error || "";
   if (status.host && !$("#host").value) $("#host").value = status.host;
+  remote.classList.toggle("offline", offline);
+  if (offline) {
+    $("#status-dot").classList.add("off");
+    $("#status-text").textContent = "TV éteinte · ⏻ pour l'allumer";
+  }
   if (connected) {
     $("#status-dot").classList.toggle("off", status.is_on === false);
-    const app = status.current_app ? ` · ${status.current_app}` : "";
+    const app = status.is_on === false ? " · en veille" : status.current_app ? ` · ${status.current_app}` : "";
     $("#status-text").textContent = `${status.device?.manufacturer || "TV"} ${status.device?.model || ""}${app}`.trim();
   }
 }
@@ -79,14 +87,60 @@ document.querySelectorAll("[data-key]").forEach((btn) => {
   btn.addEventListener("contextmenu", (e) => e.preventDefault());
 });
 
-document.querySelectorAll("[data-app]").forEach((btn) =>
-  btn.addEventListener("click", async () => {
-    vibrate();
-    try {
-      await api("/api/app", { link: btn.dataset.app });
-      toast(`Ouverture de ${btn.textContent}…`);
-    } catch (err) { toast(err.message); }
+// Applications : liste lue sur la TV (ADB) ou retenue au fil de l'utilisation
+function renderApps({ apps, complete }) {
+  const grid = $("#apps");
+  grid.replaceChildren(...apps.map(({ package: pkg, label }) => {
+    const b = document.createElement("button");
+    b.className = "app";
+    b.dataset.app = pkg;
+    b.title = pkg;
+    const badge = document.createElement("span");
+    badge.className = "badge";
+    badge.textContent = label.charAt(0).toUpperCase();
+    badge.style.background = `hsl(${[...pkg].reduce((h, c) => h + c.charCodeAt(0), 0) % 360} 55% 42%)`;
+    const name = document.createElement("span");
+    name.textContent = label;
+    b.append(badge, name);
+    return b;
   }));
+  $("#apps-hint").textContent = complete
+    ? `${apps.length} applications trouvées sur la TV.`
+    : "Seules les applications courantes et celles déjà ouvertes sur la TV s'affichent. "
+      + "Pour toutes les voir, activez le débogage USB sur la TV (voir le README), puis touchez le bouton ci-dessus.";
+}
+
+async function loadApps() {
+  try { renderApps(await api("/api/apps")); } catch { /* serveur injoignable */ }
+}
+
+$("#apps").addEventListener("click", async (e) => {
+  const btn = e.target.closest("[data-app]");
+  if (!btn) return;
+  vibrate();
+  try {
+    await api("/api/app", { link: btn.dataset.app });
+    toast(`Ouverture de ${btn.textContent.slice(1)}…`);
+  } catch (err) { toast(err.message); }
+});
+
+$("#apps-drawer").addEventListener("toggle", (e) => { if (e.target.open) loadApps(); });
+
+$("#btn-scan-apps").addEventListener("click", async () => {
+  const btn = $("#btn-scan-apps");
+  btn.disabled = true;
+  btn.textContent = "Lecture en cours…";
+  $("#apps-hint").textContent = "Si la TV demande « Autoriser le débogage ? », cochez « Toujours autoriser » "
+    + "puis choisissez OK avec les flèches de cette télécommande (vous avez 1 minute).";
+  try {
+    renderApps(await api("/api/apps/scan", {}));
+  } catch (err) {
+    $("#apps-hint").textContent = err.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "🔄 Lister toutes les applications de la TV";
+  }
+});
 
 $("#text-form").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -144,8 +198,35 @@ $("#btn-pair").addEventListener("click", async () => {
 
 $("#btn-cancel").addEventListener("click", async () => render(await api("/api/disconnect", {})));
 
-$("#btn-settings").addEventListener("click", async () => {
-  if (confirm("Se déconnecter de la TV pour en choisir une autre ?")) {
+// Marche / arrêt : réveille la TV (Wake-on-LAN) si elle est éteinte
+$("#btn-power").addEventListener("click", async () => {
+  vibrate();
+  try {
+    const { action } = await api("/api/power", {});
+    if (action === "on") toast("Allumage de la TV…");
+  } catch (err) { toast(err.message); }
+  setTimeout(refresh, 1500);
+});
+
+// Réglages : adresse MAC et changement de TV
+const settings = $("#settings");
+$("#btn-settings").addEventListener("click", () => {
+  $("#settings-tv").textContent = lastStatus.host ? `TV : ${lastStatus.host}` : "";
+  $("#mac").value = lastStatus.mac || "";
+  settings.showModal();
+});
+
+$("#btn-save-mac").addEventListener("click", async () => {
+  try {
+    render(await api("/api/mac", { mac: $("#mac").value }));
+    settings.close();
+    toast("Adresse MAC enregistrée");
+  } catch (err) { toast(err.message); }
+});
+
+$("#btn-forget").addEventListener("click", async () => {
+  if (confirm("Oublier cette TV pour en choisir une autre ?")) {
+    settings.close();
     render(await api("/api/disconnect", {}));
   }
 });

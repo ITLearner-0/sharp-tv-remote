@@ -129,7 +129,17 @@ button.icon { background: none; font-size: 1.3rem; padding: 4px 8px; margin-left
 .blue { background: #2f6fd6 !important; }
 
 .apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.apps .app { font-size: .85rem; padding: 14px 6px; }
+.apps .app {
+  font-size: .8rem; padding: 10px 4px; display: flex; flex-direction: column;
+  align-items: center; gap: 6px; min-width: 0;
+}
+.apps .app span:last-child { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.badge {
+  width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center;
+  font-weight: 700; font-size: 1.1rem; color: #fff;
+}
+#apps-drawer .wide { margin-top: 10px; }
+#apps-drawer .hint { margin-top: 8px; }
 
 .text-form { display: flex; gap: 8px; }
 .text-form input { flex: 1; min-width: 0; }
@@ -141,3 +151,11 @@ button.icon { background: none; font-size: 1.3rem; padding: 4px 8px; margin-left
   transition: transform .25s, opacity .25s; max-width: calc(100% - 32px); text-align: center;
 }
 #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+dialog { border: 0; padding: 0; background: none; color: var(--text); width: min(380px, calc(100% - 32px)); }
+dialog::backdrop { background: #000a; }
+.dialog-panel { box-shadow: none; }
+.dialog-panel h2 { margin: 0; font-size: 1.2rem; }
+.dialog-panel label { margin-top: 4px; }
+.dialog-panel .wide { margin-top: 0; }
+.offline .key:not(.power), .offline .app, .offline .text-form { opacity: .4; }

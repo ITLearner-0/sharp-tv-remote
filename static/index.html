@@ -44,7 +44,7 @@
     </header>
 
     <div class="row">
-      <button class="key power" data-key="KEYCODE_POWER" aria-label="Marche / Arrêt">⏻</button>
+      <button id="btn-power" class="key power" aria-label="Marche / Arrêt">⏻</button>
       <button class="key" data-key="KEYCODE_TV_INPUT" aria-label="Source">Source</button>
       <button class="key" data-key="KEYCODE_SETTINGS" aria-label="Paramètres">Réglages</button>
     </div>
@@ -112,16 +112,11 @@
       </div>
     </details>
 
-    <details class="drawer">
+    <details class="drawer" id="apps-drawer">
       <summary>Applications</summary>
-      <div class="apps">
-        <button class="app" data-app="https://www.netflix.com/title">Netflix</button>
-        <button class="app" data-app="https://www.youtube.com">YouTube</button>
-        <button class="app" data-app="https://app.primevideo.com">Prime Video</button>
-        <button class="app" data-app="https://www.disneyplus.com">Disney+</button>
-        <button class="app" data-app="com.google.android.youtube.tvmusic">YT Music</button>
-        <button class="app" data-app="com.spotify.tv.android">Spotify</button>
-      </div>
+      <div class="apps" id="apps"></div>
+      <button id="btn-scan-apps" class="wide">🔄 Lister toutes les applications de la TV</button>
+      <p class="hint small" id="apps-hint"></p>
     </details>
 
     <form id="text-form" class="text-form">
@@ -130,6 +125,23 @@
       <button type="button" class="key" data-key="KEYCODE_DEL" aria-label="Effacer">⌫</button>
     </form>
   </main>
+
+  <dialog id="settings">
+    <form method="dialog" class="panel dialog-panel">
+      <h2>Réglages</h2>
+      <p class="hint small" id="settings-tv"></p>
+      <label for="mac">Adresse MAC de la TV (pour l'allumer quand elle est éteinte)</label>
+      <input id="mac" placeholder="A4:B1:C2:D3:E4:F5" autocomplete="off" autocapitalize="characters">
+      <p class="hint small">Détectée automatiquement à la connexion. Sinon : sur la TV,
+        Paramètres → Réseau et Internet → votre réseau (ou Paramètres → À propos → État).</p>
+      <p class="hint small">Pour que l'allumage marche, activez aussi sur la TV
+        « Wake on LAN / Réveil par le réseau » ou « Veille réseau » (selon le modèle,
+        dans Réseau et Internet ou Système → Alimentation).</p>
+      <button id="btn-save-mac" type="button" class="wide primary">Enregistrer</button>
+      <button id="btn-forget" type="button" class="wide">Changer de TV</button>
+      <button type="submit" class="wide">Fermer</button>
+    </form>
+  </dialog>
 
   <div id="toast" role="status"></div>
   <script src="/static/app.js"></script>

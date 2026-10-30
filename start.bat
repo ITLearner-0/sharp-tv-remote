@@ -11,6 +11,6 @@ if not exist server.py (
   exit /b 1
 )
 if not exist .venv\Scripts\python.exe python -m venv .venv
-.venv\Scripts\python -c "import androidtvremote2, aiohttp, zeroconf" 2>nul || .venv\Scripts\python -m pip install --disable-pip-version-check -r requirements.txt
+.venv\Scripts\python -c "import androidtvremote2, aiohttp, zeroconf, adb_shell, async_timeout" 2>nul || .venv\Scripts\python -m pip install --disable-pip-version-check -r requirements.txt
 .venv\Scripts\python server.py %*
 pause
