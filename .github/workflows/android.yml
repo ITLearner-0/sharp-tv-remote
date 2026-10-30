@@ -35,7 +35,7 @@ jobs:
           ./gradlew --no-daemon testReleaseUnitTest assembleRelease
           cp app/build/outputs/apk/release/app-release.apk telecommande-tv.apk
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: telecommande-tv-apk
           path: android/telecommande-tv.apk
@@ -44,9 +44,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release delete android-latest --yes --cleanup-tag || true
-          gh release create android-latest telecommande-tv.apk \
-            --title "Application Android (dernière version)" \
-            --notes "Version de test n°${{ github.run_number }}. Téléchargez telecommande-tv.apk depuis le téléphone puis ouvrez-le pour l'installer." \
-            --prerelease \
-            --target "$GITHUB_SHA"
+          # L'API GitHub renvoie parfois une erreur passagère : plusieurs tentatives.
+          for attempt in 1 2 3 4; do
+            gh release delete android-latest --yes --cleanup-tag || true
+            if gh release create android-latest telecommande-tv.apk \
+                --title "Application Android (dernière version)" \
+                --notes "Version de test n°${{ github.run_number }}. Téléchargez telecommande-tv.apk depuis le téléphone puis ouvrez-le pour l'installer." \
+                --prerelease \
+                --target "$GITHUB_SHA"; then
+              exit 0
+            fi
+            sleep $((attempt * 15))
+          done
+          exit 1
