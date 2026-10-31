@@ -31,7 +31,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -74,6 +80,46 @@ fun App(state: UiState, message: String?, vm: RemoteViewModel) {
 
     if (showSettings && state.current != null) SettingsDialog(state, vm, onDismiss = { showSettings = false })
     if (showTvs) TvListDialog(state, vm, onDismiss = { showTvs = false })
+    state.crashReport?.let { CrashReportDialog(it, vm) }
+}
+
+/** Détail du dernier plantage, à copier pour le transmettre (rien n'est envoyé automatiquement). */
+@Composable
+private fun CrashReportDialog(report: String, vm: RemoteViewModel) {
+    val clipboard = LocalClipboardManager.current
+    var copied by remember { mutableStateOf(false) }
+    AlertDialog(
+        onDismissRequest = vm::dismissCrashReport,
+        title = { Text("Un problème est survenu") },
+        text = {
+            Column {
+                Text(
+                    "L'application a rencontré une erreur. Touchez « Copier » puis collez ce texte dans votre " +
+                        "message pour qu'elle soit corrigée.",
+                    style = MaterialTheme.typography.bodySmall,
+                )
+                SelectionContainer {
+                    Text(
+                        report,
+                        color = Muted,
+                        fontSize = 11.sp,
+                        fontFamily = FontFamily.Monospace,
+                        modifier = Modifier
+                            .padding(top = 8.dp)
+                            .heightIn(max = 280.dp)
+                            .verticalScroll(rememberScrollState()),
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = {
+                clipboard.setText(AnnotatedString(report))
+                copied = true
+            }) { Text(if (copied) "Copié ✓" else "Copier") }
+        },
+        dismissButton = { TextButton(onClick = vm::dismissCrashReport) { Text("Fermer") } },
+    )
 }
 
 @Composable

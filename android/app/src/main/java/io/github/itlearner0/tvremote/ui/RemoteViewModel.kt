@@ -31,7 +31,12 @@ import io.github.itlearner0.tvremote.protocol.RemoteSession
 import io.github.itlearner0.tvremote.protocol.TextKeys
 import io.github.itlearner0.tvremote.protocol.TvState
 import io.github.itlearner0.tvremote.protocol.WakeOnLan
+import io.github.itlearner0.tvremote.TvRemoteApp
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.plus
+import java.io.PrintWriter
+import java.io.StringWriter
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -82,6 +87,8 @@ data class UiState(
     val detectingMac: Boolean = false,
     /** Résultat détaillé de la dernière détection d'adresse MAC (affiché dans les réglages). */
     val macStatus: String? = null,
+    /** Détail du dernier plantage ou de la dernière erreur rattrapée, à transmettre. */
+    val crashReport: String? = null,
     /** Codes choisis pour les touches qui varient selon les fabricants. */
     val customKeys: Map<CustomKey, Int> = emptyMap(),
     /** Assistant d'ajout d'une TV par infrarouge affiché. */
@@ -114,6 +121,19 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     private val identity by lazy { ClientIdentity.loadOrCreate(application.filesDir) }
     private var catalog: AppCatalog? = null
 
+    /**
+     * Portée des tâches de fond : une erreur imprévue y est rattrapée et
+     * signalée au lieu de fermer l'application.
+     */
+    private val scope = viewModelScope + CoroutineExceptionHandler { _, error ->
+        val trace = StringWriter().also { error.printStackTrace(PrintWriter(it)) }.toString()
+        runCatching {
+            TvRemoteApp.crashFile(application).writeText("Erreur rattrapée (l'application ne s'est pas fermée)\n\n" + trace.take(12_000))
+        }
+        say("Erreur inattendue (${error.javaClass.simpleName})")
+        _state.update { it.copy(crashReport = TvRemoteApp.crashFile(application).takeIf { f -> f.exists() }?.readText()) }
+    }
+
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
 
@@ -141,13 +161,14 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     init {
         loadCurrentTv()
-        _state.update { it.copy(irAvailable = ir.available) }
+        val crash = TvRemoteApp.crashFile(application).takeIf { it.exists() }?.let { runCatching { it.readText() }.getOrNull() }
+        _state.update { it.copy(irAvailable = ir.available, crashReport = crash) }
         prefs.registerOnSharedPreferenceChangeListener(backupListener)
     }
 
     private fun scheduleBackup() {
         backupJob?.cancel()
-        backupJob = viewModelScope.launch(Dispatchers.IO) {
+        backupJob = scope.launch(Dispatchers.IO) {
             delay(2_000)
             // Pas de sauvegarde vide : elle masquerait une bonne sauvegarde après réinstallation.
             if (store.all().isEmpty()) return@launch
@@ -157,7 +178,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     /** Exporte les réglages dans le fichier choisi par l'utilisateur. */
     fun exportBackup(uri: Uri) {
-        viewModelScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             runCatching { LocalBackup.writeTo(getApplication<Application>(), uri, LocalBackup.export(prefs)) }
                 .onSuccess { say("Sauvegarde enregistrée") }
                 .onFailure { say("Échec de la sauvegarde : ${it.message}") }
@@ -166,7 +187,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     /** Restaure les réglages depuis une sauvegarde choisie par l'utilisateur. */
     fun importBackup(uri: Uri) {
-        viewModelScope.launch {
+        scope.launch {
             val result = withContext(Dispatchers.IO) {
                 runCatching { LocalBackup.import(prefs, LocalBackup.readFrom(getApplication<Application>(), uri)) }
             }
@@ -180,6 +201,11 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                 say("$count TV restaurée(s). Si la TV le demande, refaites l'appairage.")
             }.onFailure { say("Restauration impossible : ${it.message}") }
         }
+    }
+
+    fun dismissCrashReport() {
+        TvRemoteApp.crashFile(getApplication()).delete()
+        _state.update { it.copy(crashReport = null) }
     }
 
     fun consumeMessage() {
@@ -303,8 +329,13 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     /** Recherche les TV en continu tant que l'écran d'ajout est affiché. */
     fun startAutoDiscovery() {
         if (discoveryJob?.isActive == true) return
-        discoveryJob = viewModelScope.launch {
+        discoveryJob = scope.launch {
             while (isActive) {
+                // Pendant l'appairage, ne pas solliciter la TV (son port d'appairage est occupé).
+                if (_state.value.connection == Connection.PAIRING || _state.value.connection == Connection.CONNECTING) {
+                    delay(1_000)
+                    continue
+                }
                 _state.update { it.copy(discovering = true) }
                 coroutineScope {
                     // Annonce réseau (mDNS) et recherche directe en parallèle : la plus rapide l'emporte.
@@ -354,7 +385,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         }
         pendingMac = mac
         wakeRequestedAt = System.currentTimeMillis()
-        viewModelScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             runCatching { WakeOnLan.send(mac, null, phoneBroadcastAddresses()) }
         }
         say("Signal de réveil envoyé : la TV devrait apparaître dans la liste d'ici 30 secondes.")
@@ -371,7 +402,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         closePairing()
         pendingName = name
         _state.update { it.copy(connection = Connection.CONNECTING, pendingHost = target, error = null) }
-        viewModelScope.launch {
+        scope.launch {
             try {
                 val s = openSession(target)
                 registerTv(target, s)
@@ -394,7 +425,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         closeSession()
         pendingName = current.name
         _state.update { it.copy(connection = Connection.CONNECTING, pendingHost = current.host, error = null) }
-        viewModelScope.launch { startPairing(current.host) }
+        scope.launch { startPairing(current.host) }
     }
 
     private suspend fun startPairing(host: String) {
@@ -422,7 +453,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     fun submitCode(code: String) {
         val p = pairing ?: return
         val host = _state.value.pendingHost ?: return
-        viewModelScope.launch {
+        scope.launch {
             try {
                 withContext(Dispatchers.IO) { p.finish(code) }
                 closePairing()
@@ -508,7 +539,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     /** Une fois connecté : compléter l'adresse MAC, le nom réseau, et finir un réveil en cours. */
     private fun afterConnected(tv: SavedTv) {
         val s = session ?: return
-        viewModelScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             if (System.currentTimeMillis() - wakeRequestedAt < WAKE_WINDOW_MS && !s.state.isOn) {
                 runCatching { s.sendKey(Keys.WAKEUP) }
             }
@@ -534,7 +565,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     /** Se reconnecte tant que l'application est visible ; retrouve la TV si son adresse IP a changé. */
     private fun startKeepAlive() {
         if (!foreground || _state.value.showSetup || _state.value.isIr || keepAlive?.isActive == true) return
-        keepAlive = viewModelScope.launch {
+        keepAlive = scope.launch {
             var failures = 0
             while (isActive) {
                 val tv = _state.value.current ?: return@launch
@@ -629,7 +660,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             say("TV éteinte : appuyez d'abord sur Marche")
             return
         }
-        viewModelScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             val ascii = TextKeys.toAscii(value)
             val (strokes, unsupported) = TextKeys.strokes(ascii)
             if (ascii != value || unsupported.isNotEmpty()) {
@@ -679,7 +710,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     /** Émet une touche d'un jeu de codes (aussi utilisé pour les essais de l'assistant). */
     fun sendIr(codeset: IrCodeset, keyName: String) {
         val code = codeset.keys[keyName] ?: return
-        viewModelScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             val sent = runCatching { ir.send(code) }.getOrDefault(false)
             if (!sent) say("Ce téléphone n'a pas d'émetteur infrarouge")
         }
@@ -748,7 +779,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         if (installed != null && !installed.tvApp && _state.value.connection == Connection.CONNECTED) {
             // Application « téléphone » : la télécommande ne sait pas l'ouvrir, ADB oui.
             say("Ouverture de ${app.label}…")
-            viewModelScope.launch(Dispatchers.IO) {
+            scope.launch(Dispatchers.IO) {
                 runCatching { adb.launch(tv.host, installed) }
                     .onFailure { say("Impossible d'ouvrir ${app.label} : débogage USB non autorisé ?") }
             }
@@ -766,7 +797,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             say(if (_state.value.connection == Connection.OFFLINE) "TV éteinte : appuyez d'abord sur ⏻" else "TV non connectée")
             return
         }
-        viewModelScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             runCatching { s.action() }.onFailure { say("Connexion perdue, reconnexion…") }
         }
     }
@@ -789,11 +820,11 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             irKey(Keys.WAKEUP)
             wakeRequestedAt = System.currentTimeMillis()
             tv.mac?.let { mac ->
-                viewModelScope.launch(Dispatchers.IO) { runCatching { WakeOnLan.send(mac, tv.host, phoneBroadcastAddresses()) } }
+                scope.launch(Dispatchers.IO) { runCatching { WakeOnLan.send(mac, tv.host, phoneBroadcastAddresses()) } }
             }
             return
         }
-        viewModelScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             if (s != null && s.isOpen && _state.value.connection == Connection.CONNECTED) {
                 val turnOn = !s.state.isOn
                 val attempts = if (turnOn) listOf(Keys.WAKEUP, Keys.POWER) else listOf(Keys.POWER, Keys.SLEEP, Keys.TV_POWER)
@@ -844,7 +875,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             say("La TV est déjà éteinte")
             return
         }
-        viewModelScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             runCatching { s.sendKey(Keys.SLEEP) }
             if (waitForPower(s, on = false)) return@launch
             if (adbAuthorized(tv)) {
@@ -901,7 +932,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                 macStatus = "Recherche… Si la TV demande « Autoriser le débogage ? », acceptez avec les flèches.",
             )
         }
-        viewModelScope.launch {
+        scope.launch {
             val log = mutableListOf<String>()
             val mac = withContext(Dispatchers.IO) { findMac(tv, session, useAdb = true, log = log) }
             if (mac != null) {
@@ -960,7 +991,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                     "puis choisissez OK avec les flèches de cette télécommande (1 minute).",
             )
         }
-        viewModelScope.launch {
+        scope.launch {
             val result = withContext(Dispatchers.IO) { runCatching { adb.scanApps(tv.host) } }
             result.onSuccess { apps ->
                 setAdbAuthorized(tv)

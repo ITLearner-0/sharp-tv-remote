@@ -52,8 +52,10 @@ class TvDiscovery(context: Context) {
                 resolveNext()
             }
         }
-        nsd.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, listener)
-        awaitClose { runCatching { nsd.stopServiceDiscovery(listener) } }
+        // Le service de recherche Android peut refuser une recherche (trop de recherches en cours…).
+        val started = runCatching { nsd.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, listener) }.isSuccess
+        if (!started) close()
+        awaitClose { if (started) runCatching { nsd.stopServiceDiscovery(listener) } }
     }
 
     private companion object {

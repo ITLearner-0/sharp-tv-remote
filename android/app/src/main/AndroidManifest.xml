@@ -11,6 +11,7 @@
     <uses-feature android:name="android.hardware.consumerir" android:required="false" />
 
     <application
+        android:name=".TvRemoteApp"
         android:allowBackup="false"
         android:hasFragileUserData="true"
         android:icon="@mipmap/ic_launcher"
