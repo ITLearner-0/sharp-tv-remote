@@ -22,6 +22,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -41,6 +42,8 @@ import io.github.itlearner0.tvremote.data.TvApp
 @Composable
 fun AppsPanel(state: UiState, vm: RemoteViewModel) {
     var query by rememberSaveable { mutableStateOf("") }
+    // Liste relue automatiquement à l'ouverture de l'onglet si elle est ancienne.
+    LaunchedEffect(state.connection, state.current?.id) { vm.refreshAppsIfStale() }
     val filtered = state.apps.filter { query.isBlank() || it.label.contains(query.trim(), ignoreCase = true) }
     val (tvApps, otherApps) = filtered.partition { it.installed?.tvApp != false }
 
@@ -65,7 +68,7 @@ fun AppsPanel(state: UiState, vm: RemoteViewModel) {
         if (filtered.isEmpty()) Text("Aucune application ne correspond.", color = Muted, fontSize = 13.sp)
 
         OutlinedButton(
-            onClick = vm::scanApps,
+            onClick = { vm.scanApps() },
             enabled = !state.scanningApps,
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier.fillMaxWidth(),

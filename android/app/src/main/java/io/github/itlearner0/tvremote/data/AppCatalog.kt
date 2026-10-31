@@ -19,9 +19,17 @@ data class TvApp(
 class AppCatalog(private val prefs: SharedPreferences, tvId: String) {
     private val keySeen = "apps_seen_$tvId"
     private val keyInstalled = "apps_installed_$tvId"
+    private val keyScanned = "apps_scanned_$tvId"
 
     val isComplete: Boolean get() = installed().isNotEmpty()
 
+    /** Heure de la dernière lecture de la liste sur la TV (0 : jamais). */
+    val lastScan: Long get() = prefs.getLong(keyScanned, 0)
+
+    /**
+     * Après une lecture sur la TV : exactement les applications installées
+     * (et celles ouvertes depuis). Sinon : applications courantes et celles déjà ouvertes.
+     */
     fun list(): List<TvApp> {
         val installed = installed()
         val packages = installed.keys.ifEmpty { DEFAULT_APPS.toSet() } + seen()
@@ -40,13 +48,18 @@ class AppCatalog(private val prefs: SharedPreferences, tvId: String) {
         return true
     }
 
+    /** Remplace la liste par celle lue sur la TV : les applications désinstallées disparaissent. */
     fun setInstalled(apps: Collection<InstalledApp>) {
         val encoded = apps.map { "${it.packageName}|${it.component}|${if (it.tvApp) "tv" else "phone"}" }.toSet()
-        prefs.edit().putStringSet(keyInstalled, encoded).apply()
+        prefs.edit()
+            .putStringSet(keyInstalled, encoded)
+            .remove(keySeen) // les applications « vues » peuvent avoir été désinstallées depuis
+            .putLong(keyScanned, System.currentTimeMillis())
+            .apply()
     }
 
     fun clear() {
-        prefs.edit().remove(keySeen).remove(keyInstalled).apply()
+        prefs.edit().remove(keySeen).remove(keyInstalled).remove(keyScanned).apply()
     }
 
     private fun seen(): Set<String> = prefs.getStringSet(keySeen, null).orEmpty()

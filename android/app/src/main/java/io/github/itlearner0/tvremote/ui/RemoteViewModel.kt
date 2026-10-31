@@ -976,7 +976,20 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     // --- Applications ---
 
-    fun scanApps() {
+    /**
+     * Relit la liste en arrière-plan si elle date de plus de 5 minutes et que
+     * le débogage est déjà autorisé (appelé à l'ouverture de l'onglet Applications).
+     */
+    fun refreshAppsIfStale() {
+        val tv = _state.value.current ?: return
+        val c = catalog ?: return
+        if (tv.isIr || _state.value.scanningApps || _state.value.connection != Connection.CONNECTED) return
+        if (!adbAuthorized(tv) || System.currentTimeMillis() - c.lastScan < APPS_REFRESH_MS) return
+        scanApps(silent = true)
+    }
+
+    /** Lit sur la TV la liste exacte des applications installées. */
+    fun scanApps(silent: Boolean = false) {
         if (notOverIr("La liste des applications")) return
         val tv = _state.value.current ?: return
         val c = catalog ?: return
@@ -987,8 +1000,9 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         _state.update {
             it.copy(
                 scanningApps = true,
-                appsMessage = "Si la TV demande « Autoriser le débogage ? », cochez « Toujours autoriser » " +
-                    "puis choisissez OK avec les flèches de cette télécommande (1 minute).",
+                appsMessage = if (silent) "Mise à jour de la liste…" else
+                    "Si la TV demande « Autoriser le débogage ? », cochez « Toujours autoriser » " +
+                        "puis choisissez OK avec les flèches de cette télécommande (1 minute).",
             )
         }
         scope.launch {
@@ -1002,7 +1016,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                         scanningApps = false,
                         apps = list,
                         appsComplete = c.isComplete,
-                        appsMessage = "${list.size} applications trouvées sur la TV.",
+                        appsMessage = "${list.size} applications installées sur la TV (liste à jour).",
                     )
                 }
                 if (_state.value.current?.mac == null) detectMac()
@@ -1027,6 +1041,9 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     private fun clientName(): String = "Télécommande (${Build.MODEL})"
 
     private companion object {
+        /** Ancienneté au-delà de laquelle la liste des applications est relue automatiquement. */
+        const val APPS_REFRESH_MS = 5 * 60 * 1000L
+
         /** Durée pendant laquelle on attend la TV après un réveil par le réseau. */
         const val WAKE_WINDOW_MS = 45_000L
     }

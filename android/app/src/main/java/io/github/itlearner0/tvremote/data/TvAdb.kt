@@ -21,22 +21,34 @@ data class InstalledApp(
  */
 class TvAdb(private val keyDir: File) {
 
+    /**
+     * Applications réellement installées et activées sur la TV :
+     * - toutes celles installées par l'utilisateur (liste officielle des paquets),
+     *   quelle que soit leur façon de se lancer ;
+     * - les applications préinstallées qui ont une icône de lancement.
+     */
     fun scanApps(host: String): List<InstalledApp> = withAdb(host) { adb ->
-        val tvApps = launchable(adb, "android.intent.category.LEANBACK_LAUNCHER")
-        val phoneApps = launchable(adb, "android.intent.category.LAUNCHER")
-        val apps = LinkedHashMap<String, InstalledApp>()
-        for ((pkg, component) in tvApps) apps[pkg] = InstalledApp(pkg, component, tvApp = true)
-        for ((pkg, component) in phoneApps) apps.putIfAbsent(pkg, InstalledApp(pkg, component, tvApp = false))
-        if (apps.isEmpty()) {
-            // Anciennes versions d'Android sans « query-activities » : applications ajoutées.
-            val pkg = Regex("""^package:([\w.]+)""", RegexOption.MULTILINE)
-            for (m in pkg.findAll(adb.shell("pm list packages -3").output)) {
-                val name = m.groupValues[1]
-                apps[name] = InstalledApp(name, "", tvApp = true)
+        val tvLaunchers = launchable(adb, "android.intent.category.LEANBACK_LAUNCHER")
+        val phoneLaunchers = launchable(adb, "android.intent.category.LAUNCHER")
+        val userInstalled = packages(adb, "pm list packages -3 -e")
+        val enabled = packages(adb, "pm list packages -e").ifEmpty { userInstalled + tvLaunchers.keys + phoneLaunchers.keys }
+        enabled
+            .filter { it in userInstalled || it in tvLaunchers || it in phoneLaunchers }
+            .map { pkg ->
+                InstalledApp(
+                    packageName = pkg,
+                    component = tvLaunchers[pkg] ?: phoneLaunchers[pkg].orEmpty(),
+                    // Seules les applications TV s'ouvrent par la télécommande ; les autres par ADB.
+                    tvApp = pkg in tvLaunchers,
+                )
             }
-        }
-        apps.values.toList()
     }
+
+    private fun packages(adb: Dadb, command: String): Set<String> =
+        Regex("""^package:([\w.]+)""", RegexOption.MULTILINE)
+            .findAll(runCatching { adb.shell(command).output }.getOrDefault(""))
+            .map { it.groupValues[1] }
+            .toSet()
 
     /**
      * Adresse MAC de l'interface réseau qui porte l'adresse IP [host].
@@ -71,7 +83,9 @@ class TvAdb(private val keyDir: File) {
             if (app.component.isNotEmpty()) {
                 adb.shell("am start -n ${app.component}")
             } else {
-                adb.shell("monkey -p ${app.packageName} 1")
+                // Pas d'activité de lancement connue : on laisse Android choisir.
+                val tv = adb.shell("monkey -p ${app.packageName} -c android.intent.category.LEANBACK_LAUNCHER 1").allOutput
+                if ("No activities found" in tv) adb.shell("monkey -p ${app.packageName} 1")
             }
         }
     }
@@ -89,14 +103,16 @@ class TvAdb(private val keyDir: File) {
         withAdb(host) { adb -> adb.shell("input keyevent $keyCode") }
     }
 
-    private fun launchable(adb: Dadb, category: String): List<Pair<String, String>> {
-        val output = adb.shell(
-            "cmd package query-activities --brief -a android.intent.action.MAIN -c $category",
-        ).output
-        return Regex("""^\s*([\w.]+)/([\w.$]+)""", RegexOption.MULTILINE)
-            .findAll(output)
-            .map { it.groupValues[1] to "${it.groupValues[1]}/${it.groupValues[2]}" }
-            .toList()
+    /** Paquet → activité de lancement, pour une catégorie d'icône (TV ou téléphone). */
+    private fun launchable(adb: Dadb, category: String): Map<String, String> {
+        val output = runCatching {
+            adb.shell("cmd package query-activities --brief -a android.intent.action.MAIN -c $category").output
+        }.getOrDefault("")
+        val result = LinkedHashMap<String, String>()
+        for (m in Regex("""([\w.]+)/([\w.$]+)""").findAll(output)) {
+            result.putIfAbsent(m.groupValues[1], "${m.groupValues[1]}/${m.groupValues[2]}")
+        }
+        return result
     }
 
     private fun <T> withAdb(host: String, block: (Dadb) -> T): T {
