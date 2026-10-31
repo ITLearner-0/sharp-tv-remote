@@ -539,13 +539,22 @@ private fun ScreenPanel() {
             Icon(Icons.Filled.ScreenShare, contentDescription = null, modifier = Modifier.size(18.dp))
             Text(if (mirroring) "  Arrêter la duplication" else "  Dupliquer l'écran sur la TV")
         }
+        val mirrorReport by MirrorService.report.collectAsState()
         Text(
-            mirrorStatus?.takeIf { mirroring || it.startsWith("Duplication") }
+            mirrorStatus?.takeIf { mirroring || mirrorReport != null || it.startsWith("Duplication") }
                 ?: ("L'écran du téléphone (ou une seule application) s'affiche sur la TV, sans Google Cast ni " +
                     "Miracast, par le débogage ADB. Image seulement, sans le son."),
             color = Muted,
             fontSize = 12.sp,
         )
+        mirrorReport?.let { report ->
+            Text(report, color = Muted, fontSize = 10.sp, lineHeight = 12.sp)
+            TextButton(onClick = {
+                val clipboard = context.getSystemService(android.content.ClipboardManager::class.java)
+                clipboard?.setPrimaryClip(android.content.ClipData.newPlainText("Rapport OmniZap", report))
+                android.widget.Toast.makeText(context, "Rapport copié", android.widget.Toast.LENGTH_SHORT).show()
+            }) { Text("Copier le rapport") }
+        }
         val homeInstalled = remember { ScreenMirroring.isGoogleHomeInstalled(context) }
         OutlinedButton(
             onClick = { if (homeInstalled) ScreenMirroring.open(context) else ScreenMirroring.installGoogleHome(context) },

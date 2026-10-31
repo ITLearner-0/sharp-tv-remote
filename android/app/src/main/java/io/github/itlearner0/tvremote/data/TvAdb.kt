@@ -62,6 +62,12 @@ class TvAdb(private val keyDir: File) {
         startHelper(adb, host, "Mirror", "--es host $phoneHost --ei port $port")
     }
 
+    /** Dernières lignes du journal du récepteur de duplication (erreurs de la TV). */
+    fun mirrorLog(host: String): String = withAdb(host) { adb ->
+        runCatching { adb.shell("logcat -d -v brief -s OmniZapMirror:V AndroidRuntime:E | tail -n 25").allOutput }
+            .getOrElse { "journal de la TV illisible (${it.message})" }
+    }
+
     fun stopMirror(host: String) {
         withAdb(host) { adb -> adb.shell("am start -n $HELPER_PACKAGE/.Mirror --es cmd stop") }
     }
@@ -221,7 +227,7 @@ class TvAdb(private val keyDir: File) {
     companion object {
         const val HELPER_PACKAGE = "io.github.itlearner0.tvremote.helper"
         /** versionCode de tvhelper/build.gradle.kts. */
-        private const val HELPER_VERSION = 4
+        private const val HELPER_VERSION = 5
         /** TV sur lesquelles la visionneuse est déjà installée (pendant cette session). */
         private val viewerReady: MutableSet<String> = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
 

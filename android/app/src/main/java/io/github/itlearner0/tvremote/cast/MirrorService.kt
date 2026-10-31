@@ -51,6 +51,15 @@ class MirrorService : Service() {
     @Volatile private var client: Socket? = null
     @Volatile private var stopping = false
     @Volatile private var streaming = false
+    /** Échec : on laisse le message d'erreur affiché sur la TV et on rapporte son journal. */
+    @Volatile private var failed = false
+    @Volatile private var framesSent = 0
+    private val steps = java.util.Collections.synchronizedList(mutableListOf<String>())
+
+    private fun step(text: String) {
+        val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.FRANCE).format(java.util.Date())
+        steps += "$time  $text"
+    }
     private var tvHost: String? = null
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -89,6 +98,7 @@ class MirrorService : Service() {
             }
         }, main)
         _running.value = true
+        _report.value = null
         _status.value = "Ouverture du récepteur sur ${tv.name}…"
         thread(name = "mirror-server") { serve(tv.host) }
         return START_NOT_STICKY
@@ -99,24 +109,33 @@ class MirrorService : Service() {
             val phone = phoneIpv4() ?: error("Wi-Fi introuvable : le téléphone doit être sur le même réseau que la TV")
             val srv = ServerSocket(0).also { server = it }
             srv.soTimeout = 30_000
+            step("Téléphone $phone:${srv.localPort}, Android ${Build.VERSION.RELEASE}, ${Build.MANUFACTURER} ${Build.MODEL}")
             TvAdb(filesDir).startMirror(host, TvAdb.helperApk(this), phone, srv.localPort)
                 ?.let { error("la TV n'a pas ouvert le récepteur : $it") }
+            step("Récepteur ouvert sur la TV ($host)")
             // N'accepte que la TV : personne d'autre sur le réseau ne peut voir l'écran.
             var socket: Socket
             while (true) {
                 socket = srv.accept()
                 if (sameHost(socket.inetAddress, host)) break
+                step("Connexion refusée depuis ${socket.inetAddress?.hostAddress}")
                 socket.close()
             }
             srv.close()
+            step("TV connectée")
             client = socket
             socket.tcpNoDelay = true
             _status.value = "Écran du téléphone affiché sur la TV"
             streaming = true
             stream(DataOutputStream(BufferedOutputStream(socket.getOutputStream(), 1 shl 16)))
         } catch (e: Exception) {
-            if (streaming && e is java.io.IOException) _status.value = "La TV a arrêté la duplication (voir le message sur la TV)"
-            else if (!stopping) fail(e.message ?: e.javaClass.simpleName)
+            if (!stopping) {
+                step("Arrêt : $e")
+                failed = true
+                if (streaming && e is java.io.IOException) _status.value = "La TV a interrompu la duplication"
+                else fail(e.message ?: e.javaClass.simpleName)
+                report(host)
+            }
         } finally {
             main.post { stopSelf() }
         }
@@ -150,8 +169,10 @@ class MirrorService : Service() {
             try {
                 candidate.configure(format, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE)
                 configured = Triple(candidate, w, h)
+                step("Encodeur ${candidate.name} : $w × $h")
                 break
             } catch (e: Exception) {
+                step("Encodeur refusé en $w × $h : $e")
                 candidate.release()
                 lastError = e
             }
@@ -184,6 +205,7 @@ class MirrorService : Service() {
                     out.writeInt(bytes.size)
                     out.write(bytes)
                     out.flush()
+                    if (++framesSent == 1) step("Première image envoyée (${bytes.size} octets)")
                 }
                 codec.releaseOutputBuffer(index, false)
             }
@@ -193,6 +215,18 @@ class MirrorService : Service() {
             runCatching { codec.stop() }
             codec.release()
             input.release()
+        }
+    }
+
+    /** Rapport complet : étapes du téléphone et journal de la TV (lu par ADB), à copier. */
+    private fun report(host: String) {
+        val tvLog = runCatching { TvAdb(filesDir).mirrorLog(host) }.getOrElse { "journal de la TV illisible (${it.message})" }
+        _report.value = buildString {
+            appendLine("Rapport de duplication OmniZap")
+            appendLine("Images envoyées : $framesSent")
+            synchronized(steps) { steps.forEach { appendLine(it) } }
+            appendLine("— Journal de la TV —")
+            append(tvLog.trim().ifEmpty { "(vide)" })
         }
     }
 
@@ -209,7 +243,8 @@ class MirrorService : Service() {
         display = null
         projection?.stop()
         projection = null
-        tvHost?.let { host -> thread { runCatching { TvAdb(filesDir).stopMirror(host) } } }
+        // Arrêt demandé : on ferme aussi l'écran de la TV. Échec : on y laisse le message d'erreur.
+        if (!failed) tvHost?.let { host -> thread { runCatching { TvAdb(filesDir).stopMirror(host) } } }
         _running.value = false
         super.onDestroy()
     }
@@ -248,6 +283,9 @@ class MirrorService : Service() {
 
         private val _running = MutableStateFlow(false)
         val running: StateFlow<Boolean> = _running.asStateFlow()
+        private val _report = MutableStateFlow<String?>(null)
+        /** Rapport détaillé du dernier échec (téléphone et TV), ou null. */
+        val report: StateFlow<String?> = _report.asStateFlow()
         private val _status = MutableStateFlow<String?>(null)
         val status: StateFlow<String?> = _status.asStateFlow()
 

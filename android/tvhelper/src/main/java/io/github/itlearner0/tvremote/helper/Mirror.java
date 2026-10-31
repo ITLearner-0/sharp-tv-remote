@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -37,6 +38,8 @@ import java.nio.ByteBuffer;
  */
 public class Mirror extends Activity implements SurfaceHolder.Callback {
     private static final int MAGIC = 0x4D495252; // "MIRR"
+    /** Étiquette du journal système, relu par le téléphone (ADB) en cas d'échec. */
+    private static final String TAG = "OmniZapMirror";
     private final Handler main = new Handler(Looper.getMainLooper());
     private FrameLayout root;
     private SurfaceView view;
@@ -135,7 +138,9 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
         int frames = 0;
         try (Socket s = new Socket()) {
             socket = s;
+            Log.i(TAG, "connexion au téléphone " + host + ":" + port);
             s.connect(new InetSocketAddress(host, port), 6000);
+            Log.i(TAG, "connecté");
             s.setTcpNoDelay(true);
             DataInputStream in = new DataInputStream(new BufferedInputStream(s.getInputStream(), 1 << 16));
             if (in.readInt() != MAGIC) throw new IllegalStateException("flux inconnu");
@@ -149,11 +154,13 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
                         codec.stop();
                         codec.release();
                     }
+                    Log.i(TAG, "format " + w + "x" + h);
                     try {
                         codec = decoder(w, h, target);
                     } catch (Exception e) {
-                        throw new IllegalStateException("la TV ne sait pas décoder une image de " + w + " × " + h + " (" + e + ")");
+                        throw new IllegalStateException("la TV ne sait pas décoder une image de " + w + " × " + h + " (" + e + ")", e);
                     }
+                    Log.i(TAG, "décodeur prêt : " + codec.getName());
                     main.post(() -> fit(w, h));
                     continue;
                 }
@@ -171,6 +178,9 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
                 }
                 ByteBuffer buffer = codec.getInputBuffer(index);
                 buffer.clear();
+                if (buffer.remaining() < length) {
+                    throw new IllegalStateException("image de " + length + " octets, tampon du décodeur de " + buffer.remaining());
+                }
                 buffer.put(data);
                 boolean config = (flags & MediaCodec.BUFFER_FLAG_CODEC_CONFIG) != 0;
                 codec.queueInputBuffer(index, 0, length, pts, config ? MediaCodec.BUFFER_FLAG_CODEC_CONFIG : 0);
@@ -179,8 +189,10 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
             }
         } catch (java.io.EOFException e) {
             end = "Duplication arrêtée par le téléphone.";
+            Log.i(TAG, end + " Images reçues : " + frames);
         } catch (Exception e) {
             end = "Duplication interrompue : " + e;
+            Log.e(TAG, "ERREUR après " + frames + " images : " + e, e);
         } finally {
             socket = null;
             if (codec != null) {
@@ -196,18 +208,32 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
             main.post(() -> {
                 status.setText(message);
                 status.setVisibility(View.VISIBLE);
-                main.postDelayed(this::finish, 8000);
+                main.postDelayed(this::finish, 20000);
             });
         }
     }
 
+    /** Décodeur H.264 ; sans le mode « faible latence » si la TV le refuse. */
     private static MediaCodec decoder(int w, int h, Surface target) throws Exception {
-        MediaFormat format = MediaFormat.createVideoFormat(MediaFormat.MIMETYPE_VIDEO_AVC, w, h);
-        if (Build.VERSION.SDK_INT >= 30) format.setInteger(MediaFormat.KEY_LOW_LATENCY, 1);
-        MediaCodec codec = MediaCodec.createDecoderByType(MediaFormat.MIMETYPE_VIDEO_AVC);
-        codec.configure(format, target, null, 0);
-        codec.start();
-        return codec;
+        Exception first = null;
+        for (boolean lowLatency : new boolean[] {true, false}) {
+            if (lowLatency && Build.VERSION.SDK_INT < 30) continue;
+            MediaFormat format = MediaFormat.createVideoFormat(MediaFormat.MIMETYPE_VIDEO_AVC, w, h);
+            // Tampon assez grand pour une image complète (1920 × 1080).
+            format.setInteger(MediaFormat.KEY_MAX_INPUT_SIZE, 4 * 1024 * 1024);
+            if (lowLatency) format.setInteger(MediaFormat.KEY_LOW_LATENCY, 1);
+            MediaCodec codec = MediaCodec.createDecoderByType(MediaFormat.MIMETYPE_VIDEO_AVC);
+            try {
+                codec.configure(format, target, null, 0);
+                codec.start();
+                return codec;
+            } catch (Exception e) {
+                Log.w(TAG, "décodeur refusé (faible latence : " + lowLatency + ") : " + e);
+                codec.release();
+                if (first == null) first = e;
+            }
+        }
+        throw first;
     }
 
     private static void drain(MediaCodec codec, MediaCodec.BufferInfo info) {
