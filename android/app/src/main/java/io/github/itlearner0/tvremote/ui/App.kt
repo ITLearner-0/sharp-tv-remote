@@ -143,44 +143,55 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                 )
-                OutlinedTextField(
-                    value = host,
-                    onValueChange = { host = it; error = null },
-                    label = { Text("Adresse IP") },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
-                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
-                )
-                OutlinedTextField(
-                    value = mac,
-                    onValueChange = { mac = it; error = null },
-                    label = { Text("Adresse MAC (pour allumer la TV)") },
-                    placeholder = { Text("A4:B1:C2:D3:E4:F5") },
-                    singleLine = true,
-                    isError = error != null,
-                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters),
-                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
-                )
-                error?.let { Text(it, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall) }
-                TextButton(onClick = vm::detectMac, enabled = !state.detectingMac) {
-                    Text(if (state.detectingMac) "Détection en cours…" else "Détecter l'adresse MAC automatiquement")
+                if (tv.isIr) {
+                    val codeset = vm.irDatabase.codeset(tv.irCodeset)
+                    Text(
+                        "Télécommande infrarouge : ${codeset?.name ?: "jeu de codes inconnu"}. Pour essayer un autre " +
+                            "jeu de codes, supprimez cette TV puis ajoutez-la de nouveau.",
+                        color = Muted,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(top = 8.dp),
+                    )
+                } else {
+                    OutlinedTextField(
+                        value = host,
+                        onValueChange = { host = it; error = null },
+                        label = { Text("Adresse IP") },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
+                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                    )
+                    OutlinedTextField(
+                        value = mac,
+                        onValueChange = { mac = it; error = null },
+                        label = { Text("Adresse MAC (pour allumer la TV)") },
+                        placeholder = { Text("A4:B1:C2:D3:E4:F5") },
+                        singleLine = true,
+                        isError = error != null,
+                        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters),
+                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                    )
+                    error?.let { Text(it, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall) }
+                    TextButton(onClick = vm::detectMac, enabled = !state.detectingMac) {
+                        Text(if (state.detectingMac) "Détection en cours…" else "Détecter l'adresse MAC automatiquement")
+                    }
+                    Text(
+                        "Pour allumer la TV éteinte, elle doit garder le réseau en veille. Sur la TV, activez " +
+                            "selon le modèle « Wake on LAN », « Réveil par le réseau », « Veille réseau » ou " +
+                            "« Démarrage rapide » (Paramètres → Réseau et Internet, ou Système → Alimentation). " +
+                            "Une TV branchée en câble Ethernet se réveille plus sûrement qu'en Wi-Fi.",
+                        color = Muted,
+                        style = MaterialTheme.typography.bodySmall,
+                    )
+                    Text(
+                        "Astuce : si Menu ou Guide ne fait rien, maintenez la touche appuyée pour choisir " +
+                            "la commande adaptée à votre TV.",
+                        color = Muted,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(top = 8.dp),
+                    )
                 }
-                Text(
-                    "Pour allumer la TV éteinte, elle doit garder le réseau en veille. Sur la TV, activez " +
-                        "selon le modèle « Wake on LAN », « Réveil par le réseau », « Veille réseau » ou " +
-                        "« Démarrage rapide » (Paramètres → Réseau et Internet, ou Système → Alimentation). " +
-                        "Une TV branchée en câble Ethernet se réveille plus sûrement qu'en Wi-Fi.",
-                    color = Muted,
-                    style = MaterialTheme.typography.bodySmall,
-                )
-                Text(
-                    "Astuce : si Menu ou Guide ne fait rien, maintenez la touche appuyée pour choisir " +
-                        "la commande adaptée à votre TV.",
-                    color = Muted,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.padding(top = 8.dp),
-                )
-                if (state.connection == Connection.CONNECTED) {
+                if (!tv.isIr && state.connection == Connection.CONNECTED) {
                     val features = state.tv.features
                     val power = features and RemoteSession.FEATURE_POWER != 0
                     Text(

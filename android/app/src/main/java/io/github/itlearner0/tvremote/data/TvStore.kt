@@ -13,7 +13,11 @@ data class SavedTv(
     val mac: String? = null,
     /** Nom annoncé sur le réseau (mDNS) : permet de retrouver la TV si son adresse IP change. */
     val serviceName: String? = null,
-)
+    /** Jeu de codes infrarouges : renseigné pour une TV pilotée par infrarouge (sans réseau). */
+    val irCodeset: String? = null,
+) {
+    val isIr: Boolean get() = irCodeset != null
+}
 
 /**
  * Liste des TV enregistrées et TV sélectionnée, conservées jusqu'à ce que
@@ -37,6 +41,7 @@ class TvStore(private val prefs: SharedPreferences) {
                     host = o.getString("host"),
                     mac = o.optString("mac").ifBlank { null },
                     serviceName = o.optString("serviceName").ifBlank { null },
+                    irCodeset = o.optString("irCodeset").ifBlank { null },
                 )
             }
         }.getOrDefault(emptyList())
@@ -63,7 +68,7 @@ class TvStore(private val prefs: SharedPreferences) {
         if (prefs.getString(KEY_CURRENT, null) == id) prefs.edit().remove(KEY_CURRENT).apply()
     }
 
-    fun findByHost(host: String): SavedTv? = all().firstOrNull { it.host == host }
+    fun findByHost(host: String): SavedTv? = all().firstOrNull { it.host == host && !it.isIr }
 
     fun newId(): String = UUID.randomUUID().toString()
 
@@ -76,7 +81,8 @@ class TvStore(private val prefs: SharedPreferences) {
                     .put("name", tv.name)
                     .put("host", tv.host)
                     .put("mac", tv.mac ?: "")
-                    .put("serviceName", tv.serviceName ?: ""),
+                    .put("serviceName", tv.serviceName ?: "")
+                    .put("irCodeset", tv.irCodeset ?: ""),
             )
         }
         prefs.edit().putString(KEY_TVS, array.toString()).apply()

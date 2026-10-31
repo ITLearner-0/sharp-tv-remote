@@ -13,6 +13,9 @@ import io.github.itlearner0.tvremote.data.TvAdb
 import io.github.itlearner0.tvremote.data.TvApp
 import io.github.itlearner0.tvremote.data.TvDiscovery
 import io.github.itlearner0.tvremote.data.TvStore
+import io.github.itlearner0.tvremote.ir.IrBlaster
+import io.github.itlearner0.tvremote.ir.IrCodeset
+import io.github.itlearner0.tvremote.ir.IrDatabase
 import io.github.itlearner0.tvremote.protocol.ClientIdentity
 import io.github.itlearner0.tvremote.protocol.InvalidCodeException
 import io.github.itlearner0.tvremote.protocol.Keys
@@ -71,9 +74,16 @@ data class UiState(
     val detectingMac: Boolean = false,
     /** Codes choisis pour les touches qui varient selon les fabricants. */
     val customKeys: Map<CustomKey, Int> = emptyMap(),
+    /** Assistant d'ajout d'une TV par infrarouge affiché. */
+    val irSetup: Boolean = false,
+    /** Le téléphone possède un émetteur infrarouge. */
+    val irAvailable: Boolean = false,
 ) {
     val showSetup: Boolean
-        get() = current == null || adding || connection == Connection.PAIRING || connection == Connection.CONNECTING
+        get() = current == null || adding || irSetup || connection == Connection.PAIRING || connection == Connection.CONNECTING
+
+    /** La TV affichée est pilotée par infrarouge. */
+    val isIr: Boolean get() = current?.isIr == true
 }
 
 class RemoteViewModel(application: Application) : AndroidViewModel(application) {
@@ -81,6 +91,8 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     private val store = TvStore(prefs)
     private val discovery = TvDiscovery(application)
     private val adb = TvAdb(application.filesDir)
+    private val ir = IrBlaster(application)
+    val irDatabase: IrDatabase by lazy { IrDatabase.load(application) }
     private val identity by lazy { ClientIdentity.loadOrCreate(application.filesDir) }
     private var catalog: AppCatalog? = null
 
@@ -104,6 +116,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     init {
         loadCurrentTv()
+        _state.update { it.copy(irAvailable = ir.available) }
     }
 
     fun consumeMessage() {
@@ -121,7 +134,11 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             it.copy(
                 tvs = store.all(),
                 current = current,
-                connection = if (current != null) Connection.OFFLINE else Connection.NONE,
+                connection = when {
+                    current == null -> Connection.NONE
+                    current.isIr -> Connection.CONNECTED // l'infrarouge n'a pas besoin de connexion
+                    else -> Connection.OFFLINE
+                },
                 tv = TvState(),
                 needsPairing = false,
                 apps = catalog?.list().orEmpty(),
@@ -207,7 +224,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         val current = _state.value.current ?: return null
         val normalizedMac = if (mac.isBlank()) null else WakeOnLan.normalizeMac(mac) ?: return "Adresse MAC invalide"
         val newHost = host.trim()
-        if (newHost.isEmpty()) return "Adresse IP manquante"
+        if (newHost.isEmpty() && !current.isIr) return "Adresse IP manquante"
         updateTv { copy(name = name.trim().ifEmpty { current.name }, host = newHost, mac = normalizedMac) }
         if (newHost != current.host) {
             stopKeepAlive()
@@ -431,7 +448,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     /** Se reconnecte tant que l'application est visible ; retrouve la TV si son adresse IP a changé. */
     private fun startKeepAlive() {
-        if (!foreground || _state.value.showSetup || keepAlive?.isActive == true) return
+        if (!foreground || _state.value.showSetup || _state.value.isIr || keepAlive?.isActive == true) return
         keepAlive = viewModelScope.launch {
             var failures = 0
             while (isActive) {
@@ -498,11 +515,75 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     // --- Commandes ---
 
-    fun key(code: Int, direction: Int = Keys.SHORT) = command { sendKey(code, direction) }
+    fun key(code: Int, direction: Int = Keys.SHORT) {
+        if (_state.value.isIr) {
+            irKey(code)
+            return
+        }
+        command { sendKey(code, direction) }
+    }
 
-    fun text(value: String) = command { sendText(value) }
+    fun text(value: String) {
+        if (notOverIr("La saisie de texte")) return
+        command { sendText(value) }
+    }
+
+    /** Les fonctions réseau n'existent pas en infrarouge : message et true si la TV est en infrarouge. */
+    private fun notOverIr(feature: String): Boolean {
+        if (!_state.value.isIr) return false
+        say("$feature n'est pas disponible avec une TV pilotée par infrarouge")
+        return true
+    }
+
+    // --- Infrarouge ---
+
+    /** Émet la touche [keyCode] avec le jeu de codes de la TV infrarouge affichée. */
+    private fun irKey(keyCode: Int) {
+        val codeset = irDatabase.codeset(_state.value.current?.irCodeset)
+        if (codeset == null) {
+            say("Jeu de codes infrarouges introuvable : supprimez puis ajoutez de nouveau la TV")
+            return
+        }
+        val name = IrDatabase.irKeysFor(keyCode).firstOrNull { it in codeset.keys }
+        if (name == null) {
+            say("Cette touche n'existe pas pour ce modèle de TV")
+            return
+        }
+        sendIr(codeset, name)
+    }
+
+    /** Émet une touche d'un jeu de codes (aussi utilisé pour les essais de l'assistant). */
+    fun sendIr(codeset: IrCodeset, keyName: String) {
+        val code = codeset.keys[keyName] ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            val sent = runCatching { ir.send(code) }.getOrDefault(false)
+            if (!sent) say("Ce téléphone n'a pas d'émetteur infrarouge")
+        }
+    }
+
+    fun startIrSetup() {
+        stopKeepAlive()
+        closeSession()
+        _state.update { it.copy(irSetup = true, error = null) }
+    }
+
+    fun cancelIrSetup() {
+        _state.update { it.copy(irSetup = false) }
+        if (_state.value.current != null && !_state.value.adding) startKeepAlive()
+    }
+
+    /** Enregistre une TV infrarouge avec le jeu de codes qui fonctionne. */
+    fun addIrTv(codeset: IrCodeset) {
+        val tv = SavedTv(id = store.newId(), name = "${codeset.brand} (infrarouge)", host = "", irCodeset = codeset.id)
+        store.save(tv)
+        store.select(tv.id)
+        _state.update { it.copy(irSetup = false, adding = false, error = null) }
+        loadCurrentTv()
+        say("${tv.name} ajoutée. Visez la TV avec le haut du téléphone.")
+    }
 
     fun launch(app: TvApp) {
+        if (notOverIr("L'ouverture d'applications")) return
         val tv = _state.value.current ?: return
         val installed = app.installed
         if (installed != null && !installed.tvApp && _state.value.connection == Connection.CONNECTED) {
@@ -538,6 +619,10 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
      */
     fun power() {
         val tv = _state.value.current ?: return
+        if (tv.isIr) {
+            irKey(Keys.POWER)
+            return
+        }
         val s = session
         viewModelScope.launch(Dispatchers.IO) {
             if (s != null && s.isOpen && _state.value.connection == Connection.CONNECTED) {
@@ -577,6 +662,10 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     /** Met la TV en veille (touche Veille, puis ADB si elle ne réagit pas). */
     fun sleep() {
         val tv = _state.value.current ?: return
+        if (tv.isIr) {
+            irKey(Keys.SLEEP)
+            return
+        }
         val s = session
         if (s == null || !s.isOpen || _state.value.connection != Connection.CONNECTED) {
             say("La TV est déjà éteinte")
@@ -620,6 +709,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     /** Lit l'adresse MAC par ADB et l'enregistre. */
     fun detectMac() {
+        if (notOverIr("La détection de l'adresse MAC")) return
         val tv = _state.value.current ?: return
         if (_state.value.connection != Connection.CONNECTED) {
             say("Allumez d'abord la TV")
@@ -650,6 +740,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     // --- Applications ---
 
     fun scanApps() {
+        if (notOverIr("La liste des applications")) return
         val tv = _state.value.current ?: return
         val c = catalog ?: return
         if (_state.value.connection != Connection.CONNECTED) {

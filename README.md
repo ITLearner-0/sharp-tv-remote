@@ -48,6 +48,18 @@ version (GitHub Actions), qui s'installe par-dessus la précédente.
 > Elle convient pour les essais, pas pour le Play Store : il faudra une clé
 > privée avant toute publication.
 
+### 📡 Télécommande infrarouge (toutes marques)
+
+Sur les téléphones équipés d'un **émetteur infrarouge** (beaucoup de Xiaomi,
+Redmi et Poco, certains Huawei et Honor), l'application pilote aussi les TV
+**non connectées ou anciennes**, de toutes marques : écran d'accueil →
+« Utiliser l'infrarouge », choix de la marque, puis essai des jeux de codes
+jusqu'à ce que la TV réagisse.
+
+Les codes viennent de fichiers [Flipper-IRDB](https://github.com/Lucaslhm/Flipper-IRDB)
+sous licence CC0 et de jeux écrits d'après les protocoles publics : voir
+[`tools/ir/SOURCES.md`](tools/ir/SOURCES.md).
+
 ## Comment ça marche
 
 ```

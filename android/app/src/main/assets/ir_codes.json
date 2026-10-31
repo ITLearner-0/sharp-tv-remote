@@ -1,0 +1,5585 @@
+{
+ "brands": [
+  "Bush",
+  "Continental Edison",
+  "Crown",
+  "DuraBrand",
+  "Grundig",
+  "Hitachi",
+  "JVC",
+  "LG",
+  "Magnavox",
+  "Panasonic",
+  "Philips",
+  "Samsung",
+  "Sanyo",
+  "SEG",
+  "Sharp",
+  "Sony",
+  "Technika",
+  "Tevion",
+  "Toshiba",
+  "Vizio"
+ ],
+ "codesets": [
+  {
+   "brand": "Samsung",
+   "name": "Samsung (2008 et après)",
+   "source": "Écrit à la main",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 2
+    },
+    "POWER_ON": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 153
+    },
+    "POWER_OFF": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 152
+    },
+    "INPUT": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 1
+    },
+    "VOL_UP": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 7
+    },
+    "VOL_DOWN": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 11
+    },
+    "MUTE": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 15
+    },
+    "CH_UP": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 18
+    },
+    "CH_DOWN": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 16
+    },
+    "PREV_CH": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 19
+    },
+    "DIGIT_1": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 4
+    },
+    "DIGIT_2": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 5
+    },
+    "DIGIT_3": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 6
+    },
+    "DIGIT_4": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 8
+    },
+    "DIGIT_5": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 9
+    },
+    "DIGIT_6": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 10
+    },
+    "DIGIT_7": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 12
+    },
+    "DIGIT_8": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 13
+    },
+    "DIGIT_9": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 14
+    },
+    "DIGIT_0": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 17
+    },
+    "MENU": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 26
+    },
+    "HOME": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 121
+    },
+    "UP": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 96
+    },
+    "DOWN": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 97
+    },
+    "LEFT": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 101
+    },
+    "RIGHT": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 98
+    },
+    "OK": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 104
+    },
+    "BACK": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 88
+    },
+    "EXIT": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 45
+    },
+    "INFO": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 31
+    },
+    "GUIDE": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 79
+    },
+    "PLAY": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 71
+    },
+    "PAUSE": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 74
+    },
+    "STOP": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 70
+    },
+    "REWIND": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 69
+    },
+    "FFWD": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 72
+    },
+    "RED": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 108
+    },
+    "GREEN": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 20
+    },
+    "YELLOW": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 21
+    },
+    "BLUE": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 22
+    }
+   },
+   "id": "samsung-2008-et-apr-s-0"
+  },
+  {
+   "brand": "LG",
+   "name": "LG",
+   "source": "Écrit à la main",
+   "verified": false,
+   "keys": {
+    "POWER": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 8
+    },
+    "POWER_ON": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 196
+    },
+    "POWER_OFF": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 197
+    },
+    "INPUT": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 11
+    },
+    "VOL_UP": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 2
+    },
+    "VOL_DOWN": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 3
+    },
+    "MUTE": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 9
+    },
+    "CH_UP": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 0
+    },
+    "CH_DOWN": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 1
+    },
+    "PREV_CH": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 26
+    },
+    "DIGIT_0": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 16
+    },
+    "DIGIT_1": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 17
+    },
+    "DIGIT_2": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 18
+    },
+    "DIGIT_3": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 19
+    },
+    "DIGIT_4": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 20
+    },
+    "DIGIT_5": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 21
+    },
+    "DIGIT_6": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 22
+    },
+    "DIGIT_7": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 23
+    },
+    "DIGIT_8": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 24
+    },
+    "DIGIT_9": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 25
+    },
+    "SETTINGS": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 67
+    },
+    "HOME": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 124
+    },
+    "UP": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 64
+    },
+    "DOWN": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 65
+    },
+    "LEFT": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 7
+    },
+    "RIGHT": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 6
+    },
+    "OK": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 68
+    },
+    "BACK": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 40
+    },
+    "EXIT": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 91
+    },
+    "INFO": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 170
+    },
+    "GUIDE": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 169
+    },
+    "SUBTITLE": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 57
+    },
+    "PLAY": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 176
+    },
+    "PAUSE": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 186
+    },
+    "STOP": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 177
+    },
+    "REWIND": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 143
+    },
+    "FFWD": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 142
+    },
+    "RED": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 114
+    },
+    "GREEN": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 113
+    },
+    "YELLOW": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 99
+    },
+    "BLUE": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 97
+    }
+   },
+   "id": "lg-1"
+  },
+  {
+   "brand": "Sony",
+   "name": "Sony",
+   "source": "Écrit à la main",
+   "verified": false,
+   "keys": {
+    "POWER": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 21
+    },
+    "POWER_ON": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 46
+    },
+    "POWER_OFF": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 47
+    },
+    "INPUT": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 37
+    },
+    "VOL_UP": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 18
+    },
+    "VOL_DOWN": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 19
+    },
+    "MUTE": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 20
+    },
+    "CH_UP": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 16
+    },
+    "CH_DOWN": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 17
+    },
+    "PREV_CH": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 59
+    },
+    "DIGIT_1": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 0
+    },
+    "DIGIT_2": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 1
+    },
+    "DIGIT_3": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 2
+    },
+    "DIGIT_4": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 3
+    },
+    "DIGIT_5": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 4
+    },
+    "DIGIT_6": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 5
+    },
+    "DIGIT_7": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 6
+    },
+    "DIGIT_8": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 7
+    },
+    "DIGIT_9": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 8
+    },
+    "DIGIT_0": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 9
+    },
+    "HOME": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 96
+    },
+    "UP": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 116
+    },
+    "DOWN": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 117
+    },
+    "LEFT": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 52
+    },
+    "RIGHT": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 51
+    },
+    "OK": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 101
+    },
+    "INFO": {
+     "protocol": "SIRC",
+     "address": 1,
+     "command": 58
+    },
+    "BACK": {
+     "protocol": "SIRC15",
+     "address": 151,
+     "command": 35
+    },
+    "PLAY": {
+     "protocol": "SIRC15",
+     "address": 151,
+     "command": 26
+    },
+    "PAUSE": {
+     "protocol": "SIRC15",
+     "address": 151,
+     "command": 25
+    },
+    "STOP": {
+     "protocol": "SIRC15",
+     "address": 151,
+     "command": 24
+    },
+    "REWIND": {
+     "protocol": "SIRC15",
+     "address": 151,
+     "command": 27
+    },
+    "FFWD": {
+     "protocol": "SIRC15",
+     "address": 151,
+     "command": 28
+    }
+   },
+   "id": "sony-2"
+  },
+  {
+   "brand": "Philips",
+   "name": "Philips (RC6, 2008 et après)",
+   "source": "Écrit à la main",
+   "verified": false,
+   "keys": {
+    "POWER": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 12
+    },
+    "INPUT": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 56
+    },
+    "VOL_UP": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 16
+    },
+    "VOL_DOWN": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 17
+    },
+    "MUTE": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 13
+    },
+    "CH_UP": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 76
+    },
+    "CH_DOWN": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 77
+    },
+    "DIGIT_0": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 0
+    },
+    "DIGIT_1": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 1
+    },
+    "DIGIT_2": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 2
+    },
+    "DIGIT_3": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 3
+    },
+    "DIGIT_4": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 4
+    },
+    "DIGIT_5": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 5
+    },
+    "DIGIT_6": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 6
+    },
+    "DIGIT_7": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 7
+    },
+    "DIGIT_8": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 8
+    },
+    "DIGIT_9": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 9
+    },
+    "HOME": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 84
+    },
+    "SETTINGS": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 64
+    },
+    "UP": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 88
+    },
+    "DOWN": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 89
+    },
+    "LEFT": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 90
+    },
+    "RIGHT": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 91
+    },
+    "OK": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 92
+    },
+    "BACK": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 10
+    },
+    "INFO": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 15
+    },
+    "GUIDE": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 204
+    },
+    "SUBTITLE": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 75
+    },
+    "PLAY": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 44
+    },
+    "PAUSE": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 48
+    },
+    "STOP": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 49
+    },
+    "REWIND": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 41
+    },
+    "FFWD": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 40
+    },
+    "RED": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 109
+    },
+    "GREEN": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 110
+    },
+    "YELLOW": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 111
+    },
+    "BLUE": {
+     "protocol": "RC6",
+     "address": 0,
+     "command": 112
+    }
+   },
+   "id": "philips-rc6-2008-et-apr-s-3"
+  },
+  {
+   "brand": "Philips",
+   "name": "Philips (RC5, modèles anciens)",
+   "source": "Écrit à la main",
+   "verified": false,
+   "keys": {
+    "POWER": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 12
+    },
+    "VOL_UP": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 16
+    },
+    "VOL_DOWN": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 17
+    },
+    "MUTE": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 13
+    },
+    "CH_UP": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 32
+    },
+    "CH_DOWN": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 33
+    },
+    "PREV_CH": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 34
+    },
+    "INFO": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 15
+    },
+    "DIGIT_0": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 0
+    },
+    "DIGIT_1": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 1
+    },
+    "DIGIT_2": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 2
+    },
+    "DIGIT_3": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 3
+    },
+    "DIGIT_4": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 4
+    },
+    "DIGIT_5": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 5
+    },
+    "DIGIT_6": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 6
+    },
+    "DIGIT_7": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 7
+    },
+    "DIGIT_8": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 8
+    },
+    "DIGIT_9": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 9
+    }
+   },
+   "id": "philips-rc5-mod-les-anciens-4"
+  },
+  {
+   "brand": "Panasonic",
+   "name": "Panasonic",
+   "source": "Écrit à la main",
+   "verified": false,
+   "keys": {
+    "POWER": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 61
+    },
+    "INPUT": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 5
+    },
+    "VOL_UP": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 32
+    },
+    "VOL_DOWN": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 33
+    },
+    "MUTE": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 50
+    },
+    "CH_UP": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 52
+    },
+    "CH_DOWN": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 53
+    },
+    "MENU": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 6
+    },
+    "INFO": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 57
+    },
+    "UP": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 74
+    },
+    "DOWN": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 75
+    },
+    "LEFT": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 78
+    },
+    "RIGHT": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 79
+    },
+    "OK": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 73
+    },
+    "BACK": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 43
+    },
+    "DIGIT_1": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 16
+    },
+    "DIGIT_2": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 17
+    },
+    "DIGIT_3": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 18
+    },
+    "DIGIT_4": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 19
+    },
+    "DIGIT_5": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 20
+    },
+    "DIGIT_6": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 21
+    },
+    "DIGIT_7": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 22
+    },
+    "DIGIT_8": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 23
+    },
+    "DIGIT_9": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 24
+    },
+    "DIGIT_0": {
+     "protocol": "Panasonic",
+     "address": 128,
+     "command": 25
+    }
+   },
+   "id": "panasonic-5"
+  },
+  {
+   "brand": "Sharp",
+   "name": "Sharp (Aquos)",
+   "source": "Écrit à la main",
+   "verified": false,
+   "keys": {
+    "POWER": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 22
+    },
+    "INPUT": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 19
+    },
+    "VOL_UP": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 20
+    },
+    "VOL_DOWN": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 21
+    },
+    "MUTE": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 23
+    },
+    "CH_UP": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 17
+    },
+    "CH_DOWN": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 18
+    },
+    "DIGIT_1": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 1
+    },
+    "DIGIT_2": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 2
+    },
+    "DIGIT_3": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 3
+    },
+    "DIGIT_4": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 4
+    },
+    "DIGIT_5": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 5
+    },
+    "DIGIT_6": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 6
+    },
+    "DIGIT_7": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 7
+    },
+    "DIGIT_8": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 8
+    },
+    "DIGIT_9": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 9
+    },
+    "DIGIT_0": {
+     "protocol": "Sharp",
+     "address": 1,
+     "command": 10
+    }
+   },
+   "id": "sharp-aquos-6"
+  },
+  {
+   "brand": "Toshiba",
+   "name": "Toshiba",
+   "source": "Écrit à la main",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 18
+    },
+    "INPUT": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 15
+    },
+    "VOL_UP": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 26
+    },
+    "VOL_DOWN": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 30
+    },
+    "MUTE": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 16
+    },
+    "CH_UP": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 27
+    },
+    "CH_DOWN": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 31
+    },
+    "DIGIT_0": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 0
+    },
+    "DIGIT_1": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 1
+    },
+    "DIGIT_2": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 2
+    },
+    "DIGIT_3": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 3
+    },
+    "DIGIT_4": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 4
+    },
+    "DIGIT_5": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 5
+    },
+    "DIGIT_6": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 6
+    },
+    "DIGIT_7": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 7
+    },
+    "DIGIT_8": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 8
+    },
+    "DIGIT_9": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 9
+    }
+   },
+   "id": "toshiba-7"
+  },
+  {
+   "brand": "Bush",
+   "name": "Bush (TV DLED32287HDCNTDFVP)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 12
+    },
+    "VOL_UP": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 16
+    },
+    "VOL_DOWN": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 17
+    },
+    "MUTE": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 13
+    },
+    "INFO": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 18
+    },
+    "CH_UP": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 32
+    },
+    "CH_DOWN": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 33
+    },
+    "UP": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 20
+    },
+    "DOWN": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 19
+    },
+    "LEFT": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 21
+    },
+    "RIGHT": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 22
+    },
+    "BACK": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 10
+    },
+    "OK": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 53
+    },
+    "EXIT": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 37
+    },
+    "INPUT": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 56
+    },
+    "RED": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 55
+    },
+    "GREEN": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 54
+    },
+    "YELLOW": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 50
+    },
+    "BLUE": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 52
+    },
+    "PLAY": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 25
+    },
+    "PAUSE": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 49
+    },
+    "FFWD": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 28
+    },
+    "REWIND": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 27
+    },
+    "STOP": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 24
+    },
+    "SETTINGS": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 43
+    },
+    "SUBTITLE": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 31
+    },
+    "DIGIT_1": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 1
+    },
+    "DIGIT_2": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 2
+    },
+    "DIGIT_3": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 3
+    },
+    "DIGIT_4": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 4
+    },
+    "DIGIT_5": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 5
+    },
+    "DIGIT_6": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 6
+    },
+    "DIGIT_7": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 7
+    },
+    "DIGIT_8": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 8
+    },
+    "DIGIT_9": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 9
+    },
+    "DIGIT_0": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 0
+    },
+    "GUIDE": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 47
+    }
+   },
+   "id": "bush-tv-dled32287hdcntdfvp-8"
+  },
+  {
+   "brand": "Continental Edison",
+   "name": "Continental Edison (CELD55SQLDV24B6)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 59925
+    },
+    "VOL_UP": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 58395
+    },
+    "VOL_DOWN": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 58650
+    },
+    "MUTE": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 59670
+    },
+    "CH_UP": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 58905
+    },
+    "UP": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 62220
+    },
+    "DOWN": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 61965
+    },
+    "RIGHT": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 61710
+    },
+    "LEFT": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 61455
+    },
+    "OK": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 60945
+    },
+    "INPUT": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 60690
+    },
+    "SETTINGS": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 59415
+    },
+    "HOME": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 48450
+    },
+    "EXIT": {
+     "protocol": "NECext",
+     "address": 32512,
+     "command": 52530
+    }
+   },
+   "id": "continental-edison-celd55sqldv24b6-9"
+  },
+  {
+   "brand": "Crown",
+   "name": "Crown (RC647340)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 12
+    },
+    "VOL_UP": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 16
+    },
+    "VOL_DOWN": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 17
+    },
+    "MUTE": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 13
+    },
+    "CH_UP": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 32
+    },
+    "CH_DOWN": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 33
+    },
+    "MENU": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 11
+    },
+    "INPUT": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 56
+    },
+    "DIGIT_1": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 1
+    },
+    "DIGIT_2": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 2
+    },
+    "DIGIT_3": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 3
+    },
+    "DIGIT_4": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 4
+    },
+    "DIGIT_5": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 5
+    },
+    "DIGIT_6": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 6
+    },
+    "DIGIT_7": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 7
+    },
+    "DIGIT_8": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 8
+    },
+    "DIGIT_9": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 9
+    },
+    "DIGIT_0": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 0
+    },
+    "OK": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 59
+    },
+    "INFO": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 15
+    },
+    "RED": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 55
+    },
+    "GREEN": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 54
+    },
+    "YELLOW": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 50
+    },
+    "BLUE": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 52
+    }
+   },
+   "id": "crown-rc647340-10"
+  },
+  {
+   "brand": "DuraBrand",
+   "name": "DuraBrand (DU-1301)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 61455
+    },
+    "VOL_UP": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 62220
+    },
+    "VOL_DOWN": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 61965
+    },
+    "CH_UP": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 62730
+    },
+    "CH_DOWN": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 62475
+    },
+    "MUTE": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 61710
+    },
+    "DIGIT_1": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 65280
+    },
+    "DIGIT_2": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 65025
+    },
+    "DIGIT_4": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 64515
+    },
+    "DIGIT_5": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 64260
+    },
+    "DIGIT_6": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 64005
+    },
+    "DIGIT_7": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 63750
+    },
+    "DIGIT_8": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 63495
+    },
+    "DIGIT_9": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 63240
+    },
+    "DIGIT_0": {
+     "protocol": "NECext",
+     "address": 1414,
+     "command": 62985
+    }
+   },
+   "id": "durabrand-du-1301-11"
+  },
+  {
+   "brand": "Grundig",
+   "name": "Grundig (TP750C)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "raw": [
+      568,
+      2595,
+      570,
+      485,
+      569,
+      485,
+      570,
+      485,
+      570,
+      485,
+      570,
+      486,
+      569,
+      485,
+      570,
+      485,
+      570,
+      484,
+      571,
+      484,
+      571,
+      19818,
+      570,
+      2596,
+      569,
+      1013,
+      1098,
+      1011,
+      570,
+      486,
+      569,
+      485,
+      570,
+      485,
+      570,
+      487,
+      568,
+      484,
+      571,
+      485,
+      570,
+      116371,
+      620,
+      2545,
+      620,
+      962,
+      1149,
+      960,
+      621,
+      434,
+      621,
+      434,
+      621,
+      434,
+      621,
+      435,
+      620,
+      436,
+      618,
+      435,
+      620,
+      116332,
+      621,
+      2543,
+      621,
+      433,
+      622,
+      433,
+      622,
+      434,
+      621,
+      433,
+      621,
+      434,
+      621,
+      435,
+      620,
+      432,
+      622,
+      432,
+      623,
+      433,
+      621
+     ],
+     "frequency": 38000
+    },
+    "VOL_UP": {
+     "raw": [
+      510,
+      2653,
+      610,
+      443,
+      513,
+      542,
+      611,
+      443,
+      612,
+      443,
+      611,
+      446,
+      611,
+      443,
+      607,
+      447,
+      511,
+      544,
+      608,
+      445,
+      609,
+      19779,
+      607,
+      2554,
+      513,
+      1070,
+      512,
+      541,
+      514,
+      543,
+      1141,
+      969,
+      608,
+      446,
+      512,
+      542,
+      513,
+      543,
+      512,
+      543,
+      608,
+      116330,
+      510,
+      2652,
+      512,
+      543,
+      512,
+      543,
+      511,
+      544,
+      511,
+      543,
+      511,
+      543,
+      512,
+      543,
+      512,
+      542,
+      513,
+      543,
+      511,
+      543,
+      511
+     ],
+     "frequency": 38000
+    },
+    "VOL_DOWN": {
+     "raw": [
+      621,
+      2542,
+      623,
+      431,
+      624,
+      432,
+      623,
+      432,
+      623,
+      431,
+      624,
+      432,
+      623,
+      431,
+      624,
+      431,
+      624,
+      431,
+      624,
+      431,
+      624,
+      19765,
+      624,
+      2540,
+      625,
+      431,
+      624,
+      957,
+      625,
+      429,
+      1154,
+      956,
+      625,
+      430,
+      624,
+      430,
+      625,
+      429,
+      626,
+      430,
+      625,
+      116315,
+      511,
+      2653,
+      609,
+      445,
+      569,
+      1014,
+      568,
+      486,
+      1098,
+      1013,
+      628,
+      426,
+      568,
+      486,
+      569,
+      486,
+      569,
+      486,
+      569,
+      116383,
+      622,
+      2540,
+      625,
+      430,
+      625,
+      431,
+      624,
+      430,
+      625,
+      430,
+      624,
+      431,
+      624,
+      429,
+      625,
+      429,
+      626,
+      430,
+      624,
+      430,
+      625
+     ],
+     "frequency": 38000
+    },
+    "CH_UP": {
+     "raw": [
+      622,
+      2540,
+      624,
+      431,
+      624,
+      430,
+      624,
+      431,
+      623,
+      431,
+      623,
+      431,
+      624,
+      431,
+      623,
+      430,
+      624,
+      431,
+      624,
+      431,
+      623,
+      19763,
+      621,
+      2542,
+      622,
+      960,
+      1151,
+      960,
+      1149,
+      962,
+      1148,
+      961,
+      619,
+      434,
+      620,
+      435,
+      642,
+      116287,
+      509,
+      2654,
+      601,
+      981,
+      1040,
+      1071,
+      1038,
+      1071,
+      1039,
+      1070,
+      510,
+      545,
+      510,
+      545,
+      509,
+      116427,
+      612,
+      2553,
+      612,
+      442,
+      613,
+      441,
+      614,
+      443,
+      611,
+      442,
+      613,
+      443,
+      612,
+      442,
+      612,
+      442,
+      612,
+      443,
+      612,
+      443,
+      611
+     ],
+     "frequency": 38000
+    },
+    "CH_DOWN": {
+     "raw": [
+      602,
+      2560,
+      603,
+      452,
+      511,
+      544,
+      511,
+      544,
+      510,
+      544,
+      511,
+      544,
+      511,
+      546,
+      509,
+      545,
+      510,
+      545,
+      510,
+      544,
+      511,
+      19876,
+      509,
+      2656,
+      539,
+      515,
+      540,
+      516,
+      539,
+      1042,
+      1069,
+      1042,
+      1068,
+      1040,
+      540,
+      515,
+      539,
+      515,
+      540,
+      116398,
+      603,
+      2560,
+      605,
+      449,
+      605,
+      450,
+      605,
+      449,
+      605,
+      450,
+      604,
+      450,
+      603,
+      452,
+      605,
+      451,
+      603,
+      451,
+      603,
+      449,
+      606
+     ],
+     "frequency": 38000
+    },
+    "OK": {
+     "raw": [
+      623,
+      2540,
+      626,
+      428,
+      570,
+      486,
+      625,
+      428,
+      627,
+      428,
+      627,
+      428,
+      569,
+      485,
+      627,
+      428,
+      627,
+      428,
+      626,
+      428,
+      627,
+      19760,
+      625,
+      2538,
+      627,
+      956,
+      625,
+      428,
+      627,
+      429,
+      624,
+      430,
+      625,
+      429,
+      626,
+      429,
+      625,
+      429,
+      626,
+      428,
+      627,
+      428,
+      627,
+      116314,
+      568,
+      2595,
+      628,
+      426,
+      628,
+      428,
+      627,
+      426,
+      629,
+      425,
+      571,
+      486,
+      626,
+      427,
+      570,
+      486,
+      626,
+      428,
+      627,
+      427,
+      627
+     ],
+     "frequency": 38000
+    },
+    "MUTE": {
+     "raw": [
+      612,
+      2551,
+      613,
+      441,
+      615,
+      440,
+      613,
+      442,
+      614,
+      440,
+      613,
+      441,
+      615,
+      440,
+      614,
+      440,
+      615,
+      439,
+      615,
+      440,
+      615,
+      19750,
+      615,
+      2551,
+      614,
+      439,
+      614,
+      967,
+      616,
+      439,
+      615,
+      439,
+      615,
+      441,
+      615,
+      439,
+      616,
+      437,
+      617,
+      440,
+      615,
+      438,
+      616,
+      116327,
+      611,
+      2551,
+      613,
+      442,
+      613,
+      969,
+      614,
+      440,
+      612,
+      443,
+      613,
+      441,
+      613,
+      440,
+      614,
+      442,
+      611,
+      442,
+      614,
+      441,
+      614,
+      116326,
+      615,
+      2549,
+      616,
+      439,
+      614,
+      439,
+      617,
+      439,
+      614,
+      440,
+      616,
+      438,
+      616,
+      439,
+      617,
+      438,
+      616,
+      439,
+      617,
+      438,
+      615
+     ],
+     "frequency": 38000
+    },
+    "INFO": {
+     "raw": [
+      508,
+      2656,
+      509,
+      545,
+      510,
+      545,
+      509,
+      545,
+      510,
+      545,
+      510,
+      545,
+      510,
+      545,
+      510,
+      544,
+      511,
+      545,
+      510,
+      545,
+      509,
+      19877,
+      508,
+      2654,
+      511,
+      544,
+      602,
+      979,
+      1131,
+      452,
+      511,
+      1071,
+      1132,
+      978,
+      605,
+      449,
+      606,
+      448,
+      606,
+      116326,
+      621,
+      2544,
+      620,
+      432,
+      623,
+      960,
+      1151,
+      430,
+      624,
+      960,
+      1151,
+      959,
+      621,
+      433,
+      622,
+      431,
+      623,
+      116308,
+      621,
+      2541,
+      623,
+      432,
+      623,
+      960,
+      1151,
+      430,
+      624,
+      958,
+      1153,
+      958,
+      623,
+      431,
+      623,
+      431,
+      624,
+      116318,
+      624,
+      2540,
+      624,
+      430,
+      624,
+      430,
+      625,
+      430,
+      625,
+      430,
+      624,
+      431,
+      624,
+      431,
+      623,
+      430,
+      624,
+      430,
+      625,
+      430,
+      624
+     ],
+     "frequency": 38000
+    },
+    "RED": {
+     "raw": [
+      485,
+      2679,
+      486,
+      569,
+      486,
+      571,
+      484,
+      569,
+      486,
+      569,
+      486,
+      570,
+      485,
+      570,
+      484,
+      570,
+      485,
+      569,
+      485,
+      570,
+      485,
+      19902,
+      485,
+      2680,
+      485,
+      1098,
+      1014,
+      1095,
+      1015,
+      567,
+      486,
+      569,
+      486,
+      1097,
+      485,
+      569,
+      486,
+      569,
+      486,
+      116464,
+      510,
+      2655,
+      510,
+      544,
+      511,
+      545,
+      510,
+      543,
+      512,
+      544,
+      511,
+      545,
+      510,
+      544,
+      511,
+      544,
+      511,
+      544,
+      511,
+      544,
+      511
+     ],
+     "frequency": 38000
+    },
+    "GREEN": {
+     "raw": [
+      622,
+      2543,
+      622,
+      432,
+      622,
+      433,
+      622,
+      432,
+      623,
+      433,
+      622,
+      433,
+      621,
+      433,
+      622,
+      433,
+      622,
+      433,
+      622,
+      433,
+      621,
+      19766,
+      590,
+      2573,
+      592,
+      991,
+      1120,
+      463,
+      622,
+      433,
+      590,
+      463,
+      592,
+      465,
+      622,
+      959,
+      623,
+      432,
+      621,
+      433,
+      591,
+      116349,
+      623,
+      2542,
+      623,
+      959,
+      1153,
+      430,
+      623,
+      433,
+      622,
+      433,
+      621,
+      431,
+      624,
+      960,
+      622,
+      431,
+      623,
+      432,
+      623,
+      116328,
+      570,
+      2596,
+      569,
+      484,
+      571,
+      485,
+      570,
+      485,
+      570,
+      486,
+      569,
+      485,
+      570,
+      486,
+      569,
+      485,
+      570,
+      486,
+      569,
+      485,
+      626
+     ],
+     "frequency": 38000
+    },
+    "YELLOW": {
+     "raw": [
+      510,
+      2653,
+      611,
+      443,
+      513,
+      542,
+      513,
+      542,
+      611,
+      443,
+      513,
+      542,
+      614,
+      441,
+      513,
+      542,
+      610,
+      446,
+      610,
+      444,
+      612,
+      19775,
+      512,
+      2652,
+      611,
+      443,
+      514,
+      543,
+      512,
+      1070,
+      1041,
+      541,
+      512,
+      543,
+      512,
+      1070,
+      610,
+      445,
+      512,
+      543,
+      512,
+      116429,
+      569,
+      2596,
+      569,
+      485,
+      570,
+      484,
+      571,
+      1012,
+      1099,
+      484,
+      569,
+      484,
+      571,
+      1013,
+      569,
+      485,
+      570,
+      484,
+      571,
+      116383,
+      569,
+      2596,
+      569,
+      485,
+      570,
+      485,
+      570,
+      486,
+      569,
+      484,
+      571,
+      484,
+      571,
+      485,
+      570,
+      485,
+      570,
+      484,
+      571,
+      484,
+      571
+     ],
+     "frequency": 38000
+    },
+    "BLUE": {
+     "raw": [
+      622,
+      2543,
+      622,
+      432,
+      622,
+      432,
+      623,
+      433,
+      622,
+      431,
+      623,
+      432,
+      623,
+      432,
+      623,
+      431,
+      623,
+      432,
+      623,
+      431,
+      624,
+      19766,
+      622,
+      2542,
+      623,
+      959,
+      1152,
+      431,
+      622,
+      432,
+      623,
+      960,
+      1151,
+      958,
+      623,
+      432,
+      623,
+      433,
+      621,
+      116320,
+      621,
+      2544,
+      621,
+      962,
+      1149,
+      432,
+      621,
+      433,
+      622,
+      961,
+      1150,
+      959,
+      622,
+      434,
+      620,
+      433,
+      622,
+      116334,
+      621,
+      2544,
+      620,
+      434,
+      622,
+      432,
+      623,
+      433,
+      622,
+      432,
+      622,
+      432,
+      623,
+      431,
+      624,
+      432,
+      591,
+      462,
+      625,
+      431,
+      623
+     ],
+     "frequency": 38000
+    },
+    "DIGIT_1": {
+     "raw": [
+      619,
+      2545,
+      621,
+      434,
+      620,
+      434,
+      621,
+      436,
+      619,
+      435,
+      620,
+      433,
+      621,
+      435,
+      620,
+      434,
+      621,
+      435,
+      620,
+      434,
+      620,
+      19768,
+      620,
+      2545,
+      620,
+      434,
+      620,
+      963,
+      619,
+      434,
+      621,
+      434,
+      1150,
+      960,
+      621,
+      434,
+      620,
+      435,
+      619,
+      434,
+      621,
+      116323,
+      641,
+      2523,
+      619,
+      435,
+      619,
+      963,
+      619,
+      437,
+      641,
+      413,
+      1147,
+      963,
+      618,
+      436,
+      642,
+      412,
+      642,
+      413,
+      642,
+      116311,
+      615,
+      2552,
+      613,
+      442,
+      613,
+      441,
+      613,
+      441,
+      608,
+      446,
+      608,
+      447,
+      608,
+      446,
+      609,
+      448,
+      607,
+      448,
+      606,
+      447,
+      608
+     ],
+     "frequency": 38000
+    },
+    "DIGIT_2": {
+     "raw": [
+      570,
+      2597,
+      568,
+      484,
+      628,
+      427,
+      571,
+      484,
+      627,
+      428,
+      570,
+      486,
+      569,
+      486,
+      569,
+      486,
+      569,
+      485,
+      570,
+      485,
+      570,
+      19819,
+      569,
+      2595,
+      570,
+      1012,
+      1099,
+      1012,
+      569,
+      485,
+      1099,
+      1011,
+      610,
+      444,
+      571,
+      485,
+      609,
+      445,
+      513,
+      116432,
+      609,
+      2557,
+      610,
+      971,
+      1139,
+      969,
+      611,
+      445,
+      1042,
+      1068,
+      513,
+      543,
+      609,
+      444,
+      610,
+      445,
+      513,
+      116441,
+      621,
+      2544,
+      621,
+      432,
+      622,
+      436,
+      619,
+      435,
+      620,
+      434,
+      620,
+      434,
+      621,
+      434,
+      621,
+      432,
+      622,
+      435,
+      620,
+      435,
+      643
+     ],
+     "frequency": 38000
+    },
+    "DIGIT_3": {
+     "raw": [
+      617,
+      2546,
+      642,
+      413,
+      618,
+      436,
+      642,
+      412,
+      619,
+      438,
+      617,
+      437,
+      617,
+      439,
+      616,
+      436,
+      618,
+      436,
+      619,
+      437,
+      618,
+      19771,
+      616,
+      2548,
+      640,
+      415,
+      640,
+      414,
+      617,
+      966,
+      640,
+      415,
+      1169,
+      942,
+      615,
+      439,
+      615,
+      439,
+      639,
+      415,
+      639,
+      116317,
+      640,
+      2522,
+      620,
+      436,
+      619,
+      436,
+      619,
+      437,
+      618,
+      435,
+      620,
+      435,
+      620,
+      436,
+      619,
+      436,
+      618,
+      436,
+      619,
+      437,
+      641
+     ],
+     "frequency": 38000
+    },
+    "DIGIT_4": {
+     "raw": [
+      509,
+      2654,
+      511,
+      544,
+      511,
+      543,
+      512,
+      545,
+      510,
+      545,
+      510,
+      544,
+      511,
+      544,
+      511,
+      544,
+      511,
+      543,
+      512,
+      545,
+      510,
+      19877,
+      511,
+      2655,
+      510,
+      1072,
+      510,
+      545,
+      1039,
+      1071,
+      1039,
+      1070,
+      511,
+      545,
+      510,
+      544,
+      511,
+      545,
+      510,
+      116434,
+      510,
+      2654,
+      511,
+      1071,
+      511,
+      543,
+      1041,
+      1070,
+      1040,
+      1070,
+      511,
+      544,
+      511,
+      544,
+      511,
+      544,
+      511,
+      116444,
+      613,
+      2550,
+      615,
+      442,
+      612,
+      443,
+      612,
+      441,
+      614,
+      440,
+      614,
+      442,
+      607,
+      447,
+      614,
+      442,
+      607,
+      446,
+      609,
+      446,
+      609
+     ],
+     "frequency": 38000
+    },
+    "DIGIT_5": {
+     "raw": [
+      568,
+      2597,
+      568,
+      485,
+      570,
+      484,
+      570,
+      485,
+      570,
+      485,
+      570,
+      485,
+      570,
+      485,
+      570,
+      483,
+      572,
+      485,
+      570,
+      485,
+      570,
+      19818,
+      570,
+      2595,
+      570,
+      484,
+      571,
+      1012,
+      1099,
+      1011,
+      1099,
+      1011,
+      570,
+      485,
+      570,
+      484,
+      571,
+      483,
+      572,
+      116374,
+      622,
+      2543,
+      622,
+      432,
+      623,
+      960,
+      1151,
+      958,
+      1152,
+      959,
+      622,
+      432,
+      622,
+      432,
+      623,
+      432,
+      623,
+      116334,
+      621,
+      2544,
+      621,
+      434,
+      620,
+      434,
+      621,
+      432,
+      623,
+      431,
+      624,
+      432,
+      623,
+      433,
+      621,
+      435,
+      620,
+      434,
+      621,
+      434,
+      621
+     ],
+     "frequency": 38000
+    },
+    "DIGIT_6": {
+     "raw": [
+      569,
+      2595,
+      570,
+      485,
+      570,
+      485,
+      570,
+      484,
+      571,
+      485,
+      570,
+      484,
+      571,
+      485,
+      570,
+      485,
+      570,
+      485,
+      570,
+      485,
+      570,
+      19819,
+      511,
+      2653,
+      512,
+      1072,
+      1039,
+      542,
+      511,
+      1070,
+      1042,
+      1069,
+      512,
+      543,
+      512,
+      542,
+      513,
+      543,
+      512,
+      116432,
+      638,
+      2526,
+      615,
+      967,
+      1144,
+      440,
+      613,
+      970,
+      1142,
+      965,
+      616,
+      440,
+      615,
+      440,
+      614,
+      440,
+      615,
+      116343,
+      604,
+      2559,
+      606,
+      449,
+      606,
+      449,
+      606,
+      450,
+      604,
+      449,
+      606,
+      450,
+      605,
+      450,
+      605,
+      450,
+      605,
+      449,
+      606,
+      449,
+      606
+     ],
+     "frequency": 38000
+    },
+    "DIGIT_7": {
+     "raw": [
+      568,
+      2596,
+      569,
+      486,
+      569,
+      483,
+      572,
+      485,
+      570,
+      485,
+      570,
+      485,
+      570,
+      485,
+      570,
+      484,
+      571,
+      485,
+      569,
+      485,
+      626,
+      19762,
+      570,
+      2595,
+      570,
+      486,
+      569,
+      486,
+      626,
+      429,
+      569,
+      1013,
+      1098,
+      1011,
+      570,
+      485,
+      570,
+      485,
+      626,
+      429,
+      569,
+      116376,
+      569,
+      2594,
+      571,
+      485,
+      570,
+      485,
+      570,
+      484,
+      571,
+      1012,
+      1099,
+      1010,
+      571,
+      485,
+      570,
+      484,
+      571,
+      485,
+      570,
+      116387,
+      591,
+      2573,
+      624,
+      430,
+      625,
+      430,
+      625,
+      429,
+      625,
+      430,
+      625,
+      429,
+      625,
+      431,
+      623,
+      429,
+      626,
+      431,
+      624,
+      430,
+      625
+     ],
+     "frequency": 38000
+    },
+    "DIGIT_8": {
+     "raw": [
+      616,
+      2548,
+      618,
+      438,
+      617,
+      438,
+      617,
+      438,
+      616,
+      437,
+      618,
+      438,
+      617,
+      437,
+      617,
+      439,
+      616,
+      438,
+      616,
+      438,
+      640,
+      19748,
+      618,
+      2545,
+      620,
+      964,
+      619,
+      435,
+      619,
+      434,
+      1150,
+      433,
+      620,
+      962,
+      621,
+      434,
+      620,
+      435,
+      620,
+      435,
+      620,
+      116326,
+      569,
+      2594,
+      571,
+      1012,
+      570,
+      484,
+      571,
+      483,
+      1101,
+      483,
+      570,
+      1012,
+      570,
+      484,
+      571,
+      484,
+      571,
+      484,
+      571,
+      116386,
+      624,
+      2540,
+      625,
+      429,
+      626,
+      429,
+      626,
+      430,
+      625,
+      428,
+      626,
+      428,
+      627,
+      429,
+      625,
+      430,
+      625,
+      430,
+      625,
+      431,
+      624
+     ],
+     "frequency": 38000
+    },
+    "DIGIT_9": {
+     "raw": [
+      621,
+      2542,
+      623,
+      431,
+      624,
+      433,
+      622,
+      432,
+      622,
+      432,
+      623,
+      432,
+      623,
+      433,
+      622,
+      433,
+      622,
+      432,
+      623,
+      432,
+      623,
+      19767,
+      621,
+      2543,
+      621,
+      432,
+      623,
+      960,
+      622,
+      433,
+      1151,
+      433,
+      620,
+      961,
+      621,
+      432,
+      623,
+      433,
+      621,
+      433,
+      622,
+      116324,
+      623,
+      2542,
+      623,
+      431,
+      623,
+      959,
+      625,
+      431,
+      1152,
+      428,
+      625,
+      960,
+      622,
+      432,
+      623,
+      429,
+      626,
+      431,
+      624,
+      116332,
+      622,
+      2544,
+      621,
+      433,
+      622,
+      432,
+      623,
+      432,
+      622,
+      433,
+      622,
+      434,
+      620,
+      432,
+      623,
+      433,
+      622,
+      433,
+      622,
+      433,
+      622
+     ],
+     "frequency": 38000
+    },
+    "DIGIT_0": {
+     "raw": [
+      621,
+      2544,
+      621,
+      432,
+      623,
+      432,
+      623,
+      432,
+      623,
+      433,
+      622,
+      433,
+      622,
+      432,
+      623,
+      432,
+      623,
+      432,
+      622,
+      432,
+      623,
+      19745,
+      622,
+      2542,
+      623,
+      960,
+      622,
+      433,
+      622,
+      432,
+      622,
+      433,
+      1151,
+      959,
+      622,
+      431,
+      624,
+      433,
+      622,
+      432,
+      623,
+      116335,
+      624,
+      2539,
+      626,
+      957,
+      625,
+      429,
+      625,
+      430,
+      625,
+      430,
+      1154,
+      956,
+      625,
+      430,
+      624,
+      431,
+      624,
+      430,
+      625,
+      116332,
+      622,
+      2543,
+      622,
+      433,
+      622,
+      433,
+      622,
+      433,
+      622,
+      433,
+      622,
+      433,
+      622,
+      433,
+      621,
+      433,
+      622,
+      433,
+      622,
+      433,
+      622
+     ],
+     "frequency": 38000
+    }
+   },
+   "id": "grundig-tp750c-12"
+  },
+  {
+   "brand": "Hitachi",
+   "name": "Hitachi (CLE-1031)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 18
+    },
+    "VOL_UP": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 26
+    },
+    "VOL_DOWN": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 30
+    },
+    "MUTE": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 16
+    },
+    "CH_UP": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 27
+    },
+    "CH_DOWN": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 31
+    },
+    "OK": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 10
+    },
+    "UP": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 25
+    },
+    "DOWN": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 29
+    },
+    "LEFT": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 70
+    },
+    "RIGHT": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 71
+    },
+    "MENU": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 73
+    },
+    "BACK": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 64
+    },
+    "PLAY": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 87
+    },
+    "PAUSE": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 72
+    },
+    "STOP": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 84
+    },
+    "FFWD": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 78
+    },
+    "REWIND": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 79
+    },
+    "INPUT": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 20
+    },
+    "EXIT": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 68
+    },
+    "INFO": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 22
+    },
+    "DIGIT_1": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 1
+    },
+    "DIGIT_2": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 2
+    },
+    "DIGIT_3": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 3
+    },
+    "DIGIT_4": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 4
+    },
+    "DIGIT_5": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 5
+    },
+    "DIGIT_6": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 6
+    },
+    "DIGIT_7": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 7
+    },
+    "DIGIT_8": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 8
+    },
+    "DIGIT_9": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 9
+    },
+    "DIGIT_0": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 0
+    },
+    "SETTINGS": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 15
+    },
+    "RED": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 74
+    },
+    "GREEN": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 75
+    },
+    "YELLOW": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 76
+    },
+    "BLUE": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 77
+    },
+    "GUIDE": {
+     "protocol": "NEC",
+     "address": 80,
+     "command": 11
+    }
+   },
+   "id": "hitachi-cle-1031-13"
+  },
+  {
+   "brand": "JVC",
+   "name": "JVC (LT-49HW97U)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 12
+    },
+    "MUTE": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 13
+    },
+    "MENU": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 17
+    },
+    "INPUT": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 15
+    },
+    "OK": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 70
+    },
+    "UP": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 66
+    },
+    "DOWN": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 67
+    },
+    "LEFT": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 68
+    },
+    "RIGHT": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 69
+    },
+    "EXIT": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 181
+    },
+    "VOL_UP": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 20
+    },
+    "VOL_DOWN": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 21
+    },
+    "CH_UP": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 18
+    },
+    "CH_DOWN": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 19
+    },
+    "HOME": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 120
+    },
+    "DIGIT_1": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 1
+    },
+    "DIGIT_2": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 2
+    },
+    "DIGIT_3": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 3
+    },
+    "DIGIT_4": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 4
+    },
+    "DIGIT_5": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 5
+    },
+    "DIGIT_6": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 6
+    },
+    "DIGIT_7": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 7
+    },
+    "DIGIT_8": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 8
+    },
+    "DIGIT_9": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 9
+    },
+    "DIGIT_0": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 0
+    },
+    "BACK": {
+     "protocol": "Samsung32",
+     "address": 14,
+     "command": 187
+    }
+   },
+   "id": "jvc-lt-49hw97u-14"
+  },
+  {
+   "brand": "Magnavox",
+   "name": "Magnavox (CD130MW8)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 8160
+    },
+    "OK": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 13005
+    },
+    "CH_UP": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 12240
+    },
+    "CH_DOWN": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 14280
+    },
+    "DIGIT_1": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 8415
+    },
+    "DIGIT_2": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 7905
+    },
+    "DIGIT_3": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 7650
+    },
+    "DIGIT_4": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 7395
+    },
+    "DIGIT_5": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 7140
+    },
+    "DIGIT_6": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 6885
+    },
+    "DIGIT_7": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 6630
+    },
+    "DIGIT_8": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 6375
+    },
+    "DIGIT_9": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 6120
+    },
+    "DIGIT_0": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 5865
+    },
+    "VOL_UP": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 4080
+    },
+    "VOL_DOWN": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 3825
+    },
+    "INFO": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 12495
+    },
+    "SETTINGS": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 4335
+    },
+    "MUTE": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 3315
+    },
+    "REWIND": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 44370
+    },
+    "FFWD": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 44115
+    },
+    "PLAY": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 41310
+    },
+    "STOP": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 40800
+    },
+    "LEFT": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 14535
+    },
+    "UP": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 2550
+    },
+    "RIGHT": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 14790
+    },
+    "DOWN": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 2295
+    },
+    "BACK": {
+     "protocol": "NECext",
+     "address": 8839,
+     "command": 35955
+    }
+   },
+   "id": "magnavox-cd130mw8-15"
+  },
+  {
+   "brand": "Philips",
+   "name": "Philips (40PFL6533 F7D)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "NECext",
+     "address": 51178,
+     "command": 59415
+    },
+    "EXIT": {
+     "protocol": "NECext",
+     "address": 51178,
+     "command": 39270
+    },
+    "MENU": {
+     "protocol": "NECext",
+     "address": 51178,
+     "command": 64515
+    },
+    "OK": {
+     "protocol": "NECext",
+     "address": 51178,
+     "command": 54570
+    },
+    "UP": {
+     "protocol": "NECext",
+     "address": 51178,
+     "command": 58905
+    },
+    "DOWN": {
+     "protocol": "NECext",
+     "address": 51178,
+     "command": 52275
+    },
+    "LEFT": {
+     "protocol": "NECext",
+     "address": 51178,
+     "command": 57630
+    },
+    "RIGHT": {
+     "protocol": "NECext",
+     "address": 51178,
+     "command": 53805
+    },
+    "VOL_UP": {
+     "protocol": "NECext",
+     "address": 51178,
+     "command": 61455
+    },
+    "VOL_DOWN": {
+     "protocol": "NECext",
+     "address": 51178,
+     "command": 61200
+    },
+    "MUTE": {
+     "protocol": "NECext",
+     "address": 51178,
+     "command": 57120
+    },
+    "PLAY_PAUSE": {
+     "protocol": "NECext",
+     "address": 51178,
+     "command": 45900
+    }
+   },
+   "id": "philips-40pfl6533-f7d-16"
+  },
+  {
+   "brand": "SEG",
+   "name": "SEG (MALTA)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "CH_DOWN": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 33
+    },
+    "CH_UP": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 32
+    },
+    "INPUT": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 56
+    },
+    "VOL_DOWN": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 17
+    },
+    "VOL_UP": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 16
+    },
+    "POWER_OFF": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 12
+    },
+    "MUTE": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 13
+    },
+    "LEFT": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 21
+    },
+    "RIGHT": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 22
+    },
+    "MENU": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 48
+    },
+    "UP": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 20
+    },
+    "DOWN": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 19
+    },
+    "DIGIT_0": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 0
+    },
+    "DIGIT_1": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 1
+    },
+    "DIGIT_2": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 2
+    },
+    "DIGIT_3": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 3
+    },
+    "DIGIT_4": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 4
+    },
+    "DIGIT_5": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 5
+    },
+    "DIGIT_6": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 6
+    },
+    "DIGIT_7": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 7
+    },
+    "DIGIT_8": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 8
+    },
+    "DIGIT_9": {
+     "protocol": "RC5",
+     "address": 0,
+     "command": 9
+    }
+   },
+   "id": "seg-malta-17"
+  },
+  {
+   "brand": "Samsung",
+   "name": "Samsung (AA59-00484A)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 2
+    },
+    "MUTE": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 15
+    },
+    "VOL_UP": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 7
+    },
+    "VOL_DOWN": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 11
+    },
+    "CH_UP": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 18
+    },
+    "CH_DOWN": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 16
+    },
+    "INPUT": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 1
+    },
+    "INFO": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 31
+    },
+    "MENU": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 26
+    },
+    "GUIDE": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 79
+    },
+    "OK": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 104
+    },
+    "LEFT": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 101
+    },
+    "UP": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 96
+    },
+    "RIGHT": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 98
+    },
+    "DOWN": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 97
+    },
+    "PLAY": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 71
+    },
+    "PAUSE": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 74
+    },
+    "REWIND": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 69
+    },
+    "FFWD": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 72
+    },
+    "STOP": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 70
+    },
+    "DIGIT_0": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 17
+    },
+    "DIGIT_1": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 4
+    },
+    "DIGIT_2": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 5
+    },
+    "DIGIT_3": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 6
+    },
+    "DIGIT_4": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 8
+    },
+    "DIGIT_5": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 9
+    },
+    "DIGIT_6": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 10
+    },
+    "DIGIT_7": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 12
+    },
+    "DIGIT_8": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 13
+    },
+    "DIGIT_9": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 14
+    },
+    "PREV_CH": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 19
+    },
+    "SUBTITLE": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 37
+    },
+    "BACK": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 88
+    },
+    "EXIT": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 45
+    }
+   },
+   "id": "samsung-aa59-00484a-18"
+  },
+  {
+   "brand": "Samsung",
+   "name": "Samsung (BN59-01330C)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 230
+    },
+    "UP": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 96
+    },
+    "DOWN": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 97
+    },
+    "LEFT": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 101
+    },
+    "RIGHT": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 98
+    },
+    "OK": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 104
+    },
+    "BACK": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 88
+    },
+    "HOME": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 121
+    },
+    "PLAY": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 185
+    },
+    "VOL_UP": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 7
+    },
+    "VOL_DOWN": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 11
+    },
+    "MUTE": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 15
+    },
+    "CH_UP": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 18
+    },
+    "CH_DOWN": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 16
+    },
+    "GUIDE": {
+     "protocol": "Samsung32",
+     "address": 7,
+     "command": 79
+    }
+   },
+   "id": "samsung-bn59-01330c-19"
+  },
+  {
+   "brand": "Sanyo",
+   "name": "Sanyo (UR77EC2703-3)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 18
+    },
+    "INPUT": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 19
+    },
+    "MUTE": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 24
+    },
+    "VOL_UP": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 14
+    },
+    "VOL_DOWN": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 15
+    },
+    "CH_UP": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 10
+    },
+    "CH_DOWN": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 11
+    },
+    "INFO": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 12
+    },
+    "PREV_CH": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 25
+    },
+    "SUBTITLE": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 17
+    },
+    "DIGIT_1": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 1
+    },
+    "DIGIT_2": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 2
+    },
+    "DIGIT_3": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 3
+    },
+    "DIGIT_4": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 4
+    },
+    "DIGIT_5": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 5
+    },
+    "DIGIT_6": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 6
+    },
+    "DIGIT_7": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 7
+    },
+    "DIGIT_8": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 8
+    },
+    "DIGIT_9": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 9
+    },
+    "DIGIT_0": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 0
+    },
+    "MENU": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 23
+    },
+    "UP": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 78
+    },
+    "DOWN": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 79
+    },
+    "LEFT": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 31
+    },
+    "RIGHT": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 30
+    },
+    "OK": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 84
+    },
+    "EXIT": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 83
+    }
+   },
+   "id": "sanyo-ur77ec2703-3-20"
+  },
+  {
+   "brand": "Sanyo",
+   "name": "Sanyo (ds32224)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 18
+    },
+    "INPUT": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 19
+    },
+    "VOL_DOWN": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 15
+    },
+    "VOL_UP": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 14
+    },
+    "CH_UP": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 10
+    },
+    "CH_DOWN": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 11
+    },
+    "DIGIT_1": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 1
+    },
+    "DIGIT_2": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 2
+    },
+    "DIGIT_3": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 6
+    },
+    "DIGIT_4": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 4
+    },
+    "DIGIT_5": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 5
+    },
+    "DIGIT_6": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 6
+    },
+    "DIGIT_7": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 7
+    },
+    "DIGIT_8": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 8
+    },
+    "DIGIT_9": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 9
+    },
+    "DIGIT_0": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 0
+    },
+    "SUBTITLE": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 17
+    },
+    "MENU": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 23
+    },
+    "PREV_CH": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 25
+    },
+    "MUTE": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 24
+    },
+    "INFO": {
+     "protocol": "NEC",
+     "address": 56,
+     "command": 12
+    }
+   },
+   "id": "sanyo-ds32224-21"
+  },
+  {
+   "brand": "Technika",
+   "name": "Technika (22880)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 12
+    },
+    "SUBTITLE": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 31
+    },
+    "RED": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 55
+    },
+    "GREEN": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 54
+    },
+    "YELLOW": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 50
+    },
+    "BLUE": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 52
+    },
+    "DIGIT_1": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 1
+    },
+    "DIGIT_2": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 2
+    },
+    "DIGIT_3": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 3
+    },
+    "DIGIT_4": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 4
+    },
+    "DIGIT_5": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 5
+    },
+    "DIGIT_6": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 6
+    },
+    "DIGIT_7": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 7
+    },
+    "DIGIT_8": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 8
+    },
+    "DIGIT_9": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 9
+    },
+    "DIGIT_0": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 0
+    },
+    "MENU": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 48
+    },
+    "UP": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 20
+    },
+    "DOWN": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 19
+    },
+    "LEFT": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 21
+    },
+    "RIGHT": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 22
+    },
+    "BACK": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 10
+    },
+    "OK": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 53
+    },
+    "INPUT": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 56
+    },
+    "VOL_UP": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 16
+    },
+    "VOL_DOWN": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 17
+    },
+    "CH_UP": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 32
+    },
+    "CH_DOWN": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 33
+    },
+    "MUTE": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 13
+    },
+    "INFO": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 18
+    },
+    "GUIDE": {
+     "protocol": "RC5",
+     "address": 1,
+     "command": 47
+    }
+   },
+   "id": "technika-22880-22"
+  },
+  {
+   "brand": "Tevion",
+   "name": "Tevion (3221TS)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 28
+    },
+    "VOL_UP": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 75
+    },
+    "VOL_DOWN": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 79
+    },
+    "MUTE": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 8
+    },
+    "CH_UP": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 9
+    },
+    "CH_DOWN": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 5
+    },
+    "OK": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 6
+    },
+    "UP": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 26
+    },
+    "DOWN": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 72
+    },
+    "LEFT": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 71
+    },
+    "RIGHT": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 7
+    },
+    "MENU": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 24
+    },
+    "BACK": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 73
+    },
+    "INPUT": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 23
+    },
+    "EXIT": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 10
+    },
+    "SUBTITLE": {
+     "protocol": "NEC",
+     "address": 0,
+     "command": 87
+    }
+   },
+   "id": "tevion-3221ts-23"
+  },
+  {
+   "brand": "Toshiba",
+   "name": "Toshiba (CT 8560)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 18
+    },
+    "VOL_UP": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 26
+    },
+    "VOL_DOWN": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 30
+    },
+    "MUTE": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 16
+    },
+    "CH_UP": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 27
+    },
+    "CH_DOWN": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 31
+    },
+    "OK": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 33
+    },
+    "UP": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 25
+    },
+    "DOWN": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 29
+    },
+    "LEFT": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 66
+    },
+    "RIGHT": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 64
+    },
+    "BACK": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 100
+    },
+    "PLAY": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 103
+    },
+    "PAUSE": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 106
+    },
+    "STOP": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 104
+    },
+    "FFWD": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 107
+    },
+    "REWIND": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 108
+    },
+    "INPUT": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 20
+    },
+    "EXIT": {
+     "protocol": "NEC",
+     "address": 64,
+     "command": 67
+    }
+   },
+   "id": "toshiba-ct-8560-24"
+  },
+  {
+   "brand": "Vizio",
+   "name": "Vizio (VX32L)",
+   "source": "Flipper-IRDB (CC0)",
+   "verified": true,
+   "keys": {
+    "POWER": {
+     "raw": [
+      9219,
+      4484,
+      662,
+      469,
+      661,
+      469,
+      661,
+      1627,
+      660,
+      471,
+      658,
+      474,
+      656,
+      499,
+      631,
+      499,
+      631,
+      499,
+      631,
+      1657,
+      630,
+      1657,
+      631,
+      500,
+      630,
+      1657,
+      631,
+      1657,
+      631,
+      1657,
+      630,
+      1657,
+      631,
+      1657,
+      631,
+      500,
+      630,
+      500,
+      630,
+      500,
+      630,
+      1657,
+      630,
+      500,
+      631,
+      500,
+      630,
+      500,
+      631,
+      500,
+      630,
+      1657,
+      630,
+      1658,
+      630,
+      1657,
+      631,
+      500,
+      630,
+      1657,
+      631,
+      1658,
+      630,
+      1658,
+      630,
+      1658,
+      630,
+      40107,
+      9106,
+      2202,
+      631
+     ],
+     "frequency": 38000
+    },
+    "VOL_UP": {
+     "raw": [
+      9218,
+      4484,
+      636,
+      495,
+      660,
+      469,
+      661,
+      1627,
+      660,
+      471,
+      658,
+      472,
+      658,
+      474,
+      656,
+      475,
+      655,
+      474,
+      656,
+      1632,
+      655,
+      1632,
+      656,
+      474,
+      657,
+      1632,
+      656,
+      1631,
+      657,
+      1632,
+      656,
+      1631,
+      656,
+      1632,
+      656,
+      474,
+      656,
+      1632,
+      655,
+      475,
+      656,
+      474,
+      657,
+      474,
+      656,
+      474,
+      656,
+      474,
+      656,
+      474,
+      656,
+      1632,
+      655,
+      474,
+      656,
+      1632,
+      656,
+      1632,
+      656,
+      1632,
+      656,
+      1632,
+      656,
+      1632,
+      656,
+      1632,
+      656,
+      40103,
+      9107,
+      2177,
+      655
+     ],
+     "frequency": 38000
+    },
+    "VOL_DOWN": {
+     "raw": [
+      9245,
+      4429,
+      689,
+      467,
+      662,
+      468,
+      661,
+      1626,
+      660,
+      471,
+      658,
+      473,
+      657,
+      474,
+      656,
+      474,
+      656,
+      474,
+      656,
+      1631,
+      657,
+      1631,
+      657,
+      474,
+      656,
+      1631,
+      656,
+      1632,
+      656,
+      1631,
+      657,
+      1631,
+      657,
+      1631,
+      656,
+      1632,
+      656,
+      1631,
+      657,
+      474,
+      656,
+      474,
+      656,
+      474,
+      657,
+      474,
+      656,
+      474,
+      656,
+      474,
+      657,
+      474,
+      656,
+      474,
+      656,
+      1631,
+      656,
+      1632,
+      656,
+      1632,
+      656,
+      1632,
+      656,
+      1632,
+      656,
+      1631,
+      656,
+      40082,
+      9109,
+      2175,
+      656
+     ],
+     "frequency": 38000
+    },
+    "MUTE": {
+     "raw": [
+      9219,
+      4485,
+      636,
+      495,
+      660,
+      469,
+      661,
+      1626,
+      661,
+      471,
+      658,
+      473,
+      657,
+      474,
+      656,
+      499,
+      631,
+      500,
+      630,
+      1657,
+      630,
+      1657,
+      631,
+      500,
+      630,
+      1657,
+      630,
+      1657,
+      631,
+      1657,
+      631,
+      1657,
+      630,
+      1657,
+      631,
+      1657,
+      631,
+      500,
+      630,
+      500,
+      630,
+      1657,
+      631,
+      500,
+      630,
+      500,
+      630,
+      500,
+      630,
+      500,
+      631,
+      500,
+      630,
+      1657,
+      631,
+      1657,
+      631,
+      500,
+      630,
+      1657,
+      631,
+      1658,
+      630,
+      1657,
+      631,
+      1658,
+      630,
+      39868,
+      9106,
+      2178,
+      655
+     ],
+     "frequency": 38000
+    },
+    "INPUT": {
+     "raw": [
+      9245,
+      4428,
+      690,
+      467,
+      662,
+      468,
+      661,
+      1626,
+      660,
+      470,
+      659,
+      472,
+      658,
+      473,
+      657,
+      474,
+      656,
+      474,
+      656,
+      1631,
+      657,
+      1631,
+      657,
+      474,
+      657,
+      1631,
+      657,
+      1631,
+      657,
+      1631,
+      656,
+      1631,
+      657,
+      1631,
+      657,
+      1631,
+      657,
+      1631,
+      657,
+      1631,
+      657,
+      1631,
+      657,
+      474,
+      656,
+      1631,
+      657,
+      474,
+      656,
+      474,
+      656,
+      474,
+      657,
+      474,
+      656,
+      474,
+      656,
+      474,
+      656,
+      1632,
+      656,
+      474,
+      656,
+      1632,
+      655,
+      1632,
+      656,
+      39720,
+      9108,
+      2175,
+      656
+     ],
+     "frequency": 38000
+    },
+    "UP": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 69
+    },
+    "DOWN": {
+     "raw": [
+      9217,
+      4485,
+      636,
+      495,
+      660,
+      469,
+      661,
+      1627,
+      659,
+      471,
+      658,
+      473,
+      657,
+      474,
+      656,
+      475,
+      655,
+      475,
+      655,
+      1633,
+      655,
+      1633,
+      655,
+      475,
+      655,
+      1633,
+      655,
+      1633,
+      655,
+      1633,
+      655,
+      1632,
+      656,
+      1633,
+      655,
+      475,
+      655,
+      1633,
+      655,
+      1633,
+      655,
+      476,
+      655,
+      475,
+      655,
+      476,
+      654,
+      1633,
+      655,
+      475,
+      655,
+      1633,
+      655,
+      475,
+      656,
+      476,
+      654,
+      1633,
+      654,
+      1633,
+      655,
+      1633,
+      655,
+      475,
+      655,
+      1633,
+      655,
+      39716,
+      9106,
+      2177,
+      656
+     ],
+     "frequency": 38000
+    },
+    "OK": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 68
+    },
+    "MENU": {
+     "protocol": "NEC",
+     "address": 4,
+     "command": 67
+    }
+   },
+   "id": "vizio-vx32l-25"
+  }
+ ]
+}

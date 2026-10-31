@@ -184,11 +184,12 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
 private fun Header(state: UiState, onSettings: () -> Unit, onSwitchTv: () -> Unit) {
     val tv = state.tv
     val status = when {
+        state.isIr -> "Infrarouge · visez la TV"
         state.connection != Connection.CONNECTED -> "Éteinte · appuyez sur Marche"
         !tv.isOn -> "En veille"
         else -> "Allumée"
     }
-    val on = state.connection == Connection.CONNECTED && tv.isOn
+    val on = state.isIr || state.connection == Connection.CONNECTED && tv.isOn
     Row(verticalAlignment = Alignment.CenterVertically) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -393,6 +394,18 @@ private fun RowScope.Rocker(
 /** Onglets sous la télécommande : applications, pavé numérique, clavier. */
 @Composable
 private fun ExtraPanels(state: UiState, vm: RemoteViewModel, dim: Modifier) {
+    if (state.isIr) {
+        // En infrarouge, pas d'applications ni de saisie de texte : seulement le pavé numérique.
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(28.dp))
+                .background(PadColor)
+                .border(1.dp, BorderColor, RoundedCornerShape(28.dp))
+                .padding(14.dp),
+        ) { NumPad(vm) }
+        return
+    }
     var tab by rememberSaveable { mutableIntStateOf(0) }
     val tabs = listOf(
         Icons.Filled.Apps to "Applications",

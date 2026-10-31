@@ -1,0 +1,131 @@
+{
+  "_comment": "Jeux de codes écrits à la main d'après les protocoles infrarouges publics. Adresse et commande suivent la convention Flipper Zero (octets envoyés bit de poids faible en premier). Les jeux marqués verified=false n'ont pas encore été essayés sur une vraie TV.",
+  "codesets": [
+    {
+      "brand": "Samsung",
+      "name": "Samsung (2008 et après)",
+      "verified": true,
+      "protocol": "Samsung32",
+      "address": 7,
+      "keys": {
+        "POWER": 2, "POWER_ON": 153, "POWER_OFF": 152, "INPUT": 1,
+        "VOL_UP": 7, "VOL_DOWN": 11, "MUTE": 15, "CH_UP": 18, "CH_DOWN": 16, "PREV_CH": 19,
+        "DIGIT_1": 4, "DIGIT_2": 5, "DIGIT_3": 6, "DIGIT_4": 8, "DIGIT_5": 9,
+        "DIGIT_6": 10, "DIGIT_7": 12, "DIGIT_8": 13, "DIGIT_9": 14, "DIGIT_0": 17,
+        "MENU": 26, "HOME": 121, "UP": 96, "DOWN": 97, "LEFT": 101, "RIGHT": 98, "OK": 104,
+        "BACK": 88, "EXIT": 45, "INFO": 31, "GUIDE": 79,
+        "PLAY": 71, "PAUSE": 74, "STOP": 70, "REWIND": 69, "FFWD": 72,
+        "RED": 108, "GREEN": 20, "YELLOW": 21, "BLUE": 22
+      }
+    },
+    {
+      "brand": "LG",
+      "name": "LG",
+      "verified": false,
+      "protocol": "NEC",
+      "address": 4,
+      "keys": {
+        "POWER": 8, "POWER_ON": 196, "POWER_OFF": 197, "INPUT": 11,
+        "VOL_UP": 2, "VOL_DOWN": 3, "MUTE": 9, "CH_UP": 0, "CH_DOWN": 1, "PREV_CH": 26,
+        "DIGIT_0": 16, "DIGIT_1": 17, "DIGIT_2": 18, "DIGIT_3": 19, "DIGIT_4": 20,
+        "DIGIT_5": 21, "DIGIT_6": 22, "DIGIT_7": 23, "DIGIT_8": 24, "DIGIT_9": 25,
+        "SETTINGS": 67, "HOME": 124, "UP": 64, "DOWN": 65, "LEFT": 7, "RIGHT": 6, "OK": 68,
+        "BACK": 40, "EXIT": 91, "INFO": 170, "GUIDE": 169, "SUBTITLE": 57,
+        "PLAY": 176, "PAUSE": 186, "STOP": 177, "REWIND": 143, "FFWD": 142,
+        "RED": 114, "GREEN": 113, "YELLOW": 99, "BLUE": 97
+      }
+    },
+    {
+      "brand": "Sony",
+      "name": "Sony",
+      "verified": false,
+      "protocol": "SIRC",
+      "address": 1,
+      "keys": {
+        "POWER": 21, "POWER_ON": 46, "POWER_OFF": 47, "INPUT": 37,
+        "VOL_UP": 18, "VOL_DOWN": 19, "MUTE": 20, "CH_UP": 16, "CH_DOWN": 17, "PREV_CH": 59,
+        "DIGIT_1": 0, "DIGIT_2": 1, "DIGIT_3": 2, "DIGIT_4": 3, "DIGIT_5": 4,
+        "DIGIT_6": 5, "DIGIT_7": 6, "DIGIT_8": 7, "DIGIT_9": 8, "DIGIT_0": 9,
+        "HOME": 96, "UP": 116, "DOWN": 117, "LEFT": 52, "RIGHT": 51, "OK": 101, "INFO": 58
+      },
+      "extra": {
+        "BACK": {"protocol": "SIRC15", "address": 151, "command": 35},
+        "PLAY": {"protocol": "SIRC15", "address": 151, "command": 26},
+        "PAUSE": {"protocol": "SIRC15", "address": 151, "command": 25},
+        "STOP": {"protocol": "SIRC15", "address": 151, "command": 24},
+        "REWIND": {"protocol": "SIRC15", "address": 151, "command": 27},
+        "FFWD": {"protocol": "SIRC15", "address": 151, "command": 28}
+      }
+    },
+    {
+      "brand": "Philips",
+      "name": "Philips (RC6, 2008 et après)",
+      "verified": false,
+      "protocol": "RC6",
+      "address": 0,
+      "keys": {
+        "POWER": 12, "INPUT": 56, "VOL_UP": 16, "VOL_DOWN": 17, "MUTE": 13,
+        "CH_UP": 76, "CH_DOWN": 77,
+        "DIGIT_0": 0, "DIGIT_1": 1, "DIGIT_2": 2, "DIGIT_3": 3, "DIGIT_4": 4,
+        "DIGIT_5": 5, "DIGIT_6": 6, "DIGIT_7": 7, "DIGIT_8": 8, "DIGIT_9": 9,
+        "HOME": 84, "SETTINGS": 64, "UP": 88, "DOWN": 89, "LEFT": 90, "RIGHT": 91, "OK": 92,
+        "BACK": 10, "INFO": 15, "GUIDE": 204, "SUBTITLE": 75,
+        "PLAY": 44, "PAUSE": 48, "STOP": 49, "REWIND": 41, "FFWD": 40,
+        "RED": 109, "GREEN": 110, "YELLOW": 111, "BLUE": 112
+      }
+    },
+    {
+      "brand": "Philips",
+      "name": "Philips (RC5, modèles anciens)",
+      "verified": false,
+      "protocol": "RC5",
+      "address": 0,
+      "keys": {
+        "POWER": 12, "VOL_UP": 16, "VOL_DOWN": 17, "MUTE": 13, "CH_UP": 32, "CH_DOWN": 33,
+        "PREV_CH": 34, "INFO": 15,
+        "DIGIT_0": 0, "DIGIT_1": 1, "DIGIT_2": 2, "DIGIT_3": 3, "DIGIT_4": 4,
+        "DIGIT_5": 5, "DIGIT_6": 6, "DIGIT_7": 7, "DIGIT_8": 8, "DIGIT_9": 9
+      }
+    },
+    {
+      "brand": "Panasonic",
+      "name": "Panasonic",
+      "verified": false,
+      "protocol": "Panasonic",
+      "address": 128,
+      "keys": {
+        "POWER": 61, "INPUT": 5, "VOL_UP": 32, "VOL_DOWN": 33, "MUTE": 50,
+        "CH_UP": 52, "CH_DOWN": 53, "MENU": 6, "INFO": 57,
+        "UP": 74, "DOWN": 75, "LEFT": 78, "RIGHT": 79, "OK": 73, "BACK": 43,
+        "DIGIT_1": 16, "DIGIT_2": 17, "DIGIT_3": 18, "DIGIT_4": 19, "DIGIT_5": 20,
+        "DIGIT_6": 21, "DIGIT_7": 22, "DIGIT_8": 23, "DIGIT_9": 24, "DIGIT_0": 25
+      }
+    },
+    {
+      "brand": "Sharp",
+      "name": "Sharp (Aquos)",
+      "verified": false,
+      "protocol": "Sharp",
+      "address": 1,
+      "keys": {
+        "POWER": 22, "INPUT": 19, "VOL_UP": 20, "VOL_DOWN": 21, "MUTE": 23,
+        "CH_UP": 17, "CH_DOWN": 18,
+        "DIGIT_1": 1, "DIGIT_2": 2, "DIGIT_3": 3, "DIGIT_4": 4, "DIGIT_5": 5,
+        "DIGIT_6": 6, "DIGIT_7": 7, "DIGIT_8": 8, "DIGIT_9": 9, "DIGIT_0": 10
+      }
+    },
+    {
+      "brand": "Toshiba",
+      "name": "Toshiba",
+      "verified": true,
+      "protocol": "NEC",
+      "address": 64,
+      "keys": {
+        "POWER": 18, "INPUT": 15, "VOL_UP": 26, "VOL_DOWN": 30, "MUTE": 16,
+        "CH_UP": 27, "CH_DOWN": 31,
+        "DIGIT_0": 0, "DIGIT_1": 1, "DIGIT_2": 2, "DIGIT_3": 3, "DIGIT_4": 4,
+        "DIGIT_5": 5, "DIGIT_6": 6, "DIGIT_7": 7, "DIGIT_8": 8, "DIGIT_9": 9
+      }
+    }
+  ]
+}

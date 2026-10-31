@@ -22,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.PowerSettingsNew
+import androidx.compose.material.icons.filled.SettingsRemote
 import androidx.compose.material.icons.filled.Tv
 import androidx.compose.material.icons.filled.Wifi
 import androidx.compose.material3.Button
@@ -53,6 +54,10 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun SetupScreen(state: UiState, vm: RemoteViewModel) {
+    if (state.irSetup) {
+        IrSetupScreen(state, vm)
+        return
+    }
     // Recherche automatique et continue des TV tant que cet écran est affiché.
     DisposableEffect(Unit) {
         vm.startAutoDiscovery()
@@ -80,6 +85,7 @@ fun SetupScreen(state: UiState, vm: RemoteViewModel) {
                 FoundTvs(state, vm)
                 ManualIp(state, vm)
                 WakeOffTv(vm)
+                InfraredEntry(state, vm)
             }
         }
         state.error?.let {
@@ -246,6 +252,29 @@ private fun WakeOffTv(vm: RemoteViewModel) {
                 )
             }
         }
+    }
+}
+
+/** TV non connectée ou ancienne : télécommande infrarouge (si le téléphone a un émetteur). */
+@Composable
+private fun InfraredEntry(state: UiState, vm: RemoteViewModel) {
+    Card {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(Icons.Filled.SettingsRemote, contentDescription = null, tint = Muted, modifier = Modifier.size(18.dp))
+            Text("  TV non connectée ou ancienne ?", fontWeight = FontWeight.SemiBold)
+        }
+        Text(
+            if (state.irAvailable) "Ce téléphone a un émetteur infrarouge : il peut piloter n'importe quelle TV, " +
+                "comme une télécommande classique."
+            else "Il faudrait un téléphone avec émetteur infrarouge (beaucoup de Xiaomi, Redmi et Poco, certains Huawei et Honor).",
+            color = Muted,
+            fontSize = 13.sp,
+        )
+        OutlinedButton(
+            onClick = vm::startIrSetup,
+            enabled = state.irAvailable,
+            modifier = Modifier.fillMaxWidth().height(50.dp),
+        ) { Text("Utiliser l'infrarouge") }
     }
 }
 
