@@ -13,10 +13,23 @@ data class SavedTv(
     val mac: String? = null,
     /** Nom annoncé sur le réseau (mDNS) : permet de retrouver la TV si son adresse IP change. */
     val serviceName: String? = null,
-    /** Jeu de codes infrarouges : renseigné pour une TV pilotée par infrarouge (sans réseau). */
+    /** Jeu de codes infrarouges : TV infrarouge, ou infrarouge associé à une TV Wi-Fi. */
     val irCodeset: String? = null,
+    /** Mode de commande d'une TV Wi-Fi ayant aussi l'infrarouge : [CONTROL_AUTO], [CONTROL_NETWORK] ou [CONTROL_IR]. */
+    val control: String = CONTROL_AUTO,
 ) {
-    val isIr: Boolean get() = irCodeset != null
+    /** TV commandée uniquement par infrarouge (pas de connexion réseau). */
+    val isIr: Boolean get() = irCodeset != null && (host.isBlank() || control == CONTROL_IR)
+
+    /** TV Wi-Fi qui bascule sur l'infrarouge quand elle est injoignable par le réseau. */
+    val irFallback: Boolean get() = irCodeset != null && !isIr && control != CONTROL_NETWORK
+
+    companion object {
+        /** Wi-Fi, et infrarouge quand la TV ne répond pas par le réseau. */
+        const val CONTROL_AUTO = "auto"
+        const val CONTROL_NETWORK = "network"
+        const val CONTROL_IR = "ir"
+    }
 }
 
 /**
@@ -42,6 +55,7 @@ class TvStore(private val prefs: SharedPreferences) {
                     mac = o.optString("mac").ifBlank { null },
                     serviceName = o.optString("serviceName").ifBlank { null },
                     irCodeset = o.optString("irCodeset").ifBlank { null },
+                    control = o.optString("control").ifBlank { SavedTv.CONTROL_AUTO },
                 )
             }
         }.getOrDefault(emptyList())
@@ -68,7 +82,7 @@ class TvStore(private val prefs: SharedPreferences) {
         if (prefs.getString(KEY_CURRENT, null) == id) prefs.edit().remove(KEY_CURRENT).apply()
     }
 
-    fun findByHost(host: String): SavedTv? = all().firstOrNull { it.host == host && !it.isIr }
+    fun findByHost(host: String): SavedTv? = all().firstOrNull { it.host == host && host.isNotBlank() }
 
     fun newId(): String = UUID.randomUUID().toString()
 
@@ -82,7 +96,8 @@ class TvStore(private val prefs: SharedPreferences) {
                     .put("host", tv.host)
                     .put("mac", tv.mac ?: "")
                     .put("serviceName", tv.serviceName ?: "")
-                    .put("irCodeset", tv.irCodeset ?: ""),
+                    .put("irCodeset", tv.irCodeset ?: "")
+                    .put("control", tv.control),
             )
         }
         prefs.edit().putString(KEY_TVS, array.toString()).apply()

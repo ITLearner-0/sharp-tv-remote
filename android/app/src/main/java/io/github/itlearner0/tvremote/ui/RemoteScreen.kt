@@ -97,7 +97,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, onSwitchTv: () -> Unit) {
-    val offline = state.connection != Connection.CONNECTED
+    // Avec l'infrarouge en secours, les touches restent utilisables même hors réseau.
+    val offline = state.connection != Connection.CONNECTED && !state.irFallback
     val dim = Modifier.alpha(if (offline) 0.45f else 1f)
     var chooser by remember { mutableStateOf<CustomKey?>(null) }
     chooser?.let { key ->
@@ -185,6 +186,7 @@ private fun Header(state: UiState, onSettings: () -> Unit, onSwitchTv: () -> Uni
     val tv = state.tv
     val status = when {
         state.isIr -> "Infrarouge · visez la TV"
+        state.usesIr -> "Hors réseau · infrarouge (visez la TV)"
         state.connection != Connection.CONNECTED -> "Éteinte · appuyez sur Marche"
         !tv.isOn -> "En veille"
         else -> "Allumée"

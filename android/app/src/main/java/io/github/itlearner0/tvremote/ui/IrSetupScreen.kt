@@ -52,7 +52,7 @@ private const val ALL_BRANDS = "*"
  */
 @Composable
 fun IrSetupScreen(state: UiState, vm: RemoteViewModel) {
-    var brand by rememberSaveable { mutableStateOf<String?>(null) }
+    var brand by rememberSaveable { mutableStateOf(vm.suggestedIrBrand()) }
     var index by rememberSaveable { mutableIntStateOf(0) }
 
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -68,7 +68,7 @@ fun IrSetupScreen(state: UiState, vm: RemoteViewModel) {
                 Icon(Icons.Filled.SettingsRemote, contentDescription = null, tint = Color.White, modifier = Modifier.size(42.dp))
             }
             Spacer(Modifier.height(14.dp))
-            Text("Télécommande infrarouge", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+            Text(if (state.irAttach) "Associer l'infrarouge" else "Télécommande infrarouge", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
             Text(
                 if (brand == null) "Quelle est la marque de la TV ?"
                 else "Pointez le haut du téléphone vers la TV, puis essayez les touches.",
@@ -96,7 +96,7 @@ fun IrSetupScreen(state: UiState, vm: RemoteViewModel) {
             }
         } else {
             val codesets = if (selected == ALL_BRANDS) vm.irDatabase.codesets else vm.irDatabase.forBrand(selected)
-            CodesetTester(codesets, index, onIndex = { index = it }, vm)
+            CodesetTester(codesets, index, onIndex = { index = it }, vm, attach = state.irAttach)
         }
     }
 }
@@ -145,6 +145,7 @@ private fun CodesetTester(
     index: Int,
     onIndex: (Int) -> Unit,
     vm: RemoteViewModel,
+    attach: Boolean,
 ) {
     if (codesets.isEmpty()) return
     if (index >= codesets.size) {
@@ -178,7 +179,7 @@ private fun CodesetTester(
         Text("La TV a-t-elle réagi ?", fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 4.dp))
         Button(onClick = { vm.addIrTv(codeset) }, modifier = Modifier.fillMaxWidth().height(50.dp)) {
             Icon(Icons.Filled.Check, contentDescription = null, modifier = Modifier.size(18.dp))
-            Text("  Oui, ajouter cette TV", fontWeight = FontWeight.SemiBold)
+            Text(if (attach) "  Oui, utiliser ces codes" else "  Oui, ajouter cette TV", fontWeight = FontWeight.SemiBold)
         }
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             OutlinedButton(onClick = { onIndex(index - 1) }, enabled = index > 0, modifier = Modifier.weight(1f)) {

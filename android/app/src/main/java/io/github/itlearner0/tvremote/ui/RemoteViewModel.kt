@@ -78,7 +78,15 @@ data class UiState(
     val irSetup: Boolean = false,
     /** Le téléphone possède un émetteur infrarouge. */
     val irAvailable: Boolean = false,
+    /** L'assistant infrarouge associe des codes à la TV Wi-Fi affichée (au lieu d'ajouter une TV). */
+    val irAttach: Boolean = false,
 ) {
+    /** La TV Wi-Fi affichée passe à l'infrarouge quand elle est injoignable. */
+    val irFallback: Boolean get() = current?.irFallback == true
+
+    /** Les touches partent par infrarouge (TV infrarouge, ou TV Wi-Fi injoignable avec infrarouge associé). */
+    val usesIr: Boolean get() = isIr || irFallback && connection != Connection.CONNECTED
+
     val showSetup: Boolean
         get() = current == null || adding || irSetup || connection == Connection.PAIRING || connection == Connection.CONNECTING
 
@@ -368,6 +376,8 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             host = host,
             mac = existing?.mac ?: s.macAddress ?: pendingMac,
             serviceName = existing?.serviceName ?: pendingName,
+            irCodeset = existing?.irCodeset,
+            control = existing?.control ?: SavedTv.CONTROL_AUTO,
         )
         pendingMac = null
         store.save(tv)
@@ -516,7 +526,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     // --- Commandes ---
 
     fun key(code: Int, direction: Int = Keys.SHORT) {
-        if (_state.value.isIr) {
+        if (_state.value.usesIr) {
             irKey(code)
             return
         }
@@ -561,19 +571,54 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun startIrSetup() {
-        stopKeepAlive()
-        closeSession()
-        _state.update { it.copy(irSetup = true, error = null) }
+    /** Ouvre l'assistant infrarouge ; [attach] : associer l'infrarouge à la TV Wi-Fi affichée. */
+    fun startIrSetup(attach: Boolean = false) {
+        if (!attach) {
+            stopKeepAlive()
+            closeSession()
+        }
+        _state.update { it.copy(irSetup = true, irAttach = attach, error = null) }
     }
 
     fun cancelIrSetup() {
-        _state.update { it.copy(irSetup = false) }
+        _state.update { it.copy(irSetup = false, irAttach = false) }
         if (_state.value.current != null && !_state.value.adding) startKeepAlive()
     }
 
-    /** Enregistre une TV infrarouge avec le jeu de codes qui fonctionne. */
+    /** Marque à proposer d'emblée dans l'assistant (celle de la TV Wi-Fi affichée). */
+    fun suggestedIrBrand(): String? {
+        if (!_state.value.irAttach) return null
+        val hints = listOfNotNull(_state.value.current?.name, _state.value.tv.device?.manufacturer).joinToString(" ")
+        return irDatabase.brands.firstOrNull { hints.contains(it, ignoreCase = true) }
+    }
+
+    fun removeIr() {
+        updateTv { copy(irCodeset = null, control = SavedTv.CONTROL_AUTO) }
+        reloadAfterControlChange()
+    }
+
+    /** Choisit le mode de commande d'une TV Wi-Fi ayant aussi l'infrarouge. */
+    fun setControl(control: String) {
+        updateTv { copy(control = control) }
+        reloadAfterControlChange()
+    }
+
+    private fun reloadAfterControlChange() {
+        stopKeepAlive()
+        closeSession()
+        loadCurrentTv()
+        startKeepAlive()
+    }
+
+    /** Enregistre une TV infrarouge, ou associe les codes à la TV Wi-Fi affichée. */
     fun addIrTv(codeset: IrCodeset) {
+        if (_state.value.irAttach && _state.value.current != null) {
+            updateTv { copy(irCodeset = codeset.id) }
+            _state.update { it.copy(irSetup = false, irAttach = false, error = null) }
+            startKeepAlive()
+            say("Infrarouge associé : la télécommande l'utilisera si la TV ne répond pas par le Wi-Fi.")
+            return
+        }
         val tv = SavedTv(id = store.newId(), name = "${codeset.brand} (infrarouge)", host = "", irCodeset = codeset.id)
         store.save(tv)
         store.select(tv.id)
@@ -624,6 +669,16 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             return
         }
         val s = session
+        val reachable = s != null && s.isOpen && _state.value.connection == Connection.CONNECTED
+        if (!reachable && tv.irFallback) {
+            // TV injoignable par le Wi-Fi : l'infrarouge l'allume même complètement éteinte.
+            irKey(Keys.WAKEUP)
+            wakeRequestedAt = System.currentTimeMillis()
+            tv.mac?.let { mac ->
+                viewModelScope.launch(Dispatchers.IO) { runCatching { WakeOnLan.send(mac, tv.host, phoneBroadcastAddresses()) } }
+            }
+            return
+        }
         viewModelScope.launch(Dispatchers.IO) {
             if (s != null && s.isOpen && _state.value.connection == Connection.CONNECTED) {
                 val turnOn = !s.state.isOn
@@ -667,6 +722,10 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             return
         }
         val s = session
+        if ((s == null || !s.isOpen || _state.value.connection != Connection.CONNECTED) && tv.irFallback) {
+            irKey(Keys.SLEEP)
+            return
+        }
         if (s == null || !s.isOpen || _state.value.connection != Connection.CONNECTED) {
             say("La TV est déjà éteinte")
             return

@@ -34,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import io.github.itlearner0.tvremote.data.SavedTv
 import io.github.itlearner0.tvremote.protocol.RemoteSession
 
 @Composable
@@ -143,15 +144,21 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                 )
-                if (tv.isIr) {
+                if (tv.host.isBlank()) {
                     val codeset = vm.irDatabase.codeset(tv.irCodeset)
                     Text(
-                        "Télécommande infrarouge : ${codeset?.name ?: "jeu de codes inconnu"}. Pour essayer un autre " +
-                            "jeu de codes, supprimez cette TV puis ajoutez-la de nouveau.",
+                        "Télécommande infrarouge : ${codeset?.name ?: "jeu de codes inconnu"}.",
                         color = Muted,
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.padding(top = 8.dp),
                     )
+                    TextButton(
+                        onClick = {
+                            onDismiss()
+                            vm.startIrSetup(attach = true)
+                        },
+                        enabled = state.irAvailable,
+                    ) { Text("Changer les codes") }
                 } else {
                     OutlinedTextField(
                         value = host,
@@ -190,8 +197,9 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.padding(top = 8.dp),
                     )
+                    IrSection(state, vm, onDismiss)
                 }
-                if (!tv.isIr && state.connection == Connection.CONNECTED) {
+                if (tv.host.isNotBlank() && state.connection == Connection.CONNECTED) {
                     val features = state.tv.features
                     val power = features and RemoteSession.FEATURE_POWER != 0
                     Text(
@@ -215,4 +223,50 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
         },
         dismissButton = { TextButton(onClick = onDismiss) { Text("Fermer") } },
     )
+}
+
+/** Infrarouge associé à une TV Wi-Fi : secours quand le réseau ne répond pas, ou mode exclusif. */
+@Composable
+private fun IrSection(state: UiState, vm: RemoteViewModel, onDismiss: () -> Unit) {
+    val tv = state.current ?: return
+    val codeset = vm.irDatabase.codeset(tv.irCodeset)
+    Column(Modifier.padding(top = 12.dp)) {
+        Text("Infrarouge", style = MaterialTheme.typography.titleSmall)
+        Text(
+            if (codeset == null) {
+                "Non configuré. Utile pour allumer la TV complètement éteinte, ou quand le Wi-Fi ne répond pas" +
+                    if (state.irAvailable) "." else " (nécessite un téléphone avec émetteur infrarouge)."
+            } else {
+                "Codes : ${codeset.name}"
+            },
+            color = Muted,
+            style = MaterialTheme.typography.bodySmall,
+        )
+        Row {
+            TextButton(
+                onClick = {
+                    onDismiss()
+                    vm.startIrSetup(attach = true)
+                },
+                enabled = state.irAvailable,
+            ) { Text(if (codeset == null) "Configurer l'infrarouge" else "Changer les codes") }
+            if (codeset != null) TextButton(onClick = vm::removeIr) { Text("Retirer") }
+        }
+        if (codeset != null) {
+            val modes = listOf(
+                SavedTv.CONTROL_AUTO to "Automatique : Wi-Fi, infrarouge si la TV ne répond pas",
+                SavedTv.CONTROL_NETWORK to "Toujours le Wi-Fi",
+                SavedTv.CONTROL_IR to "Toujours l'infrarouge",
+            )
+            for ((mode, label) in modes) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth().clickable { vm.setControl(mode) },
+                ) {
+                    RadioButton(selected = tv.control == mode, onClick = { vm.setControl(mode) })
+                    Text(label, style = MaterialTheme.typography.bodySmall)
+                }
+            }
+        }
+    }
 }
