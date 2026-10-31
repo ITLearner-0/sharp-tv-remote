@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Télécommande TV</string>
-    <string name="widget_description">Marche, volume et lecture de la TV, sans ouvrir l'application</string>
+    <string name="widget_description">Marche, volume et lecture de la TV, sans ouvrir l\'application</string>
     <string name="tile_label">TV</string>
     <string name="share_label">Ouvrir sur la TV</string>
 </resources>
