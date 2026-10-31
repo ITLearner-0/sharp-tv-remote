@@ -63,6 +63,23 @@ retrouver, appairage compris. Sans cela, l'appairage (code à 6 caractères)
 est à refaire après une restauration, car la clé de sécurité du téléphone
 n'est jamais copiée dans le fichier.
 
+### 🖼 Photos et vidéos du téléphone sur la TV
+
+Onglet **Écran → Photos et vidéos du téléphone**, ou **Partager → Ouvrir
+sur la TV** depuis la galerie. Deux façons d'afficher :
+
+- **Google Cast** (TV avec Chromecast intégré) : le lecteur standard de
+  Google lit le fichier servi par le téléphone sur le réseau local.
+- **Visionneuse de la télécommande** (sans Google Cast) : une petite
+  visionneuse est installée sur la TV par le débogage ADB. Elle prend le
+  relais automatiquement si Google Cast refuse ou coupe la diffusion, et
+  peut être choisie directement (« … : sans Google Cast »). Photo
+  précédente / suivante, diaporama, et pour les vidéos lecture / pause,
+  −10 s / +30 s (aussi avec les touches de la télécommande).
+
+Le panneau **Journal** de l'écran d'envoi détaille chaque étape (et le code
+d'erreur de Google Cast) en cas de problème.
+
 ### 📡 Télécommande infrarouge (toutes marques)
 
 Sur les téléphones équipés d'un **émetteur infrarouge** (beaucoup de Xiaomi,

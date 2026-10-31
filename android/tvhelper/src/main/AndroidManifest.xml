@@ -3,8 +3,21 @@
 
     <!-- Nécessaire depuis Android 11 pour voir toutes les applications installées. -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <!-- Visionneuse : télécharge les photos et vidéos servies par le téléphone. -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    <application android:label="Télécommande TV (aide)" />
+    <application
+        android:label="Télécommande TV (aide)"
+        android:usesCleartextTraffic="true">
+
+        <!-- Visionneuse plein écran, lancée par le téléphone par ADB (sans icône). -->
+        <activity
+            android:name=".Viewer"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+    </application>
 
     <instrumentation
         android:name=".AppLister"

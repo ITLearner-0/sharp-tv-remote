@@ -151,7 +151,18 @@ private fun CastScreen(vm: CastViewModel, onClose: () -> Unit) {
                 }
 
                 Panel {
-                    if (!state.available) {
+                    if (state.viewerTv != null) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(Modifier.size(10.dp).clip(RoundedCornerShape(5.dp)).background(OnColor))
+                            Text("  ${state.viewerTv} : visionneuse de la télécommande", modifier = Modifier.weight(1f))
+                            TextButton(onClick = vm::disconnect) { Text("Arrêter") }
+                        }
+                        Text(
+                            "Sans Google Cast : une petite visionneuse est installée sur la TV par le débogage ADB.",
+                            color = Muted,
+                            fontSize = 12.sp,
+                        )
+                    } else if (!state.available && state.remoteTv == null) {
                         Text("Google Cast n'est pas disponible sur ce téléphone.", color = MaterialTheme.colorScheme.error)
                     } else if (state.connectedTo != null) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -184,6 +195,26 @@ private fun CastScreen(vm: CastViewModel, onClose: () -> Unit) {
                                 Icon(Icons.Filled.Tv, contentDescription = null)
                                 Text("  ${device.name}", modifier = Modifier.weight(1f))
                                 if (state.connecting) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
+                            }
+                        }
+                        state.remoteTv?.let { name ->
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(14.dp))
+                                    .border(1.dp, BorderColor, RoundedCornerShape(14.dp))
+                                    .clickable(onClick = vm::useViewer)
+                                    .padding(14.dp),
+                            ) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(Icons.Filled.Slideshow, contentDescription = null)
+                                    Text("  $name : sans Google Cast", fontWeight = FontWeight.SemiBold)
+                                }
+                                Text(
+                                    "Visionneuse de la télécommande (débogage ADB). À choisir si Google Cast coupe la diffusion.",
+                                    color = Muted,
+                                    fontSize = 12.sp,
+                                )
                             }
                         }
                     }

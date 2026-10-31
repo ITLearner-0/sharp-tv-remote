@@ -1,5 +1,5 @@
-// Petite application d'aide installée temporairement sur la TV (par ADB) pour lire
-// la liste exacte des applications, avec leurs vrais noms et icônes, puis désinstallée.
+// Petite application d'aide installée sur la TV par ADB : liste exacte des applications
+// (vrais noms, icônes) et visionneuse de photos et vidéos du téléphone, sans Google Cast.
 plugins {
     id("com.android.application")
 }
@@ -12,8 +12,8 @@ android {
         applicationId = "io.github.itlearner0.tvremote.helper"
         minSdk = 21
         targetSdk = 35
-        versionCode = 1
-        versionName = "1"
+        versionCode = 2
+        versionName = "2"
     }
 
     signingConfigs {

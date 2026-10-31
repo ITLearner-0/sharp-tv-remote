@@ -1161,12 +1161,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /** Application d'aide embarquée (assets/tvhelper.apk), copiée pour être installée. */
-    private fun helperApk(): File? = runCatching {
-        val app = getApplication<Application>()
-        val file = File(app.cacheDir, "tvhelper.apk")
-        app.assets.open("tvhelper.apk").use { input -> file.outputStream().use { input.copyTo(it) } }
-        file
-    }.getOrNull()
+    private fun helperApk(): File? = TvAdb.helperApk(getApplication())
 
     private fun iconDir(tvId: String) = File(getApplication<Application>().filesDir, "icons/$tvId")
 

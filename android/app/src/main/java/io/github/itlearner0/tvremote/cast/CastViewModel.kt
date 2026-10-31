@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.os.Build
 import com.google.android.gms.cast.MediaStatus
+import com.google.android.gms.cast.CastStatusCodes
 import java.io.ByteArrayOutputStream
 import android.net.ConnectivityManager
 import android.net.Uri
@@ -24,6 +25,7 @@ import com.google.android.gms.cast.framework.CastContext
 import com.google.android.gms.cast.framework.CastSession
 import com.google.android.gms.cast.framework.SessionManagerListener
 import com.google.android.gms.cast.framework.media.RemoteMediaClient
+import io.github.itlearner0.tvremote.data.TvAdb
 import io.github.itlearner0.tvremote.data.TvStore
 import io.github.itlearner0.tvremote.protocol.MediaHttpServer
 import io.github.itlearner0.tvremote.protocol.MediaSource
@@ -60,6 +62,10 @@ data class CastUiState(
     val message: String? = null,
     /** Journal des étapes (diagnostic), le plus récent en dernier. */
     val log: List<String> = emptyList(),
+    /** TV de la télécommande pouvant afficher par la visionneuse (sans Google Cast), ou null. */
+    val remoteTv: String? = null,
+    /** Affichage en cours par la visionneuse de la télécommande sur cette TV, ou null. */
+    val viewerTv: String? = null,
 )
 
 /**
@@ -78,13 +84,18 @@ class CastViewModel(application: Application) : AndroidViewModel(application) {
     private var server: MediaHttpServer? = null
     private val prepared = HashMap<Int, MediaSource>()
     private var lastPlayerState: String? = null
+    private val adb = TvAdb(application.filesDir)
+    /** Google Cast a échoué ou coupé : plus de connexion automatique. */
+    private var castFailed = false
+    /** Une photo ou vidéo a été lue par Cast pendant la session en cours. */
+    private var castDelivered = false
 
     /** Suivi du lecteur de la TV : signale notamment les formats qu'il ne sait pas lire. */
     private val mediaCallback = object : RemoteMediaClient.Callback() {
         override fun onStatusUpdated() {
             val status = client()?.mediaStatus ?: return
             val text = when (status.playerState) {
-                MediaStatus.PLAYER_STATE_PLAYING -> "lecture en cours"
+                MediaStatus.PLAYER_STATE_PLAYING -> "lecture en cours".also { castDelivered = true }
                 MediaStatus.PLAYER_STATE_PAUSED -> "en pause"
                 MediaStatus.PLAYER_STATE_BUFFERING -> "chargement"
                 MediaStatus.PLAYER_STATE_IDLE -> when (status.idleReason) {
@@ -113,16 +124,40 @@ class CastViewModel(application: Application) : AndroidViewModel(application) {
         override fun onSessionStarted(session: CastSession, sessionId: String) = onConnected(session)
         override fun onSessionResumed(session: CastSession, wasSuspended: Boolean) = onConnected(session)
         override fun onSessionStartFailed(session: CastSession, error: Int) {
-            log("Connexion refusée par la TV (code $error)")
-            _state.update { it.copy(connecting = false, message = "La TV n'a pas accepté la connexion (erreur $error)") }
+            log("Google Cast : connexion refusée (${castCode(error)})")
+            _state.update { it.copy(connecting = false) }
+            castBroken()
         }
-        override fun onSessionEnded(session: CastSession, error: Int) =
+        override fun onSessionEnded(session: CastSession, error: Int) {
+            log("Google Cast : diffusion terminée (${castCode(error)})")
+            val wasConnected = _state.value.connectedTo != null
             _state.update { it.copy(connectedTo = null, connecting = false, playing = false) }
-        override fun onSessionStarting(session: CastSession) = Unit
+            if (!userStopped && (error != CastStatusCodes.SUCCESS || (wasConnected && !castDelivered))) castBroken()
+            userStopped = false
+        }
+        override fun onSessionStarting(session: CastSession) = log("Google Cast : ouverture du lecteur sur la TV…")
         override fun onSessionEnding(session: CastSession) = Unit
         override fun onSessionResuming(session: CastSession, sessionId: String) = Unit
-        override fun onSessionResumeFailed(session: CastSession, error: Int) = Unit
-        override fun onSessionSuspended(session: CastSession, reason: Int) = Unit
+        override fun onSessionResumeFailed(session: CastSession, error: Int) =
+            log("Google Cast : reprise impossible (${castCode(error)})")
+        override fun onSessionSuspended(session: CastSession, reason: Int) =
+            log("Google Cast : diffusion interrompue (" + (if (reason == 2) "réseau perdu" else "lecteur de la TV arrêté") + ")")
+    }
+    private var userStopped = false
+
+    private fun castCode(code: Int): String =
+        if (code == CastStatusCodes.SUCCESS) "sans erreur" else "code $code : ${CastStatusCodes.getStatusCodeString(code)}"
+
+    /** Google Cast ne fonctionne pas avec cette TV : on passe à la visionneuse de la télécommande. */
+    private fun castBroken() {
+        castFailed = true
+        if (_state.value.viewerTv != null) return
+        if (_state.value.remoteTv != null) {
+            log("Passage à la visionneuse de la télécommande (sans Google Cast)")
+            useViewer()
+        } else {
+            _state.update { it.copy(message = "Google Cast a coupé la diffusion sur la TV") }
+        }
     }
 
     init {
@@ -134,7 +169,28 @@ class CastViewModel(application: Application) : AndroidViewModel(application) {
             castContext.sessionManager.currentCastSession?.let(::onConnected)
             refreshDevices()
         }
+        val tv = TvStore(application.getSharedPreferences("tv", 0)).current()
+        if (tv != null && !tv.isIr && tv.host.isNotBlank()) _state.update { it.copy(remoteTv = tv.name) }
     }
+
+    /**
+     * Affichage par la visionneuse de la télécommande : petite application
+     * installée sur la TV par ADB, qui lit le fichier servi par le téléphone.
+     */
+    fun useViewer() {
+        val name = _state.value.remoteTv ?: return
+        if (castContext?.sessionManager?.currentCastSession != null) {
+            userStopped = true
+            castContext.sessionManager.endCurrentSession(true)
+        }
+        castFailed = true
+        _state.update { it.copy(viewerTv = name, connectedTo = null, connecting = false) }
+        log("Visionneuse de la télécommande sur $name")
+        if (_state.value.items.isNotEmpty()) show(_state.value.index)
+    }
+
+    private fun remoteHost(): String? =
+        TvStore(getApplication<Application>().getSharedPreferences("tv", 0)).current()?.host?.takeIf { it.isNotBlank() }
 
     fun consumeMessage() = _state.update { it.copy(message = null) }
 
@@ -152,12 +208,13 @@ class CastViewModel(application: Application) : AndroidViewModel(application) {
             server?.clear()
             log("${items.size} fichier(s) choisi(s)" + items.firstOrNull()?.let { " (${it.mimeType})" }.orEmpty())
             _state.update { it.copy(items = items, index = 0) }
-            if (_state.value.connectedTo != null) show(0)
+            if (_state.value.connectedTo != null || _state.value.viewerTv != null) show(0)
         }
     }
 
     fun connect(device: CastDevice) {
         val route = router.routes.firstOrNull { it.id == device.id } ?: return
+        if (_state.value.viewerTv != null) _state.update { it.copy(viewerTv = null) }
         log("Connexion à ${device.name}…")
         _state.update { it.copy(connecting = true) }
         router.selectRoute(route)
@@ -165,8 +222,13 @@ class CastViewModel(application: Application) : AndroidViewModel(application) {
 
     fun disconnect() {
         slideshowJob?.cancel()
-        castContext?.sessionManager?.endCurrentSession(true)
-        _state.update { it.copy(connectedTo = null, playing = false, slideshow = false) }
+        if (_state.value.viewerTv != null) {
+            remoteHost()?.let { host -> viewModelScope.launch(Dispatchers.IO) { runCatching { adb.viewerCommand(host, "stop") } } }
+        } else {
+            userStopped = true
+            castContext?.sessionManager?.endCurrentSession(true)
+        }
+        _state.update { it.copy(connectedTo = null, viewerTv = null, playing = false, slideshow = false) }
     }
 
     fun show(index: Int) {
@@ -174,6 +236,7 @@ class CastViewModel(application: Application) : AndroidViewModel(application) {
         if (items.isEmpty()) return
         val i = ((index % items.size) + items.size) % items.size
         _state.update { it.copy(index = i) }
+        if (_state.value.viewerTv != null) return showWithViewer(i)
         val client = client()
         if (client == null) {
             log("Pas encore connecté à une TV : choisissez-la dans la liste")
@@ -196,12 +259,34 @@ class CastViewModel(application: Application) : AndroidViewModel(application) {
             log("Envoi de « ${item.name} » à la TV")
             client.load(MediaLoadRequestData.Builder().setMediaInfo(info).setAutoplay(true).build())
                 .setResultCallback { result ->
+                    if (result.status.isSuccess) castDelivered = true
                     log(
                         if (result.status.isSuccess) "La TV a accepté le fichier"
                         else "La TV a refusé le fichier (code ${result.status.statusCode})",
                     )
                 }
             _state.update { it.copy(playing = item.isVideo) }
+        }
+    }
+
+    private fun showWithViewer(i: Int) {
+        val host = remoteHost() ?: return
+        val item = _state.value.items[i]
+        viewModelScope.launch {
+            val error = withContext(Dispatchers.IO) {
+                val url = publish(i) ?: return@withContext "Wi-Fi introuvable : le téléphone doit être sur le même réseau que la TV"
+                val mime = prepared[i]?.mimeType ?: item.mimeType
+                log("Envoi de « ${item.name} » à la visionneuse")
+                runCatching { adb.showMedia(host, TvAdb.helperApk(getApplication()), url, mime) }
+                    .getOrElse { "débogage ADB de la TV injoignable (${it.message})" }
+            }
+            if (error != null) {
+                log("Visionneuse : $error")
+                _state.update { it.copy(message = "La TV n'a pas pu ouvrir la visionneuse : $error") }
+            } else {
+                log("Visionneuse ouverte sur la TV")
+                _state.update { it.copy(playing = item.isVideo) }
+            }
         }
     }
 
@@ -220,7 +305,11 @@ class CastViewModel(application: Application) : AndroidViewModel(application) {
         slideshowJob = viewModelScope.launch {
             while (isActive) {
                 val current = _state.value.items.getOrNull(_state.value.index)
-                if (current?.isVideo == true) {
+                if (current?.isVideo == true && _state.value.viewerTv != null) {
+                    // Visionneuse : la fin de la vidéo n'est pas connue du téléphone ; « Suivante » pour passer.
+                    delay(1_000)
+                    continue
+                } else if (current?.isVideo == true) {
                     delay(2_000)
                     val client = client()
                     if (client != null && client.isPlaying) continue
@@ -233,12 +322,23 @@ class CastViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun playPause() {
+        if (_state.value.viewerTv != null) {
+            val host = remoteHost() ?: return
+            viewModelScope.launch(Dispatchers.IO) { runCatching { adb.viewerCommand(host, "playpause") } }
+            _state.update { it.copy(playing = !it.playing) }
+            return
+        }
         val client = client() ?: return
         if (client.isPlaying) client.pause() else client.play()
         _state.update { it.copy(playing = !client.isPlaying) }
     }
 
     fun seekBy(deltaMs: Long) {
+        if (_state.value.viewerTv != null) {
+            val host = remoteHost() ?: return
+            viewModelScope.launch(Dispatchers.IO) { runCatching { adb.viewerCommand(host, "seek", deltaMs.toInt()) } }
+            return
+        }
         val client = client() ?: return
         val target = (client.approximateStreamPosition + deltaMs).coerceAtLeast(0)
         client.seek(MediaSeekOptions.Builder().setPosition(target).build())
@@ -249,6 +349,7 @@ class CastViewModel(application: Application) : AndroidViewModel(application) {
     private fun onConnected(session: CastSession) {
         val name = session.castDevice?.friendlyName ?: "TV"
         log("Connecté à $name")
+        castDelivered = false
         session.remoteMediaClient?.registerCallback(mediaCallback)
         _state.update { it.copy(connectedTo = name, connecting = false) }
         if (_state.value.items.isNotEmpty()) show(_state.value.index)
@@ -268,7 +369,7 @@ class CastViewModel(application: Application) : AndroidViewModel(application) {
     /** Se connecte d'office à la TV dont le nom correspond à la TV choisie dans la télécommande. */
     private fun autoConnect(devices: List<CastDevice>) {
         val s = _state.value
-        if (s.connectedTo != null || s.connecting || devices.isEmpty()) return
+        if (castFailed || s.viewerTv != null || s.connectedTo != null || s.connecting || devices.isEmpty()) return
         val tvName = TvStore(getApplication<Application>().getSharedPreferences("tv", 0)).current()?.name.orEmpty().lowercase()
         val match = devices.singleOrNull()
             ?: devices.firstOrNull { tvName.isNotBlank() && (it.name.lowercase() in tvName || tvName in it.name.lowercase()) }

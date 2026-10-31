@@ -39,6 +39,38 @@ class TvAdb(private val keyDir: File) {
             apps
         } finally {
             runCatching { adb.shell("pm uninstall $HELPER_PACKAGE") }
+            viewerReady -= host
+        }
+    }
+
+    /**
+     * Visionneuse de la TV (application d'aide, sans Google Cast) : affiche la
+     * photo ou lit la vidéo à l'adresse [url], servie par le téléphone.
+     * Installe l'application d'aide si besoin. Renvoie null, ou l'erreur de la TV.
+     */
+    fun showMedia(host: String, helperApk: File?, url: String, mimeType: String): String? = withAdb(host) { adb ->
+        fun sh(command: String) = runCatching { adb.shell(command).allOutput }.getOrElse { "Error: ${it.message}" }
+        if (host !in viewerReady) {
+            val installed = sh("dumpsys package $HELPER_PACKAGE | grep versionCode")
+            if ("versionCode=$HELPER_VERSION " !in "$installed ") {
+                helperApk ?: return@withAdb "application d'aide absente de l'APK"
+                runCatching { adb.install(helperApk, "-r") }.exceptionOrNull()?.let {
+                    return@withAdb "installation de la visionneuse refusée (${it.message})"
+                }
+            }
+            viewerReady += host
+        }
+        val out = sh("am start -n $HELPER_PACKAGE/.Viewer -a android.intent.action.VIEW -d '$url' -t '$mimeType'")
+        if ("Error" in out || "Exception" in out) {
+            viewerReady -= host
+            out.lines().firstOrNull { "Error" in it || "Exception" in it }?.trim() ?: out.trim()
+        } else null
+    }
+
+    /** Commande à la visionneuse : « playpause », « seek » (avec [deltaMs]) ou « stop ». */
+    fun viewerCommand(host: String, command: String, deltaMs: Int = 0) {
+        withAdb(host) { adb ->
+            adb.shell("am start -n $HELPER_PACKAGE/.Viewer --es cmd $command --ei delta $deltaMs")
         }
     }
 
@@ -167,5 +199,16 @@ class TvAdb(private val keyDir: File) {
 
     companion object {
         const val HELPER_PACKAGE = "io.github.itlearner0.tvremote.helper"
+        /** versionCode de tvhelper/build.gradle.kts. */
+        private const val HELPER_VERSION = 2
+        /** TV sur lesquelles la visionneuse est déjà installée (pendant cette session). */
+        private val viewerReady: MutableSet<String> = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
+
+        /** Application d'aide embarquée (assets/tvhelper.apk), copiée pour être installée. */
+        fun helperApk(context: android.content.Context): File? = runCatching {
+            val file = File(context.cacheDir, "tvhelper.apk")
+            context.assets.open("tvhelper.apk").use { input -> file.outputStream().use { input.copyTo(it) } }
+            file
+        }.getOrNull()
     }
 }
