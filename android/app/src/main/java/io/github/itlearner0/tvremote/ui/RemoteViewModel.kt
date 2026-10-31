@@ -19,6 +19,8 @@ import io.github.itlearner0.tvremote.ir.IrDatabase
 import io.github.itlearner0.tvremote.protocol.ClientIdentity
 import io.github.itlearner0.tvremote.protocol.InvalidCodeException
 import io.github.itlearner0.tvremote.protocol.Keys
+import io.github.itlearner0.tvremote.protocol.NetworkScanner
+import io.github.itlearner0.tvremote.protocol.ScannedTv
 import io.github.itlearner0.tvremote.protocol.PairingRequiredException
 import io.github.itlearner0.tvremote.protocol.PairingSession
 import io.github.itlearner0.tvremote.protocol.RemoteSession
@@ -26,6 +28,7 @@ import io.github.itlearner0.tvremote.protocol.TextKeys
 import io.github.itlearner0.tvremote.protocol.TvState
 import io.github.itlearner0.tvremote.protocol.WakeOnLan
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -116,6 +119,9 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     private var pairing: PairingSession? = null
     private var pendingName: String? = null
     private var pendingMac: String? = null
+
+    /** Adresses MAC lues par la recherche directe, par adresse IP. */
+    private val scannedMacs = java.util.concurrent.ConcurrentHashMap<String, String>()
     private var keepAlive: Job? = null
     private var discoveryJob: Job? = null
     private var foreground = false
@@ -252,17 +258,37 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         discoveryJob = viewModelScope.launch {
             while (isActive) {
                 _state.update { it.copy(discovering = true) }
-                withTimeoutOrNull(6_000) {
-                    discovery.discover().collect { tv ->
-                        _state.update { s ->
-                            if (s.discovered.any { it.host == tv.host }) s else s.copy(discovered = s.discovered + tv)
-                        }
+                coroutineScope {
+                    // Annonce réseau (mDNS) et recherche directe en parallèle : la plus rapide l'emporte.
+                    launch { withTimeoutOrNull(6_000) { discovery.discover().collect { addDiscovered(it) } } }
+                    launch {
+                        for (tv in scanNetwork()) addDiscovered(FoundTv(tv.name ?: "Android TV", tv.host))
                     }
                 }
                 _state.update { it.copy(discovering = false) }
-                delay(3_000)
+                delay(2_000)
             }
         }
+    }
+
+    private fun addDiscovered(tv: FoundTv) {
+        _state.update { s ->
+            val known = s.discovered.firstOrNull { it.host == tv.host }
+            when {
+                known == null -> s.copy(discovered = s.discovered + tv)
+                // Le nom annoncé (mDNS) est plus parlant que le nom générique de la recherche directe.
+                known.name == "Android TV" && tv.name != known.name ->
+                    s.copy(discovered = s.discovered.map { if (it.host == tv.host) tv else it })
+                else -> s
+            }
+        }
+    }
+
+    /** Recherche directe : port de télécommande testé sur tout le réseau local du téléphone. */
+    private suspend fun scanNetwork(): List<ScannedTv> = withContext(Dispatchers.IO) {
+        val tvs = runCatching { NetworkScanner.scan(phoneIpv4Addresses(), identity) }.getOrDefault(emptyList())
+        for (tv in tvs) tv.mac?.let { scannedMacs[tv.host] = it }
+        tvs
     }
 
     fun stopAutoDiscovery() {
@@ -375,7 +401,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             id = existing?.id ?: store.newId(),
             name = existing?.name ?: pendingName ?: model.ifBlank { "TV" },
             host = host,
-            mac = existing?.mac ?: s.macAddress ?: pendingMac,
+            mac = existing?.mac ?: s.macAddress ?: scannedMacs[host] ?: pendingMac,
             serviceName = existing?.serviceName ?: pendingName,
             irCodeset = existing?.irCodeset,
             control = existing?.control ?: SavedTv.CONTROL_AUTO,
@@ -487,8 +513,8 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                 delay(
                     when {
                         session?.isOpen == true -> 1_000
-                        waking -> 1_500
-                        else -> 4_000
+                        waking -> 1_000
+                        else -> 3_000
                     },
                 )
             }
@@ -497,9 +523,17 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     /** La TV ne répond plus à son adresse : la chercher sur le réseau par son nom. */
     private suspend fun relocate(tv: SavedTv) {
-        val name = tv.serviceName ?: return
-        val found = discoverFor(4_000).firstOrNull { it.name == name && it.host != tv.host } ?: return
-        updateTvIfCurrent(tv.id) { copy(host = found.host) }
+        tv.serviceName?.let { name ->
+            discoverFor(4_000).firstOrNull { it.name == name && it.host != tv.host }?.let { found ->
+                updateTvIfCurrent(tv.id) { copy(host = found.host) }
+                return
+            }
+        }
+        // Recherche directe : on reconnaît la TV à son adresse MAC.
+        val mac = tv.mac ?: return
+        scanNetwork().firstOrNull { it.mac == mac && it.host != tv.host }?.let { found ->
+            updateTvIfCurrent(tv.id) { copy(host = found.host) }
+        }
     }
 
     /** Recherche les TV du réseau pendant [ms] millisecondes et renvoie celles trouvées. */
@@ -785,6 +819,13 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /** Adresses de diffusion du réseau du téléphone, pour le réveil par le réseau. */
+    /** Adresses IPv4 du téléphone sur son réseau actif. */
+    private fun phoneIpv4Addresses(): List<String> {
+        val cm = getApplication<Application>().getSystemService(ConnectivityManager::class.java) ?: return emptyList()
+        val links = cm.getLinkProperties(cm.activeNetwork) ?: return emptyList()
+        return links.linkAddresses.mapNotNull { (it.address as? Inet4Address)?.hostAddress }
+    }
+
     private fun phoneBroadcastAddresses(): List<String> {
         val cm = getApplication<Application>().getSystemService(ConnectivityManager::class.java) ?: return emptyList()
         val links = cm.getLinkProperties(cm.activeNetwork) ?: return emptyList()
