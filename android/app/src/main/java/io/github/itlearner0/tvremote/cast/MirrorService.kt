@@ -8,7 +8,14 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
+import android.media.AudioAttributes
+import android.media.AudioFormat
+import android.media.AudioPlaybackCaptureConfiguration
+import android.media.AudioRecord
 import android.hardware.display.DisplayManager
 import android.hardware.display.VirtualDisplay
 import android.media.MediaCodec
@@ -185,11 +192,14 @@ class MirrorService : Service() {
                 "telecommande-tv", w, h, metrics.densityDpi,
                 DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, input, null, null,
             ) ?: error("capture de l'écran arrêtée")
-            out.writeInt(0)
-            out.writeInt(w)
-            out.writeInt(h)
-            out.flush()
+            synchronized(out) {
+                out.writeInt(0)
+                out.writeInt(w)
+                out.writeInt(h)
+                out.flush()
+            }
             _status.value = "Écran du téléphone envoyé à la TV ($w × $h)"
+            startAudio(out)
             val info = MediaCodec.BufferInfo()
             while (!stopping) {
                 val index = codec.dequeueOutputBuffer(info, 100_000)
@@ -199,12 +209,14 @@ class MirrorService : Service() {
                     val bytes = ByteArray(info.size)
                     buffer.position(info.offset)
                     buffer.get(bytes)
-                    out.writeInt(1)
-                    out.writeInt(info.flags)
-                    out.writeLong(info.presentationTimeUs)
-                    out.writeInt(bytes.size)
-                    out.write(bytes)
-                    out.flush()
+                    synchronized(out) {
+                        out.writeInt(1)
+                        out.writeInt(info.flags)
+                        out.writeLong(info.presentationTimeUs)
+                        out.writeInt(bytes.size)
+                        out.write(bytes)
+                        out.flush()
+                    }
                     if (++framesSent == 1) step("Première image envoyée (${bytes.size} octets)")
                 }
                 codec.releaseOutputBuffer(index, false)
@@ -215,6 +227,74 @@ class MirrorService : Service() {
             runCatching { codec.stop() }
             codec.release()
             input.release()
+        }
+    }
+
+    /**
+     * Son des applications du téléphone (Android 10 et plus), envoyé avec l'image :
+     * PCM 16 bits stéréo 48 kHz, par paquets de 20 ms. Les applications qui interdisent
+     * la capture (certains services protégés) restent muettes sur la TV.
+     */
+    @SuppressLint("MissingPermission")
+    private fun startAudio(out: DataOutputStream) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            step("Son : Android 10 ou plus nécessaire")
+            return
+        }
+        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            step("Son : autorisation « Micro » refusée, duplication sans le son")
+            _status.value = "Écran envoyé sans le son (autorisation « Micro » refusée)"
+            return
+        }
+        val mp = projection ?: return
+        val record = runCatching {
+            val config = AudioPlaybackCaptureConfiguration.Builder(mp)
+                .addMatchingUsage(AudioAttributes.USAGE_MEDIA)
+                .addMatchingUsage(AudioAttributes.USAGE_GAME)
+                .addMatchingUsage(AudioAttributes.USAGE_UNKNOWN)
+                .build()
+            val format = AudioFormat.Builder()
+                .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                .setSampleRate(AUDIO_RATE)
+                .setChannelMask(AudioFormat.CHANNEL_IN_STEREO)
+                .build()
+            val min = AudioRecord.getMinBufferSize(AUDIO_RATE, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT)
+            AudioRecord.Builder()
+                .setAudioFormat(format)
+                .setBufferSizeInBytes(maxOf(min, AUDIO_CHUNK * 4))
+                .setAudioPlaybackCaptureConfig(config)
+                .build()
+                .also { it.startRecording() }
+        }.getOrElse {
+            step("Son : capture impossible ($it)")
+            return
+        }
+        step("Son : capture démarrée")
+        thread(name = "mirror-audio") {
+            val buffer = ByteArray(AUDIO_CHUNK)
+            try {
+                synchronized(out) {
+                    out.writeInt(3)
+                    out.writeInt(AUDIO_RATE)
+                    out.writeInt(2)
+                    out.flush()
+                }
+                while (!stopping) {
+                    val n = record.read(buffer, 0, buffer.size)
+                    if (n <= 0) continue
+                    synchronized(out) {
+                        out.writeInt(2)
+                        out.writeInt(n)
+                        out.write(buffer, 0, n)
+                        out.flush()
+                    }
+                }
+            } catch (_: Exception) {
+                // Connexion fermée : l'image s'arrête aussi, l'erreur est traitée par la boucle vidéo.
+            } finally {
+                runCatching { record.stop() }
+                record.release()
+            }
         }
     }
 
@@ -275,6 +355,9 @@ class MirrorService : Service() {
 
     companion object {
         private const val MAGIC = 0x4D495252 // "MIRR"
+        private const val AUDIO_RATE = 48_000
+        /** 20 ms de son stéréo 16 bits à 48 kHz. */
+        private const val AUDIO_CHUNK = AUDIO_RATE / 50 * 2 * 2
         private const val CHANNEL = "mirror"
         private const val NOTIFICATION_ID = 42
         private const val ACTION_STOP = "stop"

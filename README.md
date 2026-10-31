@@ -92,7 +92,10 @@ Onglet **Écran → Dupliquer l'écran sur la TV** : l'écran du téléphone (ou
 une seule application, au choix d'Android) s'affiche sur la TV, sans Google
 Cast ni Miracast. Le téléphone encode l'image en vidéo H.264 et l'envoie sur
 le réseau local au récepteur de l'application d'aide, ouvert sur la TV par
-ADB ; seule l'adresse de la TV est acceptée. Image seulement, sans le son.
+ADB ; seule l'adresse de la TV est acceptée. Le son des applications
+(Android 10 et plus, autorisation « Micro ») est envoyé avec l'image ; les
+applications qui interdisent la capture (certains services protégés)
+restent muettes sur la TV.
 Arrêt par le même bouton, la notification ou la touche Retour de la TV.
 
 ### 📡 Télécommande infrarouge (toutes marques)

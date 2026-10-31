@@ -227,7 +227,7 @@ class TvAdb(private val keyDir: File) {
     companion object {
         const val HELPER_PACKAGE = "io.github.itlearner0.tvremote.helper"
         /** versionCode de tvhelper/build.gradle.kts. */
-        private const val HELPER_VERSION = 5
+        private const val HELPER_VERSION = 6
         /** TV sur lesquelles la visionneuse est déjà installée (pendant cette session). */
         private val viewerReady: MutableSet<String> = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
 

@@ -543,7 +543,7 @@ private fun ScreenPanel() {
         Text(
             mirrorStatus?.takeIf { mirroring || mirrorReport != null || it.startsWith("Duplication") }
                 ?: ("L'écran du téléphone (ou une seule application) s'affiche sur la TV, sans Google Cast ni " +
-                    "Miracast, par le débogage ADB. Image seulement, sans le son."),
+                    "Miracast, par le débogage ADB, avec le son des applications (Android 10 et plus)."),
             color = Muted,
             fontSize = 12.sp,
         )

@@ -3,6 +3,9 @@ package io.github.itlearner0.tvremote.helper;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioAttributes;
+import android.media.AudioFormat;
+import android.media.AudioTrack;
 import android.media.MediaCodec;
 import android.media.MediaFormat;
 import android.os.Build;
@@ -24,6 +27,8 @@ import java.io.DataInputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Duplication de l'écran du téléphone : se connecte au téléphone (adresse et
@@ -31,7 +36,8 @@ import java.nio.ByteBuffer;
  * écran. Ne dépend ni de Google Cast ni de Miracast.
  *
  * Flux : « MIRR », puis des messages : 0 = format (largeur, hauteur),
- * 1 = image (drapeaux, horodatage µs, taille, données).
+ * 1 = image (drapeaux, horodatage µs, taille, données),
+ * 3 = format du son (fréquence, canaux), 2 = son PCM 16 bits (taille, données).
  *
  * am start -n …/.Mirror --es host 192.168.1.20 --ei port 40000
  * am start -n …/.Mirror --es cmd stop
@@ -164,6 +170,23 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
                     main.post(() -> fit(w, h));
                     continue;
                 }
+                if (type == 3) {
+                    int rate = in.readInt();
+                    int channels = in.readInt();
+                    startAudio(rate, channels);
+                    continue;
+                }
+                if (type == 2) {
+                    int size = in.readInt();
+                    if (size < 0 || size > 1024 * 1024) throw new IllegalStateException("son invalide");
+                    byte[] pcm = new byte[size];
+                    in.readFully(pcm);
+                    // Retard limité : au-delà de ~200 ms en attente, le son est rattrapé.
+                    if (audioQueue.size() > 10) audioQueue.clear();
+                    audioQueue.offer(pcm);
+                    continue;
+                }
+                if (type != 1) throw new IllegalStateException("message inconnu " + type);
                 int flags = in.readInt();
                 long pts = in.readLong();
                 int length = in.readInt();
@@ -195,6 +218,7 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
             Log.e(TAG, "ERREUR après " + frames + " images : " + e, e);
         } finally {
             socket = null;
+            stopAudio();
             if (codec != null) {
                 try {
                     codec.stop();
@@ -211,6 +235,57 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
                 main.postDelayed(this::finish, 20000);
             });
         }
+    }
+
+    private final LinkedBlockingQueue<byte[]> audioQueue = new LinkedBlockingQueue<>();
+    private volatile Thread audioThread;
+
+    /** Lecture du son du téléphone, dans son propre fil pour ne pas retarder l'image. */
+    private void startAudio(int rate, int channels) {
+        stopAudio();
+        int mask = channels == 1 ? AudioFormat.CHANNEL_OUT_MONO : AudioFormat.CHANNEL_OUT_STEREO;
+        int min = AudioTrack.getMinBufferSize(rate, mask, AudioFormat.ENCODING_PCM_16BIT);
+        AudioTrack track = new AudioTrack(
+                new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MOVIE)
+                        .build(),
+                new AudioFormat.Builder()
+                        .setSampleRate(rate)
+                        .setChannelMask(mask)
+                        .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                        .build(),
+                Math.max(min * 2, rate / 5 * channels * 2),
+                AudioTrack.MODE_STREAM,
+                android.media.AudioManager.AUDIO_SESSION_ID_GENERATE);
+        track.play();
+        Log.i(TAG, "son : " + rate + " Hz, " + channels + " canaux");
+        audioQueue.clear();
+        Thread t = new Thread(() -> {
+            try {
+                while (running && audioThread == Thread.currentThread()) {
+                    byte[] pcm = audioQueue.poll(200, TimeUnit.MILLISECONDS);
+                    if (pcm != null) track.write(pcm, 0, pcm.length);
+                }
+            } catch (Exception e) {
+                Log.w(TAG, "son interrompu : " + e);
+            } finally {
+                try {
+                    track.stop();
+                } catch (Exception ignored) {
+                }
+                track.release();
+            }
+        }, "mirror-audio");
+        audioThread = t;
+        t.start();
+    }
+
+    private void stopAudio() {
+        Thread t = audioThread;
+        audioThread = null;
+        if (t != null) t.interrupt();
+        audioQueue.clear();
     }
 
     /** Décodeur H.264 ; sans le mode « faible latence » si la TV le refuse. */
