@@ -132,6 +132,7 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
     private void receive(Surface target) {
         MediaCodec codec = null;
         String end = "Duplication terminée.";
+        int frames = 0;
         try (Socket s = new Socket()) {
             socket = s;
             s.connect(new InetSocketAddress(host, port), 6000);
@@ -148,7 +149,11 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
                         codec.stop();
                         codec.release();
                     }
-                    codec = decoder(w, h, target);
+                    try {
+                        codec = decoder(w, h, target);
+                    } catch (Exception e) {
+                        throw new IllegalStateException("la TV ne sait pas décoder une image de " + w + " × " + h + " (" + e + ")");
+                    }
                     main.post(() -> fit(w, h));
                     continue;
                 }
@@ -169,12 +174,13 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
                 buffer.put(data);
                 boolean config = (flags & MediaCodec.BUFFER_FLAG_CODEC_CONFIG) != 0;
                 codec.queueInputBuffer(index, 0, length, pts, config ? MediaCodec.BUFFER_FLAG_CODEC_CONFIG : 0);
+                frames++;
                 drain(codec, info);
             }
+        } catch (java.io.EOFException e) {
+            end = "Duplication arrêtée par le téléphone.";
         } catch (Exception e) {
-            if (running && e.getMessage() != null && e.getMessage().contains("ECONNREFUSED")) {
-                end = "Le téléphone ne répond pas (" + e.getMessage() + ")";
-            }
+            end = "Duplication interrompue : " + e;
         } finally {
             socket = null;
             if (codec != null) {
@@ -186,11 +192,11 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
             }
         }
         if (running) {
-            final String message = end;
+            final String message = end + (frames > 0 ? "" : " (aucune image reçue)");
             main.post(() -> {
                 status.setText(message);
                 status.setVisibility(View.VISIBLE);
-                main.postDelayed(this::finish, 2500);
+                main.postDelayed(this::finish, 8000);
             });
         }
     }

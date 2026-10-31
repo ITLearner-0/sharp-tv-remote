@@ -105,7 +105,7 @@ class MirrorService : Service() {
             var socket: Socket
             while (true) {
                 socket = srv.accept()
-                if (socket.inetAddress?.hostAddress == host) break
+                if (sameHost(socket.inetAddress, host)) break
                 socket.close()
             }
             srv.close()
@@ -115,94 +115,84 @@ class MirrorService : Service() {
             streaming = true
             stream(DataOutputStream(BufferedOutputStream(socket.getOutputStream(), 1 shl 16)))
         } catch (e: Exception) {
-            if (streaming && e is java.io.IOException) _status.value = "Duplication arrêtée sur la TV"
+            if (streaming && e is java.io.IOException) _status.value = "La TV a arrêté la duplication (voir le message sur la TV)"
             else if (!stopping) fail(e.message ?: e.javaClass.simpleName)
         } finally {
             main.post { stopSelf() }
         }
     }
 
-    /** Encode l'écran et envoie les images ; recommence avec la nouvelle taille si l'écran tourne. */
+    /**
+     * Encode l'écran et envoie les images. L'image est toujours horizontale
+     * (1920 × 1080, sinon 1280 × 720) : les décodeurs des TV refusent souvent
+     * les images verticales ; Android y place l'écran du téléphone en gardant
+     * ses proportions (bandes noires), y compris quand il tourne.
+     */
     private fun stream(out: DataOutputStream) {
         out.writeInt(MAGIC)
         val dm = getSystemService(DisplayManager::class.java)
-        val screen = dm.getDisplay(Display.DEFAULT_DISPLAY)
-        while (!stopping) {
-            val metrics = DisplayMetrics().also {
-                @Suppress("DEPRECATION")
-                screen.getRealMetrics(it)
+        val metrics = DisplayMetrics().also {
+            @Suppress("DEPRECATION")
+            dm.getDisplay(Display.DEFAULT_DISPLAY).getRealMetrics(it)
+        }
+        var configured: Triple<MediaCodec, Int, Int>? = null
+        var lastError: Exception? = null
+        for ((w, h, rate) in SIZES) {
+            val format = MediaFormat.createVideoFormat(MediaFormat.MIMETYPE_VIDEO_AVC, w, h).apply {
+                setInteger(MediaFormat.KEY_COLOR_FORMAT, MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface)
+                setInteger(MediaFormat.KEY_BIT_RATE, rate)
+                setInteger(MediaFormat.KEY_FRAME_RATE, 30)
+                setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 1)
+                // Image répétée quand l'écran est immobile : la TV reste à jour.
+                setLong(MediaFormat.KEY_REPEAT_PREVIOUS_FRAME_AFTER, 100_000L)
             }
-            // Taille réduite si l'encodeur du téléphone refuse la précédente.
-            var configured: Triple<MediaCodec, Int, Int>? = null
-            var lastError: Exception? = null
-            for (max in intArrayOf(1280, 960, 720)) {
-                val (w, h) = videoSize(metrics.widthPixels, metrics.heightPixels, max)
-                val format = MediaFormat.createVideoFormat(MediaFormat.MIMETYPE_VIDEO_AVC, w, h).apply {
-                    setInteger(MediaFormat.KEY_COLOR_FORMAT, MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface)
-                    setInteger(MediaFormat.KEY_BIT_RATE, 6_000_000)
-                    setInteger(MediaFormat.KEY_FRAME_RATE, 30)
-                    setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 1)
-                    // Image répétée quand l'écran est immobile : la TV reste à jour.
-                    setLong(MediaFormat.KEY_REPEAT_PREVIOUS_FRAME_AFTER, 100_000L)
-                }
-                val candidate = MediaCodec.createEncoderByType(MediaFormat.MIMETYPE_VIDEO_AVC)
-                try {
-                    candidate.configure(format, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE)
-                    configured = Triple(candidate, w, h)
-                    break
-                } catch (e: Exception) {
-                    candidate.release()
-                    lastError = e
-                }
+            val candidate = MediaCodec.createEncoderByType(MediaFormat.MIMETYPE_VIDEO_AVC)
+            try {
+                candidate.configure(format, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE)
+                configured = Triple(candidate, w, h)
+                break
+            } catch (e: Exception) {
+                candidate.release()
+                lastError = e
             }
-            val (codec, w, h) = configured ?: throw IllegalStateException("encodeur vidéo indisponible", lastError)
-            val input = codec.createInputSurface()
-            codec.start()
-            val vd = display
-            if (vd == null) {
-                display = projection?.createVirtualDisplay(
-                    "telecommande-tv", w, h, metrics.densityDpi,
-                    DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, input, null, null,
-                ) ?: error("capture de l'écran arrêtée")
-            } else {
-                vd.resize(w, h, metrics.densityDpi)
-                vd.surface = input
-            }
+        }
+        val (codec, w, h) = configured ?: throw IllegalStateException("encodeur vidéo indisponible", lastError)
+        val input = codec.createInputSurface()
+        codec.start()
+        try {
+            display = projection?.createVirtualDisplay(
+                "telecommande-tv", w, h, metrics.densityDpi,
+                DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, input, null, null,
+            ) ?: error("capture de l'écran arrêtée")
             out.writeInt(0)
             out.writeInt(w)
             out.writeInt(h)
             out.flush()
-            val landscape = w > h
+            _status.value = "Écran du téléphone envoyé à la TV ($w × $h)"
             val info = MediaCodec.BufferInfo()
-            try {
-                while (!stopping) {
-                    val index = codec.dequeueOutputBuffer(info, 100_000)
-                    if (index >= 0) {
-                        val buffer = codec.getOutputBuffer(index)
-                        if (buffer != null && info.size > 0) {
-                            val bytes = ByteArray(info.size)
-                            buffer.position(info.offset)
-                            buffer.get(bytes)
-                            out.writeInt(1)
-                            out.writeInt(info.flags)
-                            out.writeLong(info.presentationTimeUs)
-                            out.writeInt(bytes.size)
-                            out.write(bytes)
-                            out.flush()
-                        }
-                        codec.releaseOutputBuffer(index, false)
-                    }
-                    // Rotation de l'écran : nouvel encodeur à la nouvelle taille.
-                    @Suppress("DEPRECATION")
-                    screen.getRealMetrics(metrics)
-                    if ((metrics.widthPixels > metrics.heightPixels) != landscape) break
+            while (!stopping) {
+                val index = codec.dequeueOutputBuffer(info, 100_000)
+                if (index < 0) continue
+                val buffer = codec.getOutputBuffer(index)
+                if (buffer != null && info.size > 0) {
+                    val bytes = ByteArray(info.size)
+                    buffer.position(info.offset)
+                    buffer.get(bytes)
+                    out.writeInt(1)
+                    out.writeInt(info.flags)
+                    out.writeLong(info.presentationTimeUs)
+                    out.writeInt(bytes.size)
+                    out.write(bytes)
+                    out.flush()
                 }
-            } finally {
-                display?.surface = null
-                runCatching { codec.stop() }
-                codec.release()
-                input.release()
+                codec.releaseOutputBuffer(index, false)
             }
+        } finally {
+            display?.release()
+            display = null
+            runCatching { codec.stop() }
+            codec.release()
+            input.release()
         }
     }
 
@@ -265,12 +255,14 @@ class MirrorService : Service() {
             context.startService(Intent(context, MirrorService::class.java).setAction(ACTION_STOP))
         }
 
-        /** Taille de la vidéo : [max] px au plus sur le grand côté, multiples de 16. */
-        fun videoSize(width: Int, height: Int, max: Int = 1280): Pair<Int, Int> {
-            val longest = maxOf(width, height)
-            val scale = if (longest > max) max.toDouble() / longest else 1.0
-            fun even(v: Double) = maxOf(16, (v.toInt() / 16) * 16)
-            return even(width * scale) to even(height * scale)
+        /** Tailles d'image essayées (largeur, hauteur, débit) : horizontales, comme une vidéo de TV. */
+        private val SIZES = listOf(Triple(1920, 1080, 8_000_000), Triple(1280, 720, 5_000_000))
+
+        /** Même machine, que l'adresse soit écrite en IPv4 ou en IPv6 « ::ffff:a.b.c.d ». */
+        fun sameHost(address: java.net.InetAddress?, host: String): Boolean {
+            address ?: return false
+            val text = address.hostAddress.orEmpty().removePrefix("::ffff:")
+            return text == host || runCatching { java.net.InetAddress.getByName(host) == address }.getOrDefault(false)
         }
     }
 }
