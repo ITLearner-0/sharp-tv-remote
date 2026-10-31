@@ -1,6 +1,8 @@
 package io.github.itlearner0.tvremote.data
 
 import android.content.SharedPreferences
+import org.json.JSONArray
+import org.json.JSONObject
 
 data class TvApp(
     val packageName: String,
@@ -20,6 +22,7 @@ class AppCatalog(private val prefs: SharedPreferences, tvId: String) {
     private val keySeen = "apps_seen_$tvId"
     private val keyInstalled = "apps_installed_$tvId"
     private val keyScanned = "apps_scanned_$tvId"
+    private val keyList = "apps_list_$tvId"
 
     val isComplete: Boolean get() = installed().isNotEmpty()
 
@@ -35,7 +38,7 @@ class AppCatalog(private val prefs: SharedPreferences, tvId: String) {
         val packages = installed.keys.ifEmpty { DEFAULT_APPS.toSet() } + seen()
         return packages
             .filterNot { pkg -> HIDDEN_PREFIXES.any { pkg.startsWith(it) } }
-            .map { TvApp(it, labelFor(it), installed[it]) }
+            .map { TvApp(it, installed[it]?.label ?: labelFor(it), installed[it]) }
             .sortedBy { it.label.lowercase() }
     }
 
@@ -50,21 +53,45 @@ class AppCatalog(private val prefs: SharedPreferences, tvId: String) {
 
     /** Remplace la liste par celle lue sur la TV : les applications désinstallées disparaissent. */
     fun setInstalled(apps: Collection<InstalledApp>) {
-        val encoded = apps.map { "${it.packageName}|${it.component}|${if (it.tvApp) "tv" else "phone"}" }.toSet()
+        val list = JSONArray()
+        for (app in apps) {
+            list.put(
+                JSONObject()
+                    .put("p", app.packageName)
+                    .put("c", app.component)
+                    .put("t", app.tvApp)
+                    .put("l", app.label ?: ""),
+            )
+        }
         prefs.edit()
-            .putStringSet(keyInstalled, encoded)
+            .putString(keyList, list.toString())
+            .remove(keyInstalled)
             .remove(keySeen) // les applications « vues » peuvent avoir été désinstallées depuis
             .putLong(keyScanned, System.currentTimeMillis())
             .apply()
     }
 
     fun clear() {
-        prefs.edit().remove(keySeen).remove(keyInstalled).remove(keyScanned).apply()
+        prefs.edit().remove(keySeen).remove(keyInstalled).remove(keyScanned).remove(keyList).apply()
     }
 
     private fun seen(): Set<String> = prefs.getStringSet(keySeen, null).orEmpty()
 
-    private fun installed(): Map<String, InstalledApp> =
+    private fun installed(): Map<String, InstalledApp> {
+        prefs.getString(keyList, null)?.let { json ->
+            runCatching {
+                val array = JSONArray(json)
+                return List(array.length()) { i ->
+                    val o = array.getJSONObject(i)
+                    InstalledApp(o.getString("p"), o.optString("c"), o.optBoolean("t"), o.optString("l").ifBlank { null })
+                }.associateBy { it.packageName }
+            }
+        }
+        return legacyInstalled()
+    }
+
+    /** Format des versions précédentes (sans les vrais noms). */
+    private fun legacyInstalled(): Map<String, InstalledApp> =
         prefs.getStringSet(keyInstalled, null).orEmpty().mapNotNull { entry ->
             val parts = entry.split('|')
             if (parts.size == 3) InstalledApp(parts[0], parts[1], parts[2] == "tv") else null

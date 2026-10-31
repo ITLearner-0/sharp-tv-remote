@@ -1,5 +1,6 @@
 package io.github.itlearner0.tvremote.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,6 +25,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -32,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -60,10 +64,10 @@ fun AppsPanel(state: UiState, vm: RemoteViewModel) {
             )
         }
         if (otherApps.isNotEmpty()) SectionTitle("Applications TV")
-        AppGrid(tvApps, state.tv.currentApp, vm)
+        AppGrid(tvApps, state, vm)
         if (otherApps.isNotEmpty()) {
             SectionTitle("Autres applications")
-            AppGrid(otherApps, state.tv.currentApp, vm)
+            AppGrid(otherApps, state, vm)
         }
         if (filtered.isEmpty()) Text("Aucune application ne correspond.", color = Muted, fontSize = 13.sp)
 
@@ -93,12 +97,13 @@ private fun SectionTitle(title: String) {
 }
 
 @Composable
-private fun AppGrid(apps: List<TvApp>, currentApp: String, vm: RemoteViewModel) {
+private fun AppGrid(apps: List<TvApp>, state: UiState, vm: RemoteViewModel) {
     Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
         for (row in apps.chunked(4)) {
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 for (app in row) {
-                    AppTile(app, app.packageName == currentApp, Modifier.weight(1f)) { vm.launch(app) }
+                    val icon = remember(app.packageName, state.appsVersion, state.current?.id) { vm.appIcon(app.packageName) }
+                    AppTile(app, icon, app.packageName == state.tv.currentApp, Modifier.weight(1f)) { vm.launch(app) }
                 }
                 repeat(4 - row.size) { Box(Modifier.weight(1f)) }
             }
@@ -107,7 +112,7 @@ private fun AppGrid(apps: List<TvApp>, currentApp: String, vm: RemoteViewModel) 
 }
 
 @Composable
-private fun AppTile(app: TvApp, running: Boolean, modifier: Modifier, onClick: () -> Unit) {
+private fun AppTile(app: TvApp, icon: ImageBitmap?, running: Boolean, modifier: Modifier, onClick: () -> Unit) {
     val (start, end) = brandColors(app.packageName)
     Column(
         modifier.clip(RoundedCornerShape(14.dp)).clickable(onClick = onClick).padding(vertical = 4.dp),
@@ -120,10 +125,14 @@ private fun AppTile(app: TvApp, running: Boolean, modifier: Modifier, onClick: (
                 .fillMaxWidth(0.86f)
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(18.dp))
-                .background(Brush.linearGradient(listOf(start, end)))
+                .background(if (icon != null) Brush.linearGradient(listOf(KeyColor, KeyColor)) else Brush.linearGradient(listOf(start, end)))
                 .then(if (running) Modifier.border(2.dp, OnColor, RoundedCornerShape(18.dp)) else Modifier),
         ) {
-            Text(monogram(app), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+            if (icon != null) {
+                Image(icon, contentDescription = null, modifier = Modifier.fillMaxSize().padding(8.dp))
+            } else {
+                Text(monogram(app), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+            }
             if (running) {
                 Box(
                     Modifier.align(Alignment.TopEnd).padding(6.dp).size(9.dp).clip(CircleShape).background(OnColor),

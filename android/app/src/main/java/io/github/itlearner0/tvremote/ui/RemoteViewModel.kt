@@ -3,7 +3,14 @@ package io.github.itlearner0.tvremote.ui
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.util.Base64
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
+import io.github.itlearner0.tvremote.data.InstalledApp
+import io.github.itlearner0.tvremote.protocol.ListedApp
+import java.io.File
 import android.net.ConnectivityManager
 import android.os.Build
 import androidx.lifecycle.AndroidViewModel
@@ -85,6 +92,8 @@ data class UiState(
     val scanningApps: Boolean = false,
     val appsMessage: String? = null,
     val detectingMac: Boolean = false,
+    /** Change à chaque nouvelle lecture des applications (pour recharger les icônes). */
+    val appsVersion: Int = 0,
     /** Résultat détaillé de la dernière détection d'adresse MAC (affiché dans les réglages). */
     val macStatus: String? = null,
     /** Détail du dernier plantage ou de la dernière erreur rattrapée, à transmettre. */
@@ -988,6 +997,48 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         scanApps(silent = true)
     }
 
+    /**
+     * Liste des applications : d'abord par l'application d'aide (liste exacte,
+     * vrais noms, icônes), sinon par la liste des paquets. Renvoie (applications, exacte ?).
+     */
+    private fun readInstalledApps(tv: SavedTv): Pair<List<InstalledApp>, Boolean> {
+        val helper = helperApk()
+        val listed = helper?.let { runCatching { adb.listWithHelper(tv.host, it) }.getOrNull() }
+        if (listed != null) {
+            saveIcons(tv, listed)
+            return listed.map { InstalledApp(it.packageName, it.component, it.tvApp, it.label) } to true
+        }
+        return adb.scanApps(tv.host) to false
+    }
+
+    /** Application d'aide embarquée (assets/tvhelper.apk), copiée pour être installée. */
+    private fun helperApk(): File? = runCatching {
+        val app = getApplication<Application>()
+        val file = File(app.cacheDir, "tvhelper.apk")
+        app.assets.open("tvhelper.apk").use { input -> file.outputStream().use { input.copyTo(it) } }
+        file
+    }.getOrNull()
+
+    private fun iconDir(tvId: String) = File(getApplication<Application>().filesDir, "icons/$tvId")
+
+    private fun saveIcons(tv: SavedTv, apps: List<ListedApp>) {
+        val dir = iconDir(tv.id)
+        dir.deleteRecursively()
+        dir.mkdirs()
+        for (app in apps) {
+            val data = app.iconBase64 ?: continue
+            runCatching { File(dir, "${app.packageName}.png").writeBytes(Base64.decode(data, Base64.DEFAULT)) }
+        }
+    }
+
+    /** Vraie icône d'une application de la TV affichée, si elle a été lue. */
+    fun appIcon(packageName: String): ImageBitmap? {
+        val tv = _state.value.current ?: return null
+        val file = File(iconDir(tv.id), "$packageName.png")
+        if (!file.exists()) return null
+        return runCatching { BitmapFactory.decodeFile(file.path)?.asImageBitmap() }.getOrNull()
+    }
+
     /** Lit sur la TV la liste exacte des applications installées. */
     fun scanApps(silent: Boolean = false) {
         if (notOverIr("La liste des applications")) return
@@ -1006,8 +1057,8 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             )
         }
         scope.launch {
-            val result = withContext(Dispatchers.IO) { runCatching { adb.scanApps(tv.host) } }
-            result.onSuccess { apps ->
+            val result = withContext(Dispatchers.IO) { runCatching { readInstalledApps(tv) } }
+            result.onSuccess { (apps, exact) ->
                 setAdbAuthorized(tv)
                 c.setInstalled(apps)
                 val list = c.list()
@@ -1016,7 +1067,12 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                         scanningApps = false,
                         apps = list,
                         appsComplete = c.isComplete,
-                        appsMessage = "${list.size} applications installées sur la TV (liste à jour).",
+                        appsVersion = it.appsVersion + 1,
+                        appsMessage = if (exact) {
+                            "${list.size} applications : liste exacte de la TV, avec leurs vrais noms."
+                        } else {
+                            "${list.size} applications installées (noms approximatifs : la lecture détaillée a échoué)."
+                        },
                     )
                 }
                 if (_state.value.current?.mac == null) detectMac()

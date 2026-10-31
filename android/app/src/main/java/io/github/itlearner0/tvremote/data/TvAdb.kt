@@ -1,6 +1,8 @@
 package io.github.itlearner0.tvremote.data
 
 import dadb.AdbKeyPair
+import io.github.itlearner0.tvremote.protocol.AppListParser
+import io.github.itlearner0.tvremote.protocol.ListedApp
 import io.github.itlearner0.tvremote.protocol.MacSources
 import dadb.Dadb
 import java.io.File
@@ -12,6 +14,8 @@ data class InstalledApp(
     val component: String,
     /** true : application conçue pour la TV ; false : application de téléphone installée sur la TV. */
     val tvApp: Boolean,
+    /** Vrai nom de l'application (lu par l'application d'aide), ou null. */
+    val label: String? = null,
 )
 
 /**
@@ -20,6 +24,23 @@ data class InstalledApp(
  * La TV demande d'autoriser ce téléphone à la première connexion.
  */
 class TvAdb(private val keyDir: File) {
+
+    /**
+     * Liste exacte des applications que l'écran d'accueil de la TV peut lancer,
+     * avec leurs vrais noms et icônes : une petite application d'aide est
+     * installée, interrogée, puis aussitôt désinstallée.
+     */
+    fun listWithHelper(host: String, helperApk: File): List<ListedApp> = withAdb(host) { adb ->
+        adb.install(helperApk, "-r")
+        try {
+            val output = adb.shell("am instrument -r -w $HELPER_PACKAGE/.AppLister").allOutput
+            val apps = AppListParser.parse(output)
+            check(apps.isNotEmpty()) { "l'application d'aide n'a renvoyé aucune application" }
+            apps
+        } finally {
+            runCatching { adb.shell("pm uninstall $HELPER_PACKAGE") }
+        }
+    }
 
     /**
      * Applications réellement installées et activées sur la TV :
@@ -125,5 +146,9 @@ class TvAdb(private val keyDir: File) {
         val keyPair = AdbKeyPair.read(privateKey, publicKey)
         // Délai de lecture large : la TV attend que l'utilisateur autorise ce téléphone.
         return Dadb.create(host, 5555, keyPair, 10_000, 70_000).use(block)
+    }
+
+    companion object {
+        const val HELPER_PACKAGE = "io.github.itlearner0.tvremote.helper"
     }
 }

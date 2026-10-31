@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "TelecommandeTV"
-include(":app")
+include(":app", ":tvhelper")

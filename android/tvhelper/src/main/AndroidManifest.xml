@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Nécessaire depuis Android 11 pour voir toutes les applications installées. -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+
+    <application android:label="Télécommande TV (aide)" />
+
+    <instrumentation
+        android:name=".AppLister"
+        android:label="Liste des applications"
+        android:targetPackage="io.github.itlearner0.tvremote.helper" />
+</manifest>
