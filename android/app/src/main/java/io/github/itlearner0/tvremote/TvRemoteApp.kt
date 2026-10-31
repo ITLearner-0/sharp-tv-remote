@@ -28,7 +28,7 @@ class TvRemoteApp : Application() {
         val trace = StringWriter().also { error.printStackTrace(PrintWriter(it)) }.toString()
         val date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRANCE).format(Date())
         val version = runCatching { packageManager.getPackageInfo(packageName, 0).versionName }.getOrNull()
-        return "Télécommande TV $version — $date\n" +
+        return "OmniZap $version — $date\n" +
             "Téléphone : ${Build.MANUFACTURER} ${Build.MODEL}, Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})\n" +
             "Fil : ${thread.name}\n\n" + trace.take(12_000)
     }

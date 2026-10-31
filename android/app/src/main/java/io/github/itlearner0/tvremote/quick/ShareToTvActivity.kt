@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 
 /**
- * « Partager → Télécommande TV » : ouvre sur la TV la vidéo ou la page partagée
+ * « Partager → OmniZap » : ouvre sur la TV la vidéo ou la page partagée
  * (YouTube, Netflix, site web…). Sans écran : l'envoi se fait en arrière-plan.
  */
 class ShareToTvActivity : Activity() {

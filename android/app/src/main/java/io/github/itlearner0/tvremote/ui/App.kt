@@ -155,7 +155,7 @@ private fun TvListDialog(state: UiState, vm: RemoteViewModel, onDismiss: () -> U
                 }
                 NotificationSwitch(state, vm)
                 Text(
-                    "Widget : appui long sur l'écran d'accueil → Widgets → Télécommande TV. " +
+                    "Widget : appui long sur l'écran d'accueil → Widgets → OmniZap. " +
                         "Tuile : réglages rapides → modifier → « TV ». Partage : dans YouTube ou le " +
                         "navigateur, Partager → « Ouvrir sur la TV ».",
                     color = Muted,
@@ -167,7 +167,7 @@ private fun TvListDialog(state: UiState, vm: RemoteViewModel, onDismiss: () -> U
                     modifier = Modifier.padding(top = 16.dp),
                 )
                 Text(
-                    "Les réglages sont aussi copiés automatiquement dans Téléchargements/Télécommande TV, " +
+                    "Les réglages sont aussi copiés automatiquement dans Téléchargements/OmniZap, " +
                         "un fichier conservé si l'application est désinstallée.",
                     color = Muted,
                     style = MaterialTheme.typography.bodySmall,

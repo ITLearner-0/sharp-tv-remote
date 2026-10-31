@@ -13,14 +13,15 @@ import org.json.JSONObject
  * Sauvegarde locale des réglages (TV, adresses IP et MAC, infrarouge,
  * touches personnalisées, applications), sans Google.
  *
- * Le fichier est écrit dans Téléchargements/Télécommande TV : il survit à
+ * Le fichier est écrit dans Téléchargements/OmniZap : il survit à
  * la désinstallation et se restaure en le choisissant après réinstallation.
  * La clé d'appairage du téléphone n'y figure pas (elle ne doit pas se
  * trouver dans un dossier partagé) : l'appairage est à refaire.
  */
 object LocalBackup {
-    const val FILE_NAME = "telecommande-tv-sauvegarde.json"
-    private const val FOLDER = "Download/Télécommande TV/"
+    const val FILE_NAME = "omnizap-sauvegarde.json"
+    private const val FOLDER = "Download/OmniZap/"
+    // Identifiant interne inchangé : les sauvegardes faites avant le changement de nom restent lisibles.
     private const val FORMAT = "telecommande-tv"
 
     /** Contenu des réglages, au format JSON. */
@@ -48,7 +49,7 @@ object LocalBackup {
     /** Remplace les réglages par ceux de la sauvegarde. Renvoie le nombre de TV restaurées. */
     fun import(prefs: SharedPreferences, json: String): Int {
         val root = JSONObject(json)
-        require(root.optString("format") == FORMAT) { "Ce fichier n'est pas une sauvegarde de Télécommande TV" }
+        require(root.optString("format") == FORMAT) { "Ce fichier n'est pas une sauvegarde d'OmniZap" }
         val values = root.getJSONObject("prefs")
         val editor = prefs.edit().clear()
         for (key in values.keys()) {
@@ -71,7 +72,7 @@ object LocalBackup {
     }
 
     /**
-     * Écrit la sauvegarde dans Téléchargements/Télécommande TV (Android 10 et plus),
+     * Écrit la sauvegarde dans Téléchargements/OmniZap (Android 10 et plus),
      * en remplaçant celle que cette installation a déjà écrite.
      */
     fun writeAutomatic(context: Context, json: String) {

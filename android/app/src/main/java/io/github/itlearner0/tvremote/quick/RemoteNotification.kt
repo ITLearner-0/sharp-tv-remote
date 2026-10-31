@@ -55,7 +55,7 @@ object RemoteNotification {
 
         val notification = Notification.Builder(context, CHANNEL)
             .setSmallIcon(R.drawable.ic_stat_remote)
-            .setContentTitle(tv?.name ?: "Télécommande TV")
+            .setContentTitle(tv?.name ?: "OmniZap")
             .setContentText("Télécommande")
             .setContentIntent(open)
             .setOngoing(true)

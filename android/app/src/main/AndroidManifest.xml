@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Partager → Télécommande TV : ouvre la vidéo ou la page sur la TV. -->
+        <!-- Partager → OmniZap : ouvre la vidéo ou la page sur la TV. -->
         <activity
             android:name=".quick.ShareToTvActivity"
             android:excludeFromRecents="true"

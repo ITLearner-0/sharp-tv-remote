@@ -268,7 +268,8 @@ private fun RestoreBackup(vm: RemoteViewModel) {
     Card {
         Text("Vous aviez déjà utilisé l'application ?", fontWeight = FontWeight.SemiBold)
         Text(
-            "Restaurez vos TV depuis la sauvegarde : Téléchargements → Télécommande TV → ${LocalBackup.FILE_NAME}.",
+            "Restaurez vos TV depuis la sauvegarde : Téléchargements → OmniZap → ${LocalBackup.FILE_NAME} " +
+                "(sauvegarde plus ancienne : Téléchargements → Télécommande TV).",
             color = Muted,
             fontSize = 13.sp,
         )

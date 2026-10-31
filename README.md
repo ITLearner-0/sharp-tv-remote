@@ -23,9 +23,9 @@ et il fonctionne avec toutes les TV Sharp sous Android TV ou Google TV
 - Raccourcis clavier quand on l'utilise depuis un ordinateur (flèches, Entrée, Échap, +/−, espace)
 - Installable sur l'écran d'accueil du téléphone (PWA)
 
-## 📱 Application Android (version de test)
+## 📱 Application Android OmniZap (version de test)
 
-Le dossier `android/` contient une **application Android autonome** : le
+Le dossier `android/` contient **OmniZap**, une **application Android autonome** : le
 téléphone pilote directement la TV, **sans ordinateur ni serveur**. Elle reprend
 toutes les fonctions (appairage, touches, texte, allumage par le réseau,
 liste des applications) et ajoute les **boutons de volume du téléphone**.
@@ -52,7 +52,7 @@ version (GitHub Actions), qui s'installe par-dessus la précédente.
 
 Les réglages (TV, adresses IP et MAC, infrarouge, touches personnalisées,
 applications) sont copiés automatiquement dans
-**Téléchargements/Télécommande TV/telecommande-tv-sauvegarde.json**. Ce fichier
+**Téléchargements/OmniZap/omnizap-sauvegarde.json** (avant le changement de nom : Téléchargements/Télécommande TV/telecommande-tv-sauvegarde.json, toujours restaurable). Ce fichier
 reste sur le téléphone si l'application est désinstallée : après
 réinstallation, l'écran d'accueil propose « Restaurer une sauvegarde ».
 « Mes TV » permet aussi d'exporter ou de restaurer à la main (autre téléphone…).

@@ -20,7 +20,7 @@ class RemoteWidget : AppWidgetProvider() {
 
     companion object {
         fun views(context: Context): RemoteViews = RemoteViews(context.packageName, R.layout.widget_remote).apply {
-            setTextViewText(R.id.widget_title, QuickRemote.currentTv(context)?.name ?: "Télécommande TV")
+            setTextViewText(R.id.widget_title, QuickRemote.currentTv(context)?.name ?: "OmniZap")
             setOnClickPendingIntent(
                 R.id.widget_title,
                 PendingIntent.getActivity(
