@@ -28,7 +28,10 @@ interface MediaSource {
  * pour avancer ou reculer dans une vidéo. Les adresses contiennent un jeton
  * aléatoire : seuls les fichiers envoyés à la TV sont accessibles.
  */
-class MediaHttpServer : Closeable {
+class MediaHttpServer(
+    /** Appelé à chaque demande reçue : adresse du demandeur, numéro du fichier, code de réponse. */
+    private val onRequest: (client: String, index: Int?, status: Int) -> Unit = { _, _, _ -> },
+) : Closeable {
     private val server = ServerSocket(0)
     private val token = ByteArray(12).also(SecureRandom()::nextBytes).joinToString("") { "%02x".format(it) }
     private val sources = ConcurrentHashMap<Int, MediaSource>()
@@ -76,8 +79,11 @@ class MediaHttpServer : Closeable {
         val parts = requestLine.split(' ')
         val method = parts.getOrNull(0).orEmpty()
         val segments = parts.getOrNull(1).orEmpty().substringBefore('?').trim('/').split('/')
-        val source = segments.takeIf { it.size >= 2 && it[0] == token }?.get(1)?.toIntOrNull()?.let(sources::get)
+        val index = segments.takeIf { it.size >= 2 && it[0] == token }?.get(1)?.toIntOrNull()
+        val source = index?.let(sources::get)
+        val client = socket.inetAddress?.hostAddress.orEmpty()
         if (source == null || (method != "GET" && method != "HEAD")) {
+            onRequest(client, index, 404)
             respond(out, "404 Not Found", mapOf("Content-Length" to "0"))
             return
         }
@@ -97,6 +103,7 @@ class MediaHttpServer : Closeable {
             "Access-Control-Allow-Origin" to "*",
         )
         val status = if (range != null) "206 Partial Content" else "200 OK"
+        onRequest(client, index, if (range != null) 206 else 200)
         respond(out, status, if (range != null) common + ("Content-Range" to "bytes $start-$end/$size") else common)
         if (method == "HEAD" || length == 0L) return
         source.open(start).use { stream -> copy(stream, out, length) }

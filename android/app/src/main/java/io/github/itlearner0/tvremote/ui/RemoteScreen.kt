@@ -67,6 +67,7 @@ import androidx.compose.material.icons.filled.VolumeOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.TextButton
 import io.github.itlearner0.tvremote.cast.CastActivity
 import io.github.itlearner0.tvremote.cast.ScreenMirroring
 import androidx.compose.material3.FilledTonalButton
@@ -526,18 +527,23 @@ private fun ScreenPanel() {
             color = Muted,
             fontSize = 12.sp,
         )
+        val homeInstalled = remember { ScreenMirroring.isGoogleHomeInstalled(context) }
         OutlinedButton(
-            onClick = { ScreenMirroring.open(context) },
+            onClick = { if (homeInstalled) ScreenMirroring.open(context) else ScreenMirroring.installGoogleHome(context) },
             modifier = Modifier.fillMaxWidth().height(52.dp),
         ) {
             Icon(Icons.Filled.ScreenShare, contentDescription = null, modifier = Modifier.size(18.dp))
-            Text("  Dupliquer l'écran du téléphone")
+            Text(if (homeInstalled) "  Dupliquer l'écran (Google Home)" else "  Installer Google Home pour dupliquer l'écran")
         }
         Text(
-            "Ouvre le menu de diffusion du téléphone (« Caster » ou « Smart View ») : choisissez la TV.",
+            "Pour une TV à Chromecast intégré, la duplication passe par Google Home : touchez la TV, puis " +
+                "« Caster mon écran ». (« Smart View » de Samsung utilise Miracast, que beaucoup de TV Android ignorent.)",
             color = Muted,
             fontSize = 12.sp,
         )
+        TextButton(onClick = { ScreenMirroring.openSystemMenu(context) }) {
+            Text("Menu de diffusion du téléphone (Miracast)")
+        }
     }
 }
 

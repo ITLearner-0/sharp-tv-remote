@@ -230,6 +230,12 @@ private fun CastScreen(vm: CastViewModel, onClose: () -> Unit) {
                         Text(if (state.items.isEmpty()) "  Choisir des photos et vidéos" else "  Choisir d'autres fichiers")
                     }
                 }
+                if (state.log.isNotEmpty()) {
+                    Panel {
+                        Text("Journal", fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
+                        for (line in state.log) Text(line, color = Muted, fontSize = 11.sp)
+                    }
+                }
                 Text(
                     "Gardez cet écran ouvert pendant la lecture d'une vidéo : la TV lit le fichier directement sur le téléphone.",
                     color = Muted,
