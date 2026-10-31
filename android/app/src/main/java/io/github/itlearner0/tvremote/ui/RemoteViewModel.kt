@@ -22,6 +22,7 @@ import io.github.itlearner0.tvremote.protocol.Keys
 import io.github.itlearner0.tvremote.protocol.PairingRequiredException
 import io.github.itlearner0.tvremote.protocol.PairingSession
 import io.github.itlearner0.tvremote.protocol.RemoteSession
+import io.github.itlearner0.tvremote.protocol.TextKeys
 import io.github.itlearner0.tvremote.protocol.TvState
 import io.github.itlearner0.tvremote.protocol.WakeOnLan
 import kotlinx.coroutines.CancellationException
@@ -533,9 +534,40 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         command { sendKey(code, direction) }
     }
 
+    /**
+     * Envoie du texte dans le champ actif de la TV. Beaucoup d'applications
+     * ignorent le canal de saisie de la télécommande : on tape donc le texte
+     * comme sur un clavier (ADB si autorisé, sinon touche par touche).
+     */
     fun text(value: String) {
         if (notOverIr("La saisie de texte")) return
-        command { sendText(value) }
+        val tv = _state.value.current ?: return
+        val s = session
+        if (s == null || !s.isOpen || _state.value.connection != Connection.CONNECTED) {
+            say("TV éteinte : appuyez d'abord sur Marche")
+            return
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            val ascii = TextKeys.toAscii(value)
+            val (strokes, unsupported) = TextKeys.strokes(ascii)
+            if (ascii != value || unsupported.isNotEmpty()) {
+                say(
+                    "Les accents et certains signes ne peuvent pas être tapés à distance" +
+                        if (unsupported.isNotEmpty()) " (${unsupported.joinToString(" ")} ignorés)" else "",
+                )
+            }
+            val typedByAdb = adbAuthorized(tv) && unsupported.isEmpty() &&
+                runCatching { adb.inputText(tv.host, ascii) }.isSuccess
+            if (typedByAdb) return@launch
+            runCatching {
+                for (stroke in strokes) {
+                    if (stroke.shift) s.sendKey(TextKeys.SHIFT_LEFT, Keys.START_LONG)
+                    s.sendKey(stroke.keyCode)
+                    if (stroke.shift) s.sendKey(TextKeys.SHIFT_LEFT, Keys.END_LONG)
+                    delay(40)
+                }
+            }.onFailure { say("Connexion perdue pendant la saisie") }
+        }
     }
 
     /** Les fonctions réseau n'existent pas en infrarouge : message et true si la TV est en infrarouge. */

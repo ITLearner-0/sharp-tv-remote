@@ -482,7 +482,8 @@ private fun TextInput(vm: RemoteViewModel) {
     }
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text(
-            "Placez d'abord le curseur dans une zone de saisie sur la TV (recherche, mot de passe…), puis tapez ici.",
+            "Placez d'abord le curseur dans une zone de saisie sur la TV (recherche, mot de passe…), puis tapez ici. " +
+                "Les accents sont remplacés par la lettre simple (é → e).",
             color = Muted,
             fontSize = 13.sp,
         )

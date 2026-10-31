@@ -60,6 +60,15 @@ class TvAdb(private val keyDir: File) {
         }
     }
 
+    /**
+     * Tape [text] dans le champ actif de la TV (commande Android « input text »).
+     * [text] doit être en ASCII : la commande ne gère pas les accents.
+     */
+    fun inputText(host: String, text: String) {
+        val escaped = text.replace("'", "'\\''").replace(" ", "%s")
+        withAdb(host) { adb -> adb.shell("input text '$escaped'") }
+    }
+
     fun keyEvent(host: String, keyCode: Int) {
         withAdb(host) { adb -> adb.shell("input keyevent $keyCode") }
     }
