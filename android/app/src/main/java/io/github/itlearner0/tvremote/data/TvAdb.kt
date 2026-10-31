@@ -49,22 +49,43 @@ class TvAdb(private val keyDir: File) {
      * Installe l'application d'aide si besoin. Renvoie null, ou l'erreur de la TV.
      */
     fun showMedia(host: String, helperApk: File?, url: String, mimeType: String): String? = withAdb(host) { adb ->
-        fun sh(command: String) = runCatching { adb.shell(command).allOutput }.getOrElse { "Error: ${it.message}" }
-        if (host !in viewerReady) {
-            val installed = sh("dumpsys package $HELPER_PACKAGE | grep versionCode")
-            if ("versionCode=$HELPER_VERSION " !in "$installed ") {
-                helperApk ?: return@withAdb "application d'aide absente de l'APK"
-                runCatching { adb.install(helperApk, "-r") }.exceptionOrNull()?.let {
-                    return@withAdb "installation de la visionneuse refusée (${it.message})"
-                }
+        ensureHelper(adb, host, helperApk)?.let { return@withAdb it }
+        startHelper(adb, host, "Viewer", "-a android.intent.action.VIEW -d '$url' -t '$mimeType'")
+    }
+
+    /**
+     * Duplication de l'écran : ouvre sur la TV le récepteur de l'application
+     * d'aide, qui se connecte au téléphone ([phoneHost]:[port]). Renvoie null, ou l'erreur.
+     */
+    fun startMirror(host: String, helperApk: File?, phoneHost: String, port: Int): String? = withAdb(host) { adb ->
+        ensureHelper(adb, host, helperApk)?.let { return@withAdb it }
+        startHelper(adb, host, "Mirror", "--es host $phoneHost --ei port $port")
+    }
+
+    fun stopMirror(host: String) {
+        withAdb(host) { adb -> adb.shell("am start -n $HELPER_PACKAGE/.Mirror --es cmd stop") }
+    }
+
+    /** Installe l'application d'aide si elle manque ou est ancienne. Renvoie null, ou l'erreur. */
+    private fun ensureHelper(adb: Dadb, host: String, helperApk: File?): String? {
+        if (host in viewerReady) return null
+        val installed = runCatching { adb.shell("dumpsys package $HELPER_PACKAGE | grep versionCode").allOutput }.getOrDefault("")
+        if ("versionCode=$HELPER_VERSION " !in "$installed ") {
+            helperApk ?: return "application d'aide absente de l'APK"
+            runCatching { adb.install(helperApk, "-r") }.exceptionOrNull()?.let {
+                return "installation de l'application d'aide refusée (${it.message})"
             }
-            viewerReady += host
         }
-        val out = sh("am start -n $HELPER_PACKAGE/.Viewer -a android.intent.action.VIEW -d '$url' -t '$mimeType'")
-        if ("Error" in out || "Exception" in out) {
-            viewerReady -= host
-            out.lines().firstOrNull { "Error" in it || "Exception" in it }?.trim() ?: out.trim()
-        } else null
+        viewerReady += host
+        return null
+    }
+
+    private fun startHelper(adb: Dadb, host: String, activity: String, args: String): String? {
+        val out = runCatching { adb.shell("am start -n $HELPER_PACKAGE/.$activity $args").allOutput }
+            .getOrElse { "Error: ${it.message}" }
+        if ("Error" !in out && "Exception" !in out) return null
+        viewerReady -= host
+        return out.lines().firstOrNull { "Error" in it || "Exception" in it }?.trim() ?: out.trim()
     }
 
     /** Commande à la visionneuse : « playpause », « seek » (avec [deltaMs]) ou « stop ». */
@@ -200,7 +221,7 @@ class TvAdb(private val keyDir: File) {
     companion object {
         const val HELPER_PACKAGE = "io.github.itlearner0.tvremote.helper"
         /** versionCode de tvhelper/build.gradle.kts. */
-        private const val HELPER_VERSION = 2
+        private const val HELPER_VERSION = 3
         /** TV sur lesquelles la visionneuse est déjà installée (pendant cette session). */
         private val viewerReady: MutableSet<String> = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
 

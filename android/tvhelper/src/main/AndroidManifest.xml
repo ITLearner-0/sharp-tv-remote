@@ -17,6 +17,14 @@
             android:launchMode="singleTask"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+
+        <!-- Duplication de l'écran du téléphone (vidéo H.264 reçue du téléphone). -->
+        <activity
+            android:name=".Mirror"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
     </application>
 
     <instrumentation

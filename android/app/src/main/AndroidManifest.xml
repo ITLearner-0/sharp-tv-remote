@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- Recherche vocale : le son du micro est transmis à l'Assistant de la TV. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- Duplication de l'écran vers la TV (capture d'écran en service de premier plan). -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
 
     <!-- L'émetteur infrarouge est facultatif : l'application fonctionne aussi par le réseau. -->
     <uses-feature android:name="android.hardware.consumerir" android:required="false" />
@@ -67,6 +70,17 @@
             android:launchMode="singleTop"
             android:label="Photos et vidéos sur la TV"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".cast.MirrorActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <service
+            android:name=".cast.MirrorService"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
 
         <meta-data
             android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"

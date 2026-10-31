@@ -1,5 +1,5 @@
 // Petite application d'aide installée sur la TV par ADB : liste exacte des applications
-// (vrais noms, icônes) et visionneuse de photos et vidéos du téléphone, sans Google Cast.
+// (vrais noms, icônes), visionneuse de photos et vidéos, duplication de l'écran du téléphone.
 plugins {
     id("com.android.application")
 }
@@ -12,8 +12,8 @@ android {
         applicationId = "io.github.itlearner0.tvremote.helper"
         minSdk = 21
         targetSdk = 35
-        versionCode = 2
-        versionName = "2"
+        versionCode = 3
+        versionName = "3"
     }
 
     signingConfigs {

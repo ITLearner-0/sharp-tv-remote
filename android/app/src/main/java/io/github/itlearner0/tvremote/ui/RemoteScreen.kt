@@ -70,6 +70,8 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.TextButton
 import io.github.itlearner0.tvremote.cast.CastActivity
 import io.github.itlearner0.tvremote.cast.ScreenMirroring
+import io.github.itlearner0.tvremote.cast.MirrorActivity
+import io.github.itlearner0.tvremote.cast.MirrorService
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -80,6 +82,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -524,6 +527,22 @@ private fun ScreenPanel() {
         }
         Text(
             "Diaporama et vidéos en plein écran sur la TV. Aussi depuis la Galerie : Partager → « Ouvrir sur la TV ».",
+            color = Muted,
+            fontSize = 12.sp,
+        )
+        val mirroring by MirrorService.running.collectAsState()
+        val mirrorStatus by MirrorService.status.collectAsState()
+        Button(
+            onClick = { if (mirroring) MirrorService.stop(context) else MirrorActivity.start(context) },
+            modifier = Modifier.fillMaxWidth().height(52.dp),
+        ) {
+            Icon(Icons.Filled.ScreenShare, contentDescription = null, modifier = Modifier.size(18.dp))
+            Text(if (mirroring) "  Arrêter la duplication" else "  Dupliquer l'écran sur la TV")
+        }
+        Text(
+            mirrorStatus?.takeIf { mirroring || it.startsWith("Duplication") }
+                ?: ("L'écran du téléphone (ou une seule application) s'affiche sur la TV, sans Google Cast ni " +
+                    "Miracast, par le débogage ADB. Image seulement, sans le son."),
             color = Muted,
             fontSize = 12.sp,
         )
