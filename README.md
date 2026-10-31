@@ -34,7 +34,7 @@ liste des applications) et ajoute les **boutons de volume du téléphone**.
 
 1. Sur le téléphone, connecté à votre compte GitHub, ouvrez la page
    [Releases du dépôt](../../releases/tag/android-latest) et téléchargez
-   **`telecommande-tv.apk`**.
+   **`omnizap.apk`** (identifiant `app.omnizap.remote`).
 2. Ouvrez le fichier. Android demande d'autoriser l'installation
    d'applications « de sources inconnues » pour votre navigateur ou
    gestionnaire de fichiers : acceptez.
@@ -43,6 +43,12 @@ liste des applications) et ajoute les **boutons de volume du téléphone**.
 
 Chaque modification du dossier `android/` produit automatiquement une nouvelle
 version (GitHub Actions), qui s'installe par-dessus la précédente.
+
+> Passage à l'identifiant `app.omnizap.remote` : OmniZap s'installe à côté de
+> l'ancienne « Télécommande TV » (identifiant `io.github.itlearner0.tvremote`).
+> Restaurez vos TV depuis la sauvegarde (Téléchargements/Télécommande TV),
+> refaites l'appairage et l'autorisation du débogage, puis désinstallez
+> l'ancienne application.
 
 > ⚠️ L'APK est signé avec une **clé de test publique** (`android/app/test-signing.keystore`).
 > Elle convient pour les essais, pas pour le Play Store : il faudra une clé

@@ -37,12 +37,14 @@ jobs:
           mkdir -p app/src/main/assets
           cp tvhelper/build/outputs/apk/release/tvhelper-release.apk app/src/main/assets/tvhelper.apk
           ./gradlew --no-daemon testReleaseUnitTest :app:assembleRelease
-          cp app/build/outputs/apk/release/app-release.apk telecommande-tv.apk
+          cp app/build/outputs/apk/release/app-release.apk omnizap.apk
+          # Ancien nom conservé pour que les liens déjà partagés fonctionnent.
+          cp omnizap.apk telecommande-tv.apk
 
       - uses: actions/upload-artifact@v5
         with:
-          name: telecommande-tv-apk
-          path: android/telecommande-tv.apk
+          name: omnizap-apk
+          path: android/omnizap.apk
 
       - name: Publier l'APK (dernière version)
         env:
@@ -51,9 +53,9 @@ jobs:
           # L'API GitHub renvoie parfois une erreur passagère : plusieurs tentatives.
           for attempt in 1 2 3 4; do
             gh release delete android-latest --yes --cleanup-tag || true
-            if gh release create android-latest telecommande-tv.apk \
-                --title "Application Android (dernière version)" \
-                --notes "Version de test n°${{ github.run_number }}. Téléchargez telecommande-tv.apk depuis le téléphone puis ouvrez-le pour l'installer." \
+            if gh release create android-latest omnizap.apk telecommande-tv.apk \
+                --title "OmniZap (dernière version)" \
+                --notes "Version de test n°${{ github.run_number }}. Téléchargez omnizap.apk depuis le téléphone puis ouvrez-le pour l'installer." \
                 --prerelease \
                 --target "$GITHUB_SHA"; then
               exit 0

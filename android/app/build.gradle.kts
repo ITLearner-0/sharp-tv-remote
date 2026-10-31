@@ -9,7 +9,8 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "io.github.itlearner0.tvremote"
+        // Identifiant définitif (Play Store) ; le code garde son nom de paquet d'origine.
+        applicationId = "app.omnizap.remote"
         minSdk = 26
         targetSdk = 35
         // Numéro de version fourni par GitHub Actions pour que chaque APK remplace le précédent.
