@@ -5,7 +5,9 @@ import java.net.URL
 
 /** Sources d'adresse MAC d'une TV autres que son certificat. Appels bloquants. */
 object MacSources {
-    private val MAC = Regex("""(?i)(?<![0-9a-f:])(?:[0-9a-f]{2}[:-]){5}[0-9a-f]{2}(?![0-9a-f:])""")
+    // « \x3A » = deux-points : sur Android (ICU), « [: … :] » dans une expression désigne une
+    // propriété Unicode et rend l'expression invalide (alors qu'elle fonctionne en Java).
+    private val MAC = Regex("""(?i)(?<![0-9a-f\x3A])(?:[0-9a-f]{2}[\x3A-]){5}[0-9a-f]{2}(?![0-9a-f\x3A])""")
     private val PLACEHOLDERS = setOf("00:00:00:00:00:00", "FF:FF:FF:FF:FF:FF", "02:00:00:00:00:00")
 
     fun normalize(mac: String): String = mac.replace('-', ':').uppercase()

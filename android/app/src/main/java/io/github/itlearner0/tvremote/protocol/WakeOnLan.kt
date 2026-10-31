@@ -6,12 +6,13 @@ import java.net.InetAddress
 
 /** Réveille la TV par le réseau (« magic packet » Wake-on-LAN). Bloquant. */
 object WakeOnLan {
-    private val MAC = Regex("^([0-9A-Fa-f]{2}[:-]?){5}[0-9A-Fa-f]{2}$")
+    // « \x3A » = deux-points : sur Android (ICU), « [: … :] » dans une expression a un sens spécial.
+    private val MAC = Regex("^([0-9A-Fa-f]{2}[\\x3A-]?){5}[0-9A-Fa-f]{2}$")
 
     fun normalizeMac(mac: String): String? {
         val trimmed = mac.trim()
         if (!MAC.matches(trimmed)) return null
-        return trimmed.replace(Regex("[:-]"), "").uppercase().chunked(2).joinToString(":")
+        return trimmed.filter { it != ':' && it != '-' }.uppercase().chunked(2).joinToString(":")
     }
 
     fun packet(mac: String): ByteArray {

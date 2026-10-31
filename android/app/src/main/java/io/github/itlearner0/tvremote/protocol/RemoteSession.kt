@@ -203,7 +203,8 @@ class RemoteSession(
         // PING | KEY | IME | POWER | VOLUME | APP_LINK
         private const val FEATURES = 1 or 2 or 4 or 32 or 64 or 512
         const val FEATURE_POWER = 32
-        private val MAC_SEPARATED = Regex("(?<![0-9A-Fa-f])([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}(?![0-9A-Fa-f])")
+        // « \x3A » = deux-points : sur Android (ICU), « [: … :] » dans une expression a un sens spécial.
+        private val MAC_SEPARATED = Regex("(?<![0-9A-Fa-f])([0-9A-Fa-f]{2}[\\x3A-]){5}[0-9A-Fa-f]{2}(?![0-9A-Fa-f])")
         private val MAC_BARE = Regex("(?<=[/=])[0-9A-Fa-f]{12}(?=$|[/,])")
 
         /**
