@@ -173,6 +173,13 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                     color = Muted,
                     style = MaterialTheme.typography.bodySmall,
                 )
+                Text(
+                    "Astuce : si Menu ou Guide ne fait rien, maintenez la touche appuyée pour choisir " +
+                        "la commande adaptée à votre TV.",
+                    color = Muted,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(top = 8.dp),
+                )
                 if (state.connection == Connection.CONNECTED) {
                     val features = state.tv.features
                     val power = features and RemoteSession.FEATURE_POWER != 0

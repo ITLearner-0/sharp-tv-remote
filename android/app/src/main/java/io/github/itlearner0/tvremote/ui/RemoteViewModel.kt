@@ -69,6 +69,8 @@ data class UiState(
     val scanningApps: Boolean = false,
     val appsMessage: String? = null,
     val detectingMac: Boolean = false,
+    /** Codes choisis pour les touches qui varient selon les fabricants. */
+    val customKeys: Map<CustomKey, Int> = emptyMap(),
 ) {
     val showSetup: Boolean
         get() = current == null || adding || connection == Connection.PAIRING || connection == Connection.CONNECTING
@@ -125,8 +127,23 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                 apps = catalog?.list().orEmpty(),
                 appsComplete = catalog?.isComplete ?: false,
                 appsMessage = null,
+                customKeys = loadCustomKeys(current?.id),
             )
         }
+    }
+
+    private fun loadCustomKeys(tvId: String?): Map<CustomKey, Int> {
+        if (tvId == null) return emptyMap()
+        return CustomKey.entries.associateWith { prefs.getInt("key_${tvId}_${it.name}", it.default) }
+    }
+
+    /** Envoie la commande choisie pour une touche personnalisable. */
+    fun customKey(custom: CustomKey) = key(_state.value.customKeys[custom] ?: custom.default)
+
+    fun setCustomKey(key: CustomKey, code: Int) {
+        val tv = _state.value.current ?: return
+        prefs.edit().putInt("key_${tv.id}_${key.name}", code).apply()
+        _state.update { it.copy(customKeys = it.customKeys + (key to code)) }
     }
 
     private fun updateTv(change: SavedTv.() -> SavedTv) {
@@ -350,6 +367,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                 tv = s.state,
                 apps = catalog!!.list(),
                 appsComplete = catalog!!.isComplete,
+                customKeys = loadCustomKeys(tv.id),
             )
         }
         onTvState(s.state)

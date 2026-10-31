@@ -99,6 +99,10 @@ import kotlinx.coroutines.launch
 fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, onSwitchTv: () -> Unit) {
     val offline = state.connection != Connection.CONNECTED
     val dim = Modifier.alpha(if (offline) 0.45f else 1f)
+    var chooser by remember { mutableStateOf<CustomKey?>(null) }
+    chooser?.let { key ->
+        CustomKeyDialog(key, state.customKeys[key] ?: key.default, vm, onDismiss = { chooser = null })
+    }
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Header(state, onSettings, onSwitchTv)
 
@@ -137,7 +141,7 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
             Row(Modifier.fillMaxWidth().then(dim), horizontalArrangement = Arrangement.SpaceEvenly) {
                 RoundKey(Icons.Filled.ArrowBack, "Retour") { vm.key(Keys.BACK) }
                 RoundKey(Icons.Filled.Home, "Accueil") { vm.key(Keys.HOME) }
-                RoundKey(Icons.Filled.Menu, "Menu") { vm.key(Keys.MENU) }
+                RoundKey(Icons.Filled.Menu, "Menu", onLongPress = { chooser = CustomKey.MENU }) { vm.customKey(CustomKey.MENU) }
             }
 
             Row(
@@ -147,7 +151,12 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
                 Rocker("VOL", Icons.Filled.Add, Icons.Filled.Remove, { vm.key(Keys.VOLUME_UP) }, { vm.key(Keys.VOLUME_DOWN) })
                 Column(Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     IconKey(Icons.Filled.VolumeOff, "Muet", Modifier.fillMaxWidth().weight(1f)) { vm.key(Keys.VOLUME_MUTE) }
-                    IconKey(Icons.Filled.LiveTv, "Guide", Modifier.fillMaxWidth().weight(1f)) { vm.key(Keys.GUIDE) }
+                    IconKey(
+                        Icons.Filled.LiveTv,
+                        "Guide",
+                        Modifier.fillMaxWidth().weight(1f),
+                        onLongPress = { chooser = CustomKey.GUIDE },
+                    ) { vm.customKey(CustomKey.GUIDE) }
                     IconKey(Icons.Filled.Info, "Info", Modifier.fillMaxWidth().weight(1f)) { vm.key(Keys.INFO) }
                 }
                 Rocker(
@@ -219,11 +228,13 @@ fun PressSurface(
     color: Color = KeyColor,
     brush: Brush? = null,
     repeat: Boolean = false,
+    onLongPress: (() -> Unit)? = null,
     onPress: () -> Unit,
     content: @Composable BoxScope.() -> Unit,
 ) {
     var pressed by remember { mutableStateOf(false) }
     val currentOnPress by rememberUpdatedState(onPress)
+    val currentOnLongPress by rememberUpdatedState(onLongPress)
     val haptic = LocalHapticFeedback.current
     val scope = rememberCoroutineScope()
     val background = when {
@@ -237,11 +248,27 @@ fun PressSurface(
         modifier = modifier
             .clip(shape)
             .then(background)
-            .pointerInput(repeat) {
+            .pointerInput(repeat, onLongPress != null) {
                 awaitEachGesture {
                     awaitFirstDown()
                     pressed = true
                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    val longPress = currentOnLongPress
+                    if (longPress != null) {
+                        // Touche à appui long : la commande part au relâchement si l'appui est court.
+                        var long = false
+                        val timer = scope.launch {
+                            delay(550)
+                            long = true
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            longPress()
+                        }
+                        val up = waitForUpOrCancellation()
+                        timer.cancel()
+                        pressed = false
+                        if (!long && up != null) currentOnPress()
+                        return@awaitEachGesture
+                    }
                     currentOnPress()
                     var repeater: Job? = null
                     if (repeat) {
@@ -269,10 +296,11 @@ private fun RoundKey(
     modifier: Modifier = Modifier,
     color: Color = KeyColor,
     size: Dp = 56.dp,
+    onLongPress: (() -> Unit)? = null,
     onPress: () -> Unit,
 ) {
     Column(modifier, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        PressSurface(Modifier.size(size), CircleShape, color = color, onPress = onPress) {
+        PressSurface(Modifier.size(size), CircleShape, color = color, onLongPress = onLongPress, onPress = onPress) {
             Icon(icon, contentDescription = caption, tint = Color.White, modifier = Modifier.size(26.dp))
         }
         Text(caption, color = Muted, fontSize = 11.sp)
@@ -281,8 +309,15 @@ private fun RoundKey(
 
 /** Touche rectangulaire à icône. */
 @Composable
-private fun IconKey(icon: ImageVector, description: String, modifier: Modifier, repeat: Boolean = false, onPress: () -> Unit) {
-    PressSurface(modifier.height(48.dp), RoundedCornerShape(14.dp), repeat = repeat, onPress = onPress) {
+private fun IconKey(
+    icon: ImageVector,
+    description: String,
+    modifier: Modifier,
+    repeat: Boolean = false,
+    onLongPress: (() -> Unit)? = null,
+    onPress: () -> Unit,
+) {
+    PressSurface(modifier.height(48.dp), RoundedCornerShape(14.dp), repeat = repeat, onLongPress = onLongPress, onPress = onPress) {
         Icon(icon, contentDescription = description, tint = Color.White)
     }
 }
