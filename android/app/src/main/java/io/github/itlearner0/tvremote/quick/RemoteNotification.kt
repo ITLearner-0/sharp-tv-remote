@@ -71,6 +71,14 @@ object RemoteNotification {
         runCatching { manager.notify(ID, notification) }
     }
 
+    /** false si l'utilisateur a bloqué les notifications de l'application ou de ce canal. */
+    fun canShow(context: Context): Boolean {
+        val manager = context.getSystemService(NotificationManager::class.java) ?: return false
+        if (!manager.areNotificationsEnabled()) return false
+        val channel = manager.getNotificationChannel(CHANNEL) ?: return true
+        return channel.importance != NotificationManager.IMPORTANCE_NONE
+    }
+
     fun hide(context: Context) {
         context.getSystemService(NotificationManager::class.java)?.cancel(ID)
     }

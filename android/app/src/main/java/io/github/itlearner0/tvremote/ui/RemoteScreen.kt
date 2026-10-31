@@ -194,15 +194,17 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
 }
 
 /**
- * Micro : le son est envoyé à l'Assistant de la TV si elle l'accepte ; sinon,
- * la reconnaissance vocale du téléphone tape le texte dicté sur la TV.
+ * Micro : la reconnaissance vocale du téléphone comprend la phrase, puis
+ * « lance Netflix » ouvre l'application et toute autre phrase lance une
+ * recherche sur la TV. Appui long : son envoyé à l'Assistant de la TV
+ * (seulement sur les TV qui l'acceptent).
  */
 @Composable
 private fun VoiceKey(state: UiState, vm: RemoteViewModel) {
     val context = LocalContext.current
     val tvVoice = state.tv.features and RemoteSession.FEATURE_VOICE != 0 && !state.usesIr
     val dictation = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.firstOrNull()?.let(vm::text)
+        result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.firstOrNull()?.let(vm::voiceQuery)
     }
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
         if (granted) vm.toggleVoice() else Toast.makeText(context, "Autorisez le micro pour la recherche vocale", Toast.LENGTH_SHORT).show()
@@ -211,20 +213,27 @@ private fun VoiceKey(state: UiState, vm: RemoteViewModel) {
         Icons.Filled.Mic,
         if (state.listening) "Parlez…" else "Voix",
         color = if (state.listening) Accent else KeyColor,
-    ) {
-        when {
-            tvVoice && ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED ->
-                vm.toggleVoice()
-            tvVoice -> permission.launch(Manifest.permission.RECORD_AUDIO)
-            else -> runCatching {
-                dictation.launch(
-                    Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                        .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                        .putExtra(RecognizerIntent.EXTRA_PROMPT, "Dictez le texte à taper sur la TV"),
-                )
-            }.onFailure {
-                Toast.makeText(context, "Reconnaissance vocale indisponible sur ce téléphone", Toast.LENGTH_SHORT).show()
+        onLongPress = {
+            when {
+                !tvVoice -> Toast.makeText(context, "Cette TV n'accepte pas le son du micro : touchez simplement Voix", Toast.LENGTH_LONG).show()
+                ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED ->
+                    vm.toggleVoice()
+                else -> permission.launch(Manifest.permission.RECORD_AUDIO)
             }
+        },
+    ) {
+        if (state.listening) {
+            vm.stopVoice()
+            return@RoundKey
+        }
+        runCatching {
+            dictation.launch(
+                Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                    .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                    .putExtra(RecognizerIntent.EXTRA_PROMPT, "« Lance Netflix », « films d'action »…"),
+            )
+        }.onFailure {
+            Toast.makeText(context, "Reconnaissance vocale indisponible sur ce téléphone", Toast.LENGTH_SHORT).show()
         }
     }
 }

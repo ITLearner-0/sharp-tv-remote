@@ -99,16 +99,33 @@ class TvAdb(private val keyDir: File) {
         null
     }
 
-    fun launch(host: String, app: InstalledApp) {
-        withAdb(host) { adb ->
-            if (app.component.isNotEmpty()) {
-                adb.shell("am start -n ${app.component}")
-            } else {
-                // Pas d'activité de lancement connue : on laisse Android choisir.
-                val tv = adb.shell("monkey -p ${app.packageName} -c android.intent.category.LEANBACK_LAUNCHER 1").allOutput
-                if ("No activities found" in tv) adb.shell("monkey -p ${app.packageName} 1")
-            }
+    /**
+     * Ouvre une application sur la TV. Essaie l'activité connue, puis laisse
+     * Android choisir l'activité de lancement TV, puis téléphone.
+     * Renvoie true si la TV a confirmé le lancement.
+     */
+    fun launch(host: String, app: InstalledApp): Boolean = withAdb(host) { adb ->
+        fun sh(command: String) = runCatching { adb.shell(command).allOutput }.getOrDefault("Error")
+        if (app.component.isNotEmpty()) {
+            val out = sh("am start -n ${app.component}")
+            if ("Error" !in out && "Exception" !in out) return@withAdb true
         }
+        val pkg = app.packageName
+        for (category in listOf("android.intent.category.LEANBACK_LAUNCHER", "android.intent.category.LAUNCHER")) {
+            val out = sh("monkey -p $pkg -c $category 1")
+            if ("Events injected: 1" in out) return@withAdb true
+        }
+        false
+    }
+
+    /** Lance une recherche sur la TV (écran de recherche Google de la TV). */
+    fun globalSearch(host: String, query: String): Boolean = withAdb(host) { adb ->
+        val quoted = "'" + query.replace("'", "'\\''") + "'"
+        for (action in listOf("android.search.action.GLOBAL_SEARCH", "android.intent.action.WEB_SEARCH", "android.intent.action.SEARCH")) {
+            val out = runCatching { adb.shell("am start -a $action --es query $quoted").allOutput }.getOrDefault("Error")
+            if ("Error" !in out && "Exception" !in out) return@withAdb true
+        }
+        false
     }
 
     /**

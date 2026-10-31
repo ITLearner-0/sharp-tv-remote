@@ -4,6 +4,9 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.provider.Settings
+import io.github.itlearner0.tvremote.protocol.VoiceCommands
 import android.graphics.BitmapFactory
 import android.media.AudioFormat
 import android.media.AudioRecord
@@ -669,8 +672,21 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     // --- Accès rapide (notification) ---
 
     fun setNotificationEnabled(enabled: Boolean) {
-        RemoteNotification.setEnabled(getApplication(), enabled)
+        val app = getApplication<Application>()
+        RemoteNotification.setEnabled(app, enabled)
         _state.update { it.copy(notificationEnabled = enabled) }
+        if (enabled && !RemoteNotification.canShow(app)) {
+            say("Les notifications de l'application sont bloquées : autorisez-les dans la page qui s'ouvre")
+            runCatching {
+                app.startActivity(
+                    Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                        .putExtra(Settings.EXTRA_APP_PACKAGE, app.packageName)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                )
+            }
+        } else if (enabled) {
+            say("Télécommande ajoutée aux notifications : déroulez le volet des notifications")
+        }
     }
 
     // --- Recherche vocale ---
@@ -875,22 +891,61 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         say("${tv.name} ajoutée. Visez la TV avec le haut du téléphone.")
     }
 
+    /**
+     * Ouvre une application : par le débogage (ADB) s'il est autorisé, ce qui
+     * marche pour toutes les applications ; sinon par la télécommande, dont la
+     * commande d'ouverture est ignorée par certaines TV (dont Sharp).
+     */
     fun launch(app: TvApp) {
         if (notOverIr("L'ouverture d'applications")) return
         val tv = _state.value.current ?: return
-        val installed = app.installed
-        if (installed != null && !installed.tvApp && _state.value.connection == Connection.CONNECTED) {
-            // Application « téléphone » : la télécommande ne sait pas l'ouvrir, ADB oui.
-            say("Ouverture de ${app.label}…")
-            scope.launch(Dispatchers.IO) {
-                runCatching { adb.launch(tv.host, installed) }
-                    .onFailure { say("Impossible d'ouvrir ${app.label} : débogage USB non autorisé ?") }
-            }
+        val s = session
+        if (_state.value.connection != Connection.CONNECTED) {
+            say("TV éteinte : appuyez d'abord sur Marche")
             return
         }
-        command {
-            launchApp(app.packageName)
-            say("Ouverture de ${app.label}…")
+        say("Ouverture de ${app.label}…")
+        scope.launch(Dispatchers.IO) {
+            val installed = app.installed ?: InstalledApp(app.packageName, "", tvApp = true)
+            if (adbAuthorized(tv) || !installed.tvApp) {
+                val opened = runCatching { adb.launch(tv.host, installed) }.getOrDefault(false)
+                if (opened) {
+                    setAdbAuthorized(tv)
+                    return@launch
+                }
+                if (!installed.tvApp) {
+                    say("Impossible d'ouvrir ${app.label} : activez le « Débogage USB » sur la TV")
+                    return@launch
+                }
+            }
+            runCatching { s?.launchApp(app.packageName) }
+                .onFailure { say("Connexion perdue, reconnexion…") }
+        }
+    }
+
+    /**
+     * Phrase dictée (reconnaissance vocale du téléphone) : « lance Netflix »
+     * ouvre l'application ; sinon recherche sur la TV (ADB), ou saisie du texte.
+     */
+    fun voiceQuery(phrase: String) {
+        val spoken = phrase.trim()
+        if (spoken.isEmpty()) return
+        val tv = _state.value.current ?: return
+        VoiceCommands.appRequest(spoken)?.let { request ->
+            val label = VoiceCommands.bestMatch(request, _state.value.apps.map { it.label })
+            val app = _state.value.apps.firstOrNull { it.label == label }
+            if (app != null) {
+                launch(app)
+                return
+            }
+        }
+        if (tv.isIr || _state.value.connection != Connection.CONNECTED) {
+            say("« $spoken » : TV non connectée")
+            return
+        }
+        scope.launch(Dispatchers.IO) {
+            val searched = adbAuthorized(tv) && runCatching { adb.globalSearch(tv.host, spoken) }.getOrDefault(false)
+            if (searched) say("Recherche de « $spoken » sur la TV") else text(spoken)
         }
     }
 
