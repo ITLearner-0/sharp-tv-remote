@@ -19,6 +19,7 @@ object Keys {
     const val POWER = 26
     const val DEL = 67
     const val MENU = 82
+    const val SEARCH = 84
     const val MEDIA_PLAY_PAUSE = 85
     const val MEDIA_STOP = 86
     const val MEDIA_REWIND = 89

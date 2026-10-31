@@ -45,6 +45,7 @@ class RemoteSession(
 ) : Closeable {
     private var socket: SSLSocket? = null
     private val ready = CountDownLatch(1)
+    @Volatile private var voiceBegin: java.util.concurrent.ArrayBlockingQueue<Int>? = null
     private val writeLock = Any()
     @Volatile private var closed = false
     @Volatile private var receivedAny = false
@@ -71,13 +72,20 @@ class RemoteSession(
         try {
             s.connect(InetSocketAddress(host, port), timeoutMs)
             s.soTimeout = timeoutMs
-            s.startHandshake()
-        } catch (e: SSLException) {
-            close()
-            throw PairingRequiredException("La TV demande un appairage")
         } catch (e: IOException) {
+            close() // TV éteinte ou injoignable
+            throw e
+        }
+        try {
+            s.startHandshake()
+        } catch (e: SocketTimeoutException) {
             close()
             throw e
+        } catch (e: IOException) {
+            // La TV accepte la connexion puis refuse notre certificat (alerte TLS ou
+            // coupure, selon le minutage) : elle ne connaît pas encore ce téléphone.
+            close()
+            throw PairingRequiredException("La TV demande un appairage")
         }
         serverCertificate = s.session.peerCertificates.firstOrNull() as? X509Certificate
 
@@ -138,6 +146,43 @@ class RemoteSession(
 
     val isOpen: Boolean get() = !closed && socket != null
 
+    /** La TV accepte la voix (micro du téléphone → Assistant Google de la TV). */
+    val voiceSupported: Boolean get() = activeFeatures and FEATURE_VOICE != 0
+
+    /**
+     * Ouvre une session vocale : la touche Recherche est envoyée, la TV répond
+     * par un numéro de session. Renvoie ce numéro, ou null si la TV ne répond pas.
+     */
+    fun startVoice(timeoutMs: Long = 2_500): Int? {
+        val queue = java.util.concurrent.ArrayBlockingQueue<Int>(1)
+        voiceBegin = queue
+        try {
+            sendKey(Keys.SEARCH)
+            val id = queue.poll(timeoutMs, TimeUnit.MILLISECONDS) ?: return null
+            send { message(30) { int(1, id) } }
+            return id
+        } finally {
+            voiceBegin = null
+        }
+    }
+
+    /**
+     * Envoie de l'audio PCM 16 bits mono 8 000 Hz. La TV refuse les morceaux
+     * de plus de 20 Ko et de moins de 8 Ko : découpage et complément par du silence.
+     */
+    fun sendVoice(sessionId: Int, pcm: ByteArray) {
+        var offset = 0
+        while (offset < pcm.size) {
+            val end = minOf(offset + VOICE_CHUNK_MAX, pcm.size)
+            var chunk = pcm.copyOfRange(offset, end)
+            if (chunk.size < VOICE_CHUNK_MIN) chunk = chunk.copyOf(VOICE_CHUNK_MIN)
+            send { message(31) { int(1, sessionId); bytes(2, chunk) } }
+            offset = end
+        }
+    }
+
+    fun endVoice(sessionId: Int) = send { message(32) { int(1, sessionId) } }
+
     override fun close() {
         closed = true
         runCatching { socket?.close() }
@@ -185,6 +230,7 @@ class RemoteSession(
                 updateState { copy(isOn = msg.message(40)!!.bool(1)) }
                 ready.countDown()
             }
+            msg.has(30) -> voiceBegin?.offer(msg.message(30)!!.int(1)) // remote_voice_begin
             msg.has(50) -> { // remote_set_volume_level
                 val volume = msg.message(50)!!
                 updateState { copy(volume = VolumeInfo(volume.int(7), volume.int(6), volume.bool(8))) }
@@ -200,8 +246,12 @@ class RemoteSession(
     companion object {
         const val REMOTE_PORT = 6466
         private const val IDLE_TIMEOUT_MS = 16_000
-        // PING | KEY | IME | POWER | VOLUME | APP_LINK
-        private const val FEATURES = 1 or 2 or 4 or 32 or 64 or 512
+        // PING | KEY | IME | VOICE | POWER | VOLUME | APP_LINK
+        private const val FEATURES = 1 or 2 or 4 or 8 or 32 or 64 or 512
+        const val FEATURE_VOICE = 8
+        const val VOICE_SAMPLE_RATE = 8_000
+        private const val VOICE_CHUNK_MIN = 8 * 1024
+        private const val VOICE_CHUNK_MAX = 20 * 1024
         const val FEATURE_POWER = 32
         // « \x3A » = deux-points : sur Android (ICU), « [: … :] » dans une expression a un sens spécial.
         private val MAC_SEPARATED = Regex("(?<![0-9A-Fa-f])([0-9A-Fa-f]{2}[\\x3A-]){5}[0-9A-Fa-f]{2}(?![0-9A-Fa-f])")

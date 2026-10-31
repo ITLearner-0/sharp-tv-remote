@@ -3,7 +3,14 @@ package io.github.itlearner0.tvremote.ui
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
+import android.media.AudioFormat
+import android.media.AudioRecord
+import android.media.MediaRecorder
+import io.github.itlearner0.tvremote.quick.QuickRemote
+import io.github.itlearner0.tvremote.quick.RemoteNotification
+import io.github.itlearner0.tvremote.quick.RemoteWidget
 import android.net.Uri
 import android.util.Base64
 import androidx.compose.ui.graphics.ImageBitmap
@@ -92,6 +99,10 @@ data class UiState(
     val scanningApps: Boolean = false,
     val appsMessage: String? = null,
     val detectingMac: Boolean = false,
+    /** Le micro du téléphone est en cours d'envoi à la TV. */
+    val listening: Boolean = false,
+    /** Télécommande affichée dans les notifications. */
+    val notificationEnabled: Boolean = false,
     /** Change à chaque nouvelle lecture des applications (pour recharger les icônes). */
     val appsVersion: Int = 0,
     /** Résultat détaillé de la dernière détection d'adresse MAC (affiché dans les réglages). */
@@ -171,7 +182,13 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     init {
         loadCurrentTv()
         val crash = TvRemoteApp.crashFile(application).takeIf { it.exists() }?.let { runCatching { it.readText() }.getOrNull() }
-        _state.update { it.copy(irAvailable = ir.available, crashReport = crash) }
+        _state.update {
+            it.copy(
+                irAvailable = ir.available,
+                crashReport = crash,
+                notificationEnabled = RemoteNotification.isEnabled(application),
+            )
+        }
         prefs.registerOnSharedPreferenceChangeListener(backupListener)
     }
 
@@ -228,6 +245,11 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     private fun loadCurrentTv() {
         val current = store.current()
         catalog = current?.let { AppCatalog(prefs, it.id) }
+        // Le widget et la notification affichent le nom de la TV choisie.
+        runCatching {
+            RemoteWidget.refresh(getApplication())
+            RemoteNotification.refresh(getApplication())
+        }
         _state.update {
             it.copy(
                 tvs = store.all(),
@@ -529,6 +551,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             ).also { it.connect() }
         }
         session = s
+        QuickRemote.appSession = s
         return s
     }
 
@@ -542,6 +565,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     private fun onSessionClosed() {
         session = null
+        QuickRemote.appSession = null
         _state.update { if (it.connection == Connection.CONNECTED) it.copy(connection = Connection.OFFLINE) else it }
     }
 
@@ -639,6 +663,76 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     private fun closeSession() {
         session?.close()
         session = null
+        QuickRemote.appSession = null
+    }
+
+    // --- Accès rapide (notification) ---
+
+    fun setNotificationEnabled(enabled: Boolean) {
+        RemoteNotification.setEnabled(getApplication(), enabled)
+        _state.update { it.copy(notificationEnabled = enabled) }
+    }
+
+    // --- Recherche vocale ---
+
+    private var voiceJob: Job? = null
+
+    /**
+     * Démarre ou arrête l'écoute : le son du micro est envoyé à l'Assistant de
+     * la TV (16 bits mono 8 000 Hz). Arrêt automatique au bout de 12 secondes.
+     */
+    @SuppressLint("MissingPermission") // l'écran demande l'autorisation avant d'appeler
+    fun toggleVoice() {
+        if (voiceJob?.isActive == true) {
+            stopVoice()
+            return
+        }
+        val s = session
+        if (s == null || !s.isOpen || _state.value.connection != Connection.CONNECTED) {
+            say("TV éteinte : appuyez d'abord sur Marche")
+            return
+        }
+        voiceJob = scope.launch(Dispatchers.IO) {
+            val id = s.startVoice()
+            if (id == null) {
+                say("La TV n'a pas ouvert la recherche vocale")
+                return@launch
+            }
+            val rate = RemoteSession.VOICE_SAMPLE_RATE
+            val minBuffer = AudioRecord.getMinBufferSize(rate, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT)
+            val recorder = AudioRecord(
+                MediaRecorder.AudioSource.VOICE_RECOGNITION,
+                rate,
+                AudioFormat.CHANNEL_IN_MONO,
+                AudioFormat.ENCODING_PCM_16BIT,
+                maxOf(minBuffer, 16 * 1024),
+            )
+            _state.update { it.copy(listening = true) }
+            try {
+                recorder.startRecording()
+                val chunk = ByteArray(8 * 1024) // une demi-seconde de son
+                val deadline = System.currentTimeMillis() + 12_000
+                while (isActive && System.currentTimeMillis() < deadline) {
+                    var filled = 0
+                    while (filled < chunk.size && isActive) {
+                        val n = recorder.read(chunk, filled, chunk.size - filled)
+                        if (n <= 0) break
+                        filled += n
+                    }
+                    if (filled > 0) s.sendVoice(id, chunk.copyOf(filled))
+                }
+            } finally {
+                runCatching { recorder.stop() }
+                recorder.release()
+                runCatching { s.endVoice(id) }
+                _state.update { it.copy(listening = false) }
+            }
+        }
+    }
+
+    fun stopVoice() {
+        voiceJob?.cancel()
+        voiceJob = null
     }
 
     private fun closePairing() {

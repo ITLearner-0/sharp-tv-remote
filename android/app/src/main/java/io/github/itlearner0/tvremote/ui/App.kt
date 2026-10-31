@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import android.Manifest
+import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -20,6 +22,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.Switch
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -150,6 +153,14 @@ private fun TvListDialog(state: UiState, vm: RemoteViewModel, onDismiss: () -> U
                         }
                     }
                 }
+                NotificationSwitch(state, vm)
+                Text(
+                    "Widget : appui long sur l'écran d'accueil → Widgets → Télécommande TV. " +
+                        "Tuile : réglages rapides → modifier → « TV ». Partage : dans YouTube ou le " +
+                        "navigateur, Partager → « Ouvrir sur la TV ».",
+                    color = Muted,
+                    style = MaterialTheme.typography.bodySmall,
+                )
                 Text(
                     "Sauvegarde locale",
                     style = MaterialTheme.typography.titleSmall,
@@ -301,6 +312,30 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
         },
         dismissButton = { TextButton(onClick = onDismiss) { Text("Fermer") } },
     )
+}
+
+/** Télécommande dans les notifications (et sur l'écran verrouillé). */
+@Composable
+private fun NotificationSwitch(state: UiState, vm: RemoteViewModel) {
+    val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        if (granted) vm.setNotificationEnabled(true)
+    }
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(top = 16.dp)) {
+        Column(Modifier.weight(1f)) {
+            Text("Télécommande dans les notifications", style = MaterialTheme.typography.titleSmall)
+            Text("Marche, volume et lecture, même écran verrouillé", color = Muted, style = MaterialTheme.typography.bodySmall)
+        }
+        Switch(
+            checked = state.notificationEnabled,
+            onCheckedChange = { enabled ->
+                if (enabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    permission.launch(Manifest.permission.POST_NOTIFICATIONS)
+                } else {
+                    vm.setNotificationEnabled(enabled)
+                }
+            },
+        )
+    }
 }
 
 /** Infrarouge associé à une TV Wi-Fi : secours quand le réseau ne répond pas, ou mode exclusif. */

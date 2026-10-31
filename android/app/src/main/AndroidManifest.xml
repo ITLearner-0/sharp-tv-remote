@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.TRANSMIT_IR" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- Recherche vocale : le son du micro est transmis à l'Assistant de la TV. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <!-- L'émetteur infrarouge est facultatif : l'application fonctionne aussi par le réseau. -->
     <uses-feature android:name="android.hardware.consumerir" android:required="false" />
@@ -28,5 +32,55 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Partager → Télécommande TV : ouvre la vidéo ou la page sur la TV. -->
+        <activity
+            android:name=".quick.ShareToTvActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="@string/share_label"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".quick.QuickActionReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".quick.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".quick.RemoteWidget"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/remote_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".quick.RemoteTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_q_power"
+            android:label="@string/tile_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>

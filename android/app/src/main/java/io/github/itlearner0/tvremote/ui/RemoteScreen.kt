@@ -1,5 +1,12 @@
 package io.github.itlearner0.tvremote.ui
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.speech.RecognizerIntent
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -44,6 +51,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.LiveTv
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.NightsStay
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.PowerSettingsNew
@@ -82,7 +90,10 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.core.content.ContextCompat
+import io.github.itlearner0.tvremote.protocol.RemoteSession
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
@@ -142,6 +153,7 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
             Row(Modifier.fillMaxWidth().then(dim), horizontalArrangement = Arrangement.SpaceEvenly) {
                 RoundKey(Icons.Filled.ArrowBack, "Retour") { vm.key(Keys.BACK) }
                 RoundKey(Icons.Filled.Home, "Accueil") { vm.key(Keys.HOME) }
+                VoiceKey(state, vm)
                 RoundKey(Icons.Filled.Menu, "Menu", onLongPress = { chooser = CustomKey.MENU }) { vm.customKey(CustomKey.MENU) }
             }
 
@@ -178,6 +190,42 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
         }
 
         ExtraPanels(state, vm, dim)
+    }
+}
+
+/**
+ * Micro : le son est envoyé à l'Assistant de la TV si elle l'accepte ; sinon,
+ * la reconnaissance vocale du téléphone tape le texte dicté sur la TV.
+ */
+@Composable
+private fun VoiceKey(state: UiState, vm: RemoteViewModel) {
+    val context = LocalContext.current
+    val tvVoice = state.tv.features and RemoteSession.FEATURE_VOICE != 0 && !state.usesIr
+    val dictation = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.firstOrNull()?.let(vm::text)
+    }
+    val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        if (granted) vm.toggleVoice() else Toast.makeText(context, "Autorisez le micro pour la recherche vocale", Toast.LENGTH_SHORT).show()
+    }
+    RoundKey(
+        Icons.Filled.Mic,
+        if (state.listening) "Parlez…" else "Voix",
+        color = if (state.listening) Accent else KeyColor,
+    ) {
+        when {
+            tvVoice && ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED ->
+                vm.toggleVoice()
+            tvVoice -> permission.launch(Manifest.permission.RECORD_AUDIO)
+            else -> runCatching {
+                dictation.launch(
+                    Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                        .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                        .putExtra(RecognizerIntent.EXTRA_PROMPT, "Dictez le texte à taper sur la TV"),
+                )
+            }.onFailure {
+                Toast.makeText(context, "Reconnaissance vocale indisponible sur ce téléphone", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
 
