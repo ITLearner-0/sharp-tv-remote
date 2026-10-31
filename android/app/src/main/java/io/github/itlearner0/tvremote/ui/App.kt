@@ -182,6 +182,14 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                     TextButton(onClick = vm::detectMac, enabled = !state.detectingMac) {
                         Text(if (state.detectingMac) "Détection en cours…" else "Détecter l'adresse MAC automatiquement")
                     }
+                    state.macStatus?.let {
+                        Text(
+                            it,
+                            color = if (it.startsWith("✓")) OnColor else Muted,
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.padding(bottom = 8.dp),
+                        )
+                    }
                     Text(
                         "Pour allumer la TV éteinte, elle doit garder le réseau en veille. Sur la TV, activez " +
                             "selon le modèle « Wake on LAN », « Réveil par le réseau », « Veille réseau » ou " +

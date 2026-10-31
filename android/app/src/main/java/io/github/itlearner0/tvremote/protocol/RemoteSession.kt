@@ -59,7 +59,11 @@ class RemoteSession(
         private set
 
     val macAddress: String?
-        get() = serverCertificate?.subjectX500Principal?.name?.let(::parseMacFromSubject)
+        get() = serverSubject?.let(::parseMacFromSubject)
+
+    /** Sujet du certificat de la TV (diagnostic). */
+    val serverSubject: String?
+        get() = serverCertificate?.subjectX500Principal?.name
 
     fun connect() {
         val s = identity.sslContext().socketFactory.createSocket() as SSLSocket

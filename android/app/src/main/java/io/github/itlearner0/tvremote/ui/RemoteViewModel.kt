@@ -19,6 +19,7 @@ import io.github.itlearner0.tvremote.ir.IrDatabase
 import io.github.itlearner0.tvremote.protocol.ClientIdentity
 import io.github.itlearner0.tvremote.protocol.InvalidCodeException
 import io.github.itlearner0.tvremote.protocol.Keys
+import io.github.itlearner0.tvremote.protocol.MacSources
 import io.github.itlearner0.tvremote.protocol.NetworkScanner
 import io.github.itlearner0.tvremote.protocol.ScannedTv
 import io.github.itlearner0.tvremote.protocol.PairingRequiredException
@@ -76,6 +77,8 @@ data class UiState(
     val scanningApps: Boolean = false,
     val appsMessage: String? = null,
     val detectingMac: Boolean = false,
+    /** Résultat détaillé de la dernière détection d'adresse MAC (affiché dans les réglages). */
+    val macStatus: String? = null,
     /** Codes choisis pour les touches qui varient selon les fabricants. */
     val customKeys: Map<CustomKey, Int> = emptyMap(),
     /** Assistant d'ajout d'une TV par infrarouge affiché. */
@@ -466,7 +469,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             }
             wakeRequestedAt = 0
             if (tv.mac == null) {
-                val mac = s.macAddress ?: if (adbAuthorized(tv)) runCatching { adb.macAddress(tv.host) }.getOrNull() else null
+                val mac = findMac(tv, s, useAdb = adbAuthorized(tv), log = mutableListOf())
                 if (mac != null) updateTvIfCurrent(tv.id) { copy(mac = mac) }
             }
             if (tv.serviceName == null) {
@@ -847,20 +850,46 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             say("Allumez d'abord la TV")
             return
         }
-        _state.update { it.copy(detectingMac = true) }
+        _state.update {
+            it.copy(
+                detectingMac = true,
+                macStatus = "Recherche… Si la TV demande « Autoriser le débogage ? », acceptez avec les flèches.",
+            )
+        }
         viewModelScope.launch {
-            val mac = withContext(Dispatchers.IO) {
-                session?.macAddress ?: runCatching { adb.macAddress(tv.host) }.getOrNull()
-            }
-            _state.update { it.copy(detectingMac = false) }
+            val log = mutableListOf<String>()
+            val mac = withContext(Dispatchers.IO) { findMac(tv, session, useAdb = true, log = log) }
             if (mac != null) {
-                setAdbAuthorized(tv)
                 updateTvIfCurrent(tv.id) { copy(mac = mac) }
-                say("Adresse MAC enregistrée : $mac")
+                _state.update { it.copy(detectingMac = false, macStatus = "✓ Adresse MAC trouvée et enregistrée : $mac") }
             } else {
-                say("Adresse MAC introuvable : activez le « Débogage USB » sur la TV et acceptez la demande")
+                _state.update {
+                    it.copy(
+                        detectingMac = false,
+                        macStatus = "Adresse MAC introuvable automatiquement. Saisissez-la ci-dessus : sur la TV, " +
+                            "Paramètres → Réseau et Internet → votre réseau, ou Paramètres → À propos → État.\n\n" +
+                            "Détail : " + log.joinToString(" · "),
+                    )
+                }
             }
         }
+    }
+
+    /**
+     * Cherche l'adresse MAC de la TV : certificat, Google Cast, puis ADB.
+     * [log] reçoit le résultat de chaque méthode.
+     */
+    private fun findMac(tv: SavedTv, s: RemoteSession?, useAdb: Boolean, log: MutableList<String>): String? {
+        s?.macAddress?.let { return it }
+        log += "certificat (${s?.serverSubject ?: "non lu"}) → rien"
+        scannedMacs[tv.host]?.let { return it }
+        MacSources.fromCast(tv.host)?.let { return it }
+        log += "Google Cast → rien"
+        if (!useAdb) return null
+        return runCatching { adb.macAddress(tv.host, log) }
+            .onSuccess { setAdbAuthorized(tv) }
+            .onFailure { log += "débogage (ADB) → ${it.javaClass.simpleName} : non autorisé ou désactivé" }
+            .getOrNull()
     }
 
     private fun adbAuthorized(tv: SavedTv): Boolean = prefs.getBoolean("adb_ok_${tv.id}", false)

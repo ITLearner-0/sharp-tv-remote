@@ -1,6 +1,7 @@
 package io.github.itlearner0.tvremote.data
 
 import dadb.AdbKeyPair
+import io.github.itlearner0.tvremote.protocol.MacSources
 import dadb.Dadb
 import java.io.File
 
@@ -37,17 +38,32 @@ class TvAdb(private val keyDir: File) {
         apps.values.toList()
     }
 
-    /** Adresse MAC de l'interface réseau qui porte l'adresse IP [host]. */
-    fun macAddress(host: String): String? = withAdb(host) { adb ->
-        val addresses = adb.shell("ip -o -4 addr show").output
-        val iface = addresses.lineSequence()
+    /**
+     * Adresse MAC de l'interface réseau qui porte l'adresse IP [host].
+     * Plusieurs méthodes, car les versions récentes d'Android en restreignent
+     * certaines. [log] reçoit le résultat de chaque essai (diagnostic).
+     */
+    fun macAddress(host: String, log: MutableList<String> = mutableListOf()): String? = withAdb(host) { adb ->
+        fun sh(command: String): String = runCatching { adb.shell(command).allOutput }.getOrDefault("")
+
+        val iface = sh("ip -o -4 addr show").lineSequence()
             .firstOrNull { " $host/" in it }
             ?.trim()?.split(Regex("\\s+"))?.getOrNull(1)
-        val candidates = listOfNotNull(iface, "eth0", "wlan0").distinct()
-        candidates.firstNotNullOfOrNull { name ->
-            adb.shell("cat /sys/class/net/$name/address").output.trim().uppercase()
-                .takeIf { Regex("([0-9A-F]{2}:){5}[0-9A-F]{2}").matches(it) && it != "00:00:00:00:00:00" }
+        log += "interface de $host : ${iface ?: "inconnue"}"
+        val interfaces = listOfNotNull(iface, "eth0", "wlan0").distinct()
+        val attempts = interfaces.flatMap { name ->
+            listOf("cat /sys/class/net/$name/address", "ip link show $name")
+        } + listOf(
+            "dumpsys ethernet | grep -iE 'hwaddr|mac'",
+            "dumpsys wifi | grep -iE 'mac address|macaddress|factory mac'",
+            "getprop | grep -iE 'mac'",
+        )
+        for (command in attempts) {
+            val mac = MacSources.firstMac(sh(command))
+            log += "$command → ${mac ?: "rien"}"
+            if (mac != null) return@withAdb mac
         }
+        null
     }
 
     fun launch(host: String, app: InstalledApp) {
