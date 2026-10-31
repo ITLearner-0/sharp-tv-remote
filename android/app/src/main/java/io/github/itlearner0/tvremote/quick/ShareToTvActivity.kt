@@ -12,6 +12,14 @@ class ShareToTvActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Photos et vidéos : écran d'envoi Google Cast.
+        val type = intent?.type.orEmpty()
+        if (type.startsWith("image/") || type.startsWith("video/")) {
+            val uris = io.github.itlearner0.tvremote.cast.CastActivity.sharedUris(intent)
+            if (uris.isNotEmpty()) io.github.itlearner0.tvremote.cast.CastActivity.start(this, uris)
+            finish()
+            return
+        }
         val text = intent?.getStringExtra(Intent.EXTRA_TEXT).orEmpty()
         val link = ShareLinks.toTvLink(text)
         if (link == null) {

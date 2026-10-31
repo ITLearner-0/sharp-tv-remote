@@ -50,7 +50,10 @@ import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.LiveTv
+import androidx.compose.material.icons.filled.Cast
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.PhotoLibrary
+import androidx.compose.material.icons.filled.ScreenShare
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.NightsStay
 import androidx.compose.material.icons.filled.PlayArrow
@@ -61,7 +64,11 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material.icons.filled.VolumeOff
+import androidx.compose.material3.Button
 import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.OutlinedButton
+import io.github.itlearner0.tvremote.cast.CastActivity
+import io.github.itlearner0.tvremote.cast.ScreenMirroring
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -470,6 +477,7 @@ private fun ExtraPanels(state: UiState, vm: RemoteViewModel, dim: Modifier) {
         Icons.Filled.Apps to "Applications",
         Icons.Filled.Dialpad to "Pavé",
         Icons.Filled.Keyboard to "Clavier",
+        Icons.Filled.Cast to "Écran",
     )
     Column(
         Modifier
@@ -483,7 +491,7 @@ private fun ExtraPanels(state: UiState, vm: RemoteViewModel, dim: Modifier) {
                 Tab(
                     selected = tab == i,
                     onClick = { tab = i },
-                    text = { Text(title, fontSize = 13.sp) },
+                    text = { Text(title, fontSize = 12.sp, maxLines = 1) },
                     icon = { Icon(icon, contentDescription = null) },
                     selectedContentColor = Color.White,
                     unselectedContentColor = Muted,
@@ -494,9 +502,42 @@ private fun ExtraPanels(state: UiState, vm: RemoteViewModel, dim: Modifier) {
             when (tab) {
                 0 -> AppsPanel(state, vm)
                 1 -> NumPad(vm)
-                else -> TextInput(vm)
+                2 -> TextInput(vm)
+                else -> ScreenPanel()
             }
         }
+    }
+}
+
+/** Afficher le téléphone sur la TV : duplication d'écran (système) ou photos et vidéos (Google Cast). */
+@Composable
+private fun ScreenPanel() {
+    val context = LocalContext.current
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Button(
+            onClick = { CastActivity.start(context, emptyList()) },
+            modifier = Modifier.fillMaxWidth().height(52.dp),
+        ) {
+            Icon(Icons.Filled.PhotoLibrary, contentDescription = null, modifier = Modifier.size(18.dp))
+            Text("  Photos et vidéos du téléphone")
+        }
+        Text(
+            "Diaporama et vidéos en plein écran sur la TV. Aussi depuis la Galerie : Partager → « Ouvrir sur la TV ».",
+            color = Muted,
+            fontSize = 12.sp,
+        )
+        OutlinedButton(
+            onClick = { ScreenMirroring.open(context) },
+            modifier = Modifier.fillMaxWidth().height(52.dp),
+        ) {
+            Icon(Icons.Filled.ScreenShare, contentDescription = null, modifier = Modifier.size(18.dp))
+            Text("  Dupliquer l'écran du téléphone")
+        }
+        Text(
+            "Ouvre le menu de diffusion du téléphone (« Caster » ou « Smart View ») : choisissez la TV.",
+            color = Muted,
+            fontSize = 12.sp,
+        )
     }
 }
 

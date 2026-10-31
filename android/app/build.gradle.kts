@@ -68,6 +68,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
     implementation("dev.mobile:dadb:1.2.10")
+    // Google Cast : affichage des photos et vidéos du téléphone sur la TV.
+    implementation("com.google.android.gms:play-services-cast-framework:21.5.0")
 
     testImplementation("junit:junit:4.13.2")
 }

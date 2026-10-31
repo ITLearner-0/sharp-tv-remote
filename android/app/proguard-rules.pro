@@ -8,3 +8,6 @@
 -dontwarn org.openjsse.**
 -dontwarn javax.annotation.**
 -dontwarn org.codehaus.mojo.animal_sniffer.**
+
+# Classe déclarée par son nom dans le manifeste (Google Cast).
+-keep class io.github.itlearner0.tvremote.cast.CastOptionsProvider { *; }
