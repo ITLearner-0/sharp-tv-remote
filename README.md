@@ -98,6 +98,16 @@ applications qui interdisent la capture (certains services protégés)
 restent muettes sur la TV.
 Arrêt par le même bouton, la notification ou la touche Retour de la TV.
 
+### 👁 Voir la TV sur le téléphone
+
+Onglet **Voir la TV** : l'écran de la TV s'affiche en direct sur le
+téléphone (la TV le filme elle-même avec `screenrecord`, par ADB ; image
+seulement). Touches de navigation en dessous ; toucher l'image vaut OK, la
+faire glisser envoie les flèches. **Capture d'écran de la TV** enregistrée
+dans la galerie (Images/OmniZap). Les contenus protégés (Netflix, chaînes
+TV, entrées HDMI…) apparaissent en noir ; l'enregistrement d'Android s'arrête
+toutes les 3 minutes et est relancé aussitôt (coupure d'environ 1 s).
+
 ### 📡 Télécommande infrarouge (toutes marques)
 
 Sur les téléphones équipés d'un **émetteur infrarouge** (beaucoup de Xiaomi,

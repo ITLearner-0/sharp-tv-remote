@@ -62,6 +62,25 @@ class TvAdb(private val keyDir: File) {
         startHelper(adb, host, "Mirror", "--es host $phoneHost --ei port $port")
     }
 
+    /**
+     * Écran de la TV en direct : vidéo H.264 produite par « screenrecord » sur la TV,
+     * lue par [block] jusqu'à la fin de l'enregistrement (3 minutes au plus, limite
+     * d'Android). [register] reçoit le flux pour pouvoir l'interrompre.
+     */
+    fun screenStream(host: String, register: (AutoCloseable) -> Unit, block: (java.io.InputStream) -> Unit) {
+        withAdb(host) { adb ->
+            adb.open("exec:screenrecord --output-format=h264 --size 1280x720 --bit-rate 4000000 -").use { stream ->
+                register(stream)
+                block(stream.source.inputStream())
+            }
+        }
+    }
+
+    /** Capture de l'écran de la TV, en PNG. */
+    fun screenshot(host: String): ByteArray = withAdb(host) { adb ->
+        adb.open("exec:screencap -p").use { it.source.readByteArray() }
+    }
+
     /** Dernières lignes du journal du récepteur de duplication (erreurs de la TV). */
     fun mirrorLog(host: String): String = withAdb(host) { adb ->
         runCatching { adb.shell("logcat -d -v brief -s OmniZapMirror:V AndroidRuntime:E | tail -n 25").allOutput }

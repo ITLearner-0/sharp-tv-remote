@@ -63,6 +63,7 @@ import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.icons.filled.Tv
 import androidx.compose.material.icons.filled.VolumeOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilledIconButton
@@ -79,7 +80,7 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -482,6 +483,7 @@ private fun ExtraPanels(state: UiState, vm: RemoteViewModel, dim: Modifier) {
         Icons.Filled.Dialpad to "Pavé",
         Icons.Filled.Keyboard to "Clavier",
         Icons.Filled.Cast to "Écran",
+        Icons.Filled.Tv to "Voir la TV",
     )
     Column(
         Modifier
@@ -490,7 +492,12 @@ private fun ExtraPanels(state: UiState, vm: RemoteViewModel, dim: Modifier) {
             .background(PadColor)
             .border(1.dp, BorderColor, RoundedCornerShape(28.dp)),
     ) {
-        TabRow(selectedTabIndex = tab, containerColor = Color.Transparent, contentColor = Color.White) {
+        ScrollableTabRow(
+            selectedTabIndex = tab,
+            containerColor = Color.Transparent,
+            contentColor = Color.White,
+            edgePadding = 0.dp,
+        ) {
             tabs.forEachIndexed { i, (icon, title) ->
                 Tab(
                     selected = tab == i,
@@ -507,7 +514,8 @@ private fun ExtraPanels(state: UiState, vm: RemoteViewModel, dim: Modifier) {
                 0 -> AppsPanel(state, vm)
                 1 -> NumPad(vm)
                 2 -> TextInput(vm)
-                else -> ScreenPanel()
+                3 -> ScreenPanel()
+                else -> TvViewPanel(state, vm)
             }
         }
     }
