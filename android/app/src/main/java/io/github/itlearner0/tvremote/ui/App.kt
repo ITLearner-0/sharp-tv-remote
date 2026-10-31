@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -34,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import io.github.itlearner0.tvremote.data.LocalBackup
 import io.github.itlearner0.tvremote.data.SavedTv
 import io.github.itlearner0.tvremote.protocol.RemoteSession
 
@@ -80,6 +83,12 @@ private fun TvListDialog(state: UiState, vm: RemoteViewModel, onDismiss: () -> U
         title = { Text("Mes TV") },
         text = {
             Column {
+                val exportLauncher = rememberLauncherForActivityResult(
+                    ActivityResultContracts.CreateDocument("application/json"),
+                ) { uri -> uri?.let(vm::exportBackup) }
+                val importLauncher = rememberLauncherForActivityResult(
+                    ActivityResultContracts.OpenDocument(),
+                ) { uri -> uri?.let(vm::importBackup) }
                 for (tv in state.tvs) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -94,6 +103,21 @@ private fun TvListDialog(state: UiState, vm: RemoteViewModel, onDismiss: () -> U
                             Text(tv.host, color = Muted, style = MaterialTheme.typography.bodySmall)
                         }
                     }
+                }
+                Text(
+                    "Sauvegarde locale",
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.padding(top = 16.dp),
+                )
+                Text(
+                    "Les réglages sont aussi copiés automatiquement dans Téléchargements/Télécommande TV, " +
+                        "un fichier conservé si l'application est désinstallée.",
+                    color = Muted,
+                    style = MaterialTheme.typography.bodySmall,
+                )
+                Row {
+                    TextButton(onClick = { exportLauncher.launch(LocalBackup.FILE_NAME) }) { Text("Exporter") }
+                    TextButton(onClick = { importLauncher.launch(arrayOf("application/json", "*/*")) }) { Text("Restaurer") }
                 }
             }
         },

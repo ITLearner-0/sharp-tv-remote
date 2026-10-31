@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -51,6 +53,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.itlearner0.tvremote.data.LocalBackup
 
 @Composable
 fun SetupScreen(state: UiState, vm: RemoteViewModel) {
@@ -82,6 +85,7 @@ fun SetupScreen(state: UiState, vm: RemoteViewModel) {
                 }
             }
             else -> {
+                if (state.tvs.isEmpty()) RestoreBackup(vm)
                 FoundTvs(state, vm)
                 ManualIp(state, vm)
                 WakeOffTv(vm)
@@ -252,6 +256,26 @@ private fun WakeOffTv(vm: RemoteViewModel) {
                 )
             }
         }
+    }
+}
+
+/** Après une réinstallation : restaurer les TV depuis la sauvegarde locale. */
+@Composable
+private fun RestoreBackup(vm: RemoteViewModel) {
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        uri?.let(vm::importBackup)
+    }
+    Card {
+        Text("Vous aviez déjà utilisé l'application ?", fontWeight = FontWeight.SemiBold)
+        Text(
+            "Restaurez vos TV depuis la sauvegarde : Téléchargements → Télécommande TV → ${LocalBackup.FILE_NAME}.",
+            color = Muted,
+            fontSize = 13.sp,
+        )
+        OutlinedButton(
+            onClick = { launcher.launch(arrayOf("application/json", "*/*")) },
+            modifier = Modifier.fillMaxWidth(),
+        ) { Text("Restaurer une sauvegarde") }
     }
 }
 

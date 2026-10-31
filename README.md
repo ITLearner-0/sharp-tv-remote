@@ -48,6 +48,21 @@ version (GitHub Actions), qui s'installe par-dessus la précédente.
 > Elle convient pour les essais, pas pour le Play Store : il faudra une clé
 > privée avant toute publication.
 
+### 💾 Sauvegarde locale (sans Google)
+
+Les réglages (TV, adresses IP et MAC, infrarouge, touches personnalisées,
+applications) sont copiés automatiquement dans
+**Téléchargements/Télécommande TV/telecommande-tv-sauvegarde.json**. Ce fichier
+reste sur le téléphone si l'application est désinstallée : après
+réinstallation, l'écran d'accueil propose « Restaurer une sauvegarde ».
+« Mes TV » permet aussi d'exporter ou de restaurer à la main (autre téléphone…).
+
+À la désinstallation, Android 10 et plus peut aussi proposer de
+**conserver les données de l'application** : cochez la case pour tout
+retrouver, appairage compris. Sans cela, l'appairage (code à 6 caractères)
+est à refaire après une restauration, car la clé de sécurité du téléphone
+n'est jamais copiée dans le fichier.
+
 ### 📡 Télécommande infrarouge (toutes marques)
 
 Sur les téléphones équipés d'un **émetteur infrarouge** (beaucoup de Xiaomi,

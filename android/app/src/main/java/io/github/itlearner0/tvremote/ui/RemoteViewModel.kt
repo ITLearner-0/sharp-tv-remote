@@ -2,12 +2,15 @@ package io.github.itlearner0.tvremote.ui
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
+import android.net.Uri
 import android.net.ConnectivityManager
 import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.itlearner0.tvremote.data.AppCatalog
 import io.github.itlearner0.tvremote.data.FoundTv
+import io.github.itlearner0.tvremote.data.LocalBackup
 import io.github.itlearner0.tvremote.data.SavedTv
 import io.github.itlearner0.tvremote.data.TvAdb
 import io.github.itlearner0.tvremote.data.TvApp
@@ -132,9 +135,51 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     /** Heure du dernier réveil demandé : à la reconnexion, on finit d'allumer l'écran. */
     @Volatile private var wakeRequestedAt = 0L
 
+    /** Sauvegarde locale automatique, deux secondes après chaque modification des réglages. */
+    private var backupJob: Job? = null
+    private val backupListener = SharedPreferences.OnSharedPreferenceChangeListener { _, _ -> scheduleBackup() }
+
     init {
         loadCurrentTv()
         _state.update { it.copy(irAvailable = ir.available) }
+        prefs.registerOnSharedPreferenceChangeListener(backupListener)
+    }
+
+    private fun scheduleBackup() {
+        backupJob?.cancel()
+        backupJob = viewModelScope.launch(Dispatchers.IO) {
+            delay(2_000)
+            // Pas de sauvegarde vide : elle masquerait une bonne sauvegarde après réinstallation.
+            if (store.all().isEmpty()) return@launch
+            runCatching { LocalBackup.writeAutomatic(getApplication<Application>(), LocalBackup.export(prefs)) }
+        }
+    }
+
+    /** Exporte les réglages dans le fichier choisi par l'utilisateur. */
+    fun exportBackup(uri: Uri) {
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching { LocalBackup.writeTo(getApplication<Application>(), uri, LocalBackup.export(prefs)) }
+                .onSuccess { say("Sauvegarde enregistrée") }
+                .onFailure { say("Échec de la sauvegarde : ${it.message}") }
+        }
+    }
+
+    /** Restaure les réglages depuis une sauvegarde choisie par l'utilisateur. */
+    fun importBackup(uri: Uri) {
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                runCatching { LocalBackup.import(prefs, LocalBackup.readFrom(getApplication<Application>(), uri)) }
+            }
+            result.onSuccess { count ->
+                stopKeepAlive()
+                closeSession()
+                closePairing()
+                _state.update { it.copy(adding = false, irSetup = false, error = null) }
+                loadCurrentTv()
+                startKeepAlive()
+                say("$count TV restaurée(s). Si la TV le demande, refaites l'appairage.")
+            }.onFailure { say("Restauration impossible : ${it.message}") }
+        }
     }
 
     fun consumeMessage() {
@@ -943,6 +988,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     override fun onCleared() {
+        prefs.unregisterOnSharedPreferenceChangeListener(backupListener)
         closeSession()
         closePairing()
     }
