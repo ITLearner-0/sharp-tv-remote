@@ -26,6 +26,8 @@ data class BtState(
     val permitted: Boolean = false,
     /** Le téléphone est enregistré comme télécommande auprès d'Android. */
     val registered: Boolean = false,
+    /** Le téléphone s'annonce comme télécommande basse consommation (le mode classique est alors retiré). */
+    val bleActive: Boolean = false,
     /** Adresse et nom de la TV connectée, ou null. */
     val connectedAddress: String? = null,
     val connectedName: String? = null,
@@ -100,6 +102,8 @@ object BtRemote {
             startBle(ctx)
             return
         }
+        // Mode basse consommation actif : la télécommande classique reste retirée.
+        if (bleMode) return
         val proxy = hid
         if (proxy != null) {
             if (_state.value.registered) wanted?.let { connect(it) }
@@ -168,6 +172,11 @@ object BtRemote {
             override fun onAppStatusChanged(pluggedDevice: BluetoothDevice?, registered: Boolean) {
                 log(if (registered) "Téléphone enregistré comme télécommande" else "Enregistrement retiré par Android")
                 _state.update { it.copy(registered = registered, message = if (registered) null else it.message) }
+                if (registered && bleMode) {
+                    // Arrivée après le passage en basse consommation : on la retire aussitôt.
+                    hid?.let { proxy -> runCatching { proxy.unregisterApp() } }
+                    return
+                }
                 if (!registered) return
                 // Connexion classique seulement si elle a été demandée (TV touchée dans la liste,
                 // ou TV Bluetooth classique enregistrée) : pas de reconnexion d'office.
@@ -262,10 +271,21 @@ object BtRemote {
      * Mode basse consommation : le téléphone s'annonce comme télécommande BLE ; la TV
      * le trouve dans « Ajouter un accessoire » et s'y connecte (puis se reconnecte seule).
      */
+    /** Mode basse consommation choisi : la télécommande classique du téléphone est retirée. */
+    @Volatile private var bleMode = false
+
     fun startBle(context: Context) {
         // Pendant le mode basse consommation, pas de connexion classique en boucle vers la TV.
         if (wanted?.startsWith(BLE_PREFIX) != true) wanted = null
         main.removeCallbacksAndMessages(null)
+        if (!bleMode) {
+            bleMode = true
+            // Sinon la TV associée choisit la télécommande classique… puis la refuse.
+            this.hid?.let { classic ->
+                runCatching { classic.unregisterApp() }
+                log("Télécommande classique retirée : la TV ne verra que la télécommande basse consommation")
+            }
+        }
         val ctx = context.applicationContext
         app = ctx
         if (adapter == null) adapter = ctx.getSystemService(BluetoothManager::class.java)?.adapter
@@ -285,17 +305,27 @@ object BtRemote {
             }
         }.also { ble = it }
         hid.start()
+        _state.update { it.copy(bleActive = true) }
     }
 
     fun stopBle() {
         ble?.stop()
         ble = null
+        bleMode = false
+        _state.update { it.copy(bleActive = false) }
+    }
+
+    /** Retour au Bluetooth classique (autres TV, boîtiers, ordinateurs). */
+    fun useClassic(context: Context) {
+        stopBle()
+        val classic = hid
+        if (classic != null) register(classic) else init(context)
     }
 
     fun connect(address: String) {
-        // TV déjà connectée en basse consommation : pas de connexion classique en parallèle.
-        if (!address.startsWith(BLE_PREFIX) && ble?.device != null) {
-            log("Connexion classique ignorée : la TV est connectée en basse consommation")
+        // Mode basse consommation : pas de connexion classique en parallèle.
+        if (!address.startsWith(BLE_PREFIX) && bleMode) {
+            log("Connexion classique ignorée (mode basse consommation actif)")
             return
         }
         if (address.startsWith(BLE_PREFIX)) {

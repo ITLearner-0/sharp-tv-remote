@@ -215,6 +215,9 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                     Text(if (showClassic) "Masquer le Bluetooth classique" else "Bluetooth classique (autres TV, boîtiers, ordinateurs)…")
                 }
                 if (showClassic) {
+                    OutlinedButton(onClick = { BtRemote.useClassic(context) }, modifier = Modifier.fillMaxWidth()) {
+                        Text("Passer en Bluetooth classique (arrête la basse consommation)")
+                    }
                 BtCard {
                     Text("Bluetooth classique : depuis le téléphone", fontWeight = FontWeight.SemiBold)
                     Text(
@@ -277,14 +280,15 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                     )
                 }
                 Text(
-                    if (bt.registered) "● Téléphone prêt comme télécommande Bluetooth"
+                    if (bt.bleActive) "● Téléphone visible comme télécommande basse consommation"
+                    else if (bt.registered) "● Téléphone prêt comme télécommande Bluetooth"
                     else "○ Préparation de la télécommande Bluetooth du téléphone…",
-                    color = if (bt.registered) OnColor else Muted,
+                    color = if (bt.registered || bt.bleActive) OnColor else Muted,
                     fontSize = 12.sp,
                 )
                 }
                 bt.message?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 13.sp) }
-                if (!bt.registered || bt.message != null) {
+                if ((!bt.registered && !bt.bleActive) || bt.message != null) {
                     OutlinedButton(onClick = { BtRemote.reset(context) }, modifier = Modifier.fillMaxWidth()) {
                         Text("Réessayer")
                     }
