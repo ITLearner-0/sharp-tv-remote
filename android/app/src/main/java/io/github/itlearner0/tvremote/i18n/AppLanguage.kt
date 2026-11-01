@@ -64,7 +64,8 @@ object AppLanguage {
 
     /** Choisit la langue [code] ; l'écran doit ensuite être recréé. */
     fun set(context: Context, code: String) {
-        prefs(context).edit().putString(KEY, code).apply()
+        // Écriture immédiate : l'application redémarre juste après.
+        prefs(context).edit().putString(KEY, code).commit()
         Locale.setDefault(Locale(code))
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.getSystemService(LocaleManager::class.java)?.applicationLocales = LocaleList.forLanguageTags(code)
