@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_DE: Map<String, String> by lazy {
-    HashMap<String, String>(938).also { m ->
+    HashMap<String, String>(946).also { m ->
         l_dea(m)
         l_deb(m)
     }
@@ -243,11 +243,11 @@ private fun l_dea(m: HashMap<String, String>) {
     m["Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application "] = "Der Bluetooth-Fernbedienungsmodus des Handys wird bereits von einer anderen App genutzt "
     m["Le protocole des télécommandes d'origine des TV Android.\n"] = "Das Protokoll der Original-Fernbedienungen von Android TVs.\n"
     m["Le téléphone et la TV travaillent ensemble."] = "Handy und TV arbeiten zusammen."
+    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Das Handy meldet sich bereits als Fernbedienung, sobald dieser Bildschirm geöffnet ist („BLE:“-Zeilen im Protokoll)."
+    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Das Handy meldet sich beim TV als Bluetooth-Fernbedienung und -Tastatur: "
 }
 
 private fun l_deb(m: HashMap<String, String>) {
-    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Das Handy meldet sich bereits als Fernbedienung, sobald dieser Bildschirm geöffnet ist („BLE:“-Zeilen im Protokoll)."
-    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Das Handy meldet sich beim TV als Bluetooth-Fernbedienung und -Tastatur: "
     m["Lecture / pause"] = "Wiedergabe / Pause"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Wiedergabe nicht möglich: Aktivieren Sie das „USB-Debugging“ in den "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Akzente und einige Symbole können per Bluetooth nicht eingegeben werden"
@@ -481,4 +481,8 @@ private fun l_deb(m: HashMap<String, String>) {
     m["Connecté à {1}"] = "Verbunden mit {1}"
     m["Photos et vidéos sur la TV"] = "Fotos und Videos auf dem TV"
     m["Retour"] = "Zurück"
+    m["Expérimental"] = "Experimentell"
+    m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Experimentelle Funktion: Manche TVs lehnen Bluetooth-Fernbedienungen von einem Handy ab. WLAN und Infrarot bleiben die empfohlenen Modi."
+    m["Utiliser le Bluetooth (expérimental)"] = "Bluetooth verwenden (experimentell)"
+    m["Bluetooth (expérimental)"] = "Bluetooth (experimentell)"
 }

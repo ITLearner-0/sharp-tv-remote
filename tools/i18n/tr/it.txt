@@ -467,3 +467,7 @@
 466	Connesso a {1}
 467	Foto e video sulla TV
 468	Indietro
+469	Sperimentale
+470	Funzione sperimentale: alcune TV rifiutano i telecomandi Bluetooth provenienti da un telefono. Wi-Fi e infrarosso restano le modalità consigliate.
+471	Usa il Bluetooth (sperimentale)
+472	Bluetooth (sperimentale)

@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_AR: Map<String, String> by lazy {
-    HashMap<String, String>(938).also { m ->
+    HashMap<String, String>(946).also { m ->
         l_ara(m)
         l_arb(m)
     }
@@ -243,11 +243,11 @@ private fun l_ara(m: HashMap<String, String>) {
     m["Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application "] = "وضع جهاز التحكم بالبلوتوث في الهاتف مستخدم بالفعل من تطبيق آخر "
     m["Le protocole des télécommandes d'origine des TV Android.\n"] = "بروتوكول أجهزة التحكم الأصلية لأجهزة Android TV.\n"
     m["Le téléphone et la TV travaillent ensemble."] = "الهاتف والتلفاز يعملان معًا."
+    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "يعلن الهاتف عن نفسه كجهاز تحكم بمجرد فتح هذه الشاشة (أسطر «BLE:» في السجل)."
+    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "يقدّم الهاتف نفسه للتلفاز كجهاز تحكم ولوحة مفاتيح بلوتوث: "
 }
 
 private fun l_arb(m: HashMap<String, String>) {
-    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "يعلن الهاتف عن نفسه كجهاز تحكم بمجرد فتح هذه الشاشة (أسطر «BLE:» في السجل)."
-    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "يقدّم الهاتف نفسه للتلفاز كجهاز تحكم ولوحة مفاتيح بلوتوث: "
     m["Lecture / pause"] = "تشغيل / إيقاف مؤقت"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "تعذّر التشغيل: فعّل «تصحيح أخطاء USB» في خيارات "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "لا يمكن كتابة الحركات وبعض الرموز عبر البلوتوث"
@@ -481,4 +481,8 @@ private fun l_arb(m: HashMap<String, String>) {
     m["Connecté à {1}"] = "متصل بـ {1}"
     m["Photos et vidéos sur la TV"] = "الصور والفيديوهات على التلفاز"
     m["Retour"] = "رجوع"
+    m["Expérimental"] = "تجريبي"
+    m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "ميزة تجريبية: بعض أجهزة التلفاز ترفض أجهزة التحكم بالبلوتوث القادمة من هاتف. يبقى Wi-Fi والأشعة تحت الحمراء الوضعين الموصى بهما."
+    m["Utiliser le Bluetooth (expérimental)"] = "استخدام البلوتوث (تجريبي)"
+    m["Bluetooth (expérimental)"] = "البلوتوث (تجريبي)"
 }

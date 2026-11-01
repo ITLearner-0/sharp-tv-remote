@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_AM: Map<String, String> by lazy {
-    HashMap<String, String>(938).also { m ->
+    HashMap<String, String>(946).also { m ->
         l_ama(m)
         l_amb(m)
     }
@@ -243,11 +243,11 @@ private fun l_ama(m: HashMap<String, String>) {
     m["Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application "] = "የስልኩ የብሉቱዝ ሪሞት ሁነታ አስቀድሞ በሌላ መተግበሪያ ጥቅም ላይ ነው "
     m["Le protocole des télécommandes d'origine des TV Android.\n"] = "የAndroid TV ኦሪጅናል ሪሞቶች ፕሮቶኮል።\n"
     m["Le téléphone et la TV travaillent ensemble."] = "ስልኩና ቲቪው አብረው ይሰራሉ።"
+    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "ይህ ማያ ገጽ እንደተከፈተ ስልኩ ራሱን እንደ ሪሞት ያሳውቃል (በምዝግቡ ውስጥ «BLE:» መስመሮች)።"
+    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "ስልኩ ለቲቪው እንደ ብሉቱዝ ሪሞትና ቁልፍ ሰሌዳ ራሱን ያቀርባል: "
 }
 
 private fun l_amb(m: HashMap<String, String>) {
-    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "ይህ ማያ ገጽ እንደተከፈተ ስልኩ ራሱን እንደ ሪሞት ያሳውቃል (በምዝግቡ ውስጥ «BLE:» መስመሮች)።"
-    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "ስልኩ ለቲቪው እንደ ብሉቱዝ ሪሞትና ቁልፍ ሰሌዳ ራሱን ያቀርባል: "
     m["Lecture / pause"] = "አጫውት / ለአፍታ አቁም"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "ማጫወት አልተቻለም: «USB debugging»ን በቲቪው "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "የአነባበብ ምልክቶችና አንዳንድ ምልክቶች በብሉቱዝ ሊተየቡ አይችሉም"
@@ -481,4 +481,8 @@ private fun l_amb(m: HashMap<String, String>) {
     m["Connecté à {1}"] = "ከ{1} ጋር ተገናኝቷል"
     m["Photos et vidéos sur la TV"] = "ፎቶዎችና ቪዲዮዎች በቲቪ ላይ"
     m["Retour"] = "ተመለስ"
+    m["Expérimental"] = "የሙከራ"
+    m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "የሙከራ ባህሪ: አንዳንድ ቲቪዎች ከስልክ የሚመጡ የብሉቱዝ ሪሞቶችን አይቀበሉም። Wi-Fi እና ኢንፍራሬድ የሚመከሩ ሁነታዎች ናቸው።"
+    m["Utiliser le Bluetooth (expérimental)"] = "ብሉቱዝ ተጠቀም (የሙከራ)"
+    m["Bluetooth (expérimental)"] = "ብሉቱዝ (የሙከራ)"
 }

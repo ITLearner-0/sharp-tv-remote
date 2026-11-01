@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_IT: Map<String, String> by lazy {
-    HashMap<String, String>(938).also { m ->
+    HashMap<String, String>(946).also { m ->
         l_ita(m)
         l_itb(m)
     }
@@ -243,11 +243,11 @@ private fun l_ita(m: HashMap<String, String>) {
     m["Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application "] = "La modalità telecomando Bluetooth del telefono è già usata da un'altra app "
     m["Le protocole des télécommandes d'origine des TV Android.\n"] = "Il protocollo dei telecomandi originali delle Android TV.\n"
     m["Le téléphone et la TV travaillent ensemble."] = "Il telefono e la TV lavorano insieme."
+    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Il telefono si annuncia già come telecomando appena si apre questa schermata (righe «BLE:» del registro)."
+    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Il telefono si presenta alla TV come telecomando e tastiera Bluetooth: "
 }
 
 private fun l_itb(m: HashMap<String, String>) {
-    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Il telefono si annuncia già come telecomando appena si apre questa schermata (righe «BLE:» del registro)."
-    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Il telefono si presenta alla TV come telecomando e tastiera Bluetooth: "
     m["Lecture / pause"] = "Riproduci / pausa"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Riproduzione impossibile: attiva il «Debug USB» nelle opzioni "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Gli accenti e alcuni simboli non possono essere digitati via Bluetooth"
@@ -481,4 +481,8 @@ private fun l_itb(m: HashMap<String, String>) {
     m["Connecté à {1}"] = "Connesso a {1}"
     m["Photos et vidéos sur la TV"] = "Foto e video sulla TV"
     m["Retour"] = "Indietro"
+    m["Expérimental"] = "Sperimentale"
+    m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Funzione sperimentale: alcune TV rifiutano i telecomandi Bluetooth provenienti da un telefono. Wi-Fi e infrarosso restano le modalità consigliate."
+    m["Utiliser le Bluetooth (expérimental)"] = "Usa il Bluetooth (sperimentale)"
+    m["Bluetooth (expérimental)"] = "Bluetooth (sperimentale)"
 }

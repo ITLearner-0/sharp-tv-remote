@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_LN: Map<String, String> by lazy {
-    HashMap<String, String>(938).also { m ->
+    HashMap<String, String>(946).also { m ->
         l_lna(m)
         l_lnb(m)
     }
@@ -243,11 +243,11 @@ private fun l_lna(m: HashMap<String, String>) {
     m["Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application "] = "Application mosusu ezali kosalela télécommande Bluetooth ya telefone "
     m["Le protocole des télécommandes d'origine des TV Android.\n"] = "Protocole ya ba-télécommande ya ebandeli ya Android TV.\n"
     m["Le téléphone et la TV travaillent ensemble."] = "Telefone mpe TV basalaka elongo."
+    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Telefone ekomilakisa lokola télécommande soki ekrani oyo efungwami (milongo «BLE:» na journal)."
+    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Telefone ekomilakisa na TV lokola télécommande mpe clavier Bluetooth: "
 }
 
 private fun l_lnb(m: HashMap<String, String>) {
-    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Telefone ekomilakisa lokola télécommande soki ekrani oyo efungwami (milongo «BLE:» na journal)."
-    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Telefone ekomilakisa na TV lokola télécommande mpe clavier Bluetooth: "
     m["Lecture / pause"] = "Tambwisa / telemisa mwa moke"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Ekoki kotambwisa te: pelisa «USB debugging» na ba-option ya "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Bilembo ya accent mpe bilembo mosusu ekoki kokomama na Bluetooth te"
@@ -481,4 +481,8 @@ private fun l_lnb(m: HashMap<String, String>) {
     m["Connecté à {1}"] = "Ekangami na {1}"
     m["Photos et vidéos sur la TV"] = "Bafoto mpe bavideo na TV"
     m["Retour"] = "Zonga"
+    m["Expérimental"] = "Ya komeka"
+    m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Likoki ya komeka: ba-TV mosusu endimaka te ba-télécommande Bluetooth oyo euti na telefone. Wi-Fi mpe infrarouge nde ezali malamu koleka."
+    m["Utiliser le Bluetooth (expérimental)"] = "Salela Bluetooth (ya komeka)"
+    m["Bluetooth (expérimental)"] = "Bluetooth (ya komeka)"
 }

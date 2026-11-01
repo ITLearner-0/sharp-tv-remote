@@ -321,7 +321,7 @@ private fun InfraredEntry(state: UiState, vm: RemoteViewModel) {
         OutlinedButton(
             onClick = { vm.startBtSetup() },
             modifier = Modifier.fillMaxWidth().height(50.dp),
-        ) { Text(tr("Utiliser le Bluetooth")) }
+        ) { Text(tr("Utiliser le Bluetooth (expérimental)")) }
     }
 }
 

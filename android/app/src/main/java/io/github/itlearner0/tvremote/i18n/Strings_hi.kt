@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_HI: Map<String, String> by lazy {
-    HashMap<String, String>(938).also { m ->
+    HashMap<String, String>(946).also { m ->
         l_hia(m)
         l_hib(m)
     }
@@ -243,11 +243,11 @@ private fun l_hia(m: HashMap<String, String>) {
     m["Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application "] = "फ़ोन का Bluetooth रिमोट मोड पहले से किसी दूसरे ऐप के पास है "
     m["Le protocole des télécommandes d'origine des TV Android.\n"] = "Android TV के असली रिमोट का प्रोटोकॉल।\n"
     m["Le téléphone et la TV travaillent ensemble."] = "फ़ोन और टीवी साथ मिलकर काम करते हैं।"
+    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "यह स्क्रीन खुलते ही फ़ोन खुद को रिमोट के रूप में दिखाने लगता है (लॉग में «BLE:» वाली लाइनें)।"
+    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "फ़ोन टीवी को Bluetooth रिमोट और कीबोर्ड के रूप में दिखता है: "
 }
 
 private fun l_hib(m: HashMap<String, String>) {
-    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "यह स्क्रीन खुलते ही फ़ोन खुद को रिमोट के रूप में दिखाने लगता है (लॉग में «BLE:» वाली लाइनें)।"
-    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "फ़ोन टीवी को Bluetooth रिमोट और कीबोर्ड के रूप में दिखता है: "
     m["Lecture / pause"] = "चलाएँ / रोकें"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "चलाना संभव नहीं: टीवी के डेवलपर विकल्पों में «USB डीबगिंग» चालू करें "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "मात्राएँ और कुछ चिह्न Bluetooth से टाइप नहीं हो सकते"
@@ -481,4 +481,8 @@ private fun l_hib(m: HashMap<String, String>) {
     m["Connecté à {1}"] = "{1} से कनेक्टेड"
     m["Photos et vidéos sur la TV"] = "टीवी पर फ़ोटो और वीडियो"
     m["Retour"] = "वापस"
+    m["Expérimental"] = "प्रायोगिक"
+    m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "प्रायोगिक सुविधा: कुछ टीवी फ़ोन से आने वाले Bluetooth रिमोट स्वीकार नहीं करते। Wi-Fi और इन्फ्रारेड ही सुझाए गए तरीके हैं।"
+    m["Utiliser le Bluetooth (expérimental)"] = "Bluetooth इस्तेमाल करें (प्रायोगिक)"
+    m["Bluetooth (expérimental)"] = "Bluetooth (प्रायोगिक)"
 }

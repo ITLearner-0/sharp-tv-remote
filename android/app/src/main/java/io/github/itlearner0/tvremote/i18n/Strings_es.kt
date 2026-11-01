@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_ES: Map<String, String> by lazy {
-    HashMap<String, String>(938).also { m ->
+    HashMap<String, String>(946).also { m ->
         l_esa(m)
         l_esb(m)
     }
@@ -243,11 +243,11 @@ private fun l_esa(m: HashMap<String, String>) {
     m["Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application "] = "El modo mando Bluetooth del teléfono ya lo usa otra aplicación "
     m["Le protocole des télécommandes d'origine des TV Android.\n"] = "El protocolo de los mandos originales de las Android TV.\n"
     m["Le téléphone et la TV travaillent ensemble."] = "El teléfono y la TV trabajan juntos."
+    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "El teléfono ya se anuncia como mando al abrir esta pantalla (líneas «BLE:» del registro)."
+    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "El teléfono se presenta a la TV como mando y teclado Bluetooth: "
 }
 
 private fun l_esb(m: HashMap<String, String>) {
-    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "El teléfono ya se anuncia como mando al abrir esta pantalla (líneas «BLE:» del registro)."
-    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "El teléfono se presenta a la TV como mando y teclado Bluetooth: "
     m["Lecture / pause"] = "Reproducir / pausa"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Lectura imposible: active la «Depuración USB» en las opciones para "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Los acentos y algunos signos no se pueden escribir por Bluetooth"
@@ -481,4 +481,8 @@ private fun l_esb(m: HashMap<String, String>) {
     m["Connecté à {1}"] = "Conectado a {1}"
     m["Photos et vidéos sur la TV"] = "Fotos y vídeos en la TV"
     m["Retour"] = "Atrás"
+    m["Expérimental"] = "Experimental"
+    m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Función experimental: algunos televisores rechazan los mandos Bluetooth de un teléfono. El Wi-Fi y el infrarrojo siguen siendo los modos recomendados."
+    m["Utiliser le Bluetooth (expérimental)"] = "Usar el Bluetooth (experimental)"
+    m["Bluetooth (expérimental)"] = "Bluetooth (experimental)"
 }

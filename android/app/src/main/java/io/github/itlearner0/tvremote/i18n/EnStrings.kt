@@ -5,7 +5,7 @@ package io.github.itlearner0.tvremote.i18n
 internal val EN: Map<String, String> by lazy { buildEn() }
 
 private fun buildEn(): Map<String, String> {
-    val m = HashMap<String, String>(1090)
+    val m = HashMap<String, String>(1098)
     part0(m)
     part1(m)
     part2(m)
@@ -568,4 +568,8 @@ private fun part3(m: HashMap<String, String>) {
     m["Connecté à {1}"] = "Connected to {1}"
     m["Photos et vidéos sur la TV"] = "Photos and videos on the TV"
     m["Retour"] = "Back"
+    m["Expérimental"] = "Experimental"
+    m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Experimental feature: some TVs refuse Bluetooth remotes coming from a phone. Wi-Fi and infrared remain the recommended modes."
+    m["Utiliser le Bluetooth (expérimental)"] = "Use Bluetooth (experimental)"
+    m["Bluetooth (expérimental)"] = "Bluetooth (experimental)"
 }

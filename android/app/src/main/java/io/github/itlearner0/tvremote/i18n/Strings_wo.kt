@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_WO: Map<String, String> by lazy {
-    HashMap<String, String>(938).also { m ->
+    HashMap<String, String>(946).also { m ->
         l_woa(m)
         l_wob(m)
     }
@@ -243,11 +243,11 @@ private fun l_woa(m: HashMap<String, String>) {
     m["Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application "] = "Beneen aplikasioŋ jëfandikoo na telekomandu Bluetooth bu telefon bi "
     m["Le protocole des télécommandes d'origine des TV Android.\n"] = "Protokolu telekomand yu njëkk yu Android TV.\n"
     m["Le téléphone et la TV travaillent ensemble."] = "Telefon bi ak TV bi ñoo ànd di liggéey."
+    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Telefon bi day yégle ne mooy telekomand su ekraan bii ubbikoo (rëdd yu «BLE:» ci jurnaal bi)."
+    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Telefon bi day wone boppam ci TV bi ni telekomand ak klawie Bluetooth: "
 }
 
 private fun l_wob(m: HashMap<String, String>) {
-    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Telefon bi day yégle ne mooy telekomand su ekraan bii ubbikoo (rëdd yu «BLE:» ci jurnaal bi)."
-    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Telefon bi day wone boppam ci TV bi ni telekomand ak klawie Bluetooth: "
     m["Lecture / pause"] = "Dox / taxawal tuuti"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Mënuñu dox: taalal «USB debugging» ci tànneefu "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Mënuñu bind araf yu am aksaŋ ak yenn màndarga ci Bluetooth"
@@ -481,4 +481,8 @@ private fun l_wob(m: HashMap<String, String>) {
     m["Connecté à {1}"] = "Lëkkaloo na ak {1}"
     m["Photos et vidéos sur la TV"] = "Nataal ak widewo ci TV bi"
     m["Retour"] = "Dellu"
+    m["Expérimental"] = "Ci natt"
+    m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Jumtukaay bu ñuy natt: yenn TV yi duñu nangu telekomandu Bluetooth bu jóge ci telefon. Wi-Fi ak infraruus ñoo gën."
+    m["Utiliser le Bluetooth (expérimental)"] = "Jëfandikoo Bluetooth (ci natt)"
+    m["Bluetooth (expérimental)"] = "Bluetooth (ci natt)"
 }

@@ -467,3 +467,7 @@
 466	An haɗa da {1}
 467	Hotuna da bidiyo a kan TV
 468	Koma
+469	Na gwaji
+470	Fasalin gwaji: wasu TV ba sa karɓar rimot na Bluetooth daga waya. Wi-Fi da infrared su ne hanyoyin da aka fi ba da shawara.
+471	Yi amfani da Bluetooth (na gwaji)
+472	Bluetooth (na gwaji)

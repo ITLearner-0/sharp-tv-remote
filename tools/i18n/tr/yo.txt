@@ -467,3 +467,7 @@
 466	Ti sopọ̀ mọ́ {1}
 467	Fọ́tò àti fídíò lórí TV
 468	Padà
+469	Àdánwò
+470	Ẹ̀yà àdánwò: àwọn TV kan kì í gba rìmóòtì Bluetooth láti fóònù. Wi-Fi àti infurarẹẹdi ló dára jù.
+471	Lo Bluetooth (àdánwò)
+472	Bluetooth (àdánwò)

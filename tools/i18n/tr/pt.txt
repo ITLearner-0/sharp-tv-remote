@@ -467,3 +467,7 @@
 466	Conectado a {1}
 467	Fotos e vídeos na TV
 468	Voltar
+469	Experimental
+470	Recurso experimental: algumas TVs recusam controles Bluetooth vindos de um celular. O Wi-Fi e o infravermelho continuam sendo os modos recomendados.
+471	Usar o Bluetooth (experimental)
+472	Bluetooth (experimental)

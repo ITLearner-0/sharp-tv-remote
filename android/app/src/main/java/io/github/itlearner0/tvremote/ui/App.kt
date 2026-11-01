@@ -399,7 +399,7 @@ private fun NotificationSwitch(state: UiState, vm: RemoteViewModel) {
 private fun BtSection(state: UiState, vm: RemoteViewModel, onDismiss: () -> Unit) {
     val tv = state.current ?: return
     Column(Modifier.padding(top = 12.dp)) {
-        Text(tr("Bluetooth"), style = MaterialTheme.typography.titleSmall)
+        Text(tr("Bluetooth (expérimental)"), style = MaterialTheme.typography.titleSmall)
         Text(
             if (tv.btAddress == null) {
                 tr("Non configuré. Le téléphone peut servir de télécommande Bluetooth quand le Wi-Fi ne répond pas, ") +

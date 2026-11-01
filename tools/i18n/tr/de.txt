@@ -467,3 +467,7 @@
 466	Verbunden mit {1}
 467	Fotos und Videos auf dem TV
 468	Zurück
+469	Experimentell
+470	Experimentelle Funktion: Manche TVs lehnen Bluetooth-Fernbedienungen von einem Handy ab. WLAN und Infrarot bleiben die empfohlenen Modi.
+471	Bluetooth verwenden (experimentell)
+472	Bluetooth (experimentell)

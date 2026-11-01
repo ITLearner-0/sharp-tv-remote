@@ -467,3 +467,7 @@
 466	Ekangami na {1}
 467	Bafoto mpe bavideo na TV
 468	Zonga
+469	Ya komeka
+470	Likoki ya komeka: ba-TV mosusu endimaka te ba-télécommande Bluetooth oyo euti na telefone. Wi-Fi mpe infrarouge nde ezali malamu koleka.
+471	Salela Bluetooth (ya komeka)
+472	Bluetooth (ya komeka)

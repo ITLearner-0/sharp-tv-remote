@@ -145,11 +145,29 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                 fontWeight = FontWeight.Bold,
             )
             Text(
+                tr("Expérimental"),
+                color = Color(0xFF1A1300),
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .padding(top = 6.dp)
+                    .clip(RoundedCornerShape(50))
+                    .background(Color(0xFFFFC94D))
+                    .padding(horizontal = 10.dp, vertical = 3.dp),
+            )
+            Text(
                 tr("Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : ") +
                     tr("sans réseau, à une dizaine de mètres. (Version {1})", io.github.itlearner0.tvremote.BuildConfig.VERSION_NAME),
                 color = Muted,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = 6.dp),
+            )
+            Text(
+                tr("Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."),
+                color = Color(0xFFFFC94D),
+                fontSize = 13.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 8.dp),
             )
         }
 

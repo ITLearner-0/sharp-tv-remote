@@ -467,3 +467,7 @@
 466	Lëkkaloo na ak {1}
 467	Nataal ak widewo ci TV bi
 468	Dellu
+469	Ci natt
+470	Jumtukaay bu ñuy natt: yenn TV yi duñu nangu telekomandu Bluetooth bu jóge ci telefon. Wi-Fi ak infraruus ñoo gën.
+471	Jëfandikoo Bluetooth (ci natt)
+472	Bluetooth (ci natt)

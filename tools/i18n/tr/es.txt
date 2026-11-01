@@ -467,3 +467,7 @@
 466	Conectado a {1}
 467	Fotos y vídeos en la TV
 468	Atrás
+469	Experimental
+470	Función experimental: algunos televisores rechazan los mandos Bluetooth de un teléfono. El Wi-Fi y el infrarrojo siguen siendo los modos recomendados.
+471	Usar el Bluetooth (experimental)
+472	Bluetooth (experimental)

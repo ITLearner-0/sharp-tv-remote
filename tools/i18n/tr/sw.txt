@@ -467,3 +467,7 @@
 466	Imeunganishwa na {1}
 467	Picha na video kwenye TV
 468	Rudi
+469	Majaribio
+470	Kipengele cha majaribio: baadhi ya TV hukataa rimoti za Bluetooth kutoka kwa simu. Wi-Fi na infraredi ndizo njia zinazopendekezwa.
+471	Tumia Bluetooth (majaribio)
+472	Bluetooth (majaribio)

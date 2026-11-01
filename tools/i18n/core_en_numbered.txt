@@ -467,3 +467,7 @@
 466	Connected to {1}
 467	Photos and videos on the TV
 468	Back
+469	Experimental
+470	Experimental feature: some TVs refuse Bluetooth remotes coming from a phone. Wi-Fi and infrared remain the recommended modes.
+471	Use Bluetooth (experimental)
+472	Bluetooth (experimental)

@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_HA: Map<String, String> by lazy {
-    HashMap<String, String>(938).also { m ->
+    HashMap<String, String>(946).also { m ->
         l_haa(m)
         l_hab(m)
     }
@@ -243,11 +243,11 @@ private fun l_haa(m: HashMap<String, String>) {
     m["Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application "] = "Wata manhaja tana amfani da yanayin rimot na Bluetooth na waya "
     m["Le protocole des télécommandes d'origine des TV Android.\n"] = "Ka'idar rimot na asali na Android TV.\n"
     m["Le téléphone et la TV travaillent ensemble."] = "Waya da TV suna aiki tare."
+    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Waya tana bayyana kanta a matsayin rimot da zarar an buɗe wannan allo (layukan «BLE:» a rajista)."
+    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Waya tana gabatar da kanta ga TV a matsayin rimot da madannai na Bluetooth: "
 }
 
 private fun l_hab(m: HashMap<String, String>) {
-    m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Waya tana bayyana kanta a matsayin rimot da zarar an buɗe wannan allo (layukan «BLE:» a rajista)."
-    m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Waya tana gabatar da kanta ga TV a matsayin rimot da madannai na Bluetooth: "
     m["Lecture / pause"] = "Kunna / dakata"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Ba za a iya kunnawa ba: kunna «USB debugging» a zaɓuɓɓukan "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Ba za a iya rubuta harufa masu alama da wasu alamomi ta Bluetooth ba"
@@ -481,4 +481,8 @@ private fun l_hab(m: HashMap<String, String>) {
     m["Connecté à {1}"] = "An haɗa da {1}"
     m["Photos et vidéos sur la TV"] = "Hotuna da bidiyo a kan TV"
     m["Retour"] = "Koma"
+    m["Expérimental"] = "Na gwaji"
+    m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Fasalin gwaji: wasu TV ba sa karɓar rimot na Bluetooth daga waya. Wi-Fi da infrared su ne hanyoyin da aka fi ba da shawara."
+    m["Utiliser le Bluetooth (expérimental)"] = "Yi amfani da Bluetooth (na gwaji)"
+    m["Bluetooth (expérimental)"] = "Bluetooth (na gwaji)"
 }
