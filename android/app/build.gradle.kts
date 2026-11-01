@@ -15,7 +15,7 @@ android {
         targetSdk = 35
         // Numéro de version fourni par GitHub Actions pour que chaque APK remplace le précédent.
         versionCode = (System.getenv("VERSION_CODE") ?: "1").toInt()
-        versionName = "0.1.${System.getenv("VERSION_CODE") ?: "0"}"
+        versionName = System.getenv("VERSION_NAME") ?: "0.1.${System.getenv("VERSION_CODE") ?: "0"}"
         // Versions de test (hors Play Store) : bouton de déblocage de Pro pour les essais.
         // À la publication, compiler avec PLAY_RELEASE=1 pour le retirer.
         buildConfigField("boolean", "TEST_UNLOCK", (System.getenv("PLAY_RELEASE") == null).toString())
@@ -30,6 +30,15 @@ android {
             keyAlias = "test"
             keyPassword = "android"
         }
+        // Clé d'envoi Play Store : privée, fournie par les secrets GitHub (jamais dans le dépôt).
+        System.getenv("UPLOAD_KEYSTORE")?.takeIf { file(it).exists() }?.let { path ->
+            create("upload") {
+                storeFile = file(path)
+                storePassword = System.getenv("UPLOAD_STORE_PASSWORD")
+                keyAlias = System.getenv("UPLOAD_KEY_ALIAS") ?: "upload"
+                keyPassword = System.getenv("UPLOAD_KEY_PASSWORD") ?: System.getenv("UPLOAD_STORE_PASSWORD")
+            }
+        }
     }
 
     buildTypes {
@@ -38,7 +47,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("test")
+            signingConfig = signingConfigs.findByName("upload") ?: signingConfigs.getByName("test")
         }
         debug {
             signingConfig = signingConfigs.getByName("test")

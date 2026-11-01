@@ -1,0 +1,35 @@
+Turn your phone into a remote for all your TVs.
+
+OmniZap controls your TV over Wi-Fi, with the phone's infrared blaster, or over Bluetooth. No account, no ads: your settings stay on your phone.
+
+📺 WORKS WITH
+• Android TV and Google TV (Sony, TCL, Philips, Sharp, Hisense, Xiaomi, Chromecast with Google TV…)
+• Samsung (Tizen, 2016 and later) and LG (webOS) TVs over Wi-Fi
+• Any infrared TV, if your phone has an IR blaster (many Xiaomi, Redmi, Poco, Huawei, Honor)
+• Bluetooth (experimental): some TVs refuse remotes coming from a phone
+
+🎮 THE REMOTE (FREE)
+• Every key: arrows, OK, back, home, volume, channels, playback, number pad
+• Touchpad: swipe to navigate, tap to select
+• Keyboard: type searches and passwords from your phone
+• Turn the TV on, even when it is off (if the TV allows it)
+
+⭐ OMNIZAP PRO (ONE-TIME PURCHASE, 7-DAY FREE TRIAL)
+• Multiple TVs
+• TV apps with their icons, one tap away
+• Voice commands: "Open Netflix"
+• Phone photos and videos on the TV, as a slideshow
+• Mirror your phone screen to the TV, with sound (Android TV)
+• "Watch TV": the TV screen live on your phone, with screenshots (Android TV)
+• Bluetooth remote
+• Widget, remote in notifications and quick settings
+
+No subscription, no ads: a single payment unlocks Pro forever.
+
+🔒 YOUR DATA STAYS WITH YOU
+OmniZap only talks to your TV, on your local network. No servers, no analytics.
+
+🌍 15 LANGUAGES
+Français, English, Español, Português, Deutsch, Italiano, हिन्दी, العربية, الدارجة, Hausa, Yorùbá, Wolof, Lingála, Kiswahili, አማርኛ.
+
+OmniZap is an independent app, not affiliated with the TV manufacturers mentioned.

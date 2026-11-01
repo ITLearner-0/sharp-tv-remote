@@ -54,6 +54,12 @@ version (GitHub Actions), qui s'installe par-dessus la précédente.
 > Elle convient pour les essais, pas pour le Play Store : il faudra une clé
 > privée avant toute publication.
 
+### 🚀 Publication sur le Play Store
+
+Guide complet : [PLAY_STORE.md](PLAY_STORE.md) (App Bundle signé par l'Action
+« Version Play Store », fiche en 9 langues dans `fastlane/`, politique de
+confidentialité [PRIVACY.md](PRIVACY.md)).
+
 ### 🌍 Langues
 
 15 langues, choisies au premier lancement (puis dans « Mes TV ») : français,

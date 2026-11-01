@@ -1,0 +1,35 @@
+Machen Sie Ihr Handy zur Fernbedienung für alle Ihre Fernseher.
+
+OmniZap steuert Ihren TV per WLAN, mit dem Infrarotsender des Handys oder per Bluetooth. Kein Konto, keine Werbung: Ihre Einstellungen bleiben auf dem Handy.
+
+📺 KOMPATIBEL
+• Android TV und Google TV (Sony, TCL, Philips, Sharp, Hisense, Xiaomi, Chromecast mit Google TV…)
+• Samsung-TVs (Tizen, ab 2016) und LG-TVs (webOS) per WLAN
+• Jeder Infrarot-TV, wenn Ihr Handy einen IR-Sender hat (viele Xiaomi, Redmi, Poco, Huawei, Honor)
+• Bluetooth (experimentell): Manche TVs lehnen Fernbedienungen von Handys ab
+
+🎮 DIE FERNBEDIENUNG (KOSTENLOS)
+• Alle Tasten: Pfeile, OK, Zurück, Home, Lautstärke, Sender, Wiedergabe, Ziffernblock
+• Touchpad: wischen zum Navigieren, tippen zum Bestätigen
+• Tastatur: Suchen und Passwörter am Handy eintippen
+• TV einschalten, auch wenn er aus ist (wenn der TV es erlaubt)
+
+⭐ OMNIZAP PRO (EINMALKAUF, 7 TAGE KOSTENLOS TESTEN)
+• Mehrere TVs
+• Die Apps des TVs mit ihren Symbolen, mit einem Tippen
+• Sprachbefehle: „Öffne Netflix“
+• Fotos und Videos vom Handy auf dem TV, als Diashow
+• Handybildschirm auf den TV spiegeln, mit Ton (Android TV)
+• „TV ansehen“: der TV-Bildschirm live auf dem Handy, mit Screenshot (Android TV)
+• Bluetooth-Fernbedienung
+• Widget, Fernbedienung in den Benachrichtigungen und Schnelleinstellungen
+
+Kein Abo, keine Werbung: Eine einmalige Zahlung schaltet Pro für immer frei.
+
+🔒 IHRE DATEN BLEIBEN BEI IHNEN
+OmniZap spricht nur mit Ihrem TV, in Ihrem Heimnetz. Keine Server, keine Statistiken.
+
+🌍 15 SPRACHEN
+Français, English, Español, Português, Deutsch, Italiano, हिन्दी, العربية, الدارجة, Hausa, Yorùbá, Wolof, Lingála, Kiswahili, አማርኛ.
+
+OmniZap ist eine unabhängige App und steht in keiner Verbindung zu den genannten TV-Herstellern.
