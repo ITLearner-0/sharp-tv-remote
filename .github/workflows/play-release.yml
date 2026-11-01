@@ -43,13 +43,13 @@ jobs:
       - name: Tests et App Bundle signé
         env:
           PLAY_RELEASE: "1"
-          # Les numéros Play Store suivent ceux des versions de test (toujours croissants).
-          VERSION_CODE: ${{ 100000 + github.run_number }}
           VERSION_NAME: ${{ inputs.version_name }}
           UPLOAD_KEYSTORE: ${{ runner.temp }}/upload.keystore
           UPLOAD_STORE_PASSWORD: ${{ secrets.UPLOAD_STORE_PASSWORD }}
           UPLOAD_KEY_ALIAS: upload
         run: |
+          # Numéros Play Store au-dessus de ceux des versions de test (toujours croissants).
+          export VERSION_CODE=$((100000 + GITHUB_RUN_NUMBER))
           chmod +x gradlew
           ./gradlew --no-daemon :tvhelper:assembleRelease
           mkdir -p app/src/main/assets
