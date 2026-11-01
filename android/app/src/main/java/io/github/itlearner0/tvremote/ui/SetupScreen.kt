@@ -106,20 +106,14 @@ fun SetupScreen(state: UiState, vm: RemoteViewModel) {
 private fun Hero(state: UiState) {
     val pairing = state.connection == Connection.PAIRING
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .size(84.dp)
-                .clip(CircleShape)
-                .background(Brush.linearGradient(listOf(AccentSoft, Accent))),
-        ) {
-            Icon(Icons.Filled.Tv, contentDescription = null, tint = Color.White, modifier = Modifier.size(42.dp))
-        }
-        Spacer(Modifier.height(14.dp))
+        // Ondes « radar » tant que la recherche n'a rien trouvé.
+        RadarIcon(Icons.Filled.Tv, active = !pairing && state.discovered.isEmpty())
         Text(
-            if (pairing) "Saisissez le code" else if (state.tvs.isEmpty()) "Ajoutons votre TV" else "Ajouter une TV",
-            style = MaterialTheme.typography.headlineSmall,
+            if (pairing) "Saisissez le code" else if (state.tvs.isEmpty()) "Connectez votre TV" else "Ajouter une TV",
+            fontSize = 30.sp,
+            lineHeight = 36.sp,
             fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
         )
         Text(
             if (pairing) "Il s'affiche maintenant sur l'écran de la TV."
@@ -149,10 +143,16 @@ private fun Card(content: @Composable ColumnScope.() -> Unit) {
 private fun FoundTvs(state: UiState, vm: RemoteViewModel) {
     Card {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(Icons.Filled.Wifi, contentDescription = null, tint = Muted, modifier = Modifier.size(18.dp))
+            if (state.discovered.isEmpty()) {
+                Icon(Icons.Filled.Wifi, contentDescription = null, tint = Muted, modifier = Modifier.size(18.dp))
+            } else {
+                SuccessCheck(22.dp)
+            }
             Text(
-                "  TV trouvées sur le réseau",
+                if (state.discovered.isEmpty()) "  Recherche des TV sur le réseau"
+                else if (state.discovered.size == 1) "  TV trouvée !" else "  ${state.discovered.size} TV trouvées !",
                 fontWeight = FontWeight.SemiBold,
+                fontSize = if (state.discovered.isEmpty()) 15.sp else 18.sp,
                 modifier = Modifier.weight(1f),
             )
             if (state.discovering) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
@@ -180,7 +180,13 @@ private fun FoundTvs(state: UiState, vm: RemoteViewModel) {
                     Text(tv.name, fontWeight = FontWeight.SemiBold)
                     Text(if (known) "${tv.host} · déjà ajoutée" else tv.host, color = Muted, fontSize = 12.sp)
                 }
-                Icon(Icons.Filled.KeyboardArrowRight, contentDescription = "Ajouter", tint = Muted)
+                Text(
+                    "Connecter",
+                    color = Color.White,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.clip(RoundedCornerShape(20.dp)).background(AccentBrush).padding(horizontal = 14.dp, vertical = 8.dp),
+                )
             }
         }
     }

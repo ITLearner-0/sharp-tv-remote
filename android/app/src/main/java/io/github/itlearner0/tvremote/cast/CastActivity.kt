@@ -62,7 +62,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.itlearner0.tvremote.ui.Accent
-import io.github.itlearner0.tvremote.ui.BackgroundBrush
+import io.github.itlearner0.tvremote.ui.appBackground
 import io.github.itlearner0.tvremote.ui.BodyBrush
 import io.github.itlearner0.tvremote.ui.BorderColor
 import io.github.itlearner0.tvremote.ui.KeyColor
@@ -132,7 +132,7 @@ private fun CastScreen(vm: CastViewModel, onClose: () -> Unit) {
     Scaffold(
         snackbarHost = { SnackbarHost(snackbar) },
         containerColor = Color.Transparent,
-        modifier = Modifier.background(BackgroundBrush),
+        modifier = Modifier.appBackground(),
     ) { padding ->
         Box(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()), contentAlignment = Alignment.TopCenter) {
             Column(

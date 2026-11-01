@@ -62,10 +62,21 @@ fun App(state: UiState, message: String?, vm: RemoteViewModel) {
         }
     }
 
+    // Présentation au premier lancement.
+    val context = androidx.compose.ui.platform.LocalContext.current
+    var onboarded by rememberSaveable { mutableStateOf(onboardingDone(context)) }
+    if (!onboarded) {
+        OnboardingScreen(onDone = {
+            setOnboardingDone(context)
+            onboarded = true
+        })
+        return
+    }
+
     Scaffold(
         snackbarHost = { SnackbarHost(snackbar) },
         containerColor = Color.Transparent,
-        modifier = Modifier.background(BackgroundBrush),
+        modifier = Modifier.appBackground(),
     ) { padding ->
         Box(
             Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()),

@@ -154,13 +154,19 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                RoundKey(Icons.Filled.PowerSettingsNew, "Marche", color = Accent, onPress = vm::power)
+                RoundKey(Icons.Filled.PowerSettingsNew, "Marche", color = PowerRed, onPress = vm::power)
                 RoundKey(Icons.Filled.NightsStay, "Veille", dim, onPress = vm::sleep)
                 RoundKey(Icons.Filled.Input, "Source", dim) { vm.key(Keys.TV_INPUT) }
                 RoundKey(Icons.Filled.Tune, "Réglages", dim) { vm.key(Keys.SETTINGS) }
             }
 
-            DPad(vm, dim)
+            val context = androidx.compose.ui.platform.LocalContext.current
+            var touchpad by rememberSaveable { mutableStateOf(touchpadMode(context)) }
+            NavModeToggle(touchpad) {
+                touchpad = it
+                setTouchpadMode(context, it)
+            }
+            if (touchpad) TouchPad(onKey = { vm.key(it) }, modifier = dim) else DPad(vm, dim)
 
             Row(Modifier.fillMaxWidth().then(dim), horizontalArrangement = Arrangement.SpaceEvenly) {
                 RoundKey(Icons.Filled.ArrowBack, "Retour") { vm.key(Keys.BACK) }
