@@ -167,6 +167,26 @@ object BtRemote {
                 target?.let { connect(it) }
             }
 
+            // Questions de la TV (hôte HID) : sans réponse, certaines TV coupent la connexion.
+            override fun onGetReport(d: BluetoothDevice, type: Byte, id: Byte, bufferSize: Int) {
+                log("La TV demande l'état de la télécommande (rapport $id)")
+                val report = if (id.toInt() == BtHidKeys.REPORT_CONSUMER) BtHidKeys.consumerReport(0) else BtHidKeys.keyboardReport(null)
+                runCatching { h.replyReport(d, type, id, report) }
+            }
+
+            override fun onSetReport(d: BluetoothDevice, type: Byte, id: Byte, data: ByteArray) {
+                // Voyants du clavier (Verr. Maj…) : accusé de réception.
+                runCatching { h.reportError(d, BluetoothHidDevice.ERROR_RSP_SUCCESS) }
+            }
+
+            override fun onSetProtocol(d: BluetoothDevice, protocol: Byte) {
+                log("La TV choisit le mode " + if (protocol == BluetoothHidDevice.PROTOCOL_BOOT_MODE) "simplifié (boot)" else "complet")
+            }
+
+            override fun onVirtualCableUnplug(d: BluetoothDevice) {
+                log("La TV a retiré la télécommande (« câble virtuel » débranché)")
+            }
+
             override fun onConnectionStateChanged(d: BluetoothDevice, state: Int) {
                 when (state) {
                     BluetoothProfile.STATE_CONNECTED -> {
