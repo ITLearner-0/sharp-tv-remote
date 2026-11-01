@@ -28,11 +28,18 @@ class TvScreenViewer(
     }
 
     fun stop() {
+        if (!running) return
         running = false
-        runCatching { stream?.close() }
+        val open = stream
         worker?.interrupt()
         worker = null
+        // Arrêt propre de l'enregistrement sur la TV, puis fermeture du flux.
+        thread(name = "tv-screen-stop") {
+            runCatching { adb.stopScreenRecord(host) }
+            runCatching { open?.close() }
+        }
     }
+
 
     private fun loop(surface: Surface) {
         val codec = runCatching {
@@ -74,8 +81,14 @@ class TvScreenViewer(
                     failures = if (received > 0) 0 else failures + 1
                 } catch (e: Exception) {
                     if (!running) break
-                    failures++
-                    onStatus("Écran de la TV indisponible : ${e.message ?: e.javaClass.simpleName}")
+                    // Flux coupé après avoir reçu des images (écran immobile trop longtemps, réseau) :
+                    // simple relance. Sinon, c'est une vraie panne.
+                    if (received > 0) {
+                        failures = 0
+                    } else {
+                        failures++
+                        onStatus("Écran de la TV indisponible : ${e.message ?: e.javaClass.simpleName}")
+                    }
                 }
                 if (failures >= 3) {
                     onStatus(

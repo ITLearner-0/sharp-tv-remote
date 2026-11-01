@@ -79,6 +79,7 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
     }
     var status by remember(tv.id) { mutableStateOf("Connexion à l'écran de la TV…") }
     var capturing by remember { mutableStateOf(false) }
+    var surfaceView by remember { mutableStateOf<SurfaceView?>(null) }
     val scope = rememberCoroutineScope()
     val adb = remember { TvAdb(context.filesDir) }
     val viewer = remember(tv.id, tv.host) { TvScreenViewer(adb, tv.host) { status = it } }
@@ -95,7 +96,7 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
             AndroidView(
                 modifier = Modifier.fillMaxSize(),
                 factory = { ctx ->
-                    SurfaceView(ctx).apply {
+                    SurfaceView(ctx).also { surfaceView = it }.apply {
                         holder.addCallback(object : SurfaceHolder.Callback {
                             override fun surfaceCreated(holder: SurfaceHolder) = viewer.start(holder.surface)
                             override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) = Unit
@@ -154,7 +155,12 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
                 capturing = true
                 scope.launch {
                     val message = withContext(Dispatchers.IO) {
-                        runCatching { saveScreenshot(context, adb.screenshot(tv.host)) }
+                        runCatching { saveScreenshot(context, adb.screenshot(tv.host, context.cacheDir)) }
+                            .recoverCatching { tvError ->
+                                // Secours : l'image affichée sur le téléphone (720p).
+                                val png = surfaceView?.let { copyFrame(it) } ?: throw tvError
+                                saveScreenshot(context, png) + " (image du téléphone)"
+                            }
                             .getOrElse { "Capture impossible : ${it.message ?: it.javaClass.simpleName}" }
                     }
                     capturing = false
@@ -180,6 +186,24 @@ private fun NavKey(icon: ImageVector, description: String, onClick: () -> Unit) 
     FilledTonalIconButton(onClick = onClick, modifier = Modifier.size(42.dp)) {
         Icon(icon, contentDescription = description)
     }
+}
+
+/** Copie l'image actuellement affichée dans la vue vidéo, en PNG (null si impossible). */
+private suspend fun copyFrame(view: SurfaceView): ByteArray? {
+    if (view.width == 0 || view.height == 0 || !view.holder.surface.isValid) return null
+    val bitmap = android.graphics.Bitmap.createBitmap(
+        TvScreenViewer.WIDTH,
+        TvScreenViewer.HEIGHT,
+        android.graphics.Bitmap.Config.ARGB_8888,
+    )
+    val ok = kotlinx.coroutines.suspendCancellableCoroutine { cont ->
+        android.view.PixelCopy.request(view, bitmap, { result ->
+            cont.resumeWith(Result.success(result == android.view.PixelCopy.SUCCESS))
+        }, android.os.Handler(android.os.Looper.getMainLooper()))
+    }
+    if (!ok) return null
+    return java.io.ByteArrayOutputStream().also { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
+        .toByteArray()
 }
 
 /** Enregistre la capture dans Images/OmniZap ; renvoie le message à afficher. */

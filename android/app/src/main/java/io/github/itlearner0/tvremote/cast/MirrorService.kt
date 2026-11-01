@@ -168,7 +168,7 @@ class MirrorService : Service() {
                 setInteger(MediaFormat.KEY_COLOR_FORMAT, MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface)
                 setInteger(MediaFormat.KEY_BIT_RATE, rate)
                 setInteger(MediaFormat.KEY_FRAME_RATE, 30)
-                setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 1)
+                setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 2)
                 // Image répétée quand l'écran est immobile : la TV reste à jour.
                 setLong(MediaFormat.KEY_REPEAT_PREVIOUS_FRAME_AFTER, 100_000L)
             }
@@ -377,7 +377,7 @@ class MirrorService : Service() {
         }
 
         /** Tailles d'image essayées (largeur, hauteur, débit) : horizontales, comme une vidéo de TV. */
-        private val SIZES = listOf(Triple(1920, 1080, 8_000_000), Triple(1280, 720, 5_000_000))
+        private val SIZES = listOf(Triple(1920, 1080, 6_000_000), Triple(1280, 720, 4_000_000))
 
         /** Même machine, que l'adresse soit écrite en IPv4 ou en IPv6 « ::ffff:a.b.c.d ». */
         fun sameHost(address: java.net.InetAddress?, host: String): Boolean {

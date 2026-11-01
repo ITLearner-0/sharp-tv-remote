@@ -181,9 +181,7 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
                     if (size < 0 || size > 1024 * 1024) throw new IllegalStateException("son invalide");
                     byte[] pcm = new byte[size];
                     in.readFully(pcm);
-                    // Retard limité : au-delà de ~200 ms en attente, le son est rattrapé.
-                    if (audioQueue.size() > 10) audioQueue.clear();
-                    audioQueue.offer(pcm);
+                    enqueueAudio(pcm);
                     continue;
                 }
                 if (type != 1) throw new IllegalStateException("message inconnu " + type);
@@ -238,7 +236,28 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
     }
 
     private final LinkedBlockingQueue<byte[]> audioQueue = new LinkedBlockingQueue<>();
+    private final java.util.concurrent.atomic.AtomicInteger queuedBytes = new java.util.concurrent.atomic.AtomicInteger();
     private volatile Thread audioThread;
+    /** Octets de son par seconde (fixés par le message de format). */
+    private volatile int bytesPerSecond = 48000 * 4;
+
+    /**
+     * Réserve de son : absorbe les à-coups du réseau (une grosse image vidéo retarde
+     * le son de quelques dizaines de ms). Le retard n'est rattrapé qu'au-delà de 500 ms.
+     */
+    private void enqueueAudio(byte[] pcm) {
+        audioQueue.offer(pcm);
+        int queued = queuedBytes.addAndGet(pcm.length);
+        if (queued > bytesPerSecond / 2) {
+            int target = bytesPerSecond * 15 / 100;
+            while (queuedBytes.get() > target) {
+                byte[] dropped = audioQueue.poll();
+                if (dropped == null) break;
+                queuedBytes.addAndGet(-dropped.length);
+            }
+            Log.i(TAG, "son : retard rattrapé");
+        }
+    }
 
     /** Lecture du son du téléphone, dans son propre fil pour ne pas retarder l'image. */
     private void startAudio(int rate, int channels) {
@@ -255,17 +274,34 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
                         .setChannelMask(mask)
                         .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
                         .build(),
-                Math.max(min * 2, rate / 5 * channels * 2),
+                Math.max(min * 4, rate / 2 * channels * 2),
                 AudioTrack.MODE_STREAM,
                 android.media.AudioManager.AUDIO_SESSION_ID_GENERATE);
         track.play();
         Log.i(TAG, "son : " + rate + " Hz, " + channels + " canaux");
+        bytesPerSecond = rate * channels * 2;
         audioQueue.clear();
+        queuedBytes.set(0);
+        final int prebuffer = bytesPerSecond * 12 / 100;
         Thread t = new Thread(() -> {
             try {
+                boolean buffering = true;
                 while (running && audioThread == Thread.currentThread()) {
-                    byte[] pcm = audioQueue.poll(200, TimeUnit.MILLISECONDS);
-                    if (pcm != null) track.write(pcm, 0, pcm.length);
+                    // Démarrage ou coupure : on attend ~120 ms de son avant de jouer.
+                    if (buffering) {
+                        if (queuedBytes.get() < prebuffer) {
+                            Thread.sleep(10);
+                            continue;
+                        }
+                        buffering = false;
+                    }
+                    byte[] pcm = audioQueue.poll(300, TimeUnit.MILLISECONDS);
+                    if (pcm == null) {
+                        buffering = true;
+                        continue;
+                    }
+                    queuedBytes.addAndGet(-pcm.length);
+                    track.write(pcm, 0, pcm.length);
                 }
             } catch (Exception e) {
                 Log.w(TAG, "son interrompu : " + e);
@@ -286,6 +322,7 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
         audioThread = null;
         if (t != null) t.interrupt();
         audioQueue.clear();
+        queuedBytes.set(0);
     }
 
     /** Décodeur H.264 ; sans le mode « faible latence » si la TV le refuse. */

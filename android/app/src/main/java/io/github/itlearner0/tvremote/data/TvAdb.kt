@@ -69,16 +69,39 @@ class TvAdb(private val keyDir: File) {
      */
     fun screenStream(host: String, register: (AutoCloseable) -> Unit, block: (java.io.InputStream) -> Unit) {
         withAdb(host) { adb ->
-            adb.open("exec:screenrecord --output-format=h264 --size 1280x720 --bit-rate 4000000 -").use { stream ->
+            // Un enregistrement resté actif (coupure réseau) occuperait l'encodeur de la TV.
+            runCatching { adb.shell(STOP_SCREENRECORD) }
+            adb.open("exec:screenrecord --output-format=h264 --size 1280x720 --bit-rate 2500000 --time-limit 170 -").use { stream ->
                 register(stream)
                 block(stream.source.inputStream())
             }
         }
     }
 
-    /** Capture de l'écran de la TV, en PNG. */
-    fun screenshot(host: String): ByteArray = withAdb(host) { adb ->
-        adb.open("exec:screencap -p").use { it.source.readByteArray() }
+    /** Arrête proprement l'enregistrement de l'écran de la TV (comme Ctrl+C). */
+    fun stopScreenRecord(host: String) {
+        withAdb(host) { adb -> adb.shell(STOP_SCREENRECORD) }
+    }
+
+    /**
+     * Capture de l'écran de la TV, en PNG : écrite dans un fichier sur la TV puis
+     * rapatriée (plus fiable que la sortie directe, que certaines TV altèrent).
+     */
+    fun screenshot(host: String, cacheDir: File): ByteArray = withAdb(host) { adb ->
+        val remote = "/data/local/tmp/omnizap-capture.png"
+        val out = adb.shell("screencap -p $remote").allOutput
+        val local = File(cacheDir, "capture-tv.png")
+        try {
+            adb.pull(local, remote)
+            val png = local.readBytes()
+            check(png.size > 8 && png[1] == 'P'.code.toByte()) {
+                "la TV n'a pas produit d'image" + out.trim().takeIf { it.isNotEmpty() }?.let { " ($it)" }.orEmpty()
+            }
+            png
+        } finally {
+            local.delete()
+            runCatching { adb.shell("rm -f $remote") }
+        }
     }
 
     /** Dernières lignes du journal du récepteur de duplication (erreurs de la TV). */
@@ -245,8 +268,9 @@ class TvAdb(private val keyDir: File) {
 
     companion object {
         const val HELPER_PACKAGE = "io.github.itlearner0.tvremote.helper"
+        private const val STOP_SCREENRECORD = "pkill -2 screenrecord 2>/dev/null || killall -2 screenrecord 2>/dev/null; true"
         /** versionCode de tvhelper/build.gradle.kts. */
-        private const val HELPER_VERSION = 6
+        private const val HELPER_VERSION = 7
         /** TV sur lesquelles la visionneuse est déjà installée (pendant cette session). */
         private val viewerReady: MutableSet<String> = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
 
