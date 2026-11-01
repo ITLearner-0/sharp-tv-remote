@@ -225,7 +225,18 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                 )
-                if (tv.host.isBlank()) {
+                if (tv.isBt && tv.host.isBlank()) {
+                    Text(
+                        "Télécommande Bluetooth : " + if (state.btConnected) "connectée" else "non connectée (la TV doit être allumée, à portée)",
+                        color = Muted,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(top = 8.dp),
+                    )
+                    TextButton(onClick = {
+                        onDismiss()
+                        vm.startBtSetup(attach = true)
+                    }) { Text("Associer de nouveau") }
+                } else if (tv.host.isBlank()) {
                     val codeset = vm.irDatabase.codeset(tv.irCodeset)
                     Text(
                         "Télécommande infrarouge : ${codeset?.name ?: "jeu de codes inconnu"}.",
@@ -287,6 +298,7 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                         modifier = Modifier.padding(top = 8.dp),
                     )
                     IrSection(state, vm, onDismiss)
+                    BtSection(state, vm, onDismiss)
                 }
                 if (tv.host.isNotBlank() && state.connection == Connection.CONNECTED) {
                     val features = state.tv.features
@@ -335,6 +347,48 @@ private fun NotificationSwitch(state: UiState, vm: RemoteViewModel) {
                 }
             },
         )
+    }
+}
+
+/** Bluetooth associé à une TV Wi-Fi : secours quand le réseau ne répond pas, ou mode exclusif. */
+@Composable
+private fun BtSection(state: UiState, vm: RemoteViewModel, onDismiss: () -> Unit) {
+    val tv = state.current ?: return
+    Column(Modifier.padding(top = 12.dp)) {
+        Text("Bluetooth", style = MaterialTheme.typography.titleSmall)
+        Text(
+            if (tv.btAddress == null) {
+                "Non configuré. Le téléphone peut servir de télécommande Bluetooth quand le Wi-Fi ne répond pas, " +
+                    "sans réseau, à une dizaine de mètres."
+            } else {
+                "Associé (${tv.btAddress})" + if (state.btConnected) " · connecté" else ""
+            },
+            color = Muted,
+            style = MaterialTheme.typography.bodySmall,
+        )
+        Row {
+            TextButton(onClick = {
+                onDismiss()
+                vm.startBtSetup(attach = true)
+            }) { Text(if (tv.btAddress == null) "Configurer le Bluetooth" else "Associer de nouveau") }
+            if (tv.btAddress != null) TextButton(onClick = vm::removeBt) { Text("Retirer") }
+        }
+        if (tv.btAddress != null) {
+            val modes = listOf(
+                SavedTv.CONTROL_AUTO to "Automatique : Wi-Fi, Bluetooth si la TV ne répond pas",
+                SavedTv.CONTROL_NETWORK to "Toujours le Wi-Fi",
+                SavedTv.CONTROL_BT to "Toujours le Bluetooth",
+            )
+            for ((mode, label) in modes) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth().clickable { vm.setControl(mode) },
+                ) {
+                    RadioButton(selected = tv.control == mode, onClick = { vm.setControl(mode) })
+                    Text(label, style = MaterialTheme.typography.bodySmall)
+                }
+            }
+        }
     }
 }
 

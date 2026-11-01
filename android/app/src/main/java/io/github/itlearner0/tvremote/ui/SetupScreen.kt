@@ -61,6 +61,10 @@ fun SetupScreen(state: UiState, vm: RemoteViewModel) {
         IrSetupScreen(state, vm)
         return
     }
+    if (state.btSetup) {
+        BtSetupScreen(state, vm)
+        return
+    }
     // Recherche automatique et continue des TV tant que cet écran est affiché.
     DisposableEffect(Unit) {
         vm.startAutoDiscovery()
@@ -300,6 +304,16 @@ private fun InfraredEntry(state: UiState, vm: RemoteViewModel) {
             enabled = state.irAvailable,
             modifier = Modifier.fillMaxWidth().height(50.dp),
         ) { Text("Utiliser l'infrarouge") }
+        Text(
+            "Sans réseau ni infrarouge : le téléphone peut aussi servir de télécommande et de clavier Bluetooth " +
+                "(TV Android, Samsung, LG, boîtiers…).",
+            color = Muted,
+            fontSize = 13.sp,
+        )
+        OutlinedButton(
+            onClick = { vm.startBtSetup() },
+            modifier = Modifier.fillMaxWidth().height(50.dp),
+        ) { Text("Utiliser le Bluetooth") }
     }
 }
 

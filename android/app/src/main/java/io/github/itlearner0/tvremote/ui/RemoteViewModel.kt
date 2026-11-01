@@ -120,15 +120,33 @@ data class UiState(
     val irAvailable: Boolean = false,
     /** L'assistant infrarouge associe des codes à la TV Wi-Fi affichée (au lieu d'ajouter une TV). */
     val irAttach: Boolean = false,
+    /** Assistant Bluetooth affiché ; [btAttach] : associer le Bluetooth à la TV Wi-Fi affichée. */
+    val btSetup: Boolean = false,
+    val btAttach: Boolean = false,
+    /** État de la télécommande Bluetooth du téléphone. */
+    val bt: io.github.itlearner0.tvremote.bt.BtState = io.github.itlearner0.tvremote.bt.BtState(),
 ) {
+    /** La TV affichée est pilotée en Bluetooth seulement. */
+    val isBt: Boolean get() = current?.isBt == true
+
+    /** Le téléphone est connecté en Bluetooth à la TV affichée. */
+    val btConnected: Boolean get() = current?.btAddress?.let { it == bt.connectedAddress } == true
+
+    /** Les touches partent en Bluetooth (TV Bluetooth, ou TV Wi-Fi injoignable connectée en Bluetooth). */
+    val usesBt: Boolean
+        get() = isBt || current?.btFallback == true && connection != Connection.CONNECTED
+
+    /** TV sans réseau (infrarouge ou Bluetooth) : pas d'applications, de duplication, etc. */
+    val offline: Boolean get() = current?.offline == true
+
     /** La TV Wi-Fi affichée passe à l'infrarouge quand elle est injoignable. */
     val irFallback: Boolean get() = current?.irFallback == true
 
     /** Les touches partent par infrarouge (TV infrarouge, ou TV Wi-Fi injoignable avec infrarouge associé). */
-    val usesIr: Boolean get() = isIr || irFallback && connection != Connection.CONNECTED
+    val usesIr: Boolean get() = !usesBt && (isIr || irFallback && connection != Connection.CONNECTED)
 
     val showSetup: Boolean
-        get() = current == null || adding || irSetup || connection == Connection.PAIRING || connection == Connection.CONNECTING
+        get() = current == null || adding || irSetup || btSetup || connection == Connection.PAIRING || connection == Connection.CONNECTING
 
     /** La TV affichée est pilotée par infrarouge. */
     val isIr: Boolean get() = current?.isIr == true
@@ -193,6 +211,9 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             )
         }
         prefs.registerOnSharedPreferenceChangeListener(backupListener)
+        scope.launch {
+            io.github.itlearner0.tvremote.bt.BtRemote.state.collect { bt -> _state.update { it.copy(bt = bt) } }
+        }
     }
 
     private fun scheduleBackup() {
@@ -253,13 +274,17 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             RemoteWidget.refresh(getApplication())
             RemoteNotification.refresh(getApplication())
         }
+        // TV Bluetooth : connexion d'office.
+        current?.takeIf { it.isBt }?.btAddress?.let { address ->
+            runCatching { io.github.itlearner0.tvremote.bt.BtRemote.init(getApplication(), address) }
+        }
         _state.update {
             it.copy(
                 tvs = store.all(),
                 current = current,
                 connection = when {
                     current == null -> Connection.NONE
-                    current.isIr -> Connection.CONNECTED // l'infrarouge n'a pas besoin de connexion
+                    current.offline -> Connection.CONNECTED // l'infrarouge et le Bluetooth n'ont pas besoin du réseau
                     else -> Connection.OFFLINE
                 },
                 tv = TvState(),
@@ -347,7 +372,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         val current = _state.value.current ?: return null
         val normalizedMac = if (mac.isBlank()) null else WakeOnLan.normalizeMac(mac) ?: return "Adresse MAC invalide"
         val newHost = host.trim()
-        if (newHost.isEmpty() && !current.isIr) return "Adresse IP manquante"
+        if (newHost.isEmpty() && !current.offline) return "Adresse IP manquante"
         updateTv { copy(name = name.trim().ifEmpty { current.name }, host = newHost, mac = normalizedMac) }
         if (newHost != current.host) {
             stopKeepAlive()
@@ -600,7 +625,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     /** Se reconnecte tant que l'application est visible ; retrouve la TV si son adresse IP a changé. */
     private fun startKeepAlive() {
-        if (!foreground || _state.value.showSetup || _state.value.isIr || keepAlive?.isActive == true) return
+        if (!foreground || _state.value.showSetup || _state.value.offline || keepAlive?.isActive == true) return
         keepAlive = scope.launch {
             var failures = 0
             while (isActive) {
@@ -759,6 +784,15 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     // --- Commandes ---
 
     fun key(code: Int, direction: Int = Keys.SHORT) {
+        if (_state.value.usesBt) {
+            btKey(code)
+            return
+        }
+        // Wi-Fi revenu : on libère le Bluetooth (la TV masque son clavier à l'écran tant
+        // qu'un clavier Bluetooth est connecté).
+        if (_state.value.current?.btFallback == true && _state.value.btConnected) {
+            io.github.itlearner0.tvremote.bt.BtRemote.disconnect()
+        }
         if (_state.value.usesIr) {
             irKey(code)
             return
@@ -772,6 +806,13 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
      * comme sur un clavier (ADB si autorisé, sinon touche par touche).
      */
     fun text(value: String) {
+        if (_state.value.usesBt) {
+            if (!_state.value.btConnected) return say("Bluetooth : TV non connectée")
+            val ascii = TextKeys.toAscii(value)
+            val missing = io.github.itlearner0.tvremote.bt.BtRemote.type(ascii)
+            if (ascii != value || missing.isNotEmpty()) say("Les accents et certains signes ne peuvent pas être tapés en Bluetooth")
+            return
+        }
         if (notOverIr("La saisie de texte")) return
         val tv = _state.value.current ?: return
         val s = session
@@ -804,9 +845,67 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     /** Les fonctions réseau n'existent pas en infrarouge : message et true si la TV est en infrarouge. */
     private fun notOverIr(feature: String): Boolean {
+        if (_state.value.isBt) {
+            say("$feature n'est pas disponible avec une TV pilotée en Bluetooth")
+            return true
+        }
         if (!_state.value.isIr) return false
         say("$feature n'est pas disponible avec une TV pilotée par infrarouge")
         return true
+    }
+
+    // --- Bluetooth ---
+
+    private fun btKey(keyCode: Int) {
+        val bt = io.github.itlearner0.tvremote.bt.BtRemote
+        if (!_state.value.btConnected) {
+            _state.value.current?.btAddress?.let { bt.init(getApplication(), it) }
+            say("Bluetooth : connexion à la TV… réessayez dans un instant")
+            return
+        }
+        if (!bt.key(keyCode)) say("Cette touche n'existe pas en Bluetooth")
+    }
+
+    /** Ouvre l'assistant Bluetooth ; [attach] : associer le Bluetooth à la TV Wi-Fi affichée. */
+    fun startBtSetup(attach: Boolean = false) {
+        if (!attach) {
+            stopKeepAlive()
+            closeSession()
+        }
+        _state.update { it.copy(btSetup = true, btAttach = attach, error = null) }
+    }
+
+    fun cancelBtSetup() {
+        _state.update { it.copy(btSetup = false, btAttach = false) }
+        if (_state.value.current != null && !_state.value.adding) startKeepAlive()
+    }
+
+    /** Enregistre une TV Bluetooth, ou associe le Bluetooth à la TV Wi-Fi affichée. */
+    fun addBtTv(address: String, name: String?) {
+        if (_state.value.btAttach && _state.value.current != null) {
+            updateTv { copy(btAddress = address) }
+            _state.update { it.copy(btSetup = false, btAttach = false, error = null) }
+            startKeepAlive()
+            say("Bluetooth associé : la télécommande l'utilisera si la TV ne répond pas par le Wi-Fi.")
+            return
+        }
+        val tv = SavedTv(
+            id = store.newId(),
+            name = (name?.takeIf { it.isNotBlank() } ?: "TV") + " (Bluetooth)",
+            host = "",
+            btAddress = address,
+        )
+        store.save(tv)
+        store.select(tv.id)
+        _state.update { it.copy(btSetup = false, adding = false, error = null) }
+        loadCurrentTv()
+        say("${tv.name} ajoutée.")
+    }
+
+    fun removeBt() {
+        io.github.itlearner0.tvremote.bt.BtRemote.disconnect()
+        updateTv { copy(btAddress = null, control = if (control == SavedTv.CONTROL_BT) SavedTv.CONTROL_AUTO else control) }
+        reloadAfterControlChange()
     }
 
     // --- Infrarouge ---
@@ -939,7 +1038,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                 return
             }
         }
-        if (tv.isIr || _state.value.connection != Connection.CONNECTED) {
+        if (tv.offline || _state.value.connection != Connection.CONNECTED) {
             say("« $spoken » : TV non connectée")
             return
         }
@@ -967,6 +1066,10 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
      */
     fun power() {
         val tv = _state.value.current ?: return
+        if (_state.value.usesBt) {
+            btKey(Keys.POWER)
+            return
+        }
         if (tv.isIr) {
             irKey(Keys.POWER)
             return
@@ -1020,6 +1123,10 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     /** Met la TV en veille (touche Veille, puis ADB si elle ne réagit pas). */
     fun sleep() {
         val tv = _state.value.current ?: return
+        if (_state.value.usesBt) {
+            btKey(Keys.SLEEP)
+            return
+        }
         if (tv.isIr) {
             irKey(Keys.SLEEP)
             return
@@ -1141,7 +1248,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     fun refreshAppsIfStale() {
         val tv = _state.value.current ?: return
         val c = catalog ?: return
-        if (tv.isIr || _state.value.scanningApps || _state.value.connection != Connection.CONNECTED) return
+        if (tv.offline || _state.value.scanningApps || _state.value.connection != Connection.CONNECTED) return
         if (!adbAuthorized(tv) || System.currentTimeMillis() - c.lastScan < APPS_REFRESH_MS) return
         scanApps(silent = true)
     }

@@ -22,6 +22,8 @@ object Keys {
     const val SEARCH = 84
     const val MEDIA_PLAY_PAUSE = 85
     const val MEDIA_STOP = 86
+    const val MEDIA_NEXT = 87
+    const val MEDIA_PREVIOUS = 88
     const val MEDIA_REWIND = 89
     const val MEDIA_FAST_FORWARD = 90
     const val VOLUME_MUTE = 164

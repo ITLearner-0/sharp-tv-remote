@@ -55,6 +55,7 @@ object QuickRemote {
     /** Envoie une touche à la TV affichée (Wi-Fi, ou infrarouge si c'est une TV infrarouge ou injoignable). */
     suspend fun key(context: Context, keyCode: Int) {
         val tv = currentTv(context) ?: return toast(context, "Aucune TV enregistrée")
+        if (tv.isBt) return bt(context, tv, keyCode)
         if (tv.isIr) return ir(context, tv, keyCode)
         val session = session(context, tv)
         if (session == null) {
@@ -67,6 +68,7 @@ object QuickRemote {
     /** Marche / arrêt : touche Power si la TV répond, sinon réveil réseau et infrarouge. */
     suspend fun power(context: Context) {
         val tv = currentTv(context) ?: return toast(context, "Aucune TV enregistrée")
+        if (tv.isBt) return bt(context, tv, Keys.POWER)
         if (tv.isIr) return ir(context, tv, Keys.POWER)
         val session = session(context, tv, quick = true)
         if (session != null) {
@@ -82,10 +84,24 @@ object QuickRemote {
     /** Ouvre un lien (vidéo YouTube, page…) sur la TV. */
     suspend fun open(context: Context, link: String) {
         val tv = currentTv(context) ?: return toast(context, "Aucune TV enregistrée")
-        if (tv.isIr) return toast(context, "Impossible avec une TV pilotée par infrarouge")
+        if (tv.offline) return toast(context, "Impossible avec une TV pilotée par infrarouge ou Bluetooth")
         val session = session(context, tv) ?: return toast(context, "${tv.name} est injoignable : allumez-la d'abord")
         session.launchApp(link)
         toast(context, "Ouverture sur ${tv.name}…")
+    }
+
+    /** TV Bluetooth : connexion si besoin (quelques secondes), puis la touche. */
+    private suspend fun bt(context: Context, tv: SavedTv, keyCode: Int) {
+        val remote = io.github.itlearner0.tvremote.bt.BtRemote
+        if (!remote.isConnectedTo(tv.btAddress)) {
+            remote.init(context, tv.btAddress)
+            repeat(30) {
+                if (remote.isConnectedTo(tv.btAddress)) return@repeat
+                delay(200)
+            }
+        }
+        if (!remote.isConnectedTo(tv.btAddress)) return toast(context, "${tv.name} : Bluetooth non connecté")
+        remote.key(keyCode)
     }
 
     private fun ir(context: Context, tv: SavedTv, keyCode: Int) {

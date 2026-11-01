@@ -15,20 +15,32 @@ data class SavedTv(
     val serviceName: String? = null,
     /** Jeu de codes infrarouges : TV infrarouge, ou infrarouge associé à une TV Wi-Fi. */
     val irCodeset: String? = null,
-    /** Mode de commande d'une TV Wi-Fi ayant aussi l'infrarouge : [CONTROL_AUTO], [CONTROL_NETWORK] ou [CONTROL_IR]. */
+    /** Mode de commande : [CONTROL_AUTO], [CONTROL_NETWORK], [CONTROL_IR] ou [CONTROL_BT]. */
     val control: String = CONTROL_AUTO,
+    /** Adresse Bluetooth de la TV : le téléphone s'y connecte comme télécommande Bluetooth. */
+    val btAddress: String? = null,
 ) {
+    /** TV commandée uniquement en Bluetooth (pas de connexion réseau). */
+    val isBt: Boolean get() = btAddress != null && (control == CONTROL_BT || host.isBlank() && irCodeset == null)
+
     /** TV commandée uniquement par infrarouge (pas de connexion réseau). */
-    val isIr: Boolean get() = irCodeset != null && (host.isBlank() || control == CONTROL_IR)
+    val isIr: Boolean get() = irCodeset != null && !isBt && (host.isBlank() || control == CONTROL_IR)
+
+    /** TV sans connexion réseau (infrarouge ou Bluetooth seulement). */
+    val offline: Boolean get() = isIr || isBt
 
     /** TV Wi-Fi qui bascule sur l'infrarouge quand elle est injoignable par le réseau. */
-    val irFallback: Boolean get() = irCodeset != null && !isIr && control != CONTROL_NETWORK
+    val irFallback: Boolean get() = irCodeset != null && !offline && control == CONTROL_AUTO
+
+    /** TV Wi-Fi qui bascule sur le Bluetooth quand elle est injoignable par le réseau. */
+    val btFallback: Boolean get() = btAddress != null && !offline && control == CONTROL_AUTO
 
     companion object {
         /** Wi-Fi, et infrarouge quand la TV ne répond pas par le réseau. */
         const val CONTROL_AUTO = "auto"
         const val CONTROL_NETWORK = "network"
         const val CONTROL_IR = "ir"
+        const val CONTROL_BT = "bt"
     }
 }
 
@@ -56,6 +68,7 @@ class TvStore(private val prefs: SharedPreferences) {
                     serviceName = o.optString("serviceName").ifBlank { null },
                     irCodeset = o.optString("irCodeset").ifBlank { null },
                     control = o.optString("control").ifBlank { SavedTv.CONTROL_AUTO },
+                    btAddress = o.optString("btAddress").ifBlank { null },
                 )
             }
         }.getOrDefault(emptyList())
@@ -97,7 +110,8 @@ class TvStore(private val prefs: SharedPreferences) {
                     .put("mac", tv.mac ?: "")
                     .put("serviceName", tv.serviceName ?: "")
                     .put("irCodeset", tv.irCodeset ?: "")
-                    .put("control", tv.control),
+                    .put("control", tv.control)
+                    .put("btAddress", tv.btAddress ?: ""),
             )
         }
         prefs.edit().putString(KEY_TVS, array.toString()).apply()

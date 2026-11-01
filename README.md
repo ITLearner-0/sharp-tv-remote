@@ -108,6 +108,25 @@ dans la galerie (Images/OmniZap). Les contenus protégés (Netflix, chaînes
 TV, entrées HDMI…) apparaissent en noir ; l'enregistrement d'Android s'arrête
 toutes les 3 minutes et est relancé aussitôt (coupure d'environ 1 s).
 
+### 🔵 Télécommande Bluetooth (sans réseau)
+
+Le téléphone se présente à la TV comme un **clavier doublé d'une
+télécommande multimédia Bluetooth** (profil HID, Android 9 et plus) : aucune
+application sur la TV, aucun réseau, une dizaine de mètres de portée. Marche
+avec les TV Android / Google TV et la plupart des appareils qui acceptent un
+clavier Bluetooth (Samsung, LG, boîtiers, consoles…). Flèches, OK, Retour,
+Accueil, volume, chaînes, lecture, chiffres, marche/veille et saisie de texte.
+
+- **TV Bluetooth** : écran d'accueil → « Utiliser le Bluetooth ».
+- **TV Wi-Fi** : ⚙ → Bluetooth → « Configurer le Bluetooth », puis mode
+  automatique (Bluetooth si le Wi-Fi ne répond pas) ou toujours le Bluetooth.
+- Association : sur la TV, *Paramètres → Télécommandes et accessoires →
+  Ajouter un accessoire*, puis « Rendre le téléphone visible » dans OmniZap ;
+  ou depuis le téléphone (appareils associés, recherche).
+- Tant qu'un clavier Bluetooth est connecté, la TV peut masquer son clavier à
+  l'écran : en mode automatique, OmniZap libère le Bluetooth dès que le Wi-Fi
+  répond.
+
 ### 📡 Télécommande infrarouge (toutes marques)
 
 Sur les téléphones équipés d'un **émetteur infrarouge** (beaucoup de Xiaomi,

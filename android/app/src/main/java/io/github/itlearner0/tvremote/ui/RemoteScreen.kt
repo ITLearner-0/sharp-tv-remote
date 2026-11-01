@@ -254,13 +254,15 @@ private fun VoiceKey(state: UiState, vm: RemoteViewModel) {
 private fun Header(state: UiState, onSettings: () -> Unit, onSwitchTv: () -> Unit) {
     val tv = state.tv
     val status = when {
+        state.isBt -> if (state.btConnected) "Bluetooth · connecté" else "Bluetooth · connexion… (TV allumée, à portée)"
+        state.usesBt -> if (state.btConnected) "Hors réseau · Bluetooth" else "Hors réseau · connexion Bluetooth…"
         state.isIr -> "Infrarouge · visez la TV"
         state.usesIr -> "Hors réseau · infrarouge (visez la TV)"
         state.connection != Connection.CONNECTED -> "Éteinte · appuyez sur Marche"
         !tv.isOn -> "En veille"
         else -> "Allumée"
     }
-    val on = state.isIr || state.connection == Connection.CONNECTED && tv.isOn
+    val on = state.isIr || state.isBt && state.btConnected || state.connection == Connection.CONNECTED && tv.isOn
     Row(verticalAlignment = Alignment.CenterVertically) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -465,6 +467,22 @@ private fun RowScope.Rocker(
 /** Onglets sous la télécommande : applications, pavé numérique, clavier. */
 @Composable
 private fun ExtraPanels(state: UiState, vm: RemoteViewModel, dim: Modifier) {
+    if (state.isBt) {
+        // En Bluetooth : pavé numérique et saisie de texte (le téléphone est aussi un clavier).
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(28.dp))
+                .background(PadColor)
+                .border(1.dp, BorderColor, RoundedCornerShape(28.dp))
+                .padding(14.dp),
+            verticalArrangement = Arrangement.spacedBy(14.dp),
+        ) {
+            NumPad(vm)
+            TextInput(vm)
+        }
+        return
+    }
     if (state.isIr) {
         // En infrarouge, pas d'applications ni de saisie de texte : seulement le pavé numérique.
         Column(
