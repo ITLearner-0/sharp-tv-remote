@@ -60,7 +60,7 @@ object BtRemote {
 
     private fun log(text: String) {
         val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.FRANCE).format(java.util.Date())
-        _state.update { it.copy(log = (it.log + "$time  $text").takeLast(12)) }
+        _state.update { it.copy(log = (it.log + "$time  $text").takeLast(40)) }
     }
 
     private fun fail(message: String) {
@@ -262,6 +262,9 @@ object BtRemote {
      * le trouve dans « Ajouter un accessoire » et s'y connecte (puis se reconnecte seule).
      */
     fun startBle(context: Context) {
+        // Pendant le mode basse consommation, pas de connexion classique en boucle vers la TV.
+        if (wanted?.startsWith(BLE_PREFIX) != true) wanted = null
+        main.removeCallbacksAndMessages(null)
         val ctx = context.applicationContext
         app = ctx
         if (adapter == null) adapter = ctx.getSystemService(BluetoothManager::class.java)?.adapter

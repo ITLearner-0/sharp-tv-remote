@@ -146,8 +146,9 @@ class BleHid(
                     onConnection(d)
                 }
                 BluetoothProfile.STATE_DISCONNECTED -> {
-                    log("BLE : déconnecté (${d.name ?: d.address}, état $status)")
+                    // Ignore les liaisons qui ne sont pas la télécommande BLE (Bluetooth classique).
                     if (device?.address == d.address) {
+                        log("BLE : déconnecté (${d.name ?: d.address}, état $status)")
                         device = null
                         subscribed.clear()
                         onConnection(null)
