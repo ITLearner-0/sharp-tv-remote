@@ -128,10 +128,15 @@ object BtRemote {
                     BluetoothProfile.STATE_DISCONNECTED -> {
                         if (device?.address == d.address) device = null
                         _state.update {
-                            if (it.connectedAddress == d.address || it.connecting) {
-                                it.copy(connectedAddress = null, connectedName = null, connecting = false)
-                            } else {
-                                it
+                            when {
+                                // Refus pendant la connexion : la TV n'accepte pas (encore) le téléphone comme télécommande.
+                                it.connecting && it.connectedAddress == null -> it.copy(
+                                    connecting = false,
+                                    message = "La TV a refusé la connexion Bluetooth. Vérifiez que l'association a été " +
+                                        "acceptée sur la TV, puis touchez de nouveau la TV dans « Appareils déjà associés ».",
+                                )
+                                it.connectedAddress == d.address -> it.copy(connectedAddress = null, connectedName = null, connecting = false)
+                                else -> it
                             }
                         }
                     }

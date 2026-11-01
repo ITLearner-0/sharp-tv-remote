@@ -186,34 +186,18 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                     }
                 }
                 BtCard {
-                    Text("1. Sur la TV, ouvrez l'ajout d'accessoire Bluetooth", fontWeight = FontWeight.SemiBold)
+                    Text("Méthode recommandée : depuis le téléphone", fontWeight = FontWeight.SemiBold)
                     Text(
-                        "TV Android / Google TV : Paramètres → Télécommandes et accessoires → Ajouter un accessoire. " +
-                            "Autres TV : menu Bluetooth ou « Clavier et souris ».",
+                        "1. Sur la TV, ouvrez Paramètres → Télécommandes et accessoires → Ajouter un accessoire " +
+                            "(ou le menu Bluetooth) : la TV devient visible.\n" +
+                            "2. Ici, touchez « Rechercher la TV », puis le nom de la TV.\n" +
+                            "3. Acceptez l'association sur la TV et sur le téléphone : OmniZap se connecte.",
                         color = Muted,
                         fontSize = 13.sp,
                     )
-                    Text("2. Rendez ce téléphone visible, puis choisissez-le sur la TV", fontWeight = FontWeight.SemiBold)
-                    OutlinedButton(
-                        onClick = {
-                            visible.launch(
-                                Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE)
-                                    .putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 120),
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                    ) { Text("Rendre le téléphone visible (2 min)") }
-                    Text(
-                        "Quand la TV s'est associée, elle apparaît ci-dessus comme « Connecté ».",
-                        color = Muted,
-                        fontSize = 12.sp,
-                    )
-                }
-                BtCard {
-                    Text("Ou depuis le téléphone", fontWeight = FontWeight.SemiBold)
                     val bonded = BtRemote.bondedDevices().map { BtCandidate(it.address, it.name ?: it.address, true) }
                     if (bonded.isNotEmpty()) {
-                        Text("Appareils déjà associés :", color = Muted, fontSize = 13.sp)
+                        Text("Appareils déjà associés (touchez la TV pour vous connecter) :", color = Muted, fontSize = 13.sp)
                         for (d in bonded) DeviceRow(d, connecting = bt.connecting && chosen == d.address) {
                             chosen = d.address
                             BtRemote.connect(d.address)
@@ -228,7 +212,7 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         if (scanning) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
-                        Text(if (scanning) "  Recherche…" else "Rechercher la TV (rendez-la visible)")
+                        Text(if (scanning) "  Recherche…" else "Rechercher la TV")
                     }
                     for (d in found.filter { c -> bonded.none { it.address == c.address } }) {
                         DeviceRow(d, connecting = chosen == d.address && !bt.connecting && bt.connectedAddress == null) {
@@ -238,6 +222,29 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                             if (device?.bondState == BluetoothDevice.BOND_BONDED) BtRemote.connect(d.address) else device?.createBond()
                         }
                     }
+                }
+                BtCard {
+                    Text("Autre méthode : depuis la TV", fontWeight = FontWeight.SemiBold)
+                    Text(
+                        "Pour les TV qui listent les téléphones (Samsung, LG, boîtiers…). Les TV Android et Google TV " +
+                            "n'affichent souvent que les claviers et manettes : utilisez alors la méthode ci-dessus.",
+                        color = Muted,
+                        fontSize = 13.sp,
+                    )
+                    OutlinedButton(
+                        onClick = {
+                            visible.launch(
+                                Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE)
+                                    .putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 120),
+                            )
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                    ) { Text("Rendre le téléphone visible (2 min)") }
+                    Text(
+                        "Quand la TV s'est associée, elle apparaît ci-dessus comme « Connecté ».",
+                        color = Muted,
+                        fontSize = 12.sp,
+                    )
                 }
                 bt.message?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 13.sp) }
             }
