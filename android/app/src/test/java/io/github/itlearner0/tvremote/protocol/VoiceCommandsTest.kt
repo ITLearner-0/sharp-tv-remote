@@ -22,4 +22,11 @@ class VoiceCommandsTest {
         assertEquals("france.tv", VoiceCommands.bestMatch("France TV", apps))
         assertNull(VoiceCommands.bestMatch("canal", apps))
     }
+
+    @Test
+    fun recognisesEnglishOpenCommands() {
+        org.junit.Assert.assertEquals("Netflix", VoiceCommands.appRequest("open Netflix"))
+        org.junit.Assert.assertEquals("YouTube", VoiceCommands.appRequest("Launch the YouTube"))
+        org.junit.Assert.assertNull(VoiceCommands.appRequest("action movies"))
+    }
 }

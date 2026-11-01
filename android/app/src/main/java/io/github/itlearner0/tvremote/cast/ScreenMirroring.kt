@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.cast
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -22,7 +24,7 @@ object ScreenMirroring {
             context.startActivity(home.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             Toast.makeText(
                 context,
-                "Dans Google Home, touchez la TV puis « Caster mon écran »",
+                tr("Dans Google Home, touchez la TV puis « Caster mon écran »"),
                 Toast.LENGTH_LONG,
             ).show()
             return
@@ -60,7 +62,7 @@ object ScreenMirroring {
         runCatching { context.startActivity(Intent(Settings.ACTION_WIRELESS_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
         Toast.makeText(
             context,
-            "Déroulez les réglages rapides et touchez « Caster » ou « Smart View », puis choisissez la TV",
+            tr("Déroulez les réglages rapides et touchez « Caster » ou « Smart View », puis choisissez la TV"),
             Toast.LENGTH_LONG,
         ).show()
     }

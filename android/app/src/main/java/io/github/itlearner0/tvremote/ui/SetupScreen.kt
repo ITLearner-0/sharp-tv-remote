@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
@@ -75,7 +77,7 @@ fun SetupScreen(state: UiState, vm: RemoteViewModel) {
         if (state.tvs.isNotEmpty() && state.connection != Connection.PAIRING) {
             TextButton(onClick = vm::cancelSetup) {
                 Icon(Icons.Filled.ArrowBack, contentDescription = null, modifier = Modifier.size(18.dp))
-                Text("  Revenir à la télécommande")
+                Text(tr("  Revenir à la télécommande"))
             }
         }
         Hero(state)
@@ -85,7 +87,7 @@ fun SetupScreen(state: UiState, vm: RemoteViewModel) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     CircularProgressIndicator(Modifier.size(24.dp), strokeWidth = 3.dp)
                     Spacer(Modifier.size(14.dp))
-                    Text("Connexion à ${state.pendingHost}…")
+                    Text(tr("Connexion à {1}…", state.pendingHost))
                 }
             }
             else -> {
@@ -109,15 +111,15 @@ private fun Hero(state: UiState) {
         // Ondes « radar » tant que la recherche n'a rien trouvé.
         RadarIcon(Icons.Filled.Tv, active = !pairing && state.discovered.isEmpty())
         Text(
-            if (pairing) "Saisissez le code" else if (state.tvs.isEmpty()) "Connectez votre TV" else "Ajouter une TV",
+            if (pairing) tr("Saisissez le code") else if (state.tvs.isEmpty()) tr("Connectez votre TV") else tr("Ajouter une TV"),
             fontSize = 30.sp,
             lineHeight = 36.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
         )
         Text(
-            if (pairing) "Il s'affiche maintenant sur l'écran de la TV."
-            else "Allumez la TV et restez sur le même Wi-Fi : elle apparaîtra ci-dessous.",
+            if (pairing) tr("Il s'affiche maintenant sur l'écran de la TV.")
+            else tr("Allumez la TV et restez sur le même Wi-Fi : elle apparaîtra ci-dessous."),
             color = Muted,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 6.dp, start = 12.dp, end = 12.dp),
@@ -149,8 +151,8 @@ private fun FoundTvs(state: UiState, vm: RemoteViewModel) {
                 SuccessCheck(22.dp)
             }
             Text(
-                if (state.discovered.isEmpty()) "  Recherche des TV sur le réseau"
-                else if (state.discovered.size == 1) "  TV trouvée !" else "  ${state.discovered.size} TV trouvées !",
+                if (state.discovered.isEmpty()) tr("  Recherche des TV sur le réseau")
+                else if (state.discovered.size == 1) tr("  TV trouvée !") else tr("  {1} TV trouvées !", state.discovered.size),
                 fontWeight = FontWeight.SemiBold,
                 fontSize = if (state.discovered.isEmpty()) 15.sp else 18.sp,
                 modifier = Modifier.weight(1f),
@@ -159,7 +161,7 @@ private fun FoundTvs(state: UiState, vm: RemoteViewModel) {
         }
         if (state.discovered.isEmpty()) {
             Text(
-                "Recherche en cours… Si rien n'apparaît, vérifiez que la TV est allumée et sur le même Wi-Fi que ce téléphone.",
+                tr("Recherche en cours… Si rien n'apparaît, vérifiez que la TV est allumée et sur le même Wi-Fi que ce téléphone."),
                 color = Muted,
                 fontSize = 13.sp,
             )
@@ -178,10 +180,10 @@ private fun FoundTvs(state: UiState, vm: RemoteViewModel) {
                 Icon(Icons.Filled.Tv, contentDescription = null, tint = Color.White)
                 Column(Modifier.weight(1f).padding(start = 12.dp)) {
                     Text(tv.name, fontWeight = FontWeight.SemiBold)
-                    Text(if (known) "${tv.host} · déjà ajoutée" else tv.host, color = Muted, fontSize = 12.sp)
+                    Text(if (known) tr("{1} · déjà ajoutée", tv.host) else tv.host, color = Muted, fontSize = 12.sp)
                 }
                 Text(
-                    "Connecter",
+                    tr("Connecter"),
                     color = Color.White,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.SemiBold,
@@ -198,7 +200,7 @@ private fun ManualIp(state: UiState, vm: RemoteViewModel) {
     var host by rememberSaveable { mutableStateOf(state.pendingHost.orEmpty()) }
     Card {
         Text(
-            (if (open) "▾ " else "▸ ") + "Saisir l'adresse IP de la TV",
+            (if (open) "▾ " else "▸ ") + tr("Saisir l'adresse IP de la TV"),
             color = Muted,
             modifier = Modifier.fillMaxWidth().clickable { open = !open },
         )
@@ -207,7 +209,7 @@ private fun ManualIp(state: UiState, vm: RemoteViewModel) {
                 OutlinedTextField(
                     value = host,
                     onValueChange = { host = it },
-                    label = { Text("Adresse IP") },
+                    label = { Text(tr("Adresse IP")) },
                     placeholder = { Text("192.168.1.42") },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri, imeAction = ImeAction.Go),
@@ -215,10 +217,10 @@ private fun ManualIp(state: UiState, vm: RemoteViewModel) {
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Button(onClick = { vm.connect(host) }, modifier = Modifier.fillMaxWidth().height(50.dp)) {
-                    Text("Se connecter", fontWeight = FontWeight.SemiBold)
+                    Text(tr("Se connecter"), fontWeight = FontWeight.SemiBold)
                 }
                 Text(
-                    "Sur la TV : Paramètres → Réseau et Internet → votre Wi-Fi.",
+                    tr("Sur la TV : Paramètres → Réseau et Internet → votre Wi-Fi."),
                     color = Muted,
                     fontSize = 12.sp,
                 )
@@ -234,21 +236,21 @@ private fun WakeOffTv(vm: RemoteViewModel) {
     var mac by rememberSaveable { mutableStateOf("") }
     Card {
         Text(
-            (if (open) "▾ " else "▸ ") + "La TV est éteinte ?",
+            (if (open) "▾ " else "▸ ") + tr("La TV est éteinte ?"),
             color = Muted,
             modifier = Modifier.fillMaxWidth().clickable { open = !open },
         )
         AnimatedVisibility(open) {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 Text(
-                    "Une TV éteinte n'est pas visible sur le réseau. Si elle accepte le réveil par le réseau, " +
-                        "saisissez son adresse MAC : elle s'allumera puis apparaîtra dans la liste ci-dessus.",
+                    tr("Une TV éteinte n'est pas visible sur le réseau. Si elle accepte le réveil par le réseau, ") +
+                        tr("saisissez son adresse MAC : elle s'allumera puis apparaîtra dans la liste ci-dessus."),
                     fontSize = 13.sp,
                 )
                 OutlinedTextField(
                     value = mac,
                     onValueChange = { mac = it },
-                    label = { Text("Adresse MAC de la TV") },
+                    label = { Text(tr("Adresse MAC de la TV")) },
                     placeholder = { Text("A4:B1:C2:D3:E4:F5") },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters),
@@ -256,11 +258,11 @@ private fun WakeOffTv(vm: RemoteViewModel) {
                 )
                 OutlinedButton(onClick = { vm.wakeByMac(mac) }, modifier = Modifier.fillMaxWidth().height(50.dp)) {
                     Icon(Icons.Filled.PowerSettingsNew, contentDescription = null, modifier = Modifier.size(18.dp))
-                    Text("  Allumer la TV")
+                    Text(tr("  Allumer la TV"))
                 }
                 Text(
-                    "Où trouver l'adresse MAC : sur la TV (Paramètres → À propos → État, ou Réseau), dans la " +
-                        "liste des appareils de votre box Internet, ou sur l'étiquette au dos de la TV.",
+                    tr("Où trouver l'adresse MAC : sur la TV (Paramètres → À propos → État, ou Réseau), dans la ") +
+                        tr("liste des appareils de votre box Internet, ou sur l'étiquette au dos de la TV."),
                     color = Muted,
                     fontSize = 12.sp,
                 )
@@ -276,17 +278,17 @@ private fun RestoreBackup(vm: RemoteViewModel) {
         uri?.let(vm::importBackup)
     }
     Card {
-        Text("Vous aviez déjà utilisé l'application ?", fontWeight = FontWeight.SemiBold)
+        Text(tr("Vous aviez déjà utilisé l'application ?"), fontWeight = FontWeight.SemiBold)
         Text(
-            "Restaurez vos TV depuis la sauvegarde : Téléchargements → OmniZap → ${LocalBackup.FILE_NAME} " +
-                "(sauvegarde plus ancienne : Téléchargements → Télécommande TV).",
+            tr("Restaurez vos TV depuis la sauvegarde : Téléchargements → OmniZap → {1} ", LocalBackup.FILE_NAME) +
+                tr("(sauvegarde plus ancienne : Téléchargements → Télécommande TV)."),
             color = Muted,
             fontSize = 13.sp,
         )
         OutlinedButton(
             onClick = { launcher.launch(arrayOf("application/json", "*/*")) },
             modifier = Modifier.fillMaxWidth(),
-        ) { Text("Restaurer une sauvegarde") }
+        ) { Text(tr("Restaurer une sauvegarde")) }
     }
 }
 
@@ -296,12 +298,12 @@ private fun InfraredEntry(state: UiState, vm: RemoteViewModel) {
     Card {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(Icons.Filled.SettingsRemote, contentDescription = null, tint = Muted, modifier = Modifier.size(18.dp))
-            Text("  TV non connectée ou ancienne ?", fontWeight = FontWeight.SemiBold)
+            Text(tr("  TV non connectée ou ancienne ?"), fontWeight = FontWeight.SemiBold)
         }
         Text(
-            if (state.irAvailable) "Ce téléphone a un émetteur infrarouge : il peut piloter n'importe quelle TV, " +
-                "comme une télécommande classique."
-            else "Il faudrait un téléphone avec émetteur infrarouge (beaucoup de Xiaomi, Redmi et Poco, certains Huawei et Honor).",
+            if (state.irAvailable) tr("Ce téléphone a un émetteur infrarouge : il peut piloter n'importe quelle TV, ") +
+                tr("comme une télécommande classique.")
+            else tr("Il faudrait un téléphone avec émetteur infrarouge (beaucoup de Xiaomi, Redmi et Poco, certains Huawei et Honor)."),
             color = Muted,
             fontSize = 13.sp,
         )
@@ -309,17 +311,17 @@ private fun InfraredEntry(state: UiState, vm: RemoteViewModel) {
             onClick = vm::startIrSetup,
             enabled = state.irAvailable,
             modifier = Modifier.fillMaxWidth().height(50.dp),
-        ) { Text("Utiliser l'infrarouge") }
+        ) { Text(tr("Utiliser l'infrarouge")) }
         Text(
-            "Sans réseau ni infrarouge : le téléphone peut aussi servir de télécommande et de clavier Bluetooth " +
-                "(TV Android, Samsung, LG, boîtiers…).",
+            tr("Sans réseau ni infrarouge : le téléphone peut aussi servir de télécommande et de clavier Bluetooth ") +
+                tr("(TV Android, Samsung, LG, boîtiers…)."),
             color = Muted,
             fontSize = 13.sp,
         )
         OutlinedButton(
             onClick = { vm.startBtSetup() },
             modifier = Modifier.fillMaxWidth().height(50.dp),
-        ) { Text("Utiliser le Bluetooth") }
+        ) { Text(tr("Utiliser le Bluetooth")) }
     }
 }
 
@@ -345,7 +347,7 @@ private fun PairingStep(vm: RemoteViewModel) {
             onClick = { vm.submitCode(code) },
             enabled = code.length == 6,
             modifier = Modifier.fillMaxWidth().height(52.dp),
-        ) { Text("Valider", fontWeight = FontWeight.SemiBold) }
-        TextButton(onClick = vm::cancelSetup, modifier = Modifier.fillMaxWidth()) { Text("Annuler") }
+        ) { Text(tr("Valider"), fontWeight = FontWeight.SemiBold) }
+        TextButton(onClick = vm::cancelSetup, modifier = Modifier.fillMaxWidth()) { Text(tr("Annuler")) }
     }
 }

@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.content.ContentValues
 import android.content.Context
 import android.os.Build
@@ -74,10 +76,10 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
     val context = LocalContext.current
     val tv = state.current
     if (tv == null || tv.isIr || tv.host.isBlank()) {
-        Text("« Voir la TV » fonctionne avec une TV Android connectée en Wi-Fi.", color = Muted, fontSize = 13.sp)
+        Text(tr("« Voir la TV » fonctionne avec une TV Android connectée en Wi-Fi."), color = Muted, fontSize = 13.sp)
         return
     }
-    var status by remember(tv.id) { mutableStateOf("Connexion à l'écran de la TV…") }
+    var status by remember(tv.id) { mutableStateOf(tr("Connexion à l'écran de la TV…")) }
     var capturing by remember { mutableStateOf(false) }
     var surfaceView by remember { mutableStateOf<SurfaceView?>(null) }
     val scope = rememberCoroutineScope()
@@ -141,13 +143,13 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            NavKey(Icons.AutoMirrored.Filled.ArrowBack, "Retour") { vm.key(Keys.BACK) }
-            NavKey(Icons.AutoMirrored.Filled.KeyboardArrowLeft, "Gauche") { vm.key(Keys.DPAD_LEFT) }
-            NavKey(Icons.Filled.KeyboardArrowUp, "Haut") { vm.key(Keys.DPAD_UP) }
+            NavKey(Icons.AutoMirrored.Filled.ArrowBack, tr("Retour")) { vm.key(Keys.BACK) }
+            NavKey(Icons.AutoMirrored.Filled.KeyboardArrowLeft, tr("Gauche")) { vm.key(Keys.DPAD_LEFT) }
+            NavKey(Icons.Filled.KeyboardArrowUp, tr("Haut")) { vm.key(Keys.DPAD_UP) }
             NavKey(Icons.Filled.RadioButtonChecked, "OK") { vm.key(Keys.DPAD_CENTER) }
-            NavKey(Icons.Filled.KeyboardArrowDown, "Bas") { vm.key(Keys.DPAD_DOWN) }
-            NavKey(Icons.AutoMirrored.Filled.KeyboardArrowRight, "Droite") { vm.key(Keys.DPAD_RIGHT) }
-            NavKey(Icons.Filled.Home, "Accueil") { vm.key(Keys.HOME) }
+            NavKey(Icons.Filled.KeyboardArrowDown, tr("Bas")) { vm.key(Keys.DPAD_DOWN) }
+            NavKey(Icons.AutoMirrored.Filled.KeyboardArrowRight, tr("Droite")) { vm.key(Keys.DPAD_RIGHT) }
+            NavKey(Icons.Filled.Home, tr("Accueil")) { vm.key(Keys.HOME) }
         }
         OutlinedButton(
             onClick = {
@@ -159,9 +161,9 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
                             .recoverCatching { tvError ->
                                 // Secours : l'image affichée sur le téléphone (720p).
                                 val png = surfaceView?.let { copyFrame(it) } ?: throw tvError
-                                saveScreenshot(context, png) + " (image du téléphone)"
+                                saveScreenshot(context, png) + tr(" (image du téléphone)")
                             }
-                            .getOrElse { "Capture impossible : ${it.message ?: it.javaClass.simpleName}" }
+                            .getOrElse { tr("Capture impossible : {1}", it.message ?: it.javaClass.simpleName) }
                     }
                     capturing = false
                     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
@@ -170,11 +172,11 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
             modifier = Modifier.fillMaxWidth().height(48.dp),
         ) {
             Icon(Icons.Filled.CameraAlt, contentDescription = null, modifier = Modifier.size(18.dp))
-            Text(if (capturing) "  Capture en cours…" else "  Capture d'écran de la TV")
+            Text(if (capturing) tr("  Capture en cours…") else tr("  Capture d'écran de la TV"))
         }
         Text(
-            "Image seulement, sans le son. Les contenus protégés (Netflix, chaînes TV…) " +
-                "apparaissent en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches.",
+            tr("Image seulement, sans le son. Les contenus protégés (Netflix, chaînes TV…) ") +
+                tr("apparaissent en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."),
             color = Muted,
             fontSize = 11.sp,
         )
@@ -208,7 +210,7 @@ private suspend fun copyFrame(view: SurfaceView): ByteArray? {
 
 /** Enregistre la capture dans Images/OmniZap ; renvoie le message à afficher. */
 private fun saveScreenshot(context: Context, png: ByteArray): String {
-    require(png.size > 8 && png[1] == 'P'.code.toByte()) { "la TV n'a pas renvoyé d'image" }
+    require(png.size > 8 && png[1] == 'P'.code.toByte()) { tr("la TV n'a pas renvoyé d'image") }
     val name = "TV_" + SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRANCE).format(Date()) + ".png"
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         val values = ContentValues().apply {
@@ -217,11 +219,11 @@ private fun saveScreenshot(context: Context, png: ByteArray): String {
             put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/OmniZap")
         }
         val uri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-            ?: error("galerie inaccessible")
-        context.contentResolver.openOutputStream(uri)?.use { it.write(png) } ?: error("galerie inaccessible")
-        return "Capture enregistrée dans la galerie (Images/OmniZap)"
+            ?: error(tr("galerie inaccessible"))
+        context.contentResolver.openOutputStream(uri)?.use { it.write(png) } ?: error(tr("galerie inaccessible"))
+        return tr("Capture enregistrée dans la galerie (Images/OmniZap)")
     }
-    val dir = File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "OmniZap").apply { mkdirs() }
+    val dir = File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), tr("OmniZap")).apply { mkdirs() }
     File(dir, name).writeBytes(png)
-    return "Capture enregistrée : ${dir.absolutePath}/$name"
+    return tr("Capture enregistrée : {1}/{2}", dir.absolutePath, name)
 }

@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.content.Context
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
@@ -70,8 +72,8 @@ fun NavModeToggle(touchpad: Boolean, onChange: (Boolean) -> Unit) {
             .padding(4.dp),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        ToggleChoice(Icons.Filled.Gamepad, "Flèches", selected = !touchpad) { onChange(false) }
-        ToggleChoice(Icons.Filled.TouchApp, "Pavé tactile", selected = touchpad) { onChange(true) }
+        ToggleChoice(Icons.Filled.Gamepad, tr("Flèches"), selected = !touchpad) { onChange(false) }
+        ToggleChoice(Icons.Filled.TouchApp, tr("Pavé tactile"), selected = touchpad) { onChange(true) }
     }
 }
 
@@ -186,8 +188,8 @@ fun TouchPad(onKey: (Int) -> Unit, modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Icon(Icons.Filled.TouchApp, null, tint = AccentSoft, modifier = Modifier.size(40.dp))
-            Text("Glissez pour naviguer", color = Muted, fontSize = 13.sp, modifier = Modifier.padding(top = 6.dp))
-            Text("Touchez pour OK", color = Muted, fontSize = 13.sp)
+            Text(tr("Glissez pour naviguer"), color = Muted, fontSize = 13.sp, modifier = Modifier.padding(top = 6.dp))
+            Text(tr("Touchez pour OK"), color = Muted, fontSize = 13.sp)
         }
     }
 }

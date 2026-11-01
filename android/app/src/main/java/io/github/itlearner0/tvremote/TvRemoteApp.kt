@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.app.Application
 import android.os.Build
 import java.io.File
@@ -30,9 +32,9 @@ class TvRemoteApp : Application() {
         val trace = StringWriter().also { error.printStackTrace(PrintWriter(it)) }.toString()
         val date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRANCE).format(Date())
         val version = runCatching { packageManager.getPackageInfo(packageName, 0).versionName }.getOrNull()
-        return "OmniZap $version — $date\n" +
-            "Téléphone : ${Build.MANUFACTURER} ${Build.MODEL}, Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})\n" +
-            "Fil : ${thread.name}\n\n" + trace.take(12_000)
+        return tr("OmniZap {1} — {2}\n", version, date) +
+            tr("Téléphone : {1} {2}, Android {3} (API {4})\n", Build.MANUFACTURER, Build.MODEL, Build.VERSION.RELEASE, Build.VERSION.SDK_INT) +
+            tr("Fil : {1}\n\n", thread.name) + trace.take(12_000)
     }
 
     companion object {

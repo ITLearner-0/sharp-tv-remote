@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.quick
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -37,8 +39,8 @@ object RemoteNotification {
     fun show(context: Context) {
         val manager = context.getSystemService(NotificationManager::class.java) ?: return
         manager.createNotificationChannel(
-            NotificationChannel(CHANNEL, "Télécommande", NotificationManager.IMPORTANCE_LOW).apply {
-                description = "Boutons de télécommande dans les notifications et sur l'écran verrouillé"
+            NotificationChannel(CHANNEL, tr("Télécommande"), NotificationManager.IMPORTANCE_LOW).apply {
+                description = tr("Boutons de télécommande dans les notifications et sur l'écran verrouillé")
                 setShowBadge(false)
                 lockscreenVisibility = Notification.VISIBILITY_PUBLIC
             },
@@ -55,17 +57,17 @@ object RemoteNotification {
 
         val notification = Notification.Builder(context, CHANNEL)
             .setSmallIcon(R.drawable.ic_stat_remote)
-            .setContentTitle(tv?.name ?: "OmniZap")
-            .setContentText("Télécommande")
+            .setContentTitle(tv?.name ?: tr("OmniZap"))
+            .setContentText(tr("Télécommande"))
             .setContentIntent(open)
             .setOngoing(true)
             .setVisibility(Notification.VISIBILITY_PUBLIC)
             .setCategory(Notification.CATEGORY_TRANSPORT)
-            .addAction(action(R.drawable.ic_q_power, "Marche", QuickActionReceiver.powerIntent(context)))
-            .addAction(action(R.drawable.ic_q_vol_down, "Volume −", QuickActionReceiver.keyIntent(context, Keys.VOLUME_DOWN)))
-            .addAction(action(R.drawable.ic_q_vol_up, "Volume +", QuickActionReceiver.keyIntent(context, Keys.VOLUME_UP)))
-            .addAction(action(R.drawable.ic_q_mute, "Muet", QuickActionReceiver.keyIntent(context, Keys.VOLUME_MUTE)))
-            .addAction(action(R.drawable.ic_q_play_pause, "Lecture / pause", QuickActionReceiver.keyIntent(context, Keys.MEDIA_PLAY_PAUSE)))
+            .addAction(action(R.drawable.ic_q_power, tr("Marche"), QuickActionReceiver.powerIntent(context)))
+            .addAction(action(R.drawable.ic_q_vol_down, tr("Volume −"), QuickActionReceiver.keyIntent(context, Keys.VOLUME_DOWN)))
+            .addAction(action(R.drawable.ic_q_vol_up, tr("Volume +"), QuickActionReceiver.keyIntent(context, Keys.VOLUME_UP)))
+            .addAction(action(R.drawable.ic_q_mute, tr("Muet"), QuickActionReceiver.keyIntent(context, Keys.VOLUME_MUTE)))
+            .addAction(action(R.drawable.ic_q_play_pause, tr("Lecture / pause"), QuickActionReceiver.keyIntent(context, Keys.MEDIA_PLAY_PAUSE)))
             .setStyle(Notification.MediaStyle().setShowActionsInCompactView(0, 1, 2))
             .build()
         runCatching { manager.notify(ID, notification) }

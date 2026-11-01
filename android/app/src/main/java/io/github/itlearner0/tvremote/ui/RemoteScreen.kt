@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -138,15 +140,15 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
                 Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(PadColor).padding(14.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Text("La TV ne reconnaît plus ce téléphone en Wi-Fi.", color = MaterialTheme.colorScheme.error)
+                Text(tr("La TV ne reconnaît plus ce téléphone en Wi-Fi."), color = MaterialTheme.colorScheme.error)
                 Text(
-                    "Refaites l'appairage Wi-Fi : un code à 6 caractères s'affichera sur la TV. " +
-                        "(C'est différent de l'association Bluetooth, qui ne le remplace pas.)",
+                    tr("Refaites l'appairage Wi-Fi : un code à 6 caractères s'affichera sur la TV. ") +
+                        tr("(C'est différent de l'association Bluetooth, qui ne le remplace pas.)"),
                     color = Muted,
                     fontSize = 12.sp,
                 )
                 FilledTonalButton(onClick = vm::repairCurrentTv, modifier = Modifier.fillMaxWidth()) {
-                    Text("Refaire l'appairage Wi-Fi")
+                    Text(tr("Refaire l'appairage Wi-Fi"))
                 }
             }
         }
@@ -163,10 +165,10 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                RoundKey(Icons.Filled.PowerSettingsNew, "Marche", color = PowerRed, onPress = vm::power)
-                RoundKey(Icons.Filled.NightsStay, "Veille", dim, onPress = vm::sleep)
-                RoundKey(Icons.Filled.Input, "Source", dim) { vm.key(Keys.TV_INPUT) }
-                RoundKey(Icons.Filled.Tune, "Réglages", dim) { vm.key(Keys.SETTINGS) }
+                RoundKey(Icons.Filled.PowerSettingsNew, tr("Marche"), color = PowerRed, onPress = vm::power)
+                RoundKey(Icons.Filled.NightsStay, tr("Veille"), dim, onPress = vm::sleep)
+                RoundKey(Icons.Filled.Input, tr("Source"), dim) { vm.key(Keys.TV_INPUT) }
+                RoundKey(Icons.Filled.Tune, tr("Réglages"), dim) { vm.key(Keys.SETTINGS) }
             }
 
             val context = androidx.compose.ui.platform.LocalContext.current
@@ -178,10 +180,10 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
             if (touchpad) TouchPad(onKey = { vm.key(it) }, modifier = dim) else DPad(vm, dim)
 
             Row(Modifier.fillMaxWidth().then(dim), horizontalArrangement = Arrangement.SpaceEvenly) {
-                RoundKey(Icons.Filled.ArrowBack, "Retour") { vm.key(Keys.BACK) }
-                RoundKey(Icons.Filled.Home, "Accueil") { vm.key(Keys.HOME) }
+                RoundKey(Icons.Filled.ArrowBack, tr("Retour")) { vm.key(Keys.BACK) }
+                RoundKey(Icons.Filled.Home, tr("Accueil")) { vm.key(Keys.HOME) }
                 VoiceKey(state, vm)
-                RoundKey(Icons.Filled.Menu, "Menu", onLongPress = { chooser = CustomKey.MENU }) { vm.customKey(CustomKey.MENU) }
+                RoundKey(Icons.Filled.Menu, tr("Menu"), onLongPress = { chooser = CustomKey.MENU }) { vm.customKey(CustomKey.MENU) }
             }
 
             Row(
@@ -190,14 +192,14 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
             ) {
                 Rocker("VOL", Icons.Filled.Add, Icons.Filled.Remove, { vm.key(Keys.VOLUME_UP) }, { vm.key(Keys.VOLUME_DOWN) })
                 Column(Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    IconKey(Icons.Filled.VolumeOff, "Muet", Modifier.fillMaxWidth().weight(1f)) { vm.key(Keys.VOLUME_MUTE) }
+                    IconKey(Icons.Filled.VolumeOff, tr("Muet"), Modifier.fillMaxWidth().weight(1f)) { vm.key(Keys.VOLUME_MUTE) }
                     IconKey(
                         Icons.Filled.LiveTv,
-                        "Guide",
+                        tr("Guide"),
                         Modifier.fillMaxWidth().weight(1f),
                         onLongPress = { chooser = CustomKey.GUIDE },
                     ) { vm.customKey(CustomKey.GUIDE) }
-                    IconKey(Icons.Filled.Info, "Info", Modifier.fillMaxWidth().weight(1f)) { vm.key(Keys.INFO) }
+                    IconKey(Icons.Filled.Info, tr("Info"), Modifier.fillMaxWidth().weight(1f)) { vm.key(Keys.INFO) }
                 }
                 Rocker(
                     "CH",
@@ -209,10 +211,10 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
             }
 
             Row(Modifier.fillMaxWidth().then(dim), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                IconKey(Icons.Filled.FastRewind, "Retour rapide", Modifier.weight(1f)) { vm.key(Keys.MEDIA_REWIND) }
-                IconKey(Icons.Filled.PlayArrow, "Lecture / pause", Modifier.weight(1f)) { vm.key(Keys.MEDIA_PLAY_PAUSE) }
-                IconKey(Icons.Filled.Stop, "Stop", Modifier.weight(1f)) { vm.key(Keys.MEDIA_STOP) }
-                IconKey(Icons.Filled.FastForward, "Avance rapide", Modifier.weight(1f)) { vm.key(Keys.MEDIA_FAST_FORWARD) }
+                IconKey(Icons.Filled.FastRewind, tr("Retour rapide"), Modifier.weight(1f)) { vm.key(Keys.MEDIA_REWIND) }
+                IconKey(Icons.Filled.PlayArrow, tr("Lecture / pause"), Modifier.weight(1f)) { vm.key(Keys.MEDIA_PLAY_PAUSE) }
+                IconKey(Icons.Filled.Stop, tr("Stop"), Modifier.weight(1f)) { vm.key(Keys.MEDIA_STOP) }
+                IconKey(Icons.Filled.FastForward, tr("Avance rapide"), Modifier.weight(1f)) { vm.key(Keys.MEDIA_FAST_FORWARD) }
             }
         }
 
@@ -234,16 +236,16 @@ private fun VoiceKey(state: UiState, vm: RemoteViewModel) {
         result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.firstOrNull()?.let(vm::voiceQuery)
     }
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-        if (granted) vm.toggleVoice() else Toast.makeText(context, "Autorisez le micro pour la recherche vocale", Toast.LENGTH_SHORT).show()
+        if (granted) vm.toggleVoice() else Toast.makeText(context, tr("Autorisez le micro pour la recherche vocale"), Toast.LENGTH_SHORT).show()
     }
     RoundKey(
         Icons.Filled.Mic,
-        if (state.listening) "Parlez…" else "Voix",
+        if (state.listening) tr("Parlez…") else tr("Voix"),
         color = if (state.listening) Accent else KeyColor,
         onLongPress = {
             when {
                 !Pro.require(context, ProFeature.VOICE) -> Unit
-                !tvVoice -> Toast.makeText(context, "Cette TV n'accepte pas le son du micro : touchez simplement Voix", Toast.LENGTH_LONG).show()
+                !tvVoice -> Toast.makeText(context, tr("Cette TV n'accepte pas le son du micro : touchez simplement Voix"), Toast.LENGTH_LONG).show()
                 ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED ->
                     vm.toggleVoice()
                 else -> permission.launch(Manifest.permission.RECORD_AUDIO)
@@ -259,10 +261,10 @@ private fun VoiceKey(state: UiState, vm: RemoteViewModel) {
             dictation.launch(
                 Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
                     .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                    .putExtra(RecognizerIntent.EXTRA_PROMPT, "« Lance Netflix », « films d'action »…"),
+                    .putExtra(RecognizerIntent.EXTRA_PROMPT, tr("« Lance Netflix », « films d'action »…")),
             )
         }.onFailure {
-            Toast.makeText(context, "Reconnaissance vocale indisponible sur ce téléphone", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, tr("Reconnaissance vocale indisponible sur ce téléphone"), Toast.LENGTH_SHORT).show()
         }
     }
 }
@@ -282,14 +284,14 @@ private fun Header(state: UiState, onSettings: () -> Unit, onSwitchTv: () -> Uni
     // Le téléphone n'est sur aucun Wi-Fi (4G seulement) : la TV est injoignable par le réseau.
     val noWifi = state.connection != Connection.CONNECTED && !onWifi(context)
     val status = when {
-        state.isBt -> if (state.btConnected) "Bluetooth · connecté" else "Bluetooth · connexion… (TV allumée, à portée)"
-        state.usesBt -> if (state.btConnected) "Hors réseau · Bluetooth" else "Hors réseau · connexion Bluetooth…"
-        state.isIr -> "Infrarouge · visez la TV"
-        state.usesIr -> "Hors réseau · infrarouge (visez la TV)"
-        noWifi -> "Téléphone hors Wi-Fi · connectez-le au Wi-Fi de la TV"
-        state.connection != Connection.CONNECTED -> "Éteinte · appuyez sur Marche"
-        !tv.isOn -> "En veille"
-        else -> "Allumée"
+        state.isBt -> if (state.btConnected) tr("Bluetooth · connecté") else tr("Bluetooth · connexion… (TV allumée, à portée)")
+        state.usesBt -> if (state.btConnected) tr("Hors réseau · Bluetooth") else tr("Hors réseau · connexion Bluetooth…")
+        state.isIr -> tr("Infrarouge · visez la TV")
+        state.usesIr -> tr("Hors réseau · infrarouge (visez la TV)")
+        noWifi -> tr("Téléphone hors Wi-Fi · connectez-le au Wi-Fi de la TV")
+        state.connection != Connection.CONNECTED -> tr("Éteinte · appuyez sur Marche")
+        !tv.isOn -> tr("En veille")
+        else -> tr("Allumée")
     }
     val on = state.isIr || state.isBt && state.btConnected || state.connection == Connection.CONNECTED && tv.isOn
     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -313,10 +315,10 @@ private fun Header(state: UiState, onSettings: () -> Unit, onSwitchTv: () -> Uni
                 )
                 Text(status, color = Muted, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
-            Icon(Icons.Filled.KeyboardArrowDown, contentDescription = "Changer de TV", tint = Muted)
+            Icon(Icons.Filled.KeyboardArrowDown, contentDescription = tr("Changer de TV"), tint = Muted)
         }
         IconButton(onClick = onSettings, modifier = Modifier.padding(start = 8.dp)) {
-            Icon(Icons.Filled.Settings, contentDescription = "Réglages de la TV", tint = Muted)
+            Icon(Icons.Filled.Settings, contentDescription = tr("Réglages de la TV"), tint = Muted)
         }
     }
 }
@@ -446,10 +448,10 @@ private fun DPad(vm: RemoteViewModel, dim: Modifier) {
             .border(1.dp, BorderColor, CircleShape),
     ) {
         val arrow = Modifier.fillMaxSize(0.3f)
-        PadArrow(Icons.Filled.KeyboardArrowUp, "Haut", arrow.align(Alignment.TopCenter)) { vm.key(Keys.DPAD_UP) }
-        PadArrow(Icons.Filled.KeyboardArrowDown, "Bas", arrow.align(Alignment.BottomCenter)) { vm.key(Keys.DPAD_DOWN) }
-        PadArrow(Icons.Filled.KeyboardArrowLeft, "Gauche", arrow.align(Alignment.CenterStart)) { vm.key(Keys.DPAD_LEFT) }
-        PadArrow(Icons.Filled.KeyboardArrowRight, "Droite", arrow.align(Alignment.CenterEnd)) { vm.key(Keys.DPAD_RIGHT) }
+        PadArrow(Icons.Filled.KeyboardArrowUp, tr("Haut"), arrow.align(Alignment.TopCenter)) { vm.key(Keys.DPAD_UP) }
+        PadArrow(Icons.Filled.KeyboardArrowDown, tr("Bas"), arrow.align(Alignment.BottomCenter)) { vm.key(Keys.DPAD_DOWN) }
+        PadArrow(Icons.Filled.KeyboardArrowLeft, tr("Gauche"), arrow.align(Alignment.CenterStart)) { vm.key(Keys.DPAD_LEFT) }
+        PadArrow(Icons.Filled.KeyboardArrowRight, tr("Droite"), arrow.align(Alignment.CenterEnd)) { vm.key(Keys.DPAD_RIGHT) }
         PressSurface(
             Modifier.align(Alignment.Center).fillMaxSize(0.38f).border(2.dp, Accent.copy(alpha = 0.7f), CircleShape),
             CircleShape,
@@ -534,11 +536,11 @@ private fun ExtraPanels(state: UiState, vm: RemoteViewModel, dim: Modifier) {
     }
     var tab by rememberSaveable { mutableIntStateOf(0) }
     val tabs = listOf(
-        Icons.Filled.Apps to "Applications",
-        Icons.Filled.Dialpad to "Pavé",
-        Icons.Filled.Keyboard to "Clavier",
-        Icons.Filled.Cast to "Écran",
-        Icons.Filled.Tv to "Voir la TV",
+        Icons.Filled.Apps to tr("Applications"),
+        Icons.Filled.Dialpad to tr("Pavé"),
+        Icons.Filled.Keyboard to tr("Clavier"),
+        Icons.Filled.Cast to tr("Écran"),
+        Icons.Filled.Tv to tr("Voir la TV"),
     )
     Column(
         Modifier
@@ -586,10 +588,10 @@ private fun ScreenPanel() {
             modifier = Modifier.fillMaxWidth().height(52.dp),
         ) {
             Icon(Icons.Filled.PhotoLibrary, contentDescription = null, modifier = Modifier.size(18.dp))
-            Text("  Photos et vidéos du téléphone")
+            Text(tr("  Photos et vidéos du téléphone"))
         }
         Text(
-            "Diaporama et vidéos en plein écran sur la TV. Aussi depuis la Galerie : Partager → « Ouvrir sur la TV ».",
+            tr("Diaporama et vidéos en plein écran sur la TV. Aussi depuis la Galerie : Partager → « Ouvrir sur la TV »."),
             color = Muted,
             fontSize = 12.sp,
         )
@@ -605,13 +607,13 @@ private fun ScreenPanel() {
             modifier = Modifier.fillMaxWidth().height(52.dp),
         ) {
             Icon(Icons.Filled.ScreenShare, contentDescription = null, modifier = Modifier.size(18.dp))
-            Text(if (mirroring) "  Arrêter la duplication" else "  Dupliquer l'écran sur la TV")
+            Text(if (mirroring) tr("  Arrêter la duplication") else tr("  Dupliquer l'écran sur la TV"))
         }
         val mirrorReport by MirrorService.report.collectAsState()
         Text(
-            mirrorStatus?.takeIf { mirroring || mirrorReport != null || it.startsWith("Duplication") }
-                ?: ("L'écran du téléphone (ou une seule application) s'affiche sur la TV, sans Google Cast ni " +
-                    "Miracast, par le débogage ADB, avec le son des applications (Android 10 et plus)."),
+            mirrorStatus?.takeIf { mirroring || mirrorReport != null || it.startsWith(tr("Duplication")) }
+                ?: (tr("L'écran du téléphone (ou une seule application) s'affiche sur la TV, sans Google Cast ni ") +
+                    tr("Miracast, par le débogage ADB, avec le son des applications (Android 10 et plus).")),
             color = Muted,
             fontSize = 12.sp,
         )
@@ -619,9 +621,9 @@ private fun ScreenPanel() {
             Text(report, color = Muted, fontSize = 10.sp, lineHeight = 12.sp)
             TextButton(onClick = {
                 val clipboard = context.getSystemService(android.content.ClipboardManager::class.java)
-                clipboard?.setPrimaryClip(android.content.ClipData.newPlainText("Rapport OmniZap", report))
-                android.widget.Toast.makeText(context, "Rapport copié", android.widget.Toast.LENGTH_SHORT).show()
-            }) { Text("Copier le rapport") }
+                clipboard?.setPrimaryClip(android.content.ClipData.newPlainText(tr("Rapport OmniZap"), report))
+                android.widget.Toast.makeText(context, tr("Rapport copié"), android.widget.Toast.LENGTH_SHORT).show()
+            }) { Text(tr("Copier le rapport")) }
         }
         val homeInstalled = remember { ScreenMirroring.isGoogleHomeInstalled(context) }
         OutlinedButton(
@@ -629,16 +631,16 @@ private fun ScreenPanel() {
             modifier = Modifier.fillMaxWidth().height(52.dp),
         ) {
             Icon(Icons.Filled.ScreenShare, contentDescription = null, modifier = Modifier.size(18.dp))
-            Text(if (homeInstalled) "  Dupliquer l'écran (Google Home)" else "  Installer Google Home pour dupliquer l'écran")
+            Text(if (homeInstalled) tr("  Dupliquer l'écran (Google Home)") else tr("  Installer Google Home pour dupliquer l'écran"))
         }
         Text(
-            "Pour une TV à Chromecast intégré, la duplication passe par Google Home : touchez la TV, puis " +
-                "« Caster mon écran ». (« Smart View » de Samsung utilise Miracast, que beaucoup de TV Android ignorent.)",
+            tr("Pour une TV à Chromecast intégré, la duplication passe par Google Home : touchez la TV, puis ") +
+                tr("« Caster mon écran ». (« Smart View » de Samsung utilise Miracast, que beaucoup de TV Android ignorent.)"),
             color = Muted,
             fontSize = 12.sp,
         )
         TextButton(onClick = { ScreenMirroring.openSystemMenu(context) }) {
-            Text("Menu de diffusion du téléphone (Miracast)")
+            Text(tr("Menu de diffusion du téléphone (Miracast)"))
         }
     }
 }
@@ -653,9 +655,9 @@ private fun NumPad(vm: RemoteViewModel) {
             }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            IconKey(Icons.Filled.ClosedCaption, "Sous-titres", Modifier.weight(1f)) { vm.key(Keys.CAPTIONS) }
+            IconKey(Icons.Filled.ClosedCaption, tr("Sous-titres"), Modifier.weight(1f)) { vm.key(Keys.CAPTIONS) }
             TextKey("0", Modifier.weight(1f)) { vm.key(Keys.digit(0)) }
-            IconKey(Icons.Filled.History, "Chaîne précédente", Modifier.weight(1f)) { vm.key(Keys.LAST_CHANNEL) }
+            IconKey(Icons.Filled.History, tr("Chaîne précédente"), Modifier.weight(1f)) { vm.key(Keys.LAST_CHANNEL) }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 6.dp)) {
             ColorKey(Color(0xFFD93636)) { vm.key(Keys.PROG_RED) }
@@ -682,8 +684,8 @@ private fun TextInput(vm: RemoteViewModel) {
     }
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text(
-            "Placez d'abord le curseur dans une zone de saisie sur la TV (recherche, mot de passe…), puis tapez ici. " +
-                "Les accents sont remplacés par la lettre simple (é → e).",
+            tr("Placez d'abord le curseur dans une zone de saisie sur la TV (recherche, mot de passe…), puis tapez ici. ") +
+                tr("Les accents sont remplacés par la lettre simple (é → e)."),
             color = Muted,
             fontSize = 13.sp,
         )
@@ -691,7 +693,7 @@ private fun TextInput(vm: RemoteViewModel) {
             OutlinedTextField(
                 value = text,
                 onValueChange = { text = it },
-                placeholder = { Text("Texte à envoyer…") },
+                placeholder = { Text(tr("Texte à envoyer…")) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
                 keyboardActions = KeyboardActions(onSend = { send() }),
@@ -700,9 +702,9 @@ private fun TextInput(vm: RemoteViewModel) {
             FilledIconButton(
                 onClick = send,
                 colors = IconButtonDefaults.filledIconButtonColors(containerColor = Accent),
-            ) { Icon(Icons.Filled.Send, contentDescription = "Envoyer") }
+            ) { Icon(Icons.Filled.Send, contentDescription = tr("Envoyer")) }
             PressSurface(Modifier.size(48.dp), CircleShape, repeat = true, onPress = { vm.key(Keys.DEL) }) {
-                Icon(Icons.Filled.Backspace, contentDescription = "Effacer", tint = Color.White)
+                Icon(Icons.Filled.Backspace, contentDescription = tr("Effacer"), tint = Color.White)
             }
         }
         Spacer(Modifier.height(2.dp))

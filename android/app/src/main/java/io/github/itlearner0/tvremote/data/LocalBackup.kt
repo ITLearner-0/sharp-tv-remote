@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.data
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
@@ -49,7 +51,7 @@ object LocalBackup {
     /** Remplace les réglages par ceux de la sauvegarde. Renvoie le nombre de TV restaurées. */
     fun import(prefs: SharedPreferences, json: String): Int {
         val root = JSONObject(json)
-        require(root.optString("format") == FORMAT) { "Ce fichier n'est pas une sauvegarde d'OmniZap" }
+        require(root.optString("format") == FORMAT) { tr("Ce fichier n'est pas une sauvegarde d'OmniZap") }
         val values = root.getJSONObject("prefs")
         val editor = prefs.edit().clear()
         for (key in values.keys()) {
@@ -82,7 +84,7 @@ object LocalBackup {
         val existing = resolver.query(
             collection,
             arrayOf(MediaStore.Downloads._ID),
-            "${MediaStore.Downloads.DISPLAY_NAME} = ? AND ${MediaStore.Downloads.RELATIVE_PATH} = ?",
+            tr("{1} = ? AND {2} = ?", MediaStore.Downloads.DISPLAY_NAME, MediaStore.Downloads.RELATIVE_PATH),
             arrayOf(FILE_NAME, FOLDER),
             null,
         )?.use { cursor ->
@@ -101,10 +103,10 @@ object LocalBackup {
 
     fun writeTo(context: Context, uri: Uri, json: String) {
         context.contentResolver.openOutputStream(uri, "wt")?.use { it.write(json.toByteArray()) }
-            ?: error("Impossible d'écrire le fichier")
+            ?: error(tr("Impossible d'écrire le fichier"))
     }
 
     fun readFrom(context: Context, uri: Uri): String =
         context.contentResolver.openInputStream(uri)?.use { it.bufferedReader().readText() }
-            ?: error("Impossible de lire le fichier")
+            ?: error(tr("Impossible de lire le fichier"))
 }

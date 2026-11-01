@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.bt
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
@@ -51,7 +53,7 @@ class BleHid(
         }
         val gatt = manager?.openGattServer(context, callback)
         if (gatt == null) {
-            log("BLE : serveur indisponible sur ce téléphone")
+            log(tr("BLE : serveur indisponible sur ce téléphone"))
             return
         }
         server = gatt
@@ -59,7 +61,7 @@ class BleHid(
         pending += hidService()
         pending += batteryService()
         pending += deviceInfoService()
-        log("BLE : préparation des services de télécommande…")
+        log(tr("BLE : préparation des services de télécommande…"))
         gatt.addService(pending.removeFirst())
     }
 
@@ -91,7 +93,7 @@ class BleHid(
     private fun advertise() {
         val advertiser = manager?.adapter?.bluetoothLeAdvertiser
         if (advertiser == null) {
-            log("BLE : ce téléphone ne peut pas s'annoncer en basse consommation")
+            log(tr("BLE : ce téléphone ne peut pas s'annoncer en basse consommation"))
             return
         }
         if (advertising) return
@@ -118,21 +120,21 @@ class BleHid(
     private val advertiseCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
             advertising = true
-            log("BLE : téléphone visible comme télécommande (nom : ${manager?.adapter?.name})")
+            log(tr("BLE : téléphone visible comme télécommande (nom : {1})", manager?.adapter?.name))
         }
 
         override fun onStartFailure(errorCode: Int) {
             advertising = false
-            log("BLE : annonce refusée par Android (code $errorCode)")
+            log(tr("BLE : annonce refusée par Android (code {1})", errorCode))
         }
     }
 
     private val callback = object : BluetoothGattServerCallback() {
         override fun onServiceAdded(status: Int, service: BluetoothGattService) {
-            if (status != BluetoothGatt.GATT_SUCCESS) log("BLE : service ${service.uuid.short()} refusé ($status)")
+            if (status != BluetoothGatt.GATT_SUCCESS) log(tr("BLE : service {1} refusé ({2})", service.uuid.short(), status))
             val next = pending.removeFirstOrNull()
             if (next != null) server?.addService(next) else {
-                log("BLE : services prêts")
+                log(tr("BLE : services prêts"))
                 advertise()
             }
         }
@@ -140,7 +142,7 @@ class BleHid(
         override fun onConnectionStateChange(d: BluetoothDevice, status: Int, newState: Int) {
             when (newState) {
                 BluetoothProfile.STATE_CONNECTED -> {
-                    log("BLE : la TV se connecte (${d.name ?: d.address})")
+                    log(tr("BLE : la TV se connecte ({1})", d.name ?: d.address))
                     device = d
                     stopAdvertising()
                     onConnection(d)
@@ -148,7 +150,7 @@ class BleHid(
                 BluetoothProfile.STATE_DISCONNECTED -> {
                     // Ignore les liaisons qui ne sont pas la télécommande BLE (Bluetooth classique).
                     if (device?.address == d.address) {
-                        log("BLE : déconnecté (${d.name ?: d.address}, état $status)")
+                        log(tr("BLE : déconnecté ({1}, état {2})", d.name ?: d.address, status))
                         device = null
                         subscribed.clear()
                         onConnection(null)
@@ -162,7 +164,7 @@ class BleHid(
         override fun onCharacteristicReadRequest(d: BluetoothDevice, requestId: Int, offset: Int, c: BluetoothGattCharacteristic) {
             val value = when (c.uuid) {
                 REPORT_MAP -> {
-                    log("BLE : la TV lit la description des touches")
+                    log(tr("BLE : la TV lit la description des touches"))
                     BtHidKeys.DESCRIPTOR
                 }
                 HID_INFO -> byteArrayOf(0x11, 0x01, 0x00, 0x02)
@@ -200,7 +202,7 @@ class BleHid(
                 val characteristic = descriptor.characteristic
                 val key = subscriptionKey(characteristic)
                 if (on) subscribed += key else subscribed -= key
-                if (on && characteristic.uuid == REPORT) log("BLE : la TV écoute les touches — prête")
+                if (on && characteristic.uuid == REPORT) log(tr("BLE : la TV écoute les touches — prête"))
             }
             if (responseNeeded) server?.sendResponse(d, requestId, BluetoothGatt.GATT_SUCCESS, offset, value)
         }

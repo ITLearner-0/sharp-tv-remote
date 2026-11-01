@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.Manifest
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -107,12 +109,12 @@ private fun CrashReportDialog(report: String, vm: RemoteViewModel) {
     var copied by remember { mutableStateOf(false) }
     AlertDialog(
         onDismissRequest = vm::dismissCrashReport,
-        title = { Text("Un problème est survenu") },
+        title = { Text(tr("Un problème est survenu")) },
         text = {
             Column {
                 Text(
-                    "L'application a rencontré une erreur. Touchez « Copier » puis collez ce texte dans votre " +
-                        "message pour qu'elle soit corrigée.",
+                    tr("L'application a rencontré une erreur. Touchez « Copier » puis collez ce texte dans votre ") +
+                        tr("message pour qu'elle soit corrigée."),
                     style = MaterialTheme.typography.bodySmall,
                 )
                 SelectionContainer {
@@ -133,9 +135,9 @@ private fun CrashReportDialog(report: String, vm: RemoteViewModel) {
             TextButton(onClick = {
                 clipboard.setText(AnnotatedString(report))
                 copied = true
-            }) { Text(if (copied) "Copié ✓" else "Copier") }
+            }) { Text(if (copied) tr("Copié ✓") else tr("Copier")) }
         },
-        dismissButton = { TextButton(onClick = vm::dismissCrashReport) { Text("Fermer") } },
+        dismissButton = { TextButton(onClick = vm::dismissCrashReport) { Text(tr("Fermer")) } },
     )
 }
 
@@ -143,7 +145,7 @@ private fun CrashReportDialog(report: String, vm: RemoteViewModel) {
 private fun TvListDialog(state: UiState, vm: RemoteViewModel, onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Mes TV") },
+        title = { Text(tr("Mes TV")) },
         text = {
             Column {
                 val exportLauncher = rememberLauncherForActivityResult(
@@ -169,26 +171,26 @@ private fun TvListDialog(state: UiState, vm: RemoteViewModel, onDismiss: () -> U
                 }
                 NotificationSwitch(state, vm)
                 Text(
-                    "Widget : appui long sur l'écran d'accueil → Widgets → OmniZap. " +
-                        "Tuile : réglages rapides → modifier → « TV ». Partage : dans YouTube ou le " +
-                        "navigateur, Partager → « Ouvrir sur la TV ».",
+                    tr("Widget : appui long sur l'écran d'accueil → Widgets → OmniZap. ") +
+                        tr("Tuile : réglages rapides → modifier → « TV ». Partage : dans YouTube ou le ") +
+                        tr("navigateur, Partager → « Ouvrir sur la TV »."),
                     color = Muted,
                     style = MaterialTheme.typography.bodySmall,
                 )
                 Text(
-                    "Sauvegarde locale",
+                    tr("Sauvegarde locale"),
                     style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier.padding(top = 16.dp),
                 )
                 Text(
-                    "Les réglages sont aussi copiés automatiquement dans Téléchargements/OmniZap, " +
-                        "un fichier conservé si l'application est désinstallée.",
+                    tr("Les réglages sont aussi copiés automatiquement dans Téléchargements/OmniZap, ") +
+                        tr("un fichier conservé si l'application est désinstallée."),
                     color = Muted,
                     style = MaterialTheme.typography.bodySmall,
                 )
                 Row {
-                    TextButton(onClick = { exportLauncher.launch(LocalBackup.FILE_NAME) }) { Text("Exporter") }
-                    TextButton(onClick = { importLauncher.launch(arrayOf("application/json", "*/*")) }) { Text("Restaurer") }
+                    TextButton(onClick = { exportLauncher.launch(LocalBackup.FILE_NAME) }) { Text(tr("Exporter")) }
+                    TextButton(onClick = { importLauncher.launch(arrayOf("application/json", "*/*")) }) { Text(tr("Restaurer")) }
                 }
             }
         },
@@ -200,9 +202,9 @@ private fun TvListDialog(state: UiState, vm: RemoteViewModel, onDismiss: () -> U
                     vm.addTv()
                 }
                 onDismiss()
-            }) { Text("＋ Ajouter une TV") }
+            }) { Text(tr("＋ Ajouter une TV")) }
         },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Fermer") } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(tr("Fermer")) } },
     )
 }
 
@@ -218,34 +220,34 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
     if (confirmRemove) {
         AlertDialog(
             onDismissRequest = { confirmRemove = false },
-            title = { Text("Supprimer cette TV") },
-            text = { Text("Supprimer « ${tv.name} » de la télécommande ? Il faudra refaire l'appairage pour la retrouver.") },
+            title = { Text(tr("Supprimer cette TV")) },
+            text = { Text(tr("Supprimer « {1} » de la télécommande ? Il faudra refaire l'appairage pour la retrouver.", tv.name)) },
             confirmButton = {
                 TextButton(onClick = {
                     vm.removeCurrentTv()
                     onDismiss()
-                }) { Text("Supprimer") }
+                }) { Text(tr("Supprimer")) }
             },
-            dismissButton = { TextButton(onClick = { confirmRemove = false }) { Text("Annuler") } },
+            dismissButton = { TextButton(onClick = { confirmRemove = false }) { Text(tr("Annuler")) } },
         )
         return
     }
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Réglages de la TV") },
+        title = { Text(tr("Réglages de la TV")) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Nom") },
+                    label = { Text(tr("Nom")) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                 )
                 if (tv.isBt && tv.host.isBlank()) {
                     Text(
-                        "Télécommande Bluetooth : " + if (state.btConnected) "connectée" else "non connectée (la TV doit être allumée, à portée)",
+                        tr("Télécommande Bluetooth : ") + if (state.btConnected) tr("connectée") else tr("non connectée (la TV doit être allumée, à portée)"),
                         color = Muted,
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.padding(top = 8.dp),
@@ -253,11 +255,11 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                     TextButton(onClick = {
                         onDismiss()
                         vm.startBtSetup(attach = true)
-                    }) { Text("Associer de nouveau") }
+                    }) { Text(tr("Associer de nouveau")) }
                 } else if (tv.host.isBlank()) {
                     val codeset = vm.irDatabase.codeset(tv.irCodeset)
                     Text(
-                        "Télécommande infrarouge : ${codeset?.name ?: "jeu de codes inconnu"}.",
+                        tr("Télécommande infrarouge : {1}.", codeset?.name ?: tr("jeu de codes inconnu")),
                         color = Muted,
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.padding(top = 8.dp),
@@ -268,12 +270,12 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                             vm.startIrSetup(attach = true)
                         },
                         enabled = state.irAvailable,
-                    ) { Text("Changer les codes") }
+                    ) { Text(tr("Changer les codes")) }
                 } else {
                     OutlinedTextField(
                         value = host,
                         onValueChange = { host = it; error = null },
-                        label = { Text("Adresse IP") },
+                        label = { Text(tr("Adresse IP")) },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
                         modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
@@ -281,7 +283,7 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                     OutlinedTextField(
                         value = mac,
                         onValueChange = { mac = it; error = null },
-                        label = { Text("Adresse MAC (pour allumer la TV)") },
+                        label = { Text(tr("Adresse MAC (pour allumer la TV)")) },
                         placeholder = { Text("A4:B1:C2:D3:E4:F5") },
                         singleLine = true,
                         isError = error != null,
@@ -290,7 +292,7 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                     )
                     error?.let { Text(it, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall) }
                     TextButton(onClick = vm::detectMac, enabled = !state.detectingMac) {
-                        Text(if (state.detectingMac) "Détection en cours…" else "Détecter l'adresse MAC automatiquement")
+                        Text(if (state.detectingMac) tr("Détection en cours…") else tr("Détecter l'adresse MAC automatiquement"))
                     }
                     state.macStatus?.let {
                         Text(
@@ -301,16 +303,16 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                         )
                     }
                     Text(
-                        "Pour allumer la TV éteinte, elle doit garder le réseau en veille. Sur la TV, activez " +
-                            "selon le modèle « Wake on LAN », « Réveil par le réseau », « Veille réseau » ou " +
-                            "« Démarrage rapide » (Paramètres → Réseau et Internet, ou Système → Alimentation). " +
-                            "Une TV branchée en câble Ethernet se réveille plus sûrement qu'en Wi-Fi.",
+                        tr("Pour allumer la TV éteinte, elle doit garder le réseau en veille. Sur la TV, activez ") +
+                            tr("selon le modèle « Wake on LAN », « Réveil par le réseau », « Veille réseau » ou ") +
+                            tr("« Démarrage rapide » (Paramètres → Réseau et Internet, ou Système → Alimentation). ") +
+                            tr("Une TV branchée en câble Ethernet se réveille plus sûrement qu'en Wi-Fi."),
                         color = Muted,
                         style = MaterialTheme.typography.bodySmall,
                     )
                     Text(
-                        "Astuce : si Menu ou Guide ne fait rien, maintenez la touche appuyée pour choisir " +
-                            "la commande adaptée à votre TV.",
+                        tr("Astuce : si Menu ou Guide ne fait rien, maintenez la touche appuyée pour choisir ") +
+                            tr("la commande adaptée à votre TV."),
                         color = Muted,
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.padding(top = 8.dp),
@@ -322,15 +324,15 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
                     val features = state.tv.features
                     val power = features and RemoteSession.FEATURE_POWER != 0
                     Text(
-                        "Diagnostic : la TV annonce les fonctions 0x${features.toString(16)} " +
-                            "(marche/arrêt ${if (power) "pris en charge" else "non annoncé"}).",
+                        tr("Diagnostic : la TV annonce les fonctions 0x{1} ", features.toString(16)) +
+                            tr("(marche/arrêt {1}).", if (power) tr("pris en charge") else tr("non annoncé")),
                         color = Muted,
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.padding(top = 8.dp),
                     )
                 }
                 TextButton(onClick = { confirmRemove = true }, modifier = Modifier.padding(top = 8.dp)) {
-                    Text("Supprimer cette TV", color = MaterialTheme.colorScheme.error)
+                    Text(tr("Supprimer cette TV"), color = MaterialTheme.colorScheme.error)
                 }
             }
         },
@@ -338,9 +340,9 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
             TextButton(onClick = {
                 val problem = vm.editCurrentTv(name, host, mac)
                 if (problem == null) onDismiss() else error = problem
-            }) { Text("Enregistrer") }
+            }) { Text(tr("Enregistrer")) }
         },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Fermer") } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(tr("Fermer")) } },
     )
 }
 
@@ -353,8 +355,8 @@ private fun NotificationSwitch(state: UiState, vm: RemoteViewModel) {
     }
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(top = 16.dp)) {
         Column(Modifier.weight(1f)) {
-            Text("Télécommande dans les notifications", style = MaterialTheme.typography.titleSmall)
-            Text("Marche, volume et lecture, même écran verrouillé", color = Muted, style = MaterialTheme.typography.bodySmall)
+            Text(tr("Télécommande dans les notifications"), style = MaterialTheme.typography.titleSmall)
+            Text(tr("Marche, volume et lecture, même écran verrouillé"), color = Muted, style = MaterialTheme.typography.bodySmall)
         }
         Switch(
             checked = state.notificationEnabled,
@@ -376,13 +378,13 @@ private fun NotificationSwitch(state: UiState, vm: RemoteViewModel) {
 private fun BtSection(state: UiState, vm: RemoteViewModel, onDismiss: () -> Unit) {
     val tv = state.current ?: return
     Column(Modifier.padding(top = 12.dp)) {
-        Text("Bluetooth", style = MaterialTheme.typography.titleSmall)
+        Text(tr("Bluetooth"), style = MaterialTheme.typography.titleSmall)
         Text(
             if (tv.btAddress == null) {
-                "Non configuré. Le téléphone peut servir de télécommande Bluetooth quand le Wi-Fi ne répond pas, " +
-                    "sans réseau, à une dizaine de mètres."
+                tr("Non configuré. Le téléphone peut servir de télécommande Bluetooth quand le Wi-Fi ne répond pas, ") +
+                    tr("sans réseau, à une dizaine de mètres.")
             } else {
-                "Associé (${tv.btAddress})" + if (state.btConnected) " · connecté" else ""
+                tr("Associé ({1})", tv.btAddress) + if (state.btConnected) tr(" · connecté") else ""
             },
             color = Muted,
             style = MaterialTheme.typography.bodySmall,
@@ -391,14 +393,14 @@ private fun BtSection(state: UiState, vm: RemoteViewModel, onDismiss: () -> Unit
             TextButton(onClick = {
                 onDismiss()
                 vm.startBtSetup(attach = true)
-            }) { Text(if (tv.btAddress == null) "Configurer le Bluetooth" else "Associer de nouveau") }
-            if (tv.btAddress != null) TextButton(onClick = vm::removeBt) { Text("Retirer") }
+            }) { Text(if (tv.btAddress == null) tr("Configurer le Bluetooth") else tr("Associer de nouveau")) }
+            if (tv.btAddress != null) TextButton(onClick = vm::removeBt) { Text(tr("Retirer")) }
         }
         if (tv.btAddress != null) {
             val modes = listOf(
-                SavedTv.CONTROL_AUTO to "Automatique : Wi-Fi, Bluetooth si la TV ne répond pas",
-                SavedTv.CONTROL_NETWORK to "Toujours le Wi-Fi",
-                SavedTv.CONTROL_BT to "Toujours le Bluetooth",
+                SavedTv.CONTROL_AUTO to tr("Automatique : Wi-Fi, Bluetooth si la TV ne répond pas"),
+                SavedTv.CONTROL_NETWORK to tr("Toujours le Wi-Fi"),
+                SavedTv.CONTROL_BT to tr("Toujours le Bluetooth"),
             )
             for ((mode, label) in modes) {
                 Row(
@@ -419,13 +421,13 @@ private fun IrSection(state: UiState, vm: RemoteViewModel, onDismiss: () -> Unit
     val tv = state.current ?: return
     val codeset = vm.irDatabase.codeset(tv.irCodeset)
     Column(Modifier.padding(top = 12.dp)) {
-        Text("Infrarouge", style = MaterialTheme.typography.titleSmall)
+        Text(tr("Infrarouge"), style = MaterialTheme.typography.titleSmall)
         Text(
             if (codeset == null) {
-                "Non configuré. Utile pour allumer la TV complètement éteinte, ou quand le Wi-Fi ne répond pas" +
-                    if (state.irAvailable) "." else " (nécessite un téléphone avec émetteur infrarouge)."
+                tr("Non configuré. Utile pour allumer la TV complètement éteinte, ou quand le Wi-Fi ne répond pas") +
+                    if (state.irAvailable) "." else tr(" (nécessite un téléphone avec émetteur infrarouge).")
             } else {
-                "Codes : ${codeset.name}"
+                tr("Codes : {1}", codeset.name)
             },
             color = Muted,
             style = MaterialTheme.typography.bodySmall,
@@ -437,14 +439,14 @@ private fun IrSection(state: UiState, vm: RemoteViewModel, onDismiss: () -> Unit
                     vm.startIrSetup(attach = true)
                 },
                 enabled = state.irAvailable,
-            ) { Text(if (codeset == null) "Configurer l'infrarouge" else "Changer les codes") }
-            if (codeset != null) TextButton(onClick = vm::removeIr) { Text("Retirer") }
+            ) { Text(if (codeset == null) tr("Configurer l'infrarouge") else tr("Changer les codes")) }
+            if (codeset != null) TextButton(onClick = vm::removeIr) { Text(tr("Retirer")) }
         }
         if (codeset != null) {
             val modes = listOf(
-                SavedTv.CONTROL_AUTO to "Automatique : Wi-Fi, infrarouge si la TV ne répond pas",
-                SavedTv.CONTROL_NETWORK to "Toujours le Wi-Fi",
-                SavedTv.CONTROL_IR to "Toujours l'infrarouge",
+                SavedTv.CONTROL_AUTO to tr("Automatique : Wi-Fi, infrarouge si la TV ne répond pas"),
+                SavedTv.CONTROL_NETWORK to tr("Toujours le Wi-Fi"),
+                SavedTv.CONTROL_IR to tr("Toujours l'infrarouge"),
             )
             for ((mode, label) in modes) {
                 Row(

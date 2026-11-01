@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,27 +28,27 @@ import io.github.itlearner0.tvremote.protocol.Keys
  */
 enum class CustomKey(val label: String, val default: Int, val choices: List<Pair<String, Int>>) {
     MENU(
-        "Menu",
+        tr("Menu"),
         Keys.MENU,
         listOf(
-            "Menu standard Android" to Keys.MENU,
-            "Menu contextuel TV" to 257, // KEYCODE_TV_MEDIA_CONTEXT_MENU
-            "Menu des contenus TV" to 256, // KEYCODE_TV_CONTENTS_MENU
-            "Menu principal (média)" to 226, // KEYCODE_MEDIA_TOP_MENU
-            "Réglages rapides" to Keys.SETTINGS,
-            "Toutes les applications" to 284, // KEYCODE_ALL_APPS
+            tr("Menu standard Android") to Keys.MENU,
+            tr("Menu contextuel TV") to 257, // KEYCODE_TV_MEDIA_CONTEXT_MENU
+            tr("Menu des contenus TV") to 256, // KEYCODE_TV_CONTENTS_MENU
+            tr("Menu principal (média)") to 226, // KEYCODE_MEDIA_TOP_MENU
+            tr("Réglages rapides") to Keys.SETTINGS,
+            tr("Toutes les applications") to 284, // KEYCODE_ALL_APPS
         ),
     ),
     GUIDE(
-        "Guide",
+        tr("Guide"),
         Keys.GUIDE,
         listOf(
-            "Guide des programmes" to Keys.GUIDE,
-            "Menu des contenus TV" to 256, // KEYCODE_TV_CONTENTS_MENU
-            "Télévision en direct" to 170, // KEYCODE_TV
-            "Enregistrements (DVR)" to 173, // KEYCODE_DVR
-            "Programmation" to 258, // KEYCODE_TV_TIMER_PROGRAMMING
-            "Favoris" to 174, // KEYCODE_BOOKMARK
+            tr("Guide des programmes") to Keys.GUIDE,
+            tr("Menu des contenus TV") to 256, // KEYCODE_TV_CONTENTS_MENU
+            tr("Télévision en direct") to 170, // KEYCODE_TV
+            tr("Enregistrements (DVR)") to 173, // KEYCODE_DVR
+            tr("Programmation") to 258, // KEYCODE_TV_TIMER_PROGRAMMING
+            tr("Favoris") to 174, // KEYCODE_BOOKMARK
         ),
     ),
 }
@@ -56,12 +58,12 @@ fun CustomKeyDialog(key: CustomKey, current: Int, vm: RemoteViewModel, onDismiss
     var selected by remember { mutableIntStateOf(current) }
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Touche « ${key.label} »") },
+        title = { Text(tr("Touche « {1} »", key.label)) },
         text = {
             Column {
                 Text(
-                    "Les fabricants n'utilisent pas tous la même commande. Touchez « Essayer » pour tester " +
-                        "chaque possibilité sur la TV, puis gardez celle qui fonctionne.",
+                    tr("Les fabricants n'utilisent pas tous la même commande. Touchez « Essayer » pour tester ") +
+                        tr("chaque possibilité sur la TV, puis gardez celle qui fonctionne."),
                     color = Muted,
                     fontSize = 13.sp,
                     modifier = Modifier.padding(bottom = 8.dp),
@@ -76,7 +78,7 @@ fun CustomKeyDialog(key: CustomKey, current: Int, vm: RemoteViewModel, onDismiss
                         TextButton(onClick = {
                             selected = code
                             vm.key(code)
-                        }) { Text("Essayer") }
+                        }) { Text(tr("Essayer")) }
                     }
                 }
             }
@@ -85,8 +87,8 @@ fun CustomKeyDialog(key: CustomKey, current: Int, vm: RemoteViewModel, onDismiss
             TextButton(onClick = {
                 vm.setCustomKey(key, selected)
                 onDismiss()
-            }) { Text("Garder") }
+            }) { Text(tr("Garder")) }
         },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Annuler") } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(tr("Annuler")) } },
     )
 }

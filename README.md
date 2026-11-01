@@ -54,6 +54,16 @@ version (GitHub Actions), qui s'installe par-dessus la précédente.
 > Elle convient pour les essais, pas pour le Play Store : il faudra une clé
 > privée avant toute publication.
 
+### 🌍 Langues
+
+OmniZap s'affiche en **français** sur un téléphone en français, en **anglais**
+ailleurs ; sur Android 13 et plus, la langue se choisit aussi dans Paramètres →
+Applications → OmniZap → Langue. Le français est la langue du code : les textes
+affichés passent par `tr("…")` ; le dictionnaire anglais est `tools/i18n/en.tsv`
+(→ `i18n/EnStrings.kt` par `tools/i18n/build_en.py`). Pour un nouveau texte :
+relancer `tools/i18n/wrap_strings.py`, ajouter la ligne au fichier `en.tsv`.
+Commandes vocales : « lance / ouvre … » et « open / launch … ».
+
 ### ⭐ Gratuit et OmniZap Pro
 
 **Gratuit, pour toujours :** une TV, toutes les touches, le pavé tactile, le

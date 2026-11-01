@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -58,7 +60,7 @@ fun IrSetupScreen(state: UiState, vm: RemoteViewModel) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         TextButton(onClick = { if (brand != null) brand = null else vm.cancelIrSetup() }) {
             Icon(Icons.Filled.ArrowBack, contentDescription = null, modifier = Modifier.size(18.dp))
-            Text(if (brand != null) "  Choisir une autre marque" else "  Retour")
+            Text(if (brand != null) tr("  Choisir une autre marque") else tr("  Retour"))
         }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Box(
@@ -68,10 +70,10 @@ fun IrSetupScreen(state: UiState, vm: RemoteViewModel) {
                 Icon(Icons.Filled.SettingsRemote, contentDescription = null, tint = Color.White, modifier = Modifier.size(42.dp))
             }
             Spacer(Modifier.height(14.dp))
-            Text(if (state.irAttach) "Associer l'infrarouge" else "Télécommande infrarouge", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+            Text(if (state.irAttach) tr("Associer l'infrarouge") else tr("Télécommande infrarouge"), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
             Text(
-                if (brand == null) "Quelle est la marque de la TV ?"
-                else "Pointez le haut du téléphone vers la TV, puis essayez les touches.",
+                if (brand == null) tr("Quelle est la marque de la TV ?")
+                else tr("Pointez le haut du téléphone vers la TV, puis essayez les touches."),
                 color = Muted,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = 6.dp),
@@ -81,8 +83,8 @@ fun IrSetupScreen(state: UiState, vm: RemoteViewModel) {
         if (!state.irAvailable) {
             IrCard {
                 Text(
-                    "Ce téléphone n'a pas d'émetteur infrarouge. Cette fonction marche sur les téléphones qui en " +
-                        "ont un (beaucoup de Xiaomi, Redmi et Poco, certains Huawei et Honor).",
+                    tr("Ce téléphone n'a pas d'émetteur infrarouge. Cette fonction marche sur les téléphones qui en ") +
+                        tr("ont un (beaucoup de Xiaomi, Redmi et Poco, certains Huawei et Honor)."),
                     color = MaterialTheme.colorScheme.error,
                 )
             }
@@ -134,7 +136,7 @@ private fun BrandPicker(brands: List<String>, onPick: (String) -> Unit) {
             }
         }
         OutlinedButton(onClick = { onPick(ALL_BRANDS) }, modifier = Modifier.fillMaxWidth()) {
-            Text("Autre marque / je ne sais pas")
+            Text(tr("Autre marque / je ne sais pas"))
         }
     }
 }
@@ -150,42 +152,42 @@ private fun CodesetTester(
     if (codesets.isEmpty()) return
     if (index >= codesets.size) {
         IrCard {
-            Text("Aucun des ${codesets.size} jeux de codes n'a fonctionné.", fontWeight = FontWeight.SemiBold)
+            Text(tr("Aucun des {1} jeux de codes n'a fonctionné.", codesets.size), fontWeight = FontWeight.SemiBold)
             Text(
-                "Vérifiez que rien ne masque l'émetteur (en haut du téléphone) et visez le capteur de la TV, " +
-                    "à moins de 3 mètres. Vous pouvez recommencer, ou essayer « Autre marque ».",
+                tr("Vérifiez que rien ne masque l'émetteur (en haut du téléphone) et visez le capteur de la TV, ") +
+                    tr("à moins de 3 mètres. Vous pouvez recommencer, ou essayer « Autre marque »."),
                 color = Muted,
                 fontSize = 13.sp,
             )
-            FilledTonalButton(onClick = { onIndex(0) }, modifier = Modifier.fillMaxWidth()) { Text("Recommencer") }
+            FilledTonalButton(onClick = { onIndex(0) }, modifier = Modifier.fillMaxWidth()) { Text(tr("Recommencer")) }
         }
         return
     }
     val codeset = codesets[index]
     IrCard {
-        Text("Essai ${index + 1} sur ${codesets.size}", color = Muted, fontSize = 12.sp)
+        Text(tr("Essai {1} sur {2}", index + 1, codesets.size), color = Muted, fontSize = 12.sp)
         Text(codeset.name, fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
         if (!codeset.verified) {
-            Text("Codes pas encore confirmés sur une vraie TV : votre essai compte !", color = Muted, fontSize = 12.sp)
+            Text(tr("Codes pas encore confirmés sur une vraie TV : votre essai compte !"), color = Muted, fontSize = 12.sp)
         }
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            TestButton(Icons.Filled.VolumeUp, "Volume +", Modifier.weight(1f), enabled = "VOL_UP" in codeset.keys) {
+            TestButton(Icons.Filled.VolumeUp, tr("Volume +"), Modifier.weight(1f), enabled = "VOL_UP" in codeset.keys) {
                 vm.sendIr(codeset, "VOL_UP")
             }
-            TestButton(Icons.Filled.PowerSettingsNew, "Marche", Modifier.weight(1f), enabled = "POWER" in codeset.keys) {
+            TestButton(Icons.Filled.PowerSettingsNew, tr("Marche"), Modifier.weight(1f), enabled = "POWER" in codeset.keys) {
                 vm.sendIr(codeset, "POWER")
             }
         }
-        Text("La TV a-t-elle réagi ?", fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 4.dp))
+        Text(tr("La TV a-t-elle réagi ?"), fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 4.dp))
         Button(onClick = { vm.addIrTv(codeset) }, modifier = Modifier.fillMaxWidth().height(50.dp)) {
             Icon(Icons.Filled.Check, contentDescription = null, modifier = Modifier.size(18.dp))
-            Text(if (attach) "  Oui, utiliser ces codes" else "  Oui, ajouter cette TV", fontWeight = FontWeight.SemiBold)
+            Text(if (attach) tr("  Oui, utiliser ces codes") else tr("  Oui, ajouter cette TV"), fontWeight = FontWeight.SemiBold)
         }
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             OutlinedButton(onClick = { onIndex(index - 1) }, enabled = index > 0, modifier = Modifier.weight(1f)) {
-                Text("Précédent")
+                Text(tr("Précédent"))
             }
-            OutlinedButton(onClick = { onIndex(index + 1) }, modifier = Modifier.weight(1f)) { Text("Non, suivant") }
+            OutlinedButton(onClick = { onIndex(index + 1) }, modifier = Modifier.weight(1f)) { Text(tr("Non, suivant")) }
         }
     }
 }

@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.data
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.content.SharedPreferences
 import org.json.JSONArray
 import org.json.JSONObject
@@ -109,37 +111,37 @@ class AppCatalog(private val prefs: SharedPreferences, tvId: String) {
         }
 
         private val KNOWN_APPS = mapOf(
-            "com.netflix.ninja" to "Netflix",
-            "com.google.android.youtube.tv" to "YouTube",
-            "com.google.android.youtube.tvkids" to "YouTube Kids",
-            "com.google.android.youtube.tvmusic" to "YouTube Music",
-            "com.amazon.amazonvideo.livingroom" to "Prime Video",
-            "com.disney.disneyplus" to "Disney+",
-            "com.spotify.tv.android" to "Spotify",
-            "deezer.android.tv" to "Deezer",
+            "com.netflix.ninja" to tr("Netflix"),
+            "com.google.android.youtube.tv" to tr("YouTube"),
+            "com.google.android.youtube.tvkids" to tr("YouTube Kids"),
+            "com.google.android.youtube.tvmusic" to tr("YouTube Music"),
+            "com.amazon.amazonvideo.livingroom" to tr("Prime Video"),
+            "com.disney.disneyplus" to tr("Disney+"),
+            "com.spotify.tv.android" to tr("Spotify"),
+            "deezer.android.tv" to tr("Deezer"),
             "com.canal.android.canal" to "myCANAL",
             "fr.francetv.pluzz" to "france.tv",
-            "fr.tf1.mytf1" to "TF1+",
-            "fr.m6.m6replay.by" to "M6+",
+            "fr.tf1.mytf1" to tr("TF1+"),
+            "fr.m6.m6replay.by" to tr("M6+"),
             "tv.arte.plus7" to "ARTE",
-            "tv.molotov.app" to "Molotov",
-            "com.apple.atve.androidtv.appletv" to "Apple TV",
-            "com.cbs.ca" to "Paramount+",
-            "com.wbd.stream" to "Max",
-            "com.plexapp.android" to "Plex",
-            "org.xbmc.kodi" to "Kodi",
+            "tv.molotov.app" to tr("Molotov"),
+            "com.apple.atve.androidtv.appletv" to tr("Apple TV"),
+            "com.cbs.ca" to tr("Paramount+"),
+            "com.wbd.stream" to tr("Max"),
+            "com.plexapp.android" to tr("Plex"),
+            "org.xbmc.kodi" to tr("Kodi"),
             "org.videolan.vlc" to "VLC",
-            "tv.twitch.android.app" to "Twitch",
-            "com.google.android.videos" to "Google TV",
-            "com.android.vending" to "Play Store",
-            "com.android.tv.settings" to "Paramètres",
-            "com.android.settings" to "Paramètres (avancés)",
-            "com.google.android.apps.mediashell" to "Chromecast",
-            "com.google.android.play.games" to "Play Jeux",
-            "com.android.chrome" to "Chrome",
-            "com.mediatek.wwtv.tvcenter" to "TV en direct",
-            "com.android.tv" to "TV en direct",
-            "com.google.android.tv" to "Chaînes en direct",
+            "tv.twitch.android.app" to tr("Twitch"),
+            "com.google.android.videos" to tr("Google TV"),
+            "com.android.vending" to tr("Play Store"),
+            "com.android.tv.settings" to tr("Paramètres"),
+            "com.android.settings" to tr("Paramètres (avancés)"),
+            "com.google.android.apps.mediashell" to tr("Chromecast"),
+            "com.google.android.play.games" to tr("Play Jeux"),
+            "com.android.chrome" to tr("Chrome"),
+            "com.mediatek.wwtv.tvcenter" to tr("TV en direct"),
+            "com.android.tv" to tr("TV en direct"),
+            "com.google.android.tv" to tr("Chaînes en direct"),
         )
 
         private val DEFAULT_APPS = listOf(

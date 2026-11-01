@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.bt
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.Manifest
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
@@ -89,7 +91,7 @@ object BtRemote {
         app = ctx
         if (connectTo != null) wanted = connectTo
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-            _state.update { it.copy(supported = false, message = "Le Bluetooth demande Android 9 ou plus récent") }
+            _state.update { it.copy(supported = false, message = tr("Le Bluetooth demande Android 9 ou plus récent")) }
             return
         }
         val bt = ctx.getSystemService(BluetoothManager::class.java)?.adapter
@@ -111,17 +113,17 @@ object BtRemote {
         }
         if (proxyRequested) return
         proxyRequested = true
-        log("Demande du service « télécommande Bluetooth » à Android (Android ${Build.VERSION.RELEASE}, ${Build.MANUFACTURER} ${Build.MODEL})")
+        log(tr("Demande du service « télécommande Bluetooth » à Android (Android {1}, {2} {3})", Build.VERSION.RELEASE, Build.MANUFACTURER, Build.MODEL))
         val ok = bt.getProfileProxy(ctx, object : BluetoothProfile.ServiceListener {
             override fun onServiceConnected(profile: Int, proxy: BluetoothProfile) {
-                log("Service obtenu")
+                log(tr("Service obtenu"))
                 val h = proxy as BluetoothHidDevice
                 hid = h
                 register(h)
             }
 
             override fun onServiceDisconnected(profile: Int) {
-                log("Service perdu")
+                log(tr("Service perdu"))
                 hid = null
                 proxyRequested = false
                 _state.update { it.copy(registered = false, connectedAddress = null, connectedName = null) }
@@ -130,15 +132,15 @@ object BtRemote {
         if (!ok) {
             proxyRequested = false
             _state.update { it.copy(supported = false) }
-            fail("Ce téléphone ne permet pas le mode télécommande Bluetooth (refusé par Android)")
+            fail(tr("Ce téléphone ne permet pas le mode télécommande Bluetooth (refusé par Android)"))
             return
         }
         // Pas de réponse au bout de 8 s : fonction probablement désactivée par le fabricant.
         main.postDelayed({
             if (!_state.value.registered && _state.value.message == null) {
                 fail(
-                    "Android ne répond pas à la demande de mode télécommande Bluetooth. Sur certains téléphones, " +
-                        "le fabricant a désactivé cette fonction. Touchez « Réessayer » après avoir éteint puis rallumé le Bluetooth.",
+                    tr("Android ne répond pas à la demande de mode télécommande Bluetooth. Sur certains téléphones, ") +
+                        tr("le fabricant a désactivé cette fonction. Touchez « Réessayer » après avoir éteint puis rallumé le Bluetooth."),
                 )
             }
         }, 8000)
@@ -155,22 +157,22 @@ object BtRemote {
         retriedRegistration = false
         attempts = 0
         reRegistered = false
-        log("— Nouvel essai —")
+        log(tr("— Nouvel essai —"))
         _state.update { it.copy(registered = false, connecting = false, connectedAddress = null, connectedName = null, message = null) }
         init(context, wanted)
     }
 
     private fun register(h: BluetoothHidDevice) {
         val sdp = BluetoothHidDeviceAppSdpSettings(
-            "OmniZap",
-            "Télécommande TV OmniZap",
-            "OmniZap",
+            tr("OmniZap"),
+            tr("Télécommande TV OmniZap"),
+            tr("OmniZap"),
             BluetoothHidDevice.SUBCLASS1_COMBO,
             BtHidKeys.DESCRIPTOR,
         )
         val registered = h.registerApp(sdp, null, null, executor, object : BluetoothHidDevice.Callback() {
             override fun onAppStatusChanged(pluggedDevice: BluetoothDevice?, registered: Boolean) {
-                log(if (registered) "Téléphone enregistré comme télécommande" else "Enregistrement retiré par Android")
+                log(if (registered) tr("Téléphone enregistré comme télécommande") else tr("Enregistrement retiré par Android"))
                 _state.update { it.copy(registered = registered, message = if (registered) null else it.message) }
                 if (registered && bleMode) {
                     // Arrivée après le passage en basse consommation : on la retire aussitôt.
@@ -185,7 +187,7 @@ object BtRemote {
 
             // Questions de la TV (hôte HID) : sans réponse, certaines TV coupent la connexion.
             override fun onGetReport(d: BluetoothDevice, type: Byte, id: Byte, bufferSize: Int) {
-                log("La TV demande l'état de la télécommande (rapport $id)")
+                log(tr("La TV demande l'état de la télécommande (rapport {1})", id))
                 val report = if (id.toInt() == BtHidKeys.REPORT_CONSUMER) BtHidKeys.consumerReport(0) else BtHidKeys.keyboardReport(null)
                 runCatching { h.replyReport(d, type, id, report) }
             }
@@ -196,36 +198,36 @@ object BtRemote {
             }
 
             override fun onSetProtocol(d: BluetoothDevice, protocol: Byte) {
-                log("La TV choisit le mode " + if (protocol == BluetoothHidDevice.PROTOCOL_BOOT_MODE) "simplifié (boot)" else "complet")
+                log(tr("La TV choisit le mode ") + if (protocol == BluetoothHidDevice.PROTOCOL_BOOT_MODE) tr("simplifié (boot)") else "complet")
             }
 
             override fun onVirtualCableUnplug(d: BluetoothDevice) {
-                log("La TV a retiré la télécommande (« câble virtuel » débranché)")
+                log(tr("La TV a retiré la télécommande (« câble virtuel » débranché)"))
             }
 
             override fun onConnectionStateChanged(d: BluetoothDevice, state: Int) {
                 when (state) {
                     BluetoothProfile.STATE_CONNECTED -> {
-                        log("Connecté à ${d.name ?: d.address}")
+                        log(tr("Connecté à {1}", d.name ?: d.address))
                         device = d
                         _state.update {
                             it.copy(connectedAddress = d.address, connectedName = d.name ?: d.address, connecting = false, message = null)
                         }
                     }
                     BluetoothProfile.STATE_CONNECTING -> {
-                        log("La TV répond, connexion en cours…")
+                        log(tr("La TV répond, connexion en cours…"))
                         _state.update { it.copy(connecting = true) }
                     }
                     BluetoothProfile.STATE_DISCONNECTED -> {
-                        log("Déconnecté de ${d.name ?: d.address}")
+                        log(tr("Déconnecté de {1}", d.name ?: d.address))
                         if (device?.address == d.address) device = null
                         _state.update {
                             when {
                                 // Refus pendant la connexion : la TV n'accepte pas (encore) le téléphone comme télécommande.
                                 it.connecting && it.connectedAddress == null -> it.copy(
                                     connecting = false,
-                                    message = "La TV a refusé la connexion Bluetooth. Vérifiez que l'association a été " +
-                                        "acceptée sur la TV, puis touchez de nouveau la TV dans « Appareils déjà associés ».",
+                                    message = tr("La TV a refusé la connexion Bluetooth. Vérifiez que l'association a été ") +
+                                        tr("acceptée sur la TV, puis touchez de nouveau la TV dans « Appareils déjà associés »."),
                                 )
                                 it.connectedAddress == d.address -> it.copy(connectedAddress = null, connectedName = null, connecting = false)
                                 else -> it
@@ -235,7 +237,7 @@ object BtRemote {
                 }
             }
         })
-        log("Enregistrement demandé : " + if (registered) "accepté" else "réponse négative, attente de confirmation")
+        log(tr("Enregistrement demandé : ") + if (registered) tr("accepté") else tr("réponse négative, attente de confirmation"))
         if (registered) return
         // Certains téléphones (Samsung) répondent « non » puis confirment l'enregistrement juste après :
         // on attend la confirmation avant de conclure.
@@ -249,9 +251,9 @@ object BtRemote {
                 return@postDelayed
             }
             fail(
-                "Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application " +
-                    "(par exemple l'ancienne « Télécommande TV », ou une application clavier/souris Bluetooth) : " +
-                    "désinstallez-la, éteignez puis rallumez le Bluetooth, puis touchez « Réessayer ».",
+                tr("Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application ") +
+                    tr("(par exemple l'ancienne « Télécommande TV », ou une application clavier/souris Bluetooth) : ") +
+                    tr("désinstallez-la, éteignez puis rallumez le Bluetooth, puis touchez « Réessayer »."),
             )
         }, 3000)
     }
@@ -283,7 +285,7 @@ object BtRemote {
             // Sinon la TV associée choisit la télécommande classique… puis la refuse.
             this.hid?.let { classic ->
                 runCatching { classic.unregisterApp() }
-                log("Télécommande classique retirée : la TV ne verra que la télécommande basse consommation")
+                log(tr("Télécommande classique retirée : la TV ne verra que la télécommande basse consommation"))
             }
         }
         val ctx = context.applicationContext
@@ -291,7 +293,7 @@ object BtRemote {
         if (adapter == null) adapter = ctx.getSystemService(BluetoothManager::class.java)?.adapter
         val bt = adapter
         if (bt == null || !bt.isEnabled || !permitted(ctx)) {
-            log("BLE : Bluetooth éteint ou non autorisé")
+            log(tr("BLE : Bluetooth éteint ou non autorisé"))
             return
         }
         val hid = ble ?: BleHid(ctx, ::log) { d ->
@@ -325,7 +327,7 @@ object BtRemote {
     fun connect(address: String) {
         // Mode basse consommation : pas de connexion classique en parallèle.
         if (!address.startsWith(BLE_PREFIX) && bleMode) {
-            log("Connexion classique ignorée (mode basse consommation actif)")
+            log(tr("Connexion classique ignorée (mode basse consommation actif)"))
             return
         }
         if (address.startsWith(BLE_PREFIX)) {
@@ -350,14 +352,14 @@ object BtRemote {
         val target = runCatching { bt.getRemoteDevice(address) }.getOrNull() ?: return
         if (target.bondState != BluetoothDevice.BOND_BONDED) {
             _state.update {
-                it.copy(connecting = false, message = "La TV n'est pas associée au téléphone : recherchez-la et acceptez l'association.")
+                it.copy(connecting = false, message = tr("La TV n'est pas associée au téléphone : recherchez-la et acceptez l'association."))
             }
             return
         }
         _state.update { it.copy(connecting = true, message = null) }
-        log("Connexion à ${target.name ?: address}…")
+        log(tr("Connexion à {1}…", target.name ?: address))
         if (h.connect(target)) return
-        log("Connexion refusée par Android (essai ${attempts + 1})")
+        log(tr("Connexion refusée par Android (essai {1})", attempts + 1))
         // Refus immédiat : nouvel essai, puis réenregistrement de la télécommande.
         attempts++
         when {
@@ -365,15 +367,15 @@ object BtRemote {
             !reRegistered -> {
                 reRegistered = true
                 attempts = 0
-                _state.update { it.copy(registered = false, message = "Nouvel essai…") }
+                _state.update { it.copy(registered = false, message = tr("Nouvel essai…")) }
                 runCatching { h.unregisterApp() }
                 main.postDelayed({ register(h) }, 800)
             }
             else -> _state.update {
                 it.copy(
                     connecting = false,
-                    message = "Android refuse la connexion Bluetooth à cette TV. Désinstallez l'ancienne application " +
-                        "« Télécommande TV » si elle est encore là, redémarrez le Bluetooth du téléphone, puis réessayez.",
+                    message = tr("Android refuse la connexion Bluetooth à cette TV. Désinstallez l'ancienne application ") +
+                        tr("« Télécommande TV » si elle est encore là, redémarrez le Bluetooth du téléphone, puis réessayez."),
                 )
             }
         }
@@ -427,12 +429,12 @@ object BtRemote {
             runCatching {
                 when (key) {
                     is BtHidKeys.Key.Keyboard -> {
-                        if (!le.send(false, BtHidKeys.keyboardReport(key))) log("BLE : touche non transmise")
+                        if (!le.send(false, BtHidKeys.keyboardReport(key))) log(tr("BLE : touche non transmise"))
                         Thread.sleep(25)
                         le.send(false, BtHidKeys.keyboardReport(null))
                     }
                     is BtHidKeys.Key.Consumer -> {
-                        if (!le.send(true, BtHidKeys.consumerReport(key.usage))) log("BLE : touche non transmise")
+                        if (!le.send(true, BtHidKeys.consumerReport(key.usage))) log(tr("BLE : touche non transmise"))
                         Thread.sleep(40)
                         le.send(true, BtHidKeys.consumerReport(0))
                     }
@@ -445,12 +447,12 @@ object BtRemote {
         runCatching {
             when (key) {
                 is BtHidKeys.Key.Keyboard -> {
-                    if (!h.sendReport(d, BtHidKeys.REPORT_KEYBOARD, BtHidKeys.keyboardReport(key))) log("Touche non transmise")
+                    if (!h.sendReport(d, BtHidKeys.REPORT_KEYBOARD, BtHidKeys.keyboardReport(key))) log(tr("Touche non transmise"))
                     Thread.sleep(25)
                     h.sendReport(d, BtHidKeys.REPORT_KEYBOARD, BtHidKeys.keyboardReport(null))
                 }
                 is BtHidKeys.Key.Consumer -> {
-                    if (!h.sendReport(d, BtHidKeys.REPORT_CONSUMER, BtHidKeys.consumerReport(key.usage))) log("Touche non transmise")
+                    if (!h.sendReport(d, BtHidKeys.REPORT_CONSUMER, BtHidKeys.consumerReport(key.usage))) log(tr("Touche non transmise"))
                     Thread.sleep(40)
                     h.sendReport(d, BtHidKeys.REPORT_CONSUMER, BtHidKeys.consumerReport(0))
                 }

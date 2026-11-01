@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
@@ -169,9 +171,9 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     private val scope = viewModelScope + CoroutineExceptionHandler { _, error ->
         val trace = StringWriter().also { error.printStackTrace(PrintWriter(it)) }.toString()
         runCatching {
-            TvRemoteApp.crashFile(application).writeText("Erreur rattrapée (l'application ne s'est pas fermée)\n\n" + trace.take(12_000))
+            TvRemoteApp.crashFile(application).writeText(tr("Erreur rattrapée (l'application ne s'est pas fermée)\n\n") + trace.take(12_000))
         }
-        say("Erreur inattendue (${error.javaClass.simpleName})")
+        say(tr("Erreur inattendue ({1})", error.javaClass.simpleName))
         _state.update { it.copy(crashReport = TvRemoteApp.crashFile(application).takeIf { f -> f.exists() }?.readText()) }
     }
 
@@ -230,8 +232,8 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     fun exportBackup(uri: Uri) {
         scope.launch(Dispatchers.IO) {
             runCatching { LocalBackup.writeTo(getApplication<Application>(), uri, LocalBackup.export(prefs)) }
-                .onSuccess { say("Sauvegarde enregistrée") }
-                .onFailure { say("Échec de la sauvegarde : ${it.message}") }
+                .onSuccess { say(tr("Sauvegarde enregistrée")) }
+                .onFailure { say(tr("Échec de la sauvegarde : {1}", it.message)) }
         }
     }
 
@@ -248,8 +250,8 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                 _state.update { it.copy(adding = false, irSetup = false, error = null) }
                 loadCurrentTv()
                 startKeepAlive()
-                say("$count TV restaurée(s). Si la TV le demande, refaites l'appairage.")
-            }.onFailure { say("Restauration impossible : ${it.message}") }
+                say(tr("{1} TV restaurée(s). Si la TV le demande, refaites l'appairage.", count))
+            }.onFailure { say(tr("Restauration impossible : {1}", it.message)) }
         }
     }
 
@@ -370,9 +372,9 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     /** Modifie le nom, l'adresse IP et l'adresse MAC de la TV. Renvoie un message d'erreur ou null. */
     fun editCurrentTv(name: String, host: String, mac: String): String? {
         val current = _state.value.current ?: return null
-        val normalizedMac = if (mac.isBlank()) null else WakeOnLan.normalizeMac(mac) ?: return "Adresse MAC invalide"
+        val normalizedMac = if (mac.isBlank()) null else WakeOnLan.normalizeMac(mac) ?: return tr("Adresse MAC invalide")
         val newHost = host.trim()
-        if (newHost.isEmpty() && !current.offline) return "Adresse IP manquante"
+        if (newHost.isEmpty() && !current.offline) return tr("Adresse IP manquante")
         updateTv { copy(name = name.trim().ifEmpty { current.name }, host = newHost, mac = normalizedMac) }
         if (newHost != current.host) {
             stopKeepAlive()
@@ -400,7 +402,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                     // Annonce réseau (mDNS) et recherche directe en parallèle : la plus rapide l'emporte.
                     launch { withTimeoutOrNull(6_000) { discovery.discover().collect { addDiscovered(it) } } }
                     launch {
-                        for (tv in scanNetwork()) addDiscovered(FoundTv(tv.name ?: "Android TV", tv.host))
+                        for (tv in scanNetwork()) addDiscovered(FoundTv(tv.name ?: tr("Android TV"), tv.host))
                     }
                 }
                 _state.update { it.copy(discovering = false) }
@@ -415,7 +417,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             when {
                 known == null -> s.copy(discovered = s.discovered + tv)
                 // Le nom annoncé (mDNS) est plus parlant que le nom générique de la recherche directe.
-                known.name == "Android TV" && tv.name != known.name ->
+                known.name == tr("Android TV") && tv.name != known.name ->
                     s.copy(discovered = s.discovered.map { if (it.host == tv.host) tv else it })
                 else -> s
             }
@@ -439,7 +441,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     fun wakeByMac(value: String) {
         val mac = WakeOnLan.normalizeMac(value)
         if (mac == null) {
-            say("Adresse MAC invalide (exemple : A4:B1:C2:D3:E4:F5)")
+            say(tr("Adresse MAC invalide (exemple : A4:B1:C2:D3:E4:F5)"))
             return
         }
         pendingMac = mac
@@ -447,13 +449,13 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         scope.launch(Dispatchers.IO) {
             runCatching { WakeOnLan.send(mac, null, phoneBroadcastAddresses()) }
         }
-        say("Signal de réveil envoyé : la TV devrait apparaître dans la liste d'ici 30 secondes.")
+        say(tr("Signal de réveil envoyé : la TV devrait apparaître dans la liste d'ici 30 secondes."))
     }
 
     fun connect(host: String, name: String? = null) {
         val target = host.trim()
         if (target.isEmpty()) {
-            _state.update { it.copy(error = "Saisissez l'adresse IP de la TV") }
+            _state.update { it.copy(error = tr("Saisissez l'adresse IP de la TV")) }
             return
         }
         stopKeepAlive()
@@ -471,7 +473,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                 throw e
             } catch (e: Exception) {
                 _state.update {
-                    it.copy(connection = Connection.NONE, error = "Impossible de joindre la TV : vérifiez qu'elle est allumée, l'adresse et le Wi-Fi")
+                    it.copy(connection = Connection.NONE, error = tr("Impossible de joindre la TV : vérifiez qu'elle est allumée, l'adresse et le Wi-Fi"))
                 }
             }
         }
@@ -505,7 +507,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            _state.update { it.copy(connection = Connection.NONE, error = "La TV n'a pas lancé l'appairage. Réessayez.") }
+            _state.update { it.copy(connection = Connection.NONE, error = tr("La TV n'a pas lancé l'appairage. Réessayez.")) }
         }
     }
 
@@ -521,11 +523,11 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             } catch (e: CancellationException) {
                 throw e
             } catch (e: InvalidCodeException) {
-                _state.update { it.copy(error = "Code incorrect : un nouveau code va s'afficher sur la TV") }
+                _state.update { it.copy(error = tr("Code incorrect : un nouveau code va s'afficher sur la TV")) }
                 startPairing(host)
             } catch (e: Exception) {
                 closePairing()
-                _state.update { it.copy(connection = Connection.NONE, error = "Appairage interrompu, recommencez") }
+                _state.update { it.copy(connection = Connection.NONE, error = tr("Appairage interrompu, recommencez")) }
             }
         }
     }
@@ -701,7 +703,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         RemoteNotification.setEnabled(app, enabled)
         _state.update { it.copy(notificationEnabled = enabled) }
         if (enabled && !RemoteNotification.canShow(app)) {
-            say("Les notifications de l'application sont bloquées : autorisez-les dans la page qui s'ouvre")
+            say(tr("Les notifications de l'application sont bloquées : autorisez-les dans la page qui s'ouvre"))
             runCatching {
                 app.startActivity(
                     Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
@@ -710,7 +712,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                 )
             }
         } else if (enabled) {
-            say("Télécommande ajoutée aux notifications : déroulez le volet des notifications")
+            say(tr("Télécommande ajoutée aux notifications : déroulez le volet des notifications"))
         }
     }
 
@@ -730,13 +732,13 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         }
         val s = session
         if (s == null || !s.isOpen || _state.value.connection != Connection.CONNECTED) {
-            say("TV éteinte : appuyez d'abord sur Marche")
+            say(tr("TV éteinte : appuyez d'abord sur Marche"))
             return
         }
         voiceJob = scope.launch(Dispatchers.IO) {
             val id = s.startVoice()
             if (id == null) {
-                say("La TV n'a pas ouvert la recherche vocale")
+                say(tr("La TV n'a pas ouvert la recherche vocale"))
                 return@launch
             }
             val rate = RemoteSession.VOICE_SAMPLE_RATE
@@ -807,17 +809,17 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
      */
     fun text(value: String) {
         if (_state.value.usesBt) {
-            if (!_state.value.btConnected) return say("Bluetooth : TV non connectée")
+            if (!_state.value.btConnected) return say(tr("Bluetooth : TV non connectée"))
             val ascii = TextKeys.toAscii(value)
             val missing = io.github.itlearner0.tvremote.bt.BtRemote.type(ascii)
-            if (ascii != value || missing.isNotEmpty()) say("Les accents et certains signes ne peuvent pas être tapés en Bluetooth")
+            if (ascii != value || missing.isNotEmpty()) say(tr("Les accents et certains signes ne peuvent pas être tapés en Bluetooth"))
             return
         }
-        if (notOverIr("La saisie de texte")) return
+        if (notOverIr(tr("La saisie de texte"))) return
         val tv = _state.value.current ?: return
         val s = session
         if (s == null || !s.isOpen || _state.value.connection != Connection.CONNECTED) {
-            say("TV éteinte : appuyez d'abord sur Marche")
+            say(tr("TV éteinte : appuyez d'abord sur Marche"))
             return
         }
         scope.launch(Dispatchers.IO) {
@@ -825,8 +827,8 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             val (strokes, unsupported) = TextKeys.strokes(ascii)
             if (ascii != value || unsupported.isNotEmpty()) {
                 say(
-                    "Les accents et certains signes ne peuvent pas être tapés à distance" +
-                        if (unsupported.isNotEmpty()) " (${unsupported.joinToString(" ")} ignorés)" else "",
+                    tr("Les accents et certains signes ne peuvent pas être tapés à distance") +
+                        if (unsupported.isNotEmpty()) tr(" ({1} ignorés)", unsupported.joinToString(" ")) else "",
                 )
             }
             val typedByAdb = adbAuthorized(tv) && unsupported.isEmpty() &&
@@ -839,18 +841,18 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                     if (stroke.shift) s.sendKey(TextKeys.SHIFT_LEFT, Keys.END_LONG)
                     delay(40)
                 }
-            }.onFailure { say("Connexion perdue pendant la saisie") }
+            }.onFailure { say(tr("Connexion perdue pendant la saisie")) }
         }
     }
 
     /** Les fonctions réseau n'existent pas en infrarouge : message et true si la TV est en infrarouge. */
     private fun notOverIr(feature: String): Boolean {
         if (_state.value.isBt) {
-            say("$feature n'est pas disponible avec une TV pilotée en Bluetooth")
+            say(tr("{1} n'est pas disponible avec une TV pilotée en Bluetooth", feature))
             return true
         }
         if (!_state.value.isIr) return false
-        say("$feature n'est pas disponible avec une TV pilotée par infrarouge")
+        say(tr("{1} n'est pas disponible avec une TV pilotée par infrarouge", feature))
         return true
     }
 
@@ -861,10 +863,10 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         val bt = io.github.itlearner0.tvremote.bt.BtRemote
         if (!_state.value.btConnected) {
             _state.value.current?.btAddress?.let { bt.init(getApplication(), it) }
-            say("Bluetooth : connexion à la TV… réessayez dans un instant")
+            say(tr("Bluetooth : connexion à la TV… réessayez dans un instant"))
             return
         }
-        if (!bt.key(keyCode)) say("Cette touche n'existe pas en Bluetooth")
+        if (!bt.key(keyCode)) say(tr("Cette touche n'existe pas en Bluetooth"))
     }
 
     /** Ouvre l'assistant Bluetooth ; [attach] : associer le Bluetooth à la TV Wi-Fi affichée. */
@@ -888,7 +890,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             updateTv { copy(btAddress = address) }
             _state.update { it.copy(btSetup = false, btAttach = false, error = null) }
             startKeepAlive()
-            say("Bluetooth associé : la télécommande l'utilisera si la TV ne répond pas par le Wi-Fi.")
+            say(tr("Bluetooth associé : la télécommande l'utilisera si la TV ne répond pas par le Wi-Fi."))
             return
         }
         val tv = SavedTv(
@@ -901,7 +903,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         store.select(tv.id)
         _state.update { it.copy(btSetup = false, adding = false, error = null) }
         loadCurrentTv()
-        say("${tv.name} ajoutée.")
+        say(tr("{1} ajoutée.", tv.name))
     }
 
     fun removeBt() {
@@ -916,12 +918,12 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     private fun irKey(keyCode: Int) {
         val codeset = irDatabase.codeset(_state.value.current?.irCodeset)
         if (codeset == null) {
-            say("Jeu de codes infrarouges introuvable : supprimez puis ajoutez de nouveau la TV")
+            say(tr("Jeu de codes infrarouges introuvable : supprimez puis ajoutez de nouveau la TV"))
             return
         }
         val name = IrDatabase.irKeysFor(keyCode).firstOrNull { it in codeset.keys }
         if (name == null) {
-            say("Cette touche n'existe pas pour ce modèle de TV")
+            say(tr("Cette touche n'existe pas pour ce modèle de TV"))
             return
         }
         sendIr(codeset, name)
@@ -932,7 +934,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         val code = codeset.keys[keyName] ?: return
         scope.launch(Dispatchers.IO) {
             val sent = runCatching { ir.send(code) }.getOrDefault(false)
-            if (!sent) say("Ce téléphone n'a pas d'émetteur infrarouge")
+            if (!sent) say(tr("Ce téléphone n'a pas d'émetteur infrarouge"))
         }
     }
 
@@ -981,7 +983,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             updateTv { copy(irCodeset = codeset.id) }
             _state.update { it.copy(irSetup = false, irAttach = false, error = null) }
             startKeepAlive()
-            say("Infrarouge associé : la télécommande l'utilisera si la TV ne répond pas par le Wi-Fi.")
+            say(tr("Infrarouge associé : la télécommande l'utilisera si la TV ne répond pas par le Wi-Fi."))
             return
         }
         val tv = SavedTv(id = store.newId(), name = "${codeset.brand} (infrarouge)", host = "", irCodeset = codeset.id)
@@ -989,7 +991,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         store.select(tv.id)
         _state.update { it.copy(irSetup = false, adding = false, error = null) }
         loadCurrentTv()
-        say("${tv.name} ajoutée. Visez la TV avec le haut du téléphone.")
+        say(tr("{1} ajoutée. Visez la TV avec le haut du téléphone.", tv.name))
     }
 
     /**
@@ -998,14 +1000,14 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
      * commande d'ouverture est ignorée par certaines TV (dont Sharp).
      */
     fun launch(app: TvApp) {
-        if (notOverIr("L'ouverture d'applications")) return
+        if (notOverIr(tr("L'ouverture d'applications"))) return
         val tv = _state.value.current ?: return
         val s = session
         if (_state.value.connection != Connection.CONNECTED) {
-            say("TV éteinte : appuyez d'abord sur Marche")
+            say(tr("TV éteinte : appuyez d'abord sur Marche"))
             return
         }
-        say("Ouverture de ${app.label}…")
+        say(tr("Ouverture de {1}…", app.label))
         scope.launch(Dispatchers.IO) {
             val installed = app.installed ?: InstalledApp(app.packageName, "", tvApp = true)
             if (adbAuthorized(tv) || !installed.tvApp) {
@@ -1015,12 +1017,12 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                     return@launch
                 }
                 if (!installed.tvApp) {
-                    say("Impossible d'ouvrir ${app.label} : activez le « Débogage USB » sur la TV")
+                    say(tr("Impossible d'ouvrir {1} : activez le « Débogage USB » sur la TV", app.label))
                     return@launch
                 }
             }
             runCatching { s?.launchApp(app.packageName) }
-                .onFailure { say("Connexion perdue, reconnexion…") }
+                .onFailure { say(tr("Connexion perdue, reconnexion…")) }
         }
     }
 
@@ -1041,23 +1043,23 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             }
         }
         if (tv.offline || _state.value.connection != Connection.CONNECTED) {
-            say("« $spoken » : TV non connectée")
+            say(tr("« {1} » : TV non connectée", spoken))
             return
         }
         scope.launch(Dispatchers.IO) {
             val searched = adbAuthorized(tv) && runCatching { adb.globalSearch(tv.host, spoken) }.getOrDefault(false)
-            if (searched) say("Recherche de « $spoken » sur la TV") else text(spoken)
+            if (searched) say(tr("Recherche de « {1} » sur la TV", spoken)) else text(spoken)
         }
     }
 
     private fun command(action: RemoteSession.() -> Unit) {
         val s = session
         if (s == null || _state.value.connection != Connection.CONNECTED) {
-            say(if (_state.value.connection == Connection.OFFLINE) "TV éteinte : appuyez d'abord sur ⏻" else "TV non connectée")
+            say(if (_state.value.connection == Connection.OFFLINE) tr("TV éteinte : appuyez d'abord sur ⏻") else tr("TV non connectée"))
             return
         }
         scope.launch(Dispatchers.IO) {
-            runCatching { s.action() }.onFailure { say("Connexion perdue, reconnexion…") }
+            runCatching { s.action() }.onFailure { say(tr("Connexion perdue, reconnexion…")) }
         }
     }
 
@@ -1100,24 +1102,24 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                     if (waitForPower(s, turnOn)) return@launch
                 }
                 say(
-                    if (turnOn) "La TV n'a pas réagi à la commande d'allumage."
-                    else "La TV n'a pas réagi à la commande d'arrêt. Activez le « Débogage USB » sur la TV " +
-                        "et listez les applications une fois : la télécommande pourra alors l'éteindre.",
+                    if (turnOn) tr("La TV n'a pas réagi à la commande d'allumage.")
+                    else tr("La TV n'a pas réagi à la commande d'arrêt. Activez le « Débogage USB » sur la TV ") +
+                        tr("et listez les applications une fois : la télécommande pourra alors l'éteindre."),
                 )
                 return@launch
             }
             // TV injoignable : réveil par le réseau.
             val mac = tv.mac
             if (mac == null) {
-                say("Adresse MAC de la TV inconnue : allumez la TV à la main une fois, ou saisissez-la dans ⚙")
+                say(tr("Adresse MAC de la TV inconnue : allumez la TV à la main une fois, ou saisissez-la dans ⚙"))
                 return@launch
             }
             wakeRequestedAt = System.currentTimeMillis()
-            say("Réveil de la TV par le réseau…")
+            say(tr("Réveil de la TV par le réseau…"))
             runCatching { WakeOnLan.send(mac, tv.host, phoneBroadcastAddresses()) }
             delay(WAKE_WINDOW_MS)
             if (_state.value.connection != Connection.CONNECTED && _state.value.current?.id == tv.id) {
-                say("La TV ne répond pas au réveil : activez sur la TV la veille réseau / « Wake on LAN » (voir ⚙)")
+                say(tr("La TV ne répond pas au réveil : activez sur la TV la veille réseau / « Wake on LAN » (voir ⚙)"))
             }
         }
     }
@@ -1139,7 +1141,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             return
         }
         if (s == null || !s.isOpen || _state.value.connection != Connection.CONNECTED) {
-            say("La TV est déjà éteinte")
+            say(tr("La TV est déjà éteinte"))
             return
         }
         scope.launch(Dispatchers.IO) {
@@ -1150,7 +1152,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                 if (waitForPower(s, on = false)) return@launch
             }
             runCatching { s.sendKey(Keys.POWER) }
-            if (!waitForPower(s, on = false)) say("La TV n'a pas réagi à la mise en veille.")
+            if (!waitForPower(s, on = false)) say(tr("La TV n'a pas réagi à la mise en veille."))
         }
     }
 
@@ -1187,16 +1189,16 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     /** Lit l'adresse MAC par ADB et l'enregistre. */
     fun detectMac() {
-        if (notOverIr("La détection de l'adresse MAC")) return
+        if (notOverIr(tr("La détection de l'adresse MAC"))) return
         val tv = _state.value.current ?: return
         if (_state.value.connection != Connection.CONNECTED) {
-            say("Allumez d'abord la TV")
+            say(tr("Allumez d'abord la TV"))
             return
         }
         _state.update {
             it.copy(
                 detectingMac = true,
-                macStatus = "Recherche… Si la TV demande « Autoriser le débogage ? », acceptez avec les flèches.",
+                macStatus = tr("Recherche… Si la TV demande « Autoriser le débogage ? », acceptez avec les flèches."),
             )
         }
         scope.launch {
@@ -1204,14 +1206,14 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
             val mac = withContext(Dispatchers.IO) { findMac(tv, session, useAdb = true, log = log) }
             if (mac != null) {
                 updateTvIfCurrent(tv.id) { copy(mac = mac) }
-                _state.update { it.copy(detectingMac = false, macStatus = "✓ Adresse MAC trouvée et enregistrée : $mac") }
+                _state.update { it.copy(detectingMac = false, macStatus = tr("✓ Adresse MAC trouvée et enregistrée : {1}", mac)) }
             } else {
                 _state.update {
                     it.copy(
                         detectingMac = false,
-                        macStatus = "Adresse MAC introuvable automatiquement. Saisissez-la ci-dessus : sur la TV, " +
-                            "Paramètres → Réseau et Internet → votre réseau, ou Paramètres → À propos → État.\n\n" +
-                            "Détail : " + log.joinToString(" · "),
+                        macStatus = tr("Adresse MAC introuvable automatiquement. Saisissez-la ci-dessus : sur la TV, ") +
+                            tr("Paramètres → Réseau et Internet → votre réseau, ou Paramètres → À propos → État.\n\n") +
+                            tr("Détail : ") + log.joinToString(" · "),
                     )
                 }
             }
@@ -1224,14 +1226,14 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
      */
     private fun findMac(tv: SavedTv, s: RemoteSession?, useAdb: Boolean, log: MutableList<String>): String? {
         s?.macAddress?.let { return it }
-        log += "certificat (${s?.serverSubject ?: "non lu"}) → rien"
+        log += tr("certificat ({1}) → rien", s?.serverSubject ?: tr("non lu"))
         scannedMacs[tv.host]?.let { return it }
         MacSources.fromCast(tv.host)?.let { return it }
-        log += "Google Cast → rien"
+        log += tr("Google Cast → rien")
         if (!useAdb) return null
         return runCatching { adb.macAddress(tv.host, log) }
             .onSuccess { setAdbAuthorized(tv) }
-            .onFailure { log += "débogage (ADB) → ${it.javaClass.simpleName} : non autorisé ou désactivé" }
+            .onFailure { log += tr("débogage (ADB) → {1} : non autorisé ou désactivé", it.javaClass.simpleName) }
             .getOrNull()
     }
 
@@ -1294,19 +1296,19 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     /** Lit sur la TV la liste exacte des applications installées. */
     fun scanApps(silent: Boolean = false) {
-        if (notOverIr("La liste des applications")) return
+        if (notOverIr(tr("La liste des applications"))) return
         val tv = _state.value.current ?: return
         val c = catalog ?: return
         if (_state.value.connection != Connection.CONNECTED) {
-            say("Allumez d'abord la TV")
+            say(tr("Allumez d'abord la TV"))
             return
         }
         _state.update {
             it.copy(
                 scanningApps = true,
-                appsMessage = if (silent) "Mise à jour de la liste…" else
-                    "Si la TV demande « Autoriser le débogage ? », cochez « Toujours autoriser » " +
-                        "puis choisissez OK avec les flèches de cette télécommande (1 minute).",
+                appsMessage = if (silent) tr("Mise à jour de la liste…") else
+                    tr("Si la TV demande « Autoriser le débogage ? », cochez « Toujours autoriser » ") +
+                        tr("puis choisissez OK avec les flèches de cette télécommande (1 minute)."),
             )
         }
         scope.launch {
@@ -1322,9 +1324,9 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                         appsComplete = c.isComplete,
                         appsVersion = it.appsVersion + 1,
                         appsMessage = if (exact) {
-                            "${list.size} applications : liste exacte de la TV, avec leurs vrais noms."
+                            tr("{1} applications : liste exacte de la TV, avec leurs vrais noms.", list.size)
                         } else {
-                            "${list.size} applications installées (noms approximatifs : la lecture détaillée a échoué)."
+                            tr("{1} applications installées (noms approximatifs : la lecture détaillée a échoué).", list.size)
                         },
                     )
                 }
@@ -1333,8 +1335,8 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
                 _state.update {
                     it.copy(
                         scanningApps = false,
-                        appsMessage = "Lecture impossible : activez le « Débogage USB » dans les options pour " +
-                            "les développeurs de la TV, puis acceptez la demande d'autorisation.",
+                        appsMessage = tr("Lecture impossible : activez le « Débogage USB » dans les options pour ") +
+                            tr("les développeurs de la TV, puis acceptez la demande d'autorisation."),
                     )
                 }
             }
@@ -1347,7 +1349,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
         closePairing()
     }
 
-    private fun clientName(): String = "Télécommande (${Build.MODEL})"
+    private fun clientName(): String = tr("Télécommande ({1})", Build.MODEL)
 
     private companion object {
         /** Ancienneté au-delà de laquelle la liste des applications est relue automatiquement. */

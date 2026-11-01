@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -56,20 +58,20 @@ fun AppsPanel(state: UiState, vm: RemoteViewModel) {
             OutlinedTextField(
                 value = query,
                 onValueChange = { query = it },
-                placeholder = { Text("Rechercher une application") },
+                placeholder = { Text(tr("Rechercher une application")) },
                 leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
                 singleLine = true,
                 shape = RoundedCornerShape(16.dp),
                 modifier = Modifier.fillMaxWidth(),
             )
         }
-        if (otherApps.isNotEmpty()) SectionTitle("Applications TV")
+        if (otherApps.isNotEmpty()) SectionTitle(tr("Applications TV"))
         AppGrid(tvApps, state, vm)
         if (otherApps.isNotEmpty()) {
-            SectionTitle("Autres applications")
+            SectionTitle(tr("Autres applications"))
             AppGrid(otherApps, state, vm)
         }
-        if (filtered.isEmpty()) Text("Aucune application ne correspond.", color = Muted, fontSize = 13.sp)
+        if (filtered.isEmpty()) Text(tr("Aucune application ne correspond."), color = Muted, fontSize = 13.sp)
 
         OutlinedButton(
             onClick = { vm.scanApps() },
@@ -79,14 +81,14 @@ fun AppsPanel(state: UiState, vm: RemoteViewModel) {
         ) {
             Icon(Icons.Filled.Refresh, contentDescription = null, modifier = Modifier.size(18.dp))
             Text(
-                if (state.scanningApps) "  Lecture en cours…" else "  Lister toutes les applications de la TV",
+                if (state.scanningApps) tr("  Lecture en cours…") else tr("  Lister toutes les applications de la TV"),
                 fontSize = 14.sp,
             )
         }
         if (state.scanningApps) LinearProgressIndicator(Modifier.fillMaxWidth())
         val hint = state.appsMessage ?: if (state.appsComplete) null else
-            "Seules les applications courantes et celles déjà ouvertes sur la TV s'affichent. " +
-                "Pour toutes les voir, activez le « Débogage USB » sur la TV, puis touchez le bouton ci-dessus."
+            tr("Seules les applications courantes et celles déjà ouvertes sur la TV s'affichent. ") +
+                tr("Pour toutes les voir, activez le « Débogage USB » sur la TV, puis touchez le bouton ci-dessus.")
         hint?.let { Text(it, color = Muted, fontSize = 12.sp) }
     }
 }
@@ -173,7 +175,7 @@ private val MONOGRAMS = mapOf(
     "com.google.android.youtube.tvkids" to "▶",
     "com.google.android.youtube.tvmusic" to "♪",
     "com.amazon.amazonvideo.livingroom" to "prime",
-    "com.disney.disneyplus" to "D+",
+    "com.disney.disneyplus" to tr("D+"),
     "com.spotify.tv.android" to "♫",
     "com.android.vending" to "▷",
 )

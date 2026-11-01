@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.cast
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.app.Activity
 import android.app.Notification
 import android.app.NotificationChannel
@@ -88,14 +90,14 @@ class MirrorService : Service() {
         }
         val tv = TvStore(getSharedPreferences("tv", Context.MODE_PRIVATE)).current()
         if (data == null || tv == null || tv.isIr || tv.host.isBlank()) {
-            fail("aucune TV Wi-Fi enregistrée")
+            fail(tr("aucune TV Wi-Fi enregistrée"))
             return START_NOT_STICKY
         }
         tvHost = tv.host
         val manager = getSystemService(MediaProjectionManager::class.java)
         val mp = runCatching { manager.getMediaProjection(code, data) }.getOrNull()
         if (mp == null) {
-            fail("capture de l'écran refusée")
+            fail(tr("capture de l'écran refusée"))
             return START_NOT_STICKY
         }
         projection = mp
@@ -106,40 +108,40 @@ class MirrorService : Service() {
         }, main)
         _running.value = true
         _report.value = null
-        _status.value = "Ouverture du récepteur sur ${tv.name}…"
+        _status.value = tr("Ouverture du récepteur sur {1}…", tv.name)
         thread(name = "mirror-server") { serve(tv.host) }
         return START_NOT_STICKY
     }
 
     private fun serve(host: String) {
         try {
-            val phone = phoneIpv4() ?: error("Wi-Fi introuvable : le téléphone doit être sur le même réseau que la TV")
+            val phone = phoneIpv4() ?: error(tr("Wi-Fi introuvable : le téléphone doit être sur le même réseau que la TV"))
             val srv = ServerSocket(0).also { server = it }
             srv.soTimeout = 30_000
-            step("Téléphone $phone:${srv.localPort}, Android ${Build.VERSION.RELEASE}, ${Build.MANUFACTURER} ${Build.MODEL}")
+            step(tr("Téléphone {1}:{2}, Android {3}, {4} {5}", phone, srv.localPort, Build.VERSION.RELEASE, Build.MANUFACTURER, Build.MODEL))
             TvAdb(filesDir).startMirror(host, TvAdb.helperApk(this), phone, srv.localPort)
-                ?.let { error("la TV n'a pas ouvert le récepteur : $it") }
-            step("Récepteur ouvert sur la TV ($host)")
+                ?.let { error(tr("la TV n'a pas ouvert le récepteur : {1}", it)) }
+            step(tr("Récepteur ouvert sur la TV ({1})", host))
             // N'accepte que la TV : personne d'autre sur le réseau ne peut voir l'écran.
             var socket: Socket
             while (true) {
                 socket = srv.accept()
                 if (sameHost(socket.inetAddress, host)) break
-                step("Connexion refusée depuis ${socket.inetAddress?.hostAddress}")
+                step(tr("Connexion refusée depuis {1}", socket.inetAddress?.hostAddress))
                 socket.close()
             }
             srv.close()
-            step("TV connectée")
+            step(tr("TV connectée"))
             client = socket
             socket.tcpNoDelay = true
-            _status.value = "Écran du téléphone affiché sur la TV"
+            _status.value = tr("Écran du téléphone affiché sur la TV")
             streaming = true
             stream(DataOutputStream(BufferedOutputStream(socket.getOutputStream(), 1 shl 16)))
         } catch (e: Exception) {
             if (!stopping) {
-                step("Arrêt : $e")
+                step(tr("Arrêt : {1}", e))
                 failed = true
-                if (streaming && e is java.io.IOException) _status.value = "La TV a interrompu la duplication"
+                if (streaming && e is java.io.IOException) _status.value = tr("La TV a interrompu la duplication")
                 else fail(e.message ?: e.javaClass.simpleName)
                 report(host)
             }
@@ -176,29 +178,29 @@ class MirrorService : Service() {
             try {
                 candidate.configure(format, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE)
                 configured = Triple(candidate, w, h)
-                step("Encodeur ${candidate.name} : $w × $h")
+                step(tr("Encodeur {1} : {2} × {3}", candidate.name, w, h))
                 break
             } catch (e: Exception) {
-                step("Encodeur refusé en $w × $h : $e")
+                step(tr("Encodeur refusé en {1} × {2} : {3}", w, h, e))
                 candidate.release()
                 lastError = e
             }
         }
-        val (codec, w, h) = configured ?: throw IllegalStateException("encodeur vidéo indisponible", lastError)
+        val (codec, w, h) = configured ?: throw IllegalStateException(tr("encodeur vidéo indisponible"), lastError)
         val input = codec.createInputSurface()
         codec.start()
         try {
             display = projection?.createVirtualDisplay(
                 "telecommande-tv", w, h, metrics.densityDpi,
                 DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, input, null, null,
-            ) ?: error("capture de l'écran arrêtée")
+            ) ?: error(tr("capture de l'écran arrêtée"))
             synchronized(out) {
                 out.writeInt(0)
                 out.writeInt(w)
                 out.writeInt(h)
                 out.flush()
             }
-            _status.value = "Écran du téléphone envoyé à la TV ($w × $h)"
+            _status.value = tr("Écran du téléphone envoyé à la TV ({1} × {2})", w, h)
             startAudio(out)
             val info = MediaCodec.BufferInfo()
             while (!stopping) {
@@ -217,7 +219,7 @@ class MirrorService : Service() {
                         out.write(bytes)
                         out.flush()
                     }
-                    if (++framesSent == 1) step("Première image envoyée (${bytes.size} octets)")
+                    if (++framesSent == 1) step(tr("Première image envoyée ({1} octets)", bytes.size))
                 }
                 codec.releaseOutputBuffer(index, false)
             }
@@ -238,12 +240,12 @@ class MirrorService : Service() {
     @SuppressLint("MissingPermission")
     private fun startAudio(out: DataOutputStream) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            step("Son : Android 10 ou plus nécessaire")
+            step(tr("Son : Android 10 ou plus nécessaire"))
             return
         }
         if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            step("Son : autorisation « Micro » refusée, duplication sans le son")
-            _status.value = "Écran envoyé sans le son (autorisation « Micro » refusée)"
+            step(tr("Son : autorisation « Micro » refusée, duplication sans le son"))
+            _status.value = tr("Écran envoyé sans le son (autorisation « Micro » refusée)")
             return
         }
         val mp = projection ?: return
@@ -266,10 +268,10 @@ class MirrorService : Service() {
                 .build()
                 .also { it.startRecording() }
         }.getOrElse {
-            step("Son : capture impossible ($it)")
+            step(tr("Son : capture impossible ({1})", it))
             return
         }
-        step("Son : capture démarrée")
+        step(tr("Son : capture démarrée"))
         thread(name = "mirror-audio") {
             val buffer = ByteArray(AUDIO_CHUNK)
             try {
@@ -300,19 +302,19 @@ class MirrorService : Service() {
 
     /** Rapport complet : étapes du téléphone et journal de la TV (lu par ADB), à copier. */
     private fun report(host: String) {
-        val tvLog = runCatching { TvAdb(filesDir).mirrorLog(host) }.getOrElse { "journal de la TV illisible (${it.message})" }
+        val tvLog = runCatching { TvAdb(filesDir).mirrorLog(host) }.getOrElse { tr("journal de la TV illisible ({1})", it.message) }
         _report.value = buildString {
-            appendLine("Rapport de duplication OmniZap")
-            appendLine("Images envoyées : $framesSent")
+            appendLine(tr("Rapport de duplication OmniZap"))
+            appendLine(tr("Images envoyées : {1}", framesSent))
             synchronized(steps) { steps.forEach { appendLine(it) } }
-            appendLine("— Journal de la TV —")
+            appendLine(tr("— Journal de la TV —"))
             append(tvLog.trim().ifEmpty { "(vide)" })
         }
     }
 
     private fun fail(reason: String) {
-        _status.value = "Duplication impossible : $reason"
-        main.post { Toast.makeText(applicationContext, "Duplication impossible : $reason", Toast.LENGTH_LONG).show() }
+        _status.value = tr("Duplication impossible : {1}", reason)
+        main.post { Toast.makeText(applicationContext, tr("Duplication impossible : {1}", reason), Toast.LENGTH_LONG).show() }
     }
 
     override fun onDestroy() {
@@ -332,7 +334,7 @@ class MirrorService : Service() {
     private fun notification(): Notification {
         val nm = getSystemService(NotificationManager::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            nm.createNotificationChannel(NotificationChannel(CHANNEL, "Duplication de l'écran", NotificationManager.IMPORTANCE_LOW))
+            nm.createNotificationChannel(NotificationChannel(CHANNEL, tr("Duplication de l'écran"), NotificationManager.IMPORTANCE_LOW))
         }
         val stop = PendingIntent.getService(
             this, 1, Intent(this, MirrorService::class.java).setAction(ACTION_STOP),
@@ -340,10 +342,10 @@ class MirrorService : Service() {
         )
         return Notification.Builder(this, CHANNEL)
             .setSmallIcon(R.drawable.ic_stat_remote)
-            .setContentTitle("Écran dupliqué sur la TV")
-            .setContentText("Touchez « Arrêter » pour arrêter la duplication")
+            .setContentTitle(tr("Écran dupliqué sur la TV"))
+            .setContentText(tr("Touchez « Arrêter » pour arrêter la duplication"))
             .setOngoing(true)
-            .addAction(Notification.Action.Builder(null, "Arrêter", stop).build())
+            .addAction(Notification.Action.Builder(null, tr("Arrêter"), stop).build())
             .build()
     }
 

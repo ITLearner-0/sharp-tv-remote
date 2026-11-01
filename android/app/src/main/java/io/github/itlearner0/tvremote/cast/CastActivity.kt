@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.cast
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -152,41 +154,41 @@ private fun CastScreen(vm: CastViewModel, onClose: () -> Unit) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(Icons.Filled.Cast, contentDescription = null, tint = Accent)
                     Text(
-                        "  Photos et vidéos sur la TV",
+                        tr("  Photos et vidéos sur la TV"),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.weight(1f),
                     )
-                    TextButton(onClick = onClose) { Text("Fermer") }
+                    TextButton(onClick = onClose) { Text(tr("Fermer")) }
                 }
 
                 Panel {
                     if (state.viewerTv != null) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Box(Modifier.size(10.dp).clip(RoundedCornerShape(5.dp)).background(OnColor))
-                            Text("  ${state.viewerTv} : visionneuse de la télécommande", modifier = Modifier.weight(1f))
-                            TextButton(onClick = vm::disconnect) { Text("Arrêter") }
+                            Text(tr("  {1} : visionneuse de la télécommande", state.viewerTv), modifier = Modifier.weight(1f))
+                            TextButton(onClick = vm::disconnect) { Text(tr("Arrêter")) }
                         }
                         Text(
-                            "Sans Google Cast : une petite visionneuse est installée sur la TV par le débogage ADB.",
+                            tr("Sans Google Cast : une petite visionneuse est installée sur la TV par le débogage ADB."),
                             color = Muted,
                             fontSize = 12.sp,
                         )
                     } else if (!state.available && state.remoteTv == null) {
-                        Text("Google Cast n'est pas disponible sur ce téléphone.", color = MaterialTheme.colorScheme.error)
+                        Text(tr("Google Cast n'est pas disponible sur ce téléphone."), color = MaterialTheme.colorScheme.error)
                     } else if (state.connectedTo != null) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Box(Modifier.size(10.dp).clip(RoundedCornerShape(5.dp)).background(OnColor))
-                            Text("  Connecté à ${state.connectedTo}", modifier = Modifier.weight(1f))
-                            TextButton(onClick = vm::disconnect) { Text("Arrêter") }
+                            Text(tr("  Connecté à {1}", state.connectedTo), modifier = Modifier.weight(1f))
+                            TextButton(onClick = vm::disconnect) { Text(tr("Arrêter")) }
                         }
                     } else {
-                        Text("Choisissez la TV", fontWeight = FontWeight.SemiBold)
+                        Text(tr("Choisissez la TV"), fontWeight = FontWeight.SemiBold)
                         if (state.devices.isEmpty()) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
                                 Text(
-                                    "  Recherche des TV compatibles Google Cast (Chromecast intégré)…",
+                                    tr("  Recherche des TV compatibles Google Cast (Chromecast intégré)…"),
                                     color = Muted,
                                     fontSize = 13.sp,
                                 )
@@ -218,10 +220,10 @@ private fun CastScreen(vm: CastViewModel, onClose: () -> Unit) {
                             ) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(Icons.Filled.Slideshow, contentDescription = null)
-                                    Text("  $name : sans Google Cast", fontWeight = FontWeight.SemiBold)
+                                    Text(tr("  {1} : sans Google Cast", name), fontWeight = FontWeight.SemiBold)
                                 }
                                 Text(
-                                    "Visionneuse de la télécommande (débogage ADB). À choisir si Google Cast coupe la diffusion.",
+                                    tr("Visionneuse de la télécommande (débogage ADB). À choisir si Google Cast coupe la diffusion."),
                                     color = Muted,
                                     fontSize = 12.sp,
                                 )
@@ -232,24 +234,24 @@ private fun CastScreen(vm: CastViewModel, onClose: () -> Unit) {
 
                 Panel {
                     if (state.items.isEmpty()) {
-                        Text("Aucune photo ni vidéo choisie.", color = Muted)
+                        Text(tr("Aucune photo ni vidéo choisie."), color = Muted)
                     } else {
                         val item = state.items[state.index]
                         Text("${state.index + 1} / ${state.items.size}", color = Muted, fontSize = 12.sp)
                         Text(item.name, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = TextOverflow.Ellipsis)
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Control(Icons.Filled.SkipPrevious, "Précédente", vm::previous)
+                            Control(Icons.Filled.SkipPrevious, tr("Précédente"), vm::previous)
                             if (item.isVideo) {
-                                Control(Icons.Filled.FastRewind, "Reculer de 10 s") { vm.seekBy(-10_000) }
-                                Control(Icons.Filled.PlayArrow, "Lecture / pause", vm::playPause)
-                                Control(Icons.Filled.FastForward, "Avancer de 30 s") { vm.seekBy(30_000) }
+                                Control(Icons.Filled.FastRewind, tr("Reculer de 10 s")) { vm.seekBy(-10_000) }
+                                Control(Icons.Filled.PlayArrow, tr("Lecture / pause"), vm::playPause)
+                                Control(Icons.Filled.FastForward, tr("Avancer de 30 s")) { vm.seekBy(30_000) }
                             }
-                            Control(Icons.Filled.SkipNext, "Suivante", vm::next)
+                            Control(Icons.Filled.SkipNext, tr("Suivante"), vm::next)
                         }
                         if (state.items.size > 1) {
                             OutlinedButton(onClick = vm::toggleSlideshow, modifier = Modifier.fillMaxWidth()) {
                                 Icon(Icons.Filled.Slideshow, contentDescription = null, modifier = Modifier.size(18.dp))
-                                Text(if (state.slideshow) "  Arrêter le diaporama" else "  Diaporama (6 s par photo)")
+                                Text(if (state.slideshow) tr("  Arrêter le diaporama") else tr("  Diaporama (6 s par photo)"))
                             }
                         }
                         for ((i, media) in state.items.withIndex()) {
@@ -268,17 +270,17 @@ private fun CastScreen(vm: CastViewModel, onClose: () -> Unit) {
                         modifier = Modifier.fillMaxWidth().height(50.dp),
                     ) {
                         Icon(Icons.Filled.PhotoLibrary, contentDescription = null, modifier = Modifier.size(18.dp))
-                        Text(if (state.items.isEmpty()) "  Choisir des photos et vidéos" else "  Choisir d'autres fichiers")
+                        Text(if (state.items.isEmpty()) tr("  Choisir des photos et vidéos") else tr("  Choisir d'autres fichiers"))
                     }
                 }
                 if (state.log.isNotEmpty()) {
                     Panel {
-                        Text("Journal", fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
+                        Text(tr("Journal"), fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
                         for (line in state.log) Text(line, color = Muted, fontSize = 11.sp)
                     }
                 }
                 Text(
-                    "Gardez cet écran ouvert pendant la lecture d'une vidéo : la TV lit le fichier directement sur le téléphone.",
+                    tr("Gardez cet écran ouvert pendant la lecture d'une vidéo : la TV lit le fichier directement sur le téléphone."),
                     color = Muted,
                     fontSize = 12.sp,
                 )

@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.quick
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -23,7 +25,7 @@ class ShareToTvActivity : Activity() {
         val text = intent?.getStringExtra(Intent.EXTRA_TEXT).orEmpty()
         val link = ShareLinks.toTvLink(text)
         if (link == null) {
-            android.widget.Toast.makeText(this, "Aucun lien à ouvrir sur la TV", android.widget.Toast.LENGTH_SHORT).show()
+            android.widget.Toast.makeText(this, tr("Aucun lien à ouvrir sur la TV"), android.widget.Toast.LENGTH_SHORT).show()
         } else {
             QuickRemote.run(this) { QuickRemote.open(it, link) }
         }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Anglais (langue par défaut) ; le français est dans values-fr. -->
 <resources>
     <string name="app_name">OmniZap</string>
-    <string name="widget_description">Marche, volume et lecture de la TV, sans ouvrir l\'application</string>
+    <string name="widget_description">TV power, volume and playback, without opening the app</string>
     <string name="tile_label">TV</string>
-    <string name="share_label">Ouvrir sur la TV</string>
+    <string name="share_label">Open on TV</string>
 </resources>

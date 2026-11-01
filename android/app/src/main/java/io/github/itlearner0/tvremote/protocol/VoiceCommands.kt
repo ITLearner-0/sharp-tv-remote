@@ -4,11 +4,15 @@ import java.text.Normalizer
 
 /** Interprétation d'une phrase dictée : ouvrir une application, ou rechercher. */
 object VoiceCommands {
-    private val OPEN = Regex("""^(?:lance|lancer|ouvre|ouvrir|démarre|démarrer|mets|mettre|va sur|aller sur)\s+(.+)$""", RegexOption.IGNORE_CASE)
+    // Français et anglais (« lance Netflix », « open Netflix »).
+    private val OPEN = Regex(
+        """^(?:lance|lancer|ouvre|ouvrir|démarre|démarrer|mets|mettre|va sur|aller sur|open|launch|start|run|go to)\s+(.+)$""",
+        RegexOption.IGNORE_CASE,
+    )
 
     /** Nom de l'application demandée (« lance Netflix » → « Netflix »), ou null. */
     fun appRequest(phrase: String): String? =
-        OPEN.find(phrase.trim())?.groupValues?.get(1)?.trim()?.removePrefix("l'")?.removePrefix("la ")?.removePrefix("le ")
+        OPEN.find(phrase.trim())?.groupValues?.get(1)?.trim()?.removePrefix("l'")?.removePrefix("la ")?.removePrefix("le ")?.removePrefix("the ")
             ?.trim()?.ifBlank { null }
 
     /** Meilleure correspondance parmi [labels] pour [request], ou null. */

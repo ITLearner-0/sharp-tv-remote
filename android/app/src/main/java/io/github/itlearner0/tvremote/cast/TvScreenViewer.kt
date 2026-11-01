@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.cast
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.media.MediaCodec
 import android.media.MediaFormat
 import android.view.Surface
@@ -51,7 +53,7 @@ class TvScreenViewer(
                 start()
             }
         }.getOrElse {
-            onStatus("Décodeur vidéo du téléphone indisponible ($it)")
+            onStatus(tr("Décodeur vidéo du téléphone indisponible ({1})", it))
             return
         }
         val info = MediaCodec.BufferInfo()
@@ -60,14 +62,14 @@ class TvScreenViewer(
         var shown = 0
         try {
             while (running) {
-                onStatus(if (shown == 0) "Connexion à l'écran de la TV…" else "Écran de la TV en direct")
+                onStatus(if (shown == 0) tr("Connexion à l'écran de la TV…") else tr("Écran de la TV en direct"))
                 var received = 0
                 try {
                     adb.screenStream(host, { stream = it }) { input ->
                         val splitter = H264AccessUnits { data, config ->
                             if (!running) return@H264AccessUnits
                             queue(codec, data, config, (System.nanoTime() - start) / 1000)
-                            if (!config && ++shown == 1) onStatus("Écran de la TV en direct")
+                            if (!config && ++shown == 1) onStatus(tr("Écran de la TV en direct"))
                             drain(codec, info)
                         }
                         val buffer = ByteArray(64 * 1024)
@@ -87,13 +89,13 @@ class TvScreenViewer(
                         failures = 0
                     } else {
                         failures++
-                        onStatus("Écran de la TV indisponible : ${e.message ?: e.javaClass.simpleName}")
+                        onStatus(tr("Écran de la TV indisponible : {1}", e.message ?: e.javaClass.simpleName))
                     }
                 }
                 if (failures >= 3) {
                     onStatus(
-                        "La TV n'envoie pas son écran. Vérifiez que le débogage ADB est autorisé " +
-                            "(il sert aussi à la liste des applications).",
+                        tr("La TV n'envoie pas son écran. Vérifiez que le débogage ADB est autorisé ") +
+                            tr("(il sert aussi à la liste des applications)."),
                     )
                     break
                 }

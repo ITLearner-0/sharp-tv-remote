@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.content.Context
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
@@ -63,41 +65,41 @@ private data class IntroPage(
 private val PAGES = listOf(
     IntroPage(
         Icons.Filled.SettingsRemote,
-        "OmniZap",
-        "La télécommande universelle de votre TV, dans votre téléphone.",
+        tr("OmniZap"),
+        tr("La télécommande universelle de votre TV, dans votre téléphone."),
         listOf(
-            Icons.Filled.Shield to "Sans publicité, sans abonnement",
-            Icons.Filled.PowerSettingsNew to "Allume la TV, même éteinte",
-            Icons.Filled.Mic to "« Lance Netflix » à la voix",
+            Icons.Filled.Shield to tr("Sans publicité, sans abonnement"),
+            Icons.Filled.PowerSettingsNew to tr("Allume la TV, même éteinte"),
+            Icons.Filled.Mic to tr("« Lance Netflix » à la voix"),
         ),
     ),
     IntroPage(
         Icons.Filled.Wifi,
-        "Toutes vos TV",
-        "Wi-Fi pour les TV Android et Google TV, infrarouge et Bluetooth pour les autres, même hors réseau.",
+        tr("Toutes vos TV"),
+        tr("Wi-Fi pour les TV Android et Google TV, infrarouge et Bluetooth pour les autres, même hors réseau."),
         listOf(
-            Icons.Filled.Wifi to "Wi-Fi : détection automatique",
-            Icons.Filled.SettingsRemote to "Infrarouge : toutes les marques",
-            Icons.Filled.Bluetooth to "Bluetooth : sans réseau",
+            Icons.Filled.Wifi to tr("Wi-Fi : détection automatique"),
+            Icons.Filled.SettingsRemote to tr("Infrarouge : toutes les marques"),
+            Icons.Filled.Bluetooth to tr("Bluetooth : sans réseau"),
         ),
     ),
     IntroPage(
         Icons.Filled.Cast,
-        "Bien plus qu'une télécommande",
-        "Le téléphone et la TV travaillent ensemble.",
+        tr("Bien plus qu'une télécommande"),
+        tr("Le téléphone et la TV travaillent ensemble."),
         listOf(
-            Icons.Filled.Apps to "Les applications de la TV, d'un geste",
-            Icons.Filled.Cast to "Photos, vidéos et écran sur la TV",
-            Icons.Filled.Tv to "L'écran de la TV sur le téléphone",
+            Icons.Filled.Apps to tr("Les applications de la TV, d'un geste"),
+            Icons.Filled.Cast to tr("Photos, vidéos et écran sur la TV"),
+            Icons.Filled.Tv to tr("L'écran de la TV sur le téléphone"),
         ),
     ),
     IntroPage(
         Icons.Filled.Lock,
-        "Vos données restent chez vous",
-        "Aucun compte, aucune collecte. Vos réglages sont sauvegardés sur le téléphone, jamais ailleurs.",
+        tr("Vos données restent chez vous"),
+        tr("Aucun compte, aucune collecte. Vos réglages sont sauvegardés sur le téléphone, jamais ailleurs."),
         listOf(
-            Icons.Filled.Lock to "Aucune donnée envoyée",
-            Icons.Filled.Shield to "Sauvegarde locale",
+            Icons.Filled.Lock to tr("Aucune donnée envoyée"),
+            Icons.Filled.Shield to tr("Sauvegarde locale"),
         ),
     ),
 )
@@ -124,7 +126,7 @@ fun OnboardingScreen(onDone: () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                if (!last) TextButton(onClick = onDone) { Text("Passer", color = Muted) }
+                if (!last) TextButton(onClick = onDone) { Text(tr("Passer"), color = Muted) }
                 else Spacer(Modifier.height(48.dp))
             }
             HorizontalPager(state = pager, modifier = Modifier.weight(1f)) { index ->
@@ -138,7 +140,7 @@ fun OnboardingScreen(onDone: () -> Unit) {
                     Box(Modifier.height(8.dp).width(width).clip(CircleShape).background(color))
                 }
             }
-            GradientButton(if (last) "Commencer" else "Continuer") {
+            GradientButton(if (last) tr("Commencer") else tr("Continuer")) {
                 if (last) onDone() else scope.launch { pager.animateScrollToPage(pager.currentPage + 1) }
             }
             Spacer(Modifier.height(16.dp))

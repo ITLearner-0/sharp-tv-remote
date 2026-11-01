@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -60,13 +62,13 @@ fun ProDialog(feature: ProFeature?) {
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
             RadarIcon(Icons.Filled.WorkspacePremium, active = false, diameter = 72.dp)
-            Text("OmniZap Pro", fontSize = 30.sp, fontWeight = FontWeight.Bold, color = Color.White)
+            Text(tr("OmniZap Pro"), fontSize = 30.sp, fontWeight = FontWeight.Bold, color = Color.White)
             Text(
                 when {
-                    pro.purchased -> "Merci ! Toutes les fonctions sont débloquées, pour toujours."
-                    pro.trialActive -> "Essai gratuit : encore ${pro.trialDaysLeft} jour(s) avec toutes les fonctions."
-                    feature != null -> "« ${feature.label} » fait partie d'OmniZap Pro. Votre essai de ${Pro.TRIAL_DAYS} jours est terminé."
-                    else -> "Votre essai de ${Pro.TRIAL_DAYS} jours est terminé."
+                    pro.purchased -> tr("Merci ! Toutes les fonctions sont débloquées, pour toujours.")
+                    pro.trialActive -> tr("Essai gratuit : encore {1} jour(s) avec toutes les fonctions.", pro.trialDaysLeft)
+                    feature != null -> tr("« {1} » fait partie d'OmniZap Pro. Votre essai de {2} jours est terminé.", feature.label, Pro.TRIAL_DAYS)
+                    else -> tr("Votre essai de {1} jours est terminé.", Pro.TRIAL_DAYS)
                 },
                 color = Muted,
                 textAlign = TextAlign.Center,
@@ -98,27 +100,27 @@ fun ProDialog(feature: ProFeature?) {
                         .border(2.dp, Accent.copy(alpha = 0.8f), RoundedCornerShape(20.dp))
                         .padding(16.dp),
                 ) {
-                    Text("Accès à vie · $price", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                    Text("Paiement unique. Pas d'abonnement, pas de publicité.", color = Muted, fontSize = 13.sp)
-                    if (pro.price == null) Text("Prix de lancement", color = AccentSoft, fontSize = 12.sp)
+                    Text(tr("Accès à vie · {1}", price), color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text(tr("Paiement unique. Pas d'abonnement, pas de publicité."), color = Muted, fontSize = 13.sp)
+                    if (pro.price == null) Text(tr("Prix de lancement"), color = AccentSoft, fontSize = 12.sp)
                 }
-                GradientButton("Débloquer OmniZap Pro", enabled = !pro.busy) {
+                GradientButton(tr("Débloquer OmniZap Pro"), enabled = !pro.busy) {
                     (context as? Activity)?.let(Pro::buy)
                 }
                 Row {
-                    TextButton(onClick = { Pro.restore(context) }) { Text("Restaurer mon achat") }
+                    TextButton(onClick = { Pro.restore(context) }) { Text(tr("Restaurer mon achat")) }
                     if (Pro.testUnlockAvailable) {
-                        TextButton(onClick = { Pro.testUnlock(context) }) { Text("Débloquer (test)") }
+                        TextButton(onClick = { Pro.testUnlock(context) }) { Text(tr("Débloquer (test)")) }
                     }
                 }
             }
             Text(
-                "La télécommande reste gratuite : toutes les touches, le pavé tactile, le clavier, l'infrarouge et l'allumage de la TV.",
+                tr("La télécommande reste gratuite : toutes les touches, le pavé tactile, le clavier, l'infrarouge et l'allumage de la TV."),
                 color = Muted,
                 fontSize = 12.sp,
                 textAlign = TextAlign.Center,
             )
-            TextButton(onClick = Pro::dismissOffer) { Text(if (pro.unlocked) "Fermer" else "Plus tard") }
+            TextButton(onClick = Pro::dismissOffer) { Text(if (pro.unlocked) tr("Fermer") else tr("Plus tard")) }
         }
     }
 }
@@ -138,8 +140,8 @@ fun ProLock(feature: ProFeature) {
             Icon(Icons.Filled.Lock, contentDescription = null, tint = AccentSoft)
         }
         Text(feature.label, color = Color.White, fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center)
-        Text("Fonction OmniZap Pro", color = Muted, fontSize = 13.sp)
-        GradientButton("Découvrir OmniZap Pro") { Pro.showOffer(feature) }
+        Text(tr("Fonction OmniZap Pro"), color = Muted, fontSize = 13.sp)
+        GradientButton(tr("Découvrir OmniZap Pro")) { Pro.showOffer(feature) }
     }
 }
 
@@ -159,7 +161,7 @@ fun ProBadge() {
     ) {
         Icon(Icons.Filled.WorkspacePremium, contentDescription = null, tint = if (pro.trialActive) AccentSoft else Color.White, modifier = Modifier.size(18.dp))
         Text(
-            if (pro.trialActive) "  Essai Pro : ${pro.trialDaysLeft} jour(s) restant(s)" else "  Passer à OmniZap Pro",
+            if (pro.trialActive) tr("  Essai Pro : {1} jour(s) restant(s)", pro.trialDaysLeft) else tr("  Passer à OmniZap Pro"),
             color = Color.White,
             fontSize = 13.sp,
         )

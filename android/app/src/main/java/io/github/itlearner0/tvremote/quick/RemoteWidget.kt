@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.quick
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
@@ -20,7 +22,7 @@ class RemoteWidget : AppWidgetProvider() {
 
     companion object {
         fun views(context: Context): RemoteViews = RemoteViews(context.packageName, R.layout.widget_remote).apply {
-            setTextViewText(R.id.widget_title, QuickRemote.currentTv(context)?.name ?: "OmniZap")
+            setTextViewText(R.id.widget_title, QuickRemote.currentTv(context)?.name ?: tr("OmniZap"))
             setOnClickPendingIntent(
                 R.id.widget_title,
                 PendingIntent.getActivity(

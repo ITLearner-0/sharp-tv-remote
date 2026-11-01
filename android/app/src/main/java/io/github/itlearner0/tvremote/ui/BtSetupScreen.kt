@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.ui
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -127,7 +129,7 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         TextButton(onClick = vm::cancelBtSetup) {
             Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, modifier = Modifier.size(18.dp))
-            Text("  Retour")
+            Text(tr("  Retour"))
         }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Box(
@@ -138,13 +140,13 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
             }
             Spacer(Modifier.height(14.dp))
             Text(
-                if (state.btAttach) "Associer le Bluetooth" else "Télécommande Bluetooth",
+                if (state.btAttach) tr("Associer le Bluetooth") else tr("Télécommande Bluetooth"),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
             )
             Text(
-                "Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : " +
-                    "sans réseau, à une dizaine de mètres. (Version ${io.github.itlearner0.tvremote.BuildConfig.VERSION_NAME})",
+                tr("Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : ") +
+                    tr("sans réseau, à une dizaine de mètres. (Version {1})", io.github.itlearner0.tvremote.BuildConfig.VERSION_NAME),
                 color = Muted,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = 6.dp),
@@ -154,22 +156,22 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
         when {
             !bt.supported -> BtCard {
                 Text(
-                    bt.message ?: "Ce téléphone ne permet pas le mode télécommande Bluetooth.",
+                    bt.message ?: tr("Ce téléphone ne permet pas le mode télécommande Bluetooth."),
                     color = MaterialTheme.colorScheme.error,
                 )
             }
             !bt.permitted -> BtCard {
-                Text("Autorisez OmniZap à utiliser le Bluetooth (« Appareils à proximité »).")
+                Text(tr("Autorisez OmniZap à utiliser le Bluetooth (« Appareils à proximité »)."))
                 Button(onClick = { permissions.launch(BtRemote.permissions) }, modifier = Modifier.fillMaxWidth()) {
-                    Text("Autoriser")
+                    Text(tr("Autoriser"))
                 }
             }
             !bt.enabled -> BtCard {
-                Text("Le Bluetooth du téléphone est désactivé.")
+                Text(tr("Le Bluetooth du téléphone est désactivé."))
                 Button(
                     onClick = { enable.launch(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)) },
                     modifier = Modifier.fillMaxWidth(),
-                ) { Text("Activer le Bluetooth") }
+                ) { Text(tr("Activer le Bluetooth")) }
             }
             else -> {
                 val connected = bt.connectedAddress
@@ -177,60 +179,60 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                     BtCard {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Filled.BluetoothConnected, contentDescription = null, tint = OnColor)
-                            Text("  Connecté à ${bt.connectedName ?: connected}", fontWeight = FontWeight.SemiBold)
+                            Text(tr("  Connecté à {1}", bt.connectedName ?: connected), fontWeight = FontWeight.SemiBold)
                         }
-                        Text("Essayez : la touche Accueil ci-dessous doit agir sur la TV.", color = Muted, fontSize = 13.sp)
+                        Text(tr("Essayez : la touche Accueil ci-dessous doit agir sur la TV."), color = Muted, fontSize = 13.sp)
                         OutlinedButton(onClick = { BtRemote.key(io.github.itlearner0.tvremote.protocol.Keys.HOME) }, modifier = Modifier.fillMaxWidth()) {
-                            Text("Essayer : Accueil")
+                            Text(tr("Essayer : Accueil"))
                         }
                         Button(
                             onClick = { vm.addBtTv(connected, bt.connectedName) },
                             modifier = Modifier.fillMaxWidth().height(50.dp),
-                        ) { Text(if (state.btAttach) "Associer à cette TV" else "Utiliser cette TV") }
+                        ) { Text(if (state.btAttach) tr("Associer à cette TV") else tr("Utiliser cette TV")) }
                     }
                 }
                 BtCard {
-                    Text("Télécommande basse consommation (TV Android, Google TV)", fontWeight = FontWeight.SemiBold)
+                    Text(tr("Télécommande basse consommation (TV Android, Google TV)"), fontWeight = FontWeight.SemiBold)
                     Text(
-                        "Le protocole des télécommandes d'origine des TV Android.\n" +
-                            "1. Touchez le bouton ci-dessous : le téléphone s'annonce comme télécommande.\n" +
-                            "2. Sur la TV : Paramètres → Télécommandes et accessoires → Ajouter un accessoire, " +
-                            "puis choisissez le téléphone (son nom Bluetooth) et acceptez l'association.\n" +
-                            "3. « Connecté à … » s'affiche ci-dessus : essayez Accueil.",
+                        tr("Le protocole des télécommandes d'origine des TV Android.\n") +
+                            tr("1. Touchez le bouton ci-dessous : le téléphone s'annonce comme télécommande.\n") +
+                            tr("2. Sur la TV : Paramètres → Télécommandes et accessoires → Ajouter un accessoire, ") +
+                            tr("puis choisissez le téléphone (son nom Bluetooth) et acceptez l'association.\n") +
+                            tr("3. « Connecté à … » s'affiche ci-dessus : essayez Accueil."),
                         color = Muted,
                         fontSize = 13.sp,
                     )
                     Text(
-                        "Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal).",
+                        tr("Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."),
                         color = Muted,
                         fontSize = 12.sp,
                     )
                     OutlinedButton(onClick = { BtRemote.startBle(context) }, modifier = Modifier.fillMaxWidth()) {
-                        Text("Relancer l'annonce (BLE)")
+                        Text(tr("Relancer l'annonce (BLE)"))
                     }
                 }
                 // Bluetooth classique : replié par défaut (les TV Android le refusent souvent).
                 var showClassic by remember { mutableStateOf(false) }
                 TextButton(onClick = { showClassic = !showClassic }) {
-                    Text(if (showClassic) "Masquer le Bluetooth classique" else "Bluetooth classique (autres TV, boîtiers, ordinateurs)…")
+                    Text(if (showClassic) tr("Masquer le Bluetooth classique") else tr("Bluetooth classique (autres TV, boîtiers, ordinateurs)…"))
                 }
                 if (showClassic) {
                     OutlinedButton(onClick = { BtRemote.useClassic(context) }, modifier = Modifier.fillMaxWidth()) {
-                        Text("Passer en Bluetooth classique (arrête la basse consommation)")
+                        Text(tr("Passer en Bluetooth classique (arrête la basse consommation)"))
                     }
                 BtCard {
-                    Text("Bluetooth classique : depuis le téléphone", fontWeight = FontWeight.SemiBold)
+                    Text(tr("Bluetooth classique : depuis le téléphone"), fontWeight = FontWeight.SemiBold)
                     Text(
-                        "1. Sur la TV, ouvrez Paramètres → Télécommandes et accessoires → Ajouter un accessoire " +
-                            "(ou le menu Bluetooth) : la TV devient visible.\n" +
-                            "2. Ici, touchez « Rechercher la TV », puis le nom de la TV.\n" +
-                            "3. Acceptez l'association sur la TV et sur le téléphone : OmniZap se connecte.",
+                        tr("1. Sur la TV, ouvrez Paramètres → Télécommandes et accessoires → Ajouter un accessoire ") +
+                            tr("(ou le menu Bluetooth) : la TV devient visible.\n") +
+                            tr("2. Ici, touchez « Rechercher la TV », puis le nom de la TV.\n") +
+                            tr("3. Acceptez l'association sur la TV et sur le téléphone : OmniZap se connecte."),
                         color = Muted,
                         fontSize = 13.sp,
                     )
                     val bonded = BtRemote.bondedDevices().map { BtCandidate(it.address, it.name ?: it.address, true) }
                     if (bonded.isNotEmpty()) {
-                        Text("Appareils déjà associés (touchez la TV pour vous connecter) :", color = Muted, fontSize = 13.sp)
+                        Text(tr("Appareils déjà associés (touchez la TV pour vous connecter) :"), color = Muted, fontSize = 13.sp)
                         for (d in bonded) DeviceRow(d, connecting = bt.connecting && chosen == d.address) {
                             chosen = d.address
                             BtRemote.connect(d.address)
@@ -245,7 +247,7 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         if (scanning) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
-                        Text(if (scanning) "  Recherche…" else "Rechercher la TV")
+                        Text(if (scanning) tr("  Recherche…") else tr("Rechercher la TV"))
                     }
                     for (d in found.filter { c -> bonded.none { it.address == c.address } }) {
                         DeviceRow(d, connecting = chosen == d.address && !bt.connecting && bt.connectedAddress == null) {
@@ -257,10 +259,10 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                     }
                 }
                 BtCard {
-                    Text("Autre méthode : depuis la TV", fontWeight = FontWeight.SemiBold)
+                    Text(tr("Autre méthode : depuis la TV"), fontWeight = FontWeight.SemiBold)
                     Text(
-                        "Pour les TV qui listent les téléphones (Samsung, LG, boîtiers…). Les TV Android et Google TV " +
-                            "n'affichent souvent que les claviers et manettes : utilisez alors la méthode ci-dessus.",
+                        tr("Pour les TV qui listent les téléphones (Samsung, LG, boîtiers…). Les TV Android et Google TV ") +
+                            tr("n'affichent souvent que les claviers et manettes : utilisez alors la méthode ci-dessus."),
                         color = Muted,
                         fontSize = 13.sp,
                     )
@@ -272,17 +274,17 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                             )
                         },
                         modifier = Modifier.fillMaxWidth(),
-                    ) { Text("Rendre le téléphone visible (2 min)") }
+                    ) { Text(tr("Rendre le téléphone visible (2 min)")) }
                     Text(
-                        "Quand la TV s'est associée, elle apparaît ci-dessus comme « Connecté ».",
+                        tr("Quand la TV s'est associée, elle apparaît ci-dessus comme « Connecté »."),
                         color = Muted,
                         fontSize = 12.sp,
                     )
                 }
                 Text(
-                    if (bt.bleActive) "● Téléphone visible comme télécommande basse consommation"
-                    else if (bt.registered) "● Téléphone prêt comme télécommande Bluetooth"
-                    else "○ Préparation de la télécommande Bluetooth du téléphone…",
+                    if (bt.bleActive) tr("● Téléphone visible comme télécommande basse consommation")
+                    else if (bt.registered) tr("● Téléphone prêt comme télécommande Bluetooth")
+                    else tr("○ Préparation de la télécommande Bluetooth du téléphone…"),
                     color = if (bt.registered || bt.bleActive) OnColor else Muted,
                     fontSize = 12.sp,
                 )
@@ -290,11 +292,11 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                 bt.message?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 13.sp) }
                 if ((!bt.registered && !bt.bleActive) || bt.message != null) {
                     OutlinedButton(onClick = { BtRemote.reset(context) }, modifier = Modifier.fillMaxWidth()) {
-                        Text("Réessayer")
+                        Text(tr("Réessayer"))
                     }
                 }
                 if (bt.log.isNotEmpty()) {
-                    Text("Journal Bluetooth", fontWeight = FontWeight.SemiBold, fontSize = 12.sp, color = Muted)
+                    Text(tr("Journal Bluetooth"), fontWeight = FontWeight.SemiBold, fontSize = 12.sp, color = Muted)
                     for (line in bt.log) Text(line, color = Muted, fontSize = 11.sp)
                 }
             }

@@ -1,5 +1,7 @@
 package io.github.itlearner0.tvremote.pro
 
+import io.github.itlearner0.tvremote.i18n.tr
+
 import android.app.Activity
 import android.content.Context
 import android.widget.Toast
@@ -22,14 +24,14 @@ import java.util.concurrent.TimeUnit
 
 /** Fonctions réservées à OmniZap Pro (la télécommande de base reste gratuite). */
 enum class ProFeature(val label: String) {
-    MULTI_TV("Plusieurs TV"),
-    APPS("Les applications de la TV, avec leurs icônes"),
-    VOICE("Commandes vocales"),
-    MEDIA("Photos et vidéos sur la TV"),
-    MIRROR("Duplication de l'écran, avec le son"),
-    TV_VIEW("Voir la TV sur le téléphone"),
-    BLUETOOTH("Télécommande Bluetooth"),
-    QUICK("Widget, notification et réglages rapides"),
+    MULTI_TV(tr("Plusieurs TV")),
+    APPS(tr("Les applications de la TV, avec leurs icônes")),
+    VOICE(tr("Commandes vocales")),
+    MEDIA(tr("Photos et vidéos sur la TV")),
+    MIRROR(tr("Duplication de l'écran, avec le son")),
+    TV_VIEW(tr("Voir la TV sur le téléphone")),
+    BLUETOOTH(tr("Télécommande Bluetooth")),
+    QUICK(tr("Widget, notification et réglages rapides")),
 }
 
 /** Offre affichée ; [feature] : fonction verrouillée qui l'a déclenchée (null : ouverture libre). */
@@ -121,7 +123,7 @@ object Pro {
         if (details == null || billing == null || !billing.isReady) {
             Toast.makeText(
                 activity,
-                "L'achat se fera par Google Play, quand OmniZap y sera publié. En attendant, profitez de l'essai.",
+                tr("L'achat se fera par Google Play, quand OmniZap y sera publié. En attendant, profitez de l'essai."),
                 Toast.LENGTH_LONG,
             ).show()
             return
@@ -139,7 +141,7 @@ object Pro {
     fun restore(context: Context) {
         val billing = client
         if (billing == null || !billing.isReady) {
-            Toast.makeText(context, "Google Play n'est pas joignable", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, tr("Google Play n'est pas joignable"), Toast.LENGTH_SHORT).show()
             return
         }
         queryPurchases(billing, notify = true)
@@ -202,7 +204,7 @@ object Pro {
                     android.os.Handler(android.os.Looper.getMainLooper()).post {
                         Toast.makeText(
                             it,
-                            if (owned) "Achat OmniZap Pro retrouvé, merci !" else "Aucun achat OmniZap Pro sur ce compte Google",
+                            if (owned) tr("Achat OmniZap Pro retrouvé, merci !") else tr("Aucun achat OmniZap Pro sur ce compte Google"),
                             Toast.LENGTH_SHORT,
                         ).show()
                     }
