@@ -138,9 +138,15 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
                 Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(PadColor).padding(14.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Text("La TV ne reconnaît plus ce téléphone.", color = MaterialTheme.colorScheme.error)
+                Text("La TV ne reconnaît plus ce téléphone en Wi-Fi.", color = MaterialTheme.colorScheme.error)
+                Text(
+                    "Refaites l'appairage Wi-Fi : un code à 6 caractères s'affichera sur la TV. " +
+                        "(C'est différent de l'association Bluetooth, qui ne le remplace pas.)",
+                    color = Muted,
+                    fontSize = 12.sp,
+                )
                 FilledTonalButton(onClick = vm::repairCurrentTv, modifier = Modifier.fillMaxWidth()) {
-                    Text("Refaire l'appairage")
+                    Text("Refaire l'appairage Wi-Fi")
                 }
             }
         }
