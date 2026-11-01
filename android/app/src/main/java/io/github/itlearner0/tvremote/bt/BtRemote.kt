@@ -31,6 +31,8 @@ data class BtState(
     val connectedName: String? = null,
     val connecting: Boolean = false,
     val message: String? = null,
+    /** Étapes de la préparation (diagnostic affiché dans l'assistant). */
+    val log: List<String> = emptyList(),
 )
 
 /**
@@ -52,6 +54,19 @@ object BtRemote {
     /** Adresse à laquelle se connecter dès que l'enregistrement est fait. */
     @Volatile private var wanted: String? = null
     private val executor = Executors.newSingleThreadExecutor()
+    /** Demande de service HID en cours : une seule à la fois (Android n'accepte qu'un enregistrement). */
+    @Volatile private var proxyRequested = false
+    private var retriedRegistration = false
+
+    private fun log(text: String) {
+        val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.FRANCE).format(java.util.Date())
+        _state.update { it.copy(log = (it.log + "$time  $text").takeLast(12)) }
+    }
+
+    private fun fail(message: String) {
+        log(message)
+        _state.update { it.copy(connecting = false, message = message) }
+    }
     private val sender = Executors.newSingleThreadExecutor()
 
     /** Permissions à demander à l'utilisateur. */
@@ -85,19 +100,54 @@ object BtRemote {
             if (_state.value.registered) wanted?.let { connect(it) }
             return
         }
+        if (proxyRequested) return
+        proxyRequested = true
+        log("Demande du service « télécommande Bluetooth » à Android (Android ${Build.VERSION.RELEASE}, ${Build.MANUFACTURER} ${Build.MODEL})")
         val ok = bt.getProfileProxy(ctx, object : BluetoothProfile.ServiceListener {
             override fun onServiceConnected(profile: Int, proxy: BluetoothProfile) {
+                log("Service obtenu")
                 val h = proxy as BluetoothHidDevice
                 hid = h
                 register(h)
             }
 
             override fun onServiceDisconnected(profile: Int) {
+                log("Service perdu")
                 hid = null
+                proxyRequested = false
                 _state.update { it.copy(registered = false, connectedAddress = null, connectedName = null) }
             }
         }, BluetoothProfile.HID_DEVICE)
-        if (!ok) _state.update { it.copy(supported = false, message = "Ce téléphone ne permet pas le mode télécommande Bluetooth") }
+        if (!ok) {
+            proxyRequested = false
+            _state.update { it.copy(supported = false) }
+            fail("Ce téléphone ne permet pas le mode télécommande Bluetooth (refusé par Android)")
+            return
+        }
+        // Pas de réponse au bout de 8 s : fonction probablement désactivée par le fabricant.
+        main.postDelayed({
+            if (!_state.value.registered && _state.value.message == null) {
+                fail(
+                    "Android ne répond pas à la demande de mode télécommande Bluetooth. Sur certains téléphones, " +
+                        "le fabricant a désactivé cette fonction. Touchez « Réessayer » après avoir éteint puis rallumé le Bluetooth.",
+                )
+            }
+        }, 8000)
+    }
+
+    /** Relance complète : désenregistrement, fermeture du service, nouvelle demande. */
+    fun reset(context: Context) {
+        val h = hid
+        runCatching { h?.unregisterApp() }
+        runCatching { if (h != null) adapter?.closeProfileProxy(BluetoothProfile.HID_DEVICE, h) }
+        hid = null
+        device = null
+        proxyRequested = false
+        retriedRegistration = false
+        attempts = 0
+        reRegistered = false
+        _state.update { it.copy(registered = false, connecting = false, connectedAddress = null, connectedName = null, message = null, log = emptyList()) }
+        init(context, wanted)
     }
 
     private fun register(h: BluetoothHidDevice) {
@@ -110,6 +160,7 @@ object BtRemote {
         )
         val registered = h.registerApp(sdp, null, null, executor, object : BluetoothHidDevice.Callback() {
             override fun onAppStatusChanged(pluggedDevice: BluetoothDevice?, registered: Boolean) {
+                log(if (registered) "Téléphone enregistré comme télécommande" else "Enregistrement retiré par Android")
                 _state.update { it.copy(registered = registered, message = if (registered) null else it.message) }
                 if (!registered) return
                 val target = pluggedDevice?.address ?: wanted
@@ -143,14 +194,20 @@ object BtRemote {
                 }
             }
         })
+        log("Enregistrement demandé : " + if (registered) "accepté, en attente de confirmation" else "refusé")
         if (!registered) {
-            _state.update {
-                it.copy(
-                    connecting = false,
-                    message = "Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application " +
-                        "(par exemple l'ancienne « Télécommande TV ») : désinstallez-la ou fermez-la, puis réessayez.",
-                )
+            // Un enregistrement précédent de l'application peut subsister : on le retire et on réessaie une fois.
+            if (!retriedRegistration) {
+                retriedRegistration = true
+                runCatching { h.unregisterApp() }
+                main.postDelayed({ register(h) }, 1000)
+                return
             }
+            fail(
+                "Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application " +
+                    "(par exemple l'ancienne « Télécommande TV », ou une application clavier/souris Bluetooth) : " +
+                    "désinstallez-la, éteignez puis rallumez le Bluetooth, puis touchez « Réessayer ».",
+            )
         }
     }
 
@@ -170,7 +227,8 @@ object BtRemote {
         if (_state.value.connectedAddress == address) return
         // Le téléphone doit d'abord être enregistré comme télécommande : la connexion part ensuite d'elle-même.
         if (!_state.value.registered) {
-            _state.update { it.copy(connecting = true, message = "Préparation de la télécommande Bluetooth…") }
+            // N'écrase pas un message d'erreur déjà affiché.
+            _state.update { it.copy(connecting = it.message == null) }
             return
         }
         val target = runCatching { bt.getRemoteDevice(address) }.getOrNull() ?: return

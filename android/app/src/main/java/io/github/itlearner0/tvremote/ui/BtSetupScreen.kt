@@ -253,6 +253,15 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                     fontSize = 12.sp,
                 )
                 bt.message?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 13.sp) }
+                if (!bt.registered || bt.message != null) {
+                    OutlinedButton(onClick = { BtRemote.reset(context) }, modifier = Modifier.fillMaxWidth()) {
+                        Text("Réessayer")
+                    }
+                }
+                if (bt.log.isNotEmpty()) {
+                    Text("Journal Bluetooth", fontWeight = FontWeight.SemiBold, fontSize = 12.sp, color = Muted)
+                    for (line in bt.log) Text(line, color = Muted, fontSize = 11.sp)
+                }
             }
         }
     }
