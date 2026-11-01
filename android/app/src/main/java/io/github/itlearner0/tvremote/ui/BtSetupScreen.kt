@@ -246,6 +246,12 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                         fontSize = 12.sp,
                     )
                 }
+                Text(
+                    if (bt.registered) "● Téléphone prêt comme télécommande Bluetooth"
+                    else "○ Préparation de la télécommande Bluetooth du téléphone…",
+                    color = if (bt.registered) OnColor else Muted,
+                    fontSize = 12.sp,
+                )
                 bt.message?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 13.sp) }
             }
         }

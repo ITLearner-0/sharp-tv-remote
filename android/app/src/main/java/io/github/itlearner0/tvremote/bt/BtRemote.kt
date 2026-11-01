@@ -110,7 +110,7 @@ object BtRemote {
         )
         val registered = h.registerApp(sdp, null, null, executor, object : BluetoothHidDevice.Callback() {
             override fun onAppStatusChanged(pluggedDevice: BluetoothDevice?, registered: Boolean) {
-                _state.update { it.copy(registered = registered) }
+                _state.update { it.copy(registered = registered, message = if (registered) null else it.message) }
                 if (!registered) return
                 val target = pluggedDevice?.address ?: wanted
                 target?.let { connect(it) }
@@ -145,21 +145,61 @@ object BtRemote {
         })
         if (!registered) {
             _state.update {
-                it.copy(message = "Le mode télécommande Bluetooth est déjà utilisé par une autre application, ou indisponible")
+                it.copy(
+                    connecting = false,
+                    message = "Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application " +
+                        "(par exemple l'ancienne « Télécommande TV ») : désinstallez-la ou fermez-la, puis réessayez.",
+                )
             }
         }
     }
 
     /** Se connecte à la TV [address] (déjà associée au téléphone). */
+    private val main = android.os.Handler(android.os.Looper.getMainLooper())
+    private var attempts = 0
+    private var reRegistered = false
+
     fun connect(address: String) {
+        if (wanted != address) {
+            attempts = 0
+            reRegistered = false
+        }
         wanted = address
         val h = hid ?: return init(app ?: return, address)
         val bt = adapter ?: return
         if (_state.value.connectedAddress == address) return
+        // Le téléphone doit d'abord être enregistré comme télécommande : la connexion part ensuite d'elle-même.
+        if (!_state.value.registered) {
+            _state.update { it.copy(connecting = true, message = "Préparation de la télécommande Bluetooth…") }
+            return
+        }
         val target = runCatching { bt.getRemoteDevice(address) }.getOrNull() ?: return
+        if (target.bondState != BluetoothDevice.BOND_BONDED) {
+            _state.update {
+                it.copy(connecting = false, message = "La TV n'est pas associée au téléphone : recherchez-la et acceptez l'association.")
+            }
+            return
+        }
         _state.update { it.copy(connecting = true, message = null) }
-        if (!h.connect(target)) {
-            _state.update { it.copy(connecting = false, message = "Connexion Bluetooth refusée") }
+        if (h.connect(target)) return
+        // Refus immédiat : nouvel essai, puis réenregistrement de la télécommande.
+        attempts++
+        when {
+            attempts < 3 -> main.postDelayed({ if (wanted == address) connect(address) }, 1500)
+            !reRegistered -> {
+                reRegistered = true
+                attempts = 0
+                _state.update { it.copy(registered = false, message = "Nouvel essai…") }
+                runCatching { h.unregisterApp() }
+                main.postDelayed({ register(h) }, 800)
+            }
+            else -> _state.update {
+                it.copy(
+                    connecting = false,
+                    message = "Android refuse la connexion Bluetooth à cette TV. Désinstallez l'ancienne application " +
+                        "« Télécommande TV » si elle est encore là, redémarrez le Bluetooth du téléphone, puis réessayez.",
+                )
+            }
         }
     }
 
