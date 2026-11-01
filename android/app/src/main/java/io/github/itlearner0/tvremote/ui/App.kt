@@ -18,8 +18,6 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -201,23 +199,18 @@ private fun TvListDialog(state: UiState, vm: RemoteViewModel, onDismiss: () -> U
                 }
                 // Langue de l'application (redémarre OmniZap si elle change).
                 Text(tr("Langue / Language"), style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 16.dp))
-                val activity = androidx.compose.ui.platform.LocalContext.current as? android.app.Activity
-                Box {
-                    var open by remember { mutableStateOf(false) }
-                    val lang = io.github.itlearner0.tvremote.i18n.AppLanguage
-                    val currentName = lang.SUPPORTED.firstOrNull { it.first == lang.current() }?.second ?: "English"
-                    TextButton(onClick = { open = true }) { Text("$currentName  ▾") }
-                    DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
-                        for ((code, name) in lang.SUPPORTED) {
-                            val current = code == lang.current()
-                            DropdownMenuItem(
-                                text = { Text(if (current) "✓ $name" else name) },
-                                onClick = {
-                                    open = false
-                                    if (!current) activity?.let { lang.switchTo(it, code) }
-                                },
-                            )
-                        }
+                var picking by remember { mutableStateOf(false) }
+                val lang = io.github.itlearner0.tvremote.i18n.AppLanguage
+                val currentName = lang.SUPPORTED.firstOrNull { it.first == lang.current() }?.second ?: "English"
+                TextButton(onClick = { picking = true }) { Text("$currentName  ›") }
+                if (picking) {
+                    // Écran plein, le même qu'au premier lancement (un menu déroulant
+                    // dans cette fenêtre ne réagissait pas sur certains téléphones).
+                    androidx.compose.ui.window.Dialog(
+                        onDismissRequest = { picking = false },
+                        properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false),
+                    ) {
+                        LanguageScreen(onDone = { picking = false })
                     }
                 }
             }

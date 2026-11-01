@@ -170,7 +170,7 @@ fun LanguageScreen(onDone: () -> Unit) {
             }
             Spacer(Modifier.height(16.dp))
             GradientButton(continueLabel(selected)) {
-                (context as? android.app.Activity)?.let { io.github.itlearner0.tvremote.i18n.AppLanguage.switchTo(it, selected) }
+                io.github.itlearner0.tvremote.i18n.AppLanguage.switchTo(context, selected)
                 onDone()
             }
             Spacer(Modifier.height(16.dp))

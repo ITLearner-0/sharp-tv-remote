@@ -75,15 +75,25 @@ object AppLanguage {
      * Choisit [code] et redémarre OmniZap si la langue change : certains textes sont
      * préparés une seule fois au démarrage.
      */
-    fun switchTo(activity: android.app.Activity, code: String) {
+    fun switchTo(context: Context, code: String) {
         val changed = code != Locale.getDefault().language
-        set(activity, code)
+        set(context, code)
         if (!changed) return
-        val intent = activity.packageManager.getLaunchIntentForPackage(activity.packageName) ?: return
-        activity.startActivity(
-            intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK),
-        )
+        val app = context.applicationContext
+        val intent = app.packageManager.getLaunchIntentForPackage(app.packageName) ?: return
+        intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        findActivity(context)?.finishAffinity()
+        app.startActivity(intent)
         Runtime.getRuntime().exit(0)
+    }
+
+    private fun findActivity(context: Context): android.app.Activity? {
+        var c: Context? = context
+        while (c is android.content.ContextWrapper) {
+            if (c is android.app.Activity) return c
+            c = c.baseContext
+        }
+        return null
     }
 
     private fun prefs(context: Context) = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
