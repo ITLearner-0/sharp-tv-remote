@@ -168,8 +168,9 @@ object BtRemote {
                 log(if (registered) "Téléphone enregistré comme télécommande" else "Enregistrement retiré par Android")
                 _state.update { it.copy(registered = registered, message = if (registered) null else it.message) }
                 if (!registered) return
-                val target = pluggedDevice?.address ?: wanted
-                target?.let { connect(it) }
+                // Connexion classique seulement si elle a été demandée (TV touchée dans la liste,
+                // ou TV Bluetooth classique enregistrée) : pas de reconnexion d'office.
+                wanted?.takeIf { !it.startsWith(BLE_PREFIX) }?.let { connect(it) }
             }
 
             // Questions de la TV (hôte HID) : sans réponse, certaines TV coupent la connexion.

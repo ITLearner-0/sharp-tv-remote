@@ -79,6 +79,10 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
             permissions.launch(BtRemote.permissions)
         }
     }
+    // Mode basse consommation (celui des télécommandes des TV Android) lancé d'office.
+    LaunchedEffect(bt.permitted, bt.enabled) {
+        if (bt.permitted && bt.enabled) BtRemote.startBle(context)
+    }
 
     val found = remember { mutableStateListOf<BtCandidate>() }
     var scanning by remember { mutableStateOf(false) }
@@ -140,7 +144,7 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
             )
             Text(
                 "Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : " +
-                    "sans réseau, à une dizaine de mètres.",
+                    "sans réseau, à une dizaine de mètres. (Version ${io.github.itlearner0.tvremote.BuildConfig.VERSION_NAME})",
                 color = Muted,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = 6.dp),
@@ -196,8 +200,13 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                         color = Muted,
                         fontSize = 13.sp,
                     )
-                    Button(onClick = { BtRemote.startBle(context) }, modifier = Modifier.fillMaxWidth()) {
-                        Text("Se présenter comme télécommande (BLE)")
+                    Text(
+                        "Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal).",
+                        color = Muted,
+                        fontSize = 12.sp,
+                    )
+                    OutlinedButton(onClick = { BtRemote.startBle(context) }, modifier = Modifier.fillMaxWidth()) {
+                        Text("Relancer l'annonce (BLE)")
                     }
                 }
                 BtCard {
