@@ -209,6 +209,12 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                         Text("Relancer l'annonce (BLE)")
                     }
                 }
+                // Bluetooth classique : replié par défaut (les TV Android le refusent souvent).
+                var showClassic by remember { mutableStateOf(false) }
+                TextButton(onClick = { showClassic = !showClassic }) {
+                    Text(if (showClassic) "Masquer le Bluetooth classique" else "Bluetooth classique (autres TV, boîtiers, ordinateurs)…")
+                }
+                if (showClassic) {
                 BtCard {
                     Text("Bluetooth classique : depuis le téléphone", fontWeight = FontWeight.SemiBold)
                     Text(
@@ -276,6 +282,7 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                     color = if (bt.registered) OnColor else Muted,
                     fontSize = 12.sp,
                 )
+                }
                 bt.message?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 13.sp) }
                 if (!bt.registered || bt.message != null) {
                     OutlinedButton(onClick = { BtRemote.reset(context) }, modifier = Modifier.fillMaxWidth()) {

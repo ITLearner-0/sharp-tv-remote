@@ -151,7 +151,8 @@ object BtRemote {
         retriedRegistration = false
         attempts = 0
         reRegistered = false
-        _state.update { it.copy(registered = false, connecting = false, connectedAddress = null, connectedName = null, message = null, log = emptyList()) }
+        log("— Nouvel essai —")
+        _state.update { it.copy(registered = false, connecting = false, connectedAddress = null, connectedName = null, message = null) }
         init(context, wanted)
     }
 
@@ -292,6 +293,11 @@ object BtRemote {
     }
 
     fun connect(address: String) {
+        // TV déjà connectée en basse consommation : pas de connexion classique en parallèle.
+        if (!address.startsWith(BLE_PREFIX) && ble?.device != null) {
+            log("Connexion classique ignorée : la TV est connectée en basse consommation")
+            return
+        }
         if (address.startsWith(BLE_PREFIX)) {
             wanted = address
             app?.let { startBle(it) }
