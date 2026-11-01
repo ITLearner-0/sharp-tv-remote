@@ -19,7 +19,18 @@ data class SavedTv(
     val control: String = CONTROL_AUTO,
     /** Adresse Bluetooth de la TV : le téléphone s'y connecte comme télécommande Bluetooth. */
     val btAddress: String? = null,
+    /** Marque pilotée par son propre protocole Wi-Fi ("samsung", "lg") ; null : Android TV / Google TV. */
+    val brand: String? = null,
+    /** Clé d'accès donnée par la TV Samsung / LG après acceptation (à présenter à chaque connexion). */
+    val brandKey: String? = null,
 ) {
+    /** TV Samsung ou LG pilotée en Wi-Fi par son protocole (pas d'ADB, ni de protocole Android TV). */
+    val brandRemote: io.github.itlearner0.tvremote.brand.Brand?
+        get() = if (offline) null else io.github.itlearner0.tvremote.brand.Brand.of(brand)
+
+    /** TV Android / Google TV pilotée en Wi-Fi (toutes les fonctions avancées). */
+    val isAndroidTv: Boolean get() = !offline && brand == null && host.isNotBlank()
+
     /** TV commandée uniquement en Bluetooth (pas de connexion réseau). */
     val isBt: Boolean get() = btAddress != null && (control == CONTROL_BT || host.isBlank() && irCodeset == null)
 
@@ -69,6 +80,8 @@ class TvStore(private val prefs: SharedPreferences) {
                     irCodeset = o.optString("irCodeset").ifBlank { null },
                     control = o.optString("control").ifBlank { SavedTv.CONTROL_AUTO },
                     btAddress = o.optString("btAddress").ifBlank { null },
+                    brand = o.optString("brand").ifBlank { null },
+                    brandKey = o.optString("brandKey").ifBlank { null },
                 )
             }
         }.getOrDefault(emptyList())
@@ -111,7 +124,9 @@ class TvStore(private val prefs: SharedPreferences) {
                     .put("serviceName", tv.serviceName ?: "")
                     .put("irCodeset", tv.irCodeset ?: "")
                     .put("control", tv.control)
-                    .put("btAddress", tv.btAddress ?: ""),
+                    .put("btAddress", tv.btAddress ?: "")
+                    .put("brand", tv.brand ?: "")
+                    .put("brandKey", tv.brandKey ?: ""),
             )
         }
         prefs.edit().putString(KEY_TVS, array.toString()).apply()

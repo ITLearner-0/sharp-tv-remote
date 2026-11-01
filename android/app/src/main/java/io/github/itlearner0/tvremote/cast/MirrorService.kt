@@ -93,6 +93,10 @@ class MirrorService : Service() {
             fail(tr("aucune TV Wi-Fi enregistrée"))
             return START_NOT_STICKY
         }
+        if (!tv.isAndroidTv) {
+            fail(tr("réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"))
+            return START_NOT_STICKY
+        }
         tvHost = tv.host
         val manager = getSystemService(MediaProjectionManager::class.java)
         val mp = runCatching { manager.getMediaProjection(code, data) }.getOrNull()

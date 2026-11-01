@@ -75,7 +75,7 @@ import kotlin.math.abs
 fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
     val context = LocalContext.current
     val tv = state.current
-    if (tv == null || tv.isIr || tv.host.isBlank()) {
+    if (tv == null || !tv.isAndroidTv) {
         Text(tr("« Voir la TV » fonctionne avec une TV Android connectée en Wi-Fi."), color = Muted, fontSize = 13.sp)
         return
     }

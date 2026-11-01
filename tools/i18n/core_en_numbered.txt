@@ -471,3 +471,10 @@
 470	Experimental feature: some TVs refuse Bluetooth remotes coming from a phone. Wi-Fi and infrared remain the recommended modes.
 471	Use Bluetooth (experimental)
 472	Bluetooth (experimental)
+473	The TV refused access, or the request was not accepted in time. Try again and accept it on the TV.
+474	{1} is only available with Android TV and Google TV
+475	The TV's voice search
+476	The full list of apps
+477	An access request appears on the TV: accept it with the original remote (1 minute).
+478	only for Android TV and Google TV (on Samsung or LG, use the phone's "Smart View" or "Cast")
+479	Open on TV

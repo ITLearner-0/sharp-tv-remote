@@ -471,3 +471,10 @@
 470	Likoki ya komeka: ba-TV mosusu endimaka te ba-télécommande Bluetooth oyo euti na telefone. Wi-Fi mpe infrarouge nde ezali malamu koleka.
 471	Salela Bluetooth (ya komeka)
 472	Bluetooth (ya komeka)
+473	TV eboyi kokota, to bosenga endimamaki na ntango te. Meka lisusu mpe ndima yango na TV.
+474	{1} ezali kaka na Android TV mpe Google TV
+475	Koluka na mongongo ya TV
+476	Liste mobimba ya ba-application
+477	Bosenga ya kokota ekomonana na TV: ndima yango na télécommande ya ebandeli (miniti 1).
+478	kaka mpo na Android TV mpe Google TV (na Samsung to LG, salela «Smart View» to «Cast» ya telefone)
+479	Fungola na TV

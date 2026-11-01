@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_HA: Map<String, String> by lazy {
-    HashMap<String, String>(946).also { m ->
+    HashMap<String, String>(960).also { m ->
         l_haa(m)
         l_hab(m)
     }
@@ -245,13 +245,13 @@ private fun l_haa(m: HashMap<String, String>) {
     m["Le téléphone et la TV travaillent ensemble."] = "Waya da TV suna aiki tare."
     m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Waya tana bayyana kanta a matsayin rimot da zarar an buɗe wannan allo (layukan «BLE:» a rajista)."
     m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Waya tana gabatar da kanta ga TV a matsayin rimot da madannai na Bluetooth: "
-}
-
-private fun l_hab(m: HashMap<String, String>) {
     m["Lecture / pause"] = "Kunna / dakata"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Ba za a iya kunnawa ba: kunna «USB debugging» a zaɓuɓɓukan "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Ba za a iya rubuta harufa masu alama da wasu alamomi ta Bluetooth ba"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "Ba za a iya rubuta harufa masu alama da wasu alamomi daga nesa ba"
+}
+
+private fun l_hab(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "Ana maye gurbin harufa masu alama da harafi mai sauƙi (é → e)."
     m["Les applications de la TV, avec leurs icônes"] = "Manhajojin TV, tare da gumakansu"
     m["Les applications de la TV, d'un geste"] = "Manhajojin TV, da taɓawa ɗaya"
@@ -485,4 +485,11 @@ private fun l_hab(m: HashMap<String, String>) {
     m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Fasalin gwaji: wasu TV ba sa karɓar rimot na Bluetooth daga waya. Wi-Fi da infrared su ne hanyoyin da aka fi ba da shawara."
     m["Utiliser le Bluetooth (expérimental)"] = "Yi amfani da Bluetooth (na gwaji)"
     m["Bluetooth (expérimental)"] = "Bluetooth (na gwaji)"
+    m["La TV a refusé l'accès, ou la demande n'a pas été acceptée à temps. Réessayez et acceptez-la sur la TV."] = "TV ya ƙi ba da dama, ko ba a karɓi buƙatar a kan lokaci ba. Sake gwadawa ka karɓe ta a TV."
+    m["{1} n'est disponible qu'avec les TV Android et Google TV"] = "{1} yana samuwa ne kawai da Android TV da Google TV"
+    m["La recherche vocale de la TV"] = "Binciken murya na TV"
+    m["La liste complète des applications"] = "Cikakken jerin manhajoji"
+    m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "Buƙatar shiga za ta bayyana a TV: karɓe ta da rimot na asali (minti 1)."
+    m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "don Android TV da Google TV kawai (a Samsung ko LG, yi amfani da «Smart View» ko «Jefa» na waya)"
+    m["Ouvrir sur la TV"] = "Buɗe a TV"
 }

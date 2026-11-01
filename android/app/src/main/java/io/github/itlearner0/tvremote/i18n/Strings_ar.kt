@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_AR: Map<String, String> by lazy {
-    HashMap<String, String>(946).also { m ->
+    HashMap<String, String>(960).also { m ->
         l_ara(m)
         l_arb(m)
     }
@@ -245,13 +245,13 @@ private fun l_ara(m: HashMap<String, String>) {
     m["Le téléphone et la TV travaillent ensemble."] = "الهاتف والتلفاز يعملان معًا."
     m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "يعلن الهاتف عن نفسه كجهاز تحكم بمجرد فتح هذه الشاشة (أسطر «BLE:» في السجل)."
     m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "يقدّم الهاتف نفسه للتلفاز كجهاز تحكم ولوحة مفاتيح بلوتوث: "
-}
-
-private fun l_arb(m: HashMap<String, String>) {
     m["Lecture / pause"] = "تشغيل / إيقاف مؤقت"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "تعذّر التشغيل: فعّل «تصحيح أخطاء USB» في خيارات "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "لا يمكن كتابة الحركات وبعض الرموز عبر البلوتوث"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "لا يمكن كتابة الحركات وبعض الرموز عن بُعد"
+}
+
+private fun l_arb(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "تُستبدل الحروف ذات العلامات بالحرف البسيط (é ← e)."
     m["Les applications de la TV, avec leurs icônes"] = "تطبيقات التلفاز مع أيقوناتها"
     m["Les applications de la TV, d'un geste"] = "تطبيقات التلفاز بلمسة واحدة"
@@ -485,4 +485,11 @@ private fun l_arb(m: HashMap<String, String>) {
     m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "ميزة تجريبية: بعض أجهزة التلفاز ترفض أجهزة التحكم بالبلوتوث القادمة من هاتف. يبقى Wi-Fi والأشعة تحت الحمراء الوضعين الموصى بهما."
     m["Utiliser le Bluetooth (expérimental)"] = "استخدام البلوتوث (تجريبي)"
     m["Bluetooth (expérimental)"] = "البلوتوث (تجريبي)"
+    m["La TV a refusé l'accès, ou la demande n'a pas été acceptée à temps. Réessayez et acceptez-la sur la TV."] = "رفض التلفاز الوصول، أو لم يُقبل الطلب في الوقت المناسب. أعد المحاولة واقبله على التلفاز."
+    m["{1} n'est disponible qu'avec les TV Android et Google TV"] = "{1} متوفر فقط مع Android TV وGoogle TV"
+    m["La recherche vocale de la TV"] = "البحث الصوتي في التلفاز"
+    m["La liste complète des applications"] = "القائمة الكاملة للتطبيقات"
+    m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "يظهر طلب وصول على التلفاز: اقبله بجهاز التحكم الأصلي (دقيقة واحدة)."
+    m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "فقط لأجهزة Android TV وGoogle TV (على Samsung أو LG، استخدم «Smart View» أو «بث» في الهاتف)"
+    m["Ouvrir sur la TV"] = "فتح على التلفاز"
 }

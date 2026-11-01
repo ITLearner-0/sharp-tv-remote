@@ -471,3 +471,10 @@
 470	Funzione sperimentale: alcune TV rifiutano i telecomandi Bluetooth provenienti da un telefono. Wi-Fi e infrarosso restano le modalità consigliate.
 471	Usa il Bluetooth (sperimentale)
 472	Bluetooth (sperimentale)
+473	La TV ha rifiutato l'accesso, o la richiesta non è stata accettata in tempo. Riprova e accettala sulla TV.
+474	{1} è disponibile solo con Android TV e Google TV
+475	La ricerca vocale della TV
+476	L'elenco completo delle app
+477	Sulla TV appare una richiesta di accesso: accettala con il telecomando originale (1 minuto).
+478	solo per Android TV e Google TV (su Samsung o LG, usa «Smart View» o «Trasmetti» del telefono)
+479	Apri sulla TV

@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_AM: Map<String, String> by lazy {
-    HashMap<String, String>(946).also { m ->
+    HashMap<String, String>(960).also { m ->
         l_ama(m)
         l_amb(m)
     }
@@ -245,13 +245,13 @@ private fun l_ama(m: HashMap<String, String>) {
     m["Le téléphone et la TV travaillent ensemble."] = "ስልኩና ቲቪው አብረው ይሰራሉ።"
     m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "ይህ ማያ ገጽ እንደተከፈተ ስልኩ ራሱን እንደ ሪሞት ያሳውቃል (በምዝግቡ ውስጥ «BLE:» መስመሮች)።"
     m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "ስልኩ ለቲቪው እንደ ብሉቱዝ ሪሞትና ቁልፍ ሰሌዳ ራሱን ያቀርባል: "
-}
-
-private fun l_amb(m: HashMap<String, String>) {
     m["Lecture / pause"] = "አጫውት / ለአፍታ አቁም"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "ማጫወት አልተቻለም: «USB debugging»ን በቲቪው "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "የአነባበብ ምልክቶችና አንዳንድ ምልክቶች በብሉቱዝ ሊተየቡ አይችሉም"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "የአነባበብ ምልክቶችና አንዳንድ ምልክቶች ከርቀት ሊተየቡ አይችሉም"
+}
+
+private fun l_amb(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "ምልክት ያላቸው ፊደላት በቀላሉ ፊደል ይተካሉ (é → e)።"
     m["Les applications de la TV, avec leurs icônes"] = "የቲቪው መተግበሪያዎች፣ ከአዶዎቻቸው ጋር"
     m["Les applications de la TV, d'un geste"] = "የቲቪው መተግበሪያዎች፣ በአንድ ንክኪ"
@@ -485,4 +485,11 @@ private fun l_amb(m: HashMap<String, String>) {
     m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "የሙከራ ባህሪ: አንዳንድ ቲቪዎች ከስልክ የሚመጡ የብሉቱዝ ሪሞቶችን አይቀበሉም። Wi-Fi እና ኢንፍራሬድ የሚመከሩ ሁነታዎች ናቸው።"
     m["Utiliser le Bluetooth (expérimental)"] = "ብሉቱዝ ተጠቀም (የሙከራ)"
     m["Bluetooth (expérimental)"] = "ብሉቱዝ (የሙከራ)"
+    m["La TV a refusé l'accès, ou la demande n'a pas été acceptée à temps. Réessayez et acceptez-la sur la TV."] = "ቲቪው መዳረሻን አልፈቀደም፣ ወይም ጥያቄው በጊዜ አልተቀበለም። እንደገና ሞክርና በቲቪው ላይ ተቀበል።"
+    m["{1} n'est disponible qu'avec les TV Android et Google TV"] = "{1} የሚገኘው ከAndroid TV እና Google TV ጋር ብቻ ነው"
+    m["La recherche vocale de la TV"] = "የቲቪው የድምፅ ፍለጋ"
+    m["La liste complète des applications"] = "የመተግበሪያዎች ሙሉ ዝርዝር"
+    m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "በቲቪው ላይ የመዳረሻ ጥያቄ ይታያል: በኦሪጅናል ሪሞቱ ተቀበል (1 ደቂቃ)።"
+    m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "ለAndroid TV እና Google TV ብቻ (በSamsung ወይም LG ላይ የስልኩን «Smart View» ወይም «Cast» ተጠቀም)"
+    m["Ouvrir sur la TV"] = "በቲቪ ክፈት"
 }

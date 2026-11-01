@@ -8,7 +8,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import java.util.ArrayDeque
 
-data class FoundTv(val name: String, val host: String)
+/** TV trouvée sur le réseau ; [brand] : "samsung" ou "lg" (null : Android TV). */
+data class FoundTv(val name: String, val host: String, val brand: String? = null, val mac: String? = null)
 
 /** Recherche les Android TV du réseau local (service mDNS de la télécommande). */
 class TvDiscovery(context: Context) {

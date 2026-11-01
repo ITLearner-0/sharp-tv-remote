@@ -471,3 +471,10 @@
 470	Función experimental: algunos televisores rechazan los mandos Bluetooth de un teléfono. El Wi-Fi y el infrarrojo siguen siendo los modos recomendados.
 471	Usar el Bluetooth (experimental)
 472	Bluetooth (experimental)
+473	El televisor rechazó el acceso, o la solicitud no se aceptó a tiempo. Vuelve a intentarlo y acéptala en el televisor.
+474	{1} solo está disponible con televisores Android TV y Google TV
+475	La búsqueda por voz del televisor
+476	La lista completa de aplicaciones
+477	Aparece una solicitud de acceso en el televisor: acéptala con el mando original (1 minuto).
+478	solo para Android TV y Google TV (en Samsung o LG, usa «Smart View» o «Enviar» del teléfono)
+479	Abrir en el televisor

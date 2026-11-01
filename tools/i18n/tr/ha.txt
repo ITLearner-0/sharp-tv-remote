@@ -471,3 +471,10 @@
 470	Fasalin gwaji: wasu TV ba sa karɓar rimot na Bluetooth daga waya. Wi-Fi da infrared su ne hanyoyin da aka fi ba da shawara.
 471	Yi amfani da Bluetooth (na gwaji)
 472	Bluetooth (na gwaji)
+473	TV ya ƙi ba da dama, ko ba a karɓi buƙatar a kan lokaci ba. Sake gwadawa ka karɓe ta a TV.
+474	{1} yana samuwa ne kawai da Android TV da Google TV
+475	Binciken murya na TV
+476	Cikakken jerin manhajoji
+477	Buƙatar shiga za ta bayyana a TV: karɓe ta da rimot na asali (minti 1).
+478	don Android TV da Google TV kawai (a Samsung ko LG, yi amfani da «Smart View» ko «Jefa» na waya)
+479	Buɗe a TV

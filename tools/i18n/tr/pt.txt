@@ -471,3 +471,10 @@
 470	Recurso experimental: algumas TVs recusam controles Bluetooth vindos de um celular. O Wi-Fi e o infravermelho continuam sendo os modos recomendados.
 471	Usar o Bluetooth (experimental)
 472	Bluetooth (experimental)
+473	A TV recusou o acesso, ou o pedido não foi aceito a tempo. Tente de novo e aceite na TV.
+474	{1} só está disponível com Android TV e Google TV
+475	A busca por voz da TV
+476	A lista completa de apps
+477	Um pedido de acesso aparece na TV: aceite com o controle original (1 minuto).
+478	só para Android TV e Google TV (em Samsung ou LG, use «Smart View» ou «Transmitir» do celular)
+479	Abrir na TV

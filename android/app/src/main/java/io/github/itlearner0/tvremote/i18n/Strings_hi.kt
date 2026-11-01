@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_HI: Map<String, String> by lazy {
-    HashMap<String, String>(946).also { m ->
+    HashMap<String, String>(960).also { m ->
         l_hia(m)
         l_hib(m)
     }
@@ -245,13 +245,13 @@ private fun l_hia(m: HashMap<String, String>) {
     m["Le téléphone et la TV travaillent ensemble."] = "फ़ोन और टीवी साथ मिलकर काम करते हैं।"
     m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "यह स्क्रीन खुलते ही फ़ोन खुद को रिमोट के रूप में दिखाने लगता है (लॉग में «BLE:» वाली लाइनें)।"
     m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "फ़ोन टीवी को Bluetooth रिमोट और कीबोर्ड के रूप में दिखता है: "
-}
-
-private fun l_hib(m: HashMap<String, String>) {
     m["Lecture / pause"] = "चलाएँ / रोकें"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "चलाना संभव नहीं: टीवी के डेवलपर विकल्पों में «USB डीबगिंग» चालू करें "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "मात्राएँ और कुछ चिह्न Bluetooth से टाइप नहीं हो सकते"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "मात्राएँ और कुछ चिह्न दूर से टाइप नहीं हो सकते"
+}
+
+private fun l_hib(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "एक्सेंट वाले अक्षर सादे अक्षर से बदल दिए जाते हैं (é → e)।"
     m["Les applications de la TV, avec leurs icônes"] = "टीवी के ऐप्स, उनके आइकन के साथ"
     m["Les applications de la TV, d'un geste"] = "टीवी के ऐप्स, एक टैप में"
@@ -485,4 +485,11 @@ private fun l_hib(m: HashMap<String, String>) {
     m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "प्रायोगिक सुविधा: कुछ टीवी फ़ोन से आने वाले Bluetooth रिमोट स्वीकार नहीं करते। Wi-Fi और इन्फ्रारेड ही सुझाए गए तरीके हैं।"
     m["Utiliser le Bluetooth (expérimental)"] = "Bluetooth इस्तेमाल करें (प्रायोगिक)"
     m["Bluetooth (expérimental)"] = "Bluetooth (प्रायोगिक)"
+    m["La TV a refusé l'accès, ou la demande n'a pas été acceptée à temps. Réessayez et acceptez-la sur la TV."] = "टीवी ने एक्सेस मना कर दिया, या अनुरोध समय पर स्वीकार नहीं हुआ। फिर कोशिश करें और टीवी पर स्वीकार करें।"
+    m["{1} n'est disponible qu'avec les TV Android et Google TV"] = "{1} सिर्फ़ Android TV और Google TV के साथ उपलब्ध है"
+    m["La recherche vocale de la TV"] = "टीवी की वॉइस सर्च"
+    m["La liste complète des applications"] = "ऐप्स की पूरी सूची"
+    m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "टीवी पर एक्सेस का अनुरोध दिखेगा: उसे असली रिमोट से स्वीकार करें (1 मिनट)।"
+    m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "सिर्फ़ Android TV और Google TV के लिए (Samsung या LG पर फ़ोन का «Smart View» या «कास्ट» इस्तेमाल करें)"
+    m["Ouvrir sur la TV"] = "टीवी पर खोलें"
 }

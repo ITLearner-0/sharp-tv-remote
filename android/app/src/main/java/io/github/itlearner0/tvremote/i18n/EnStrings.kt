@@ -5,7 +5,7 @@ package io.github.itlearner0.tvremote.i18n
 internal val EN: Map<String, String> by lazy { buildEn() }
 
 private fun buildEn(): Map<String, String> {
-    val m = HashMap<String, String>(1098)
+    val m = HashMap<String, String>(1112)
     part0(m)
     part1(m)
     part2(m)
@@ -572,4 +572,11 @@ private fun part3(m: HashMap<String, String>) {
     m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Experimental feature: some TVs refuse Bluetooth remotes coming from a phone. Wi-Fi and infrared remain the recommended modes."
     m["Utiliser le Bluetooth (expérimental)"] = "Use Bluetooth (experimental)"
     m["Bluetooth (expérimental)"] = "Bluetooth (experimental)"
+    m["La TV a refusé l'accès, ou la demande n'a pas été acceptée à temps. Réessayez et acceptez-la sur la TV."] = "The TV refused access, or the request was not accepted in time. Try again and accept it on the TV."
+    m["{1} n'est disponible qu'avec les TV Android et Google TV"] = "{1} is only available with Android TV and Google TV"
+    m["La recherche vocale de la TV"] = "The TV's voice search"
+    m["La liste complète des applications"] = "The full list of apps"
+    m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "An access request appears on the TV: accept it with the original remote (1 minute)."
+    m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "only for Android TV and Google TV (on Samsung or LG, use the phone's \"Smart View\" or \"Cast\")"
+    m["Ouvrir sur la TV"] = "Open on TV"
 }

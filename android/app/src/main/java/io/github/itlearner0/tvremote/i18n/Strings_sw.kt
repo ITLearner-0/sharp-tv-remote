@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_SW: Map<String, String> by lazy {
-    HashMap<String, String>(946).also { m ->
+    HashMap<String, String>(960).also { m ->
         l_swa(m)
         l_swb(m)
     }
@@ -245,13 +245,13 @@ private fun l_swa(m: HashMap<String, String>) {
     m["Le téléphone et la TV travaillent ensemble."] = "Simu na TV zinafanya kazi pamoja."
     m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Simu tayari inajitangaza kama rimoti skrini hii inapofunguliwa (mistari «BLE:» kwenye kumbukumbu)."
     m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Simu inajitambulisha kwa TV kama rimoti na kibodi ya Bluetooth: "
-}
-
-private fun l_swb(m: HashMap<String, String>) {
     m["Lecture / pause"] = "Cheza / sitisha"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Haiwezi kucheza: washa «USB debugging» katika chaguo za "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Herufi zenye alama na baadhi ya alama haziwezi kuandikwa kwa Bluetooth"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "Herufi zenye alama na baadhi ya alama haziwezi kuandikwa kwa mbali"
+}
+
+private fun l_swb(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "Herufi zenye alama zinabadilishwa na herufi rahisi (é → e)."
     m["Les applications de la TV, avec leurs icônes"] = "Programu za TV, pamoja na aikoni zake"
     m["Les applications de la TV, d'un geste"] = "Programu za TV, kwa mguso mmoja"
@@ -485,4 +485,11 @@ private fun l_swb(m: HashMap<String, String>) {
     m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Kipengele cha majaribio: baadhi ya TV hukataa rimoti za Bluetooth kutoka kwa simu. Wi-Fi na infraredi ndizo njia zinazopendekezwa."
     m["Utiliser le Bluetooth (expérimental)"] = "Tumia Bluetooth (majaribio)"
     m["Bluetooth (expérimental)"] = "Bluetooth (majaribio)"
+    m["La TV a refusé l'accès, ou la demande n'a pas été acceptée à temps. Réessayez et acceptez-la sur la TV."] = "TV imekataa ufikiaji, au ombi halikukubaliwa kwa wakati. Jaribu tena na ulikubali kwenye TV."
+    m["{1} n'est disponible qu'avec les TV Android et Google TV"] = "{1} inapatikana tu kwa Android TV na Google TV"
+    m["La recherche vocale de la TV"] = "Utafutaji wa sauti wa TV"
+    m["La liste complète des applications"] = "Orodha kamili ya programu"
+    m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "Ombi la ufikiaji linaonekana kwenye TV: likubali kwa rimoti asili (dakika 1)."
+    m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "kwa Android TV na Google TV pekee (kwenye Samsung au LG, tumia «Smart View» au «Tuma» ya simu)"
+    m["Ouvrir sur la TV"] = "Fungua kwenye TV"
 }

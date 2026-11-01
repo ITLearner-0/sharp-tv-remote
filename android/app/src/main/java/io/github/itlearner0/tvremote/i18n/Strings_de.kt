@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_DE: Map<String, String> by lazy {
-    HashMap<String, String>(946).also { m ->
+    HashMap<String, String>(960).also { m ->
         l_dea(m)
         l_deb(m)
     }
@@ -245,13 +245,13 @@ private fun l_dea(m: HashMap<String, String>) {
     m["Le téléphone et la TV travaillent ensemble."] = "Handy und TV arbeiten zusammen."
     m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Das Handy meldet sich bereits als Fernbedienung, sobald dieser Bildschirm geöffnet ist („BLE:“-Zeilen im Protokoll)."
     m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Das Handy meldet sich beim TV als Bluetooth-Fernbedienung und -Tastatur: "
-}
-
-private fun l_deb(m: HashMap<String, String>) {
     m["Lecture / pause"] = "Wiedergabe / Pause"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Wiedergabe nicht möglich: Aktivieren Sie das „USB-Debugging“ in den "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Akzente und einige Symbole können per Bluetooth nicht eingegeben werden"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "Akzente und einige Symbole können aus der Ferne nicht eingegeben werden"
+}
+
+private fun l_deb(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "Buchstaben mit Akzent werden durch den einfachen Buchstaben ersetzt (é → e)."
     m["Les applications de la TV, avec leurs icônes"] = "Die Apps des TVs, mit ihren Symbolen"
     m["Les applications de la TV, d'un geste"] = "Die Apps des TVs, mit einem Tippen"
@@ -485,4 +485,11 @@ private fun l_deb(m: HashMap<String, String>) {
     m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Experimentelle Funktion: Manche TVs lehnen Bluetooth-Fernbedienungen von einem Handy ab. WLAN und Infrarot bleiben die empfohlenen Modi."
     m["Utiliser le Bluetooth (expérimental)"] = "Bluetooth verwenden (experimentell)"
     m["Bluetooth (expérimental)"] = "Bluetooth (experimentell)"
+    m["La TV a refusé l'accès, ou la demande n'a pas été acceptée à temps. Réessayez et acceptez-la sur la TV."] = "Der TV hat den Zugriff verweigert, oder die Anfrage wurde nicht rechtzeitig bestätigt. Versuchen Sie es erneut und bestätigen Sie am TV."
+    m["{1} n'est disponible qu'avec les TV Android et Google TV"] = "{1} ist nur mit Android TV und Google TV verfügbar"
+    m["La recherche vocale de la TV"] = "Die Sprachsuche des TVs"
+    m["La liste complète des applications"] = "Die vollständige App-Liste"
+    m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "Auf dem TV erscheint eine Zugriffsanfrage: Bestätigen Sie sie mit der Original-Fernbedienung (1 Minute)."
+    m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "nur für Android TV und Google TV (bei Samsung oder LG nutzen Sie „Smart View“ oder „Übertragen“ des Handys)"
+    m["Ouvrir sur la TV"] = "Auf dem TV öffnen"
 }

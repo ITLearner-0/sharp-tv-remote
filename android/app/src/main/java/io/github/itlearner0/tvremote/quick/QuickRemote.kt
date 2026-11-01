@@ -65,6 +65,15 @@ object QuickRemote {
         val tv = currentTv(context) ?: return toast(context, tr("Aucune TV enregistrée"))
         if (tv.isBt) return bt(context, tv, keyCode)
         if (tv.isIr) return ir(context, tv, keyCode)
+        if (tv.brandRemote != null) {
+            val remote = brand(context, tv)
+            if (remote == null) {
+                if (tv.irFallback) return ir(context, tv, keyCode)
+                return toast(context, tr("{1} est injoignable", tv.name))
+            }
+            remote.key(keyCode)
+            return
+        }
         val session = session(context, tv)
         if (session == null) {
             if (tv.irFallback) return ir(context, tv, keyCode)
@@ -78,6 +87,14 @@ object QuickRemote {
         val tv = currentTv(context) ?: return toast(context, tr("Aucune TV enregistrée"))
         if (tv.isBt) return bt(context, tv, Keys.POWER)
         if (tv.isIr) return ir(context, tv, Keys.POWER)
+        if (tv.brandRemote != null) {
+            val remote = brand(context, tv, quick = true)
+            if (remote != null) return remote.powerOff()
+            tv.mac?.let { WakeOnLan.send(it, tv.host) }
+            if (tv.irFallback) ir(context, tv, Keys.WAKEUP)
+            return if (tv.mac == null && !tv.irFallback) toast(context, tr("{1} est injoignable", tv.name))
+            else toast(context, tr("Allumage de {1}…", tv.name))
+        }
         val session = session(context, tv, quick = true)
         if (session != null) {
             session.sendKey(if (session.state.isOn) Keys.POWER else Keys.WAKEUP)
@@ -93,6 +110,7 @@ object QuickRemote {
     suspend fun open(context: Context, link: String) {
         val tv = currentTv(context) ?: return toast(context, tr("Aucune TV enregistrée"))
         if (tv.offline) return toast(context, tr("Impossible avec une TV pilotée par infrarouge ou Bluetooth"))
+        if (tv.brandRemote != null) return toast(context, tr("{1} n'est disponible qu'avec les TV Android et Google TV", tr("Ouvrir sur la TV")))
         val session = session(context, tv) ?: return toast(context, tr("{1} est injoignable : allumez-la d'abord", tv.name))
         session.launchApp(link)
         toast(context, tr("Ouverture sur {1}…", tv.name))
@@ -133,6 +151,29 @@ object QuickRemote {
             session
         }
 
+    /** Connexion de l'application à une TV Samsung / LG (renseignée par l'écran principal), ou null. */
+    @Volatile var appBrand: io.github.itlearner0.tvremote.brand.BrandRemote? = null
+    private var ownBrand: io.github.itlearner0.tvremote.brand.BrandRemote? = null
+
+    /** TV Samsung / LG : réutilise la connexion ouverte, sinon se connecte avec la clé enregistrée. */
+    private suspend fun brand(context: Context, tv: SavedTv, quick: Boolean = false): io.github.itlearner0.tvremote.brand.BrandRemote? =
+        mutex.withLock {
+            appBrand?.takeIf { it.isOpen }?.let { return@withLock it }
+            ownBrand?.takeIf { it.isOpen }?.let {
+                scheduleClose()
+                return@withLock it
+            }
+            val b = tv.brandRemote ?: return@withLock null
+            val remote = io.github.itlearner0.tvremote.brand.BrandRemote.create(b, tv.host, tv.brandKey, "OmniZap", {})
+            runCatching { remote.open(timeoutMs = if (quick) 3_000 else 6_000) }.getOrElse {
+                remote.close()
+                return@withLock null
+            }
+            ownBrand = remote
+            scheduleClose()
+            remote
+        }
+
     private fun scheduleClose() {
         idleClose?.cancel()
         idleClose = scope.launch {
@@ -140,6 +181,8 @@ object QuickRemote {
             mutex.withLock {
                 own?.close()
                 own = null
+                ownBrand?.close()
+                ownBrand = null
             }
         }
     }

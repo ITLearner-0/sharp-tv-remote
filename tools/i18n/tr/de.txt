@@ -471,3 +471,10 @@
 470	Experimentelle Funktion: Manche TVs lehnen Bluetooth-Fernbedienungen von einem Handy ab. WLAN und Infrarot bleiben die empfohlenen Modi.
 471	Bluetooth verwenden (experimentell)
 472	Bluetooth (experimentell)
+473	Der TV hat den Zugriff verweigert, oder die Anfrage wurde nicht rechtzeitig bestätigt. Versuchen Sie es erneut und bestätigen Sie am TV.
+474	{1} ist nur mit Android TV und Google TV verfügbar
+475	Die Sprachsuche des TVs
+476	Die vollständige App-Liste
+477	Auf dem TV erscheint eine Zugriffsanfrage: Bestätigen Sie sie mit der Original-Fernbedienung (1 Minute).
+478	nur für Android TV und Google TV (bei Samsung oder LG nutzen Sie „Smart View“ oder „Übertragen“ des Handys)
+479	Auf dem TV öffnen

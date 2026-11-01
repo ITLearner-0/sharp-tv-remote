@@ -172,7 +172,7 @@ class CastViewModel(application: Application) : AndroidViewModel(application) {
             refreshDevices()
         }
         val tv = TvStore(application.getSharedPreferences("tv", 0)).current()
-        if (tv != null && !tv.isIr && tv.host.isNotBlank()) _state.update { it.copy(remoteTv = tv.name) }
+        if (tv != null && tv.isAndroidTv) _state.update { it.copy(remoteTv = tv.name) }
     }
 
     /**

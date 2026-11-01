@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_ES: Map<String, String> by lazy {
-    HashMap<String, String>(946).also { m ->
+    HashMap<String, String>(960).also { m ->
         l_esa(m)
         l_esb(m)
     }
@@ -245,13 +245,13 @@ private fun l_esa(m: HashMap<String, String>) {
     m["Le téléphone et la TV travaillent ensemble."] = "El teléfono y la TV trabajan juntos."
     m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "El teléfono ya se anuncia como mando al abrir esta pantalla (líneas «BLE:» del registro)."
     m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "El teléfono se presenta a la TV como mando y teclado Bluetooth: "
-}
-
-private fun l_esb(m: HashMap<String, String>) {
     m["Lecture / pause"] = "Reproducir / pausa"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Lectura imposible: active la «Depuración USB» en las opciones para "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Los acentos y algunos signos no se pueden escribir por Bluetooth"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "Los acentos y algunos signos no se pueden escribir a distancia"
+}
+
+private fun l_esb(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "Los acentos se sustituyen por la letra simple (é → e)."
     m["Les applications de la TV, avec leurs icônes"] = "Las aplicaciones de la TV, con sus iconos"
     m["Les applications de la TV, d'un geste"] = "Las aplicaciones de la TV, con un toque"
@@ -485,4 +485,11 @@ private fun l_esb(m: HashMap<String, String>) {
     m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Función experimental: algunos televisores rechazan los mandos Bluetooth de un teléfono. El Wi-Fi y el infrarrojo siguen siendo los modos recomendados."
     m["Utiliser le Bluetooth (expérimental)"] = "Usar el Bluetooth (experimental)"
     m["Bluetooth (expérimental)"] = "Bluetooth (experimental)"
+    m["La TV a refusé l'accès, ou la demande n'a pas été acceptée à temps. Réessayez et acceptez-la sur la TV."] = "El televisor rechazó el acceso, o la solicitud no se aceptó a tiempo. Vuelve a intentarlo y acéptala en el televisor."
+    m["{1} n'est disponible qu'avec les TV Android et Google TV"] = "{1} solo está disponible con televisores Android TV y Google TV"
+    m["La recherche vocale de la TV"] = "La búsqueda por voz del televisor"
+    m["La liste complète des applications"] = "La lista completa de aplicaciones"
+    m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "Aparece una solicitud de acceso en el televisor: acéptala con el mando original (1 minuto)."
+    m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "solo para Android TV y Google TV (en Samsung o LG, usa «Smart View» o «Enviar» del teléfono)"
+    m["Ouvrir sur la TV"] = "Abrir en el televisor"
 }

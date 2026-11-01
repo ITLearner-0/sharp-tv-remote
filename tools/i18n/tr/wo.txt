@@ -471,3 +471,10 @@
 470	Jumtukaay bu ñuy natt: yenn TV yi duñu nangu telekomandu Bluetooth bu jóge ci telefon. Wi-Fi ak infraruus ñoo gën.
 471	Jëfandikoo Bluetooth (ci natt)
 472	Bluetooth (ci natt)
+473	TV bi bañ na dugg bi, walla nanguñu laaj bi ci jamono ji. Jéemaatal te nangu ko ci TV bi.
+474	{1} amul lu dul ak Android TV ak Google TV
+475	Seet ak baat bu TV bi
+476	Limu aplikasioŋ yépp
+477	Laaju dugg dina feeñ ci TV bi: nangu ko ak telekomand bu njëkk bi (1 simili).
+478	ngir Android TV ak Google TV rekk (ci Samsung walla LG, jëfandikool «Smart View» walla «Cast» bu telefon bi)
+479	Ubbi ci TV bi

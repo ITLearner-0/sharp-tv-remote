@@ -146,6 +146,22 @@ dans la galerie (Images/OmniZap). Les contenus protégés (Netflix, chaînes
 TV, entrées HDMI…) apparaissent en noir ; l'enregistrement d'Android s'arrête
 toutes les 3 minutes et est relancé aussitôt (coupure d'environ 1 s).
 
+### 📺 TV Samsung et LG en Wi-Fi
+
+Les TV **Samsung** (Tizen, 2016 et après) et **LG** (webOS) apparaissent dans la
+recherche, avec leur marque. À la première connexion, la TV affiche une demande
+d'accès : l'accepter avec la télécommande d'origine. La clé obtenue est gardée
+sur le téléphone (jamais dans la sauvegarde locale).
+
+- Disponible : toutes les touches, le pavé tactile, le clavier, les principales
+  applications (Netflix, YouTube, Prime Video, Disney+…), l'extinction ;
+  l'allumage par le réseau si la TV le permet (Samsung : « Allumer avec un
+  appareil mobile » ; LG : « Allumer la TV par mobile »).
+- Réservé aux TV Android : la liste complète des applications, la duplication
+  d'écran, « Voir la TV » et la recherche vocale de la TV.
+- Code : `brand/` (`SamsungRemote`, `LgRemote`, `BrandProbe` pour la recherche,
+  `BrandKeys` pour la correspondance des touches).
+
 ### 🔵 Télécommande Bluetooth (sans réseau)
 
 Le téléphone se présente à la TV comme un **clavier doublé d'une

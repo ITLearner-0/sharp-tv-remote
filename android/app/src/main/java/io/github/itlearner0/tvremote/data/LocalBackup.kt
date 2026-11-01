@@ -26,12 +26,19 @@ object LocalBackup {
     // Identifiant interne inchangé : les sauvegardes faites avant le changement de nom restent lisibles.
     private const val FORMAT = "telecommande-tv"
 
+    /** Les clés d'accès Samsung / LG restent sur le téléphone : la TV redemandera l'accord après une restauration. */
+    private fun withoutBrandKeys(tvs: String): String = runCatching {
+        val array = JSONArray(tvs)
+        for (i in 0 until array.length()) array.getJSONObject(i).remove("brandKey")
+        array.toString()
+    }.getOrDefault(tvs)
+
     /** Contenu des réglages, au format JSON. */
     fun export(prefs: SharedPreferences): String {
         val values = JSONObject()
         for ((key, value) in prefs.all) {
             val entry = when (value) {
-                is String -> JSONObject().put("t", "s").put("v", value)
+                is String -> JSONObject().put("t", "s").put("v", if (key == "tvs") withoutBrandKeys(value) else value)
                 is Boolean -> JSONObject().put("t", "b").put("v", value)
                 is Int -> JSONObject().put("t", "i").put("v", value)
                 is Long -> JSONObject().put("t", "l").put("v", value)

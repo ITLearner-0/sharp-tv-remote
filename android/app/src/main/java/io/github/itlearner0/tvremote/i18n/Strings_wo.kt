@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_WO: Map<String, String> by lazy {
-    HashMap<String, String>(946).also { m ->
+    HashMap<String, String>(960).also { m ->
         l_woa(m)
         l_wob(m)
     }
@@ -245,13 +245,13 @@ private fun l_woa(m: HashMap<String, String>) {
     m["Le téléphone et la TV travaillent ensemble."] = "Telefon bi ak TV bi ñoo ànd di liggéey."
     m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Telefon bi day yégle ne mooy telekomand su ekraan bii ubbikoo (rëdd yu «BLE:» ci jurnaal bi)."
     m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Telefon bi day wone boppam ci TV bi ni telekomand ak klawie Bluetooth: "
-}
-
-private fun l_wob(m: HashMap<String, String>) {
     m["Lecture / pause"] = "Dox / taxawal tuuti"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Mënuñu dox: taalal «USB debugging» ci tànneefu "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Mënuñu bind araf yu am aksaŋ ak yenn màndarga ci Bluetooth"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "Mënuñu bind araf yu am aksaŋ ak yenn màndarga ci sore"
+}
+
+private fun l_wob(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "Araf yu am aksaŋ dañuy soppi ak araf bu woyof (é → e)."
     m["Les applications de la TV, avec leurs icônes"] = "Aplikasioŋu TV bi, ak seeni ikon"
     m["Les applications de la TV, d'un geste"] = "Aplikasioŋu TV bi, ak benn bës"
@@ -485,4 +485,11 @@ private fun l_wob(m: HashMap<String, String>) {
     m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Jumtukaay bu ñuy natt: yenn TV yi duñu nangu telekomandu Bluetooth bu jóge ci telefon. Wi-Fi ak infraruus ñoo gën."
     m["Utiliser le Bluetooth (expérimental)"] = "Jëfandikoo Bluetooth (ci natt)"
     m["Bluetooth (expérimental)"] = "Bluetooth (ci natt)"
+    m["La TV a refusé l'accès, ou la demande n'a pas été acceptée à temps. Réessayez et acceptez-la sur la TV."] = "TV bi bañ na dugg bi, walla nanguñu laaj bi ci jamono ji. Jéemaatal te nangu ko ci TV bi."
+    m["{1} n'est disponible qu'avec les TV Android et Google TV"] = "{1} amul lu dul ak Android TV ak Google TV"
+    m["La recherche vocale de la TV"] = "Seet ak baat bu TV bi"
+    m["La liste complète des applications"] = "Limu aplikasioŋ yépp"
+    m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "Laaju dugg dina feeñ ci TV bi: nangu ko ak telekomand bu njëkk bi (1 simili)."
+    m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "ngir Android TV ak Google TV rekk (ci Samsung walla LG, jëfandikool «Smart View» walla «Cast» bu telefon bi)"
+    m["Ouvrir sur la TV"] = "Ubbi ci TV bi"
 }

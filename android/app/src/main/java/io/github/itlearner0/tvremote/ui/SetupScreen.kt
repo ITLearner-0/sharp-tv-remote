@@ -89,6 +89,14 @@ fun SetupScreen(state: UiState, vm: RemoteViewModel) {
                     Spacer(Modifier.size(14.dp))
                     Text(tr("Connexion à {1}…", state.pendingHost))
                 }
+                if (state.brandPrompt) {
+                    Text(
+                        tr("Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."),
+                        color = Muted,
+                        fontSize = 13.sp,
+                        modifier = Modifier.padding(top = 10.dp),
+                    )
+                }
             }
             else -> {
                 if (state.tvs.isEmpty()) RestoreBackup(vm)
@@ -174,13 +182,18 @@ private fun FoundTvs(state: UiState, vm: RemoteViewModel) {
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp))
                     .background(KeyColor)
-                    .clickable { vm.connect(tv.host, tv.name) }
+                    .clickable { vm.connect(tv.host, tv.name, tv.brand, tv.mac) }
                     .padding(14.dp),
             ) {
                 Icon(Icons.Filled.Tv, contentDescription = null, tint = Color.White)
                 Column(Modifier.weight(1f).padding(start = 12.dp)) {
                     Text(tv.name, fontWeight = FontWeight.SemiBold)
-                    Text(if (known) tr("{1} · déjà ajoutée", tv.host) else tv.host, color = Muted, fontSize = 12.sp)
+                    val kind = io.github.itlearner0.tvremote.brand.Brand.of(tv.brand)?.label ?: "Android TV"
+                    Text(
+                        (if (known) tr("{1} · déjà ajoutée", tv.host) else tv.host) + " · " + kind,
+                        color = Muted,
+                        fontSize = 12.sp,
+                    )
                 }
                 Text(
                     tr("Connecter"),

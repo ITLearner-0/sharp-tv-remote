@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_LN: Map<String, String> by lazy {
-    HashMap<String, String>(946).also { m ->
+    HashMap<String, String>(960).also { m ->
         l_lna(m)
         l_lnb(m)
     }
@@ -245,13 +245,13 @@ private fun l_lna(m: HashMap<String, String>) {
     m["Le téléphone et la TV travaillent ensemble."] = "Telefone mpe TV basalaka elongo."
     m["Le téléphone s'annonce déjà comme télécommande dès l'ouverture de cet écran (lignes « BLE : » du journal)."] = "Telefone ekomilakisa lokola télécommande soki ekrani oyo efungwami (milongo «BLE:» na journal)."
     m["Le téléphone se présente à la TV comme une télécommande et un clavier Bluetooth : "] = "Telefone ekomilakisa na TV lokola télécommande mpe clavier Bluetooth: "
-}
-
-private fun l_lnb(m: HashMap<String, String>) {
     m["Lecture / pause"] = "Tambwisa / telemisa mwa moke"
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Ekoki kotambwisa te: pelisa «USB debugging» na ba-option ya "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Bilembo ya accent mpe bilembo mosusu ekoki kokomama na Bluetooth te"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "Bilembo ya accent mpe bilembo mosusu ekoki kokomama mosika te"
+}
+
+private fun l_lnb(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "Ba-lettre na accent ebongolamaka na lettre ya pete (é → e)."
     m["Les applications de la TV, avec leurs icônes"] = "Ba-application ya TV, elongo na ba-icône na yango"
     m["Les applications de la TV, d'un geste"] = "Ba-application ya TV, na kofina moko"
@@ -485,4 +485,11 @@ private fun l_lnb(m: HashMap<String, String>) {
     m["Fonction expérimentale : certaines TV refusent les télécommandes Bluetooth venant d'un téléphone. Le Wi-Fi et l'infrarouge restent les modes conseillés."] = "Likoki ya komeka: ba-TV mosusu endimaka te ba-télécommande Bluetooth oyo euti na telefone. Wi-Fi mpe infrarouge nde ezali malamu koleka."
     m["Utiliser le Bluetooth (expérimental)"] = "Salela Bluetooth (ya komeka)"
     m["Bluetooth (expérimental)"] = "Bluetooth (ya komeka)"
+    m["La TV a refusé l'accès, ou la demande n'a pas été acceptée à temps. Réessayez et acceptez-la sur la TV."] = "TV eboyi kokota, to bosenga endimamaki na ntango te. Meka lisusu mpe ndima yango na TV."
+    m["{1} n'est disponible qu'avec les TV Android et Google TV"] = "{1} ezali kaka na Android TV mpe Google TV"
+    m["La recherche vocale de la TV"] = "Koluka na mongongo ya TV"
+    m["La liste complète des applications"] = "Liste mobimba ya ba-application"
+    m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "Bosenga ya kokota ekomonana na TV: ndima yango na télécommande ya ebandeli (miniti 1)."
+    m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "kaka mpo na Android TV mpe Google TV (na Samsung to LG, salela «Smart View» to «Cast» ya telefone)"
+    m["Ouvrir sur la TV"] = "Fungola na TV"
 }

@@ -471,3 +471,10 @@
 470	Ẹ̀yà àdánwò: àwọn TV kan kì í gba rìmóòtì Bluetooth láti fóònù. Wi-Fi àti infurarẹẹdi ló dára jù.
 471	Lo Bluetooth (àdánwò)
 472	Bluetooth (àdánwò)
+473	TV kọ ìwọlé, tàbí a kò gba ìbéèrè náà ní àkókò. Tún gbìyànjú kí o sì gbà á lórí TV.
+474	{1} wà fún Android TV àti Google TV nìkan
+475	Ìwádìí ohùn TV
+476	Àkójọ kíkún ti àwọn áàpù
+477	Ìbéèrè ìwọlé yóò hàn lórí TV: gbà á pẹ̀lú rìmóòtì àkọ́kọ́ (ìṣẹ́jú 1).
+478	fún Android TV àti Google TV nìkan (lórí Samsung tàbí LG, lo «Smart View» tàbí «Cast» fóònù)
+479	Ṣí lórí TV

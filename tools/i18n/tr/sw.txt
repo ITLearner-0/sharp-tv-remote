@@ -471,3 +471,10 @@
 470	Kipengele cha majaribio: baadhi ya TV hukataa rimoti za Bluetooth kutoka kwa simu. Wi-Fi na infraredi ndizo njia zinazopendekezwa.
 471	Tumia Bluetooth (majaribio)
 472	Bluetooth (majaribio)
+473	TV imekataa ufikiaji, au ombi halikukubaliwa kwa wakati. Jaribu tena na ulikubali kwenye TV.
+474	{1} inapatikana tu kwa Android TV na Google TV
+475	Utafutaji wa sauti wa TV
+476	Orodha kamili ya programu
+477	Ombi la ufikiaji linaonekana kwenye TV: likubali kwa rimoti asili (dakika 1).
+478	kwa Android TV na Google TV pekee (kwenye Samsung au LG, tumia «Smart View» au «Tuma» ya simu)
+479	Fungua kwenye TV
