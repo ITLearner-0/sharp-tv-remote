@@ -95,6 +95,11 @@ object BtRemote {
         val permitted = permitted(ctx)
         _state.update { it.copy(supported = bt != null, enabled = bt?.isEnabled == true, permitted = permitted) }
         if (bt == null || !permitted || !bt.isEnabled) return
+        // TV associée en basse consommation : pas besoin du mode classique.
+        if (connectTo?.startsWith(BLE_PREFIX) == true) {
+            startBle(ctx)
+            return
+        }
         val proxy = hid
         if (proxy != null) {
             if (_state.value.registered) wanted?.let { connect(it) }
@@ -245,7 +250,49 @@ object BtRemote {
     private var attempts = 0
     private var reRegistered = false
 
+    /** Télécommande basse consommation (BLE), alternative au Bluetooth classique. */
+    private var ble: BleHid? = null
+
+    /** Préfixe des adresses de TV associées en basse consommation. */
+    const val BLE_PREFIX = "ble:"
+
+    /**
+     * Mode basse consommation : le téléphone s'annonce comme télécommande BLE ; la TV
+     * le trouve dans « Ajouter un accessoire » et s'y connecte (puis se reconnecte seule).
+     */
+    fun startBle(context: Context) {
+        val ctx = context.applicationContext
+        app = ctx
+        if (adapter == null) adapter = ctx.getSystemService(BluetoothManager::class.java)?.adapter
+        val bt = adapter
+        if (bt == null || !bt.isEnabled || !permitted(ctx)) {
+            log("BLE : Bluetooth éteint ou non autorisé")
+            return
+        }
+        val hid = ble ?: BleHid(ctx, ::log) { d ->
+            _state.update {
+                it.copy(
+                    connectedAddress = d?.let { dev -> BLE_PREFIX + dev.address },
+                    connectedName = d?.let { dev -> dev.name ?: dev.address },
+                    connecting = false,
+                    message = null,
+                )
+            }
+        }.also { ble = it }
+        hid.start()
+    }
+
+    fun stopBle() {
+        ble?.stop()
+        ble = null
+    }
+
     fun connect(address: String) {
+        if (address.startsWith(BLE_PREFIX)) {
+            wanted = address
+            app?.let { startBle(it) }
+            return
+        }
         if (wanted != address) {
             attempts = 0
             reRegistered = false
@@ -325,12 +372,34 @@ object BtRemote {
     }
 
     private fun press(key: BtHidKeys.Key): Boolean {
+        if (ble?.device != null) {
+            sender.execute { sendPress(key) }
+            return true
+        }
         if (device == null || hid == null) return false
         sender.execute { sendPress(key) }
         return true
     }
 
     private fun sendPress(key: BtHidKeys.Key) {
+        val le = ble
+        if (le?.device != null) {
+            runCatching {
+                when (key) {
+                    is BtHidKeys.Key.Keyboard -> {
+                        if (!le.send(false, BtHidKeys.keyboardReport(key))) log("BLE : touche non transmise")
+                        Thread.sleep(25)
+                        le.send(false, BtHidKeys.keyboardReport(null))
+                    }
+                    is BtHidKeys.Key.Consumer -> {
+                        if (!le.send(true, BtHidKeys.consumerReport(key.usage))) log("BLE : touche non transmise")
+                        Thread.sleep(40)
+                        le.send(true, BtHidKeys.consumerReport(0))
+                    }
+                }
+            }
+            return
+        }
         val h = hid ?: return
         val d = device ?: return
         runCatching {

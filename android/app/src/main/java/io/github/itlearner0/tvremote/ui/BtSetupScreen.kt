@@ -186,7 +186,22 @@ fun BtSetupScreen(state: UiState, vm: RemoteViewModel) {
                     }
                 }
                 BtCard {
-                    Text("Méthode recommandée : depuis le téléphone", fontWeight = FontWeight.SemiBold)
+                    Text("Télécommande basse consommation (TV Android, Google TV)", fontWeight = FontWeight.SemiBold)
+                    Text(
+                        "Le protocole des télécommandes d'origine des TV Android.\n" +
+                            "1. Touchez le bouton ci-dessous : le téléphone s'annonce comme télécommande.\n" +
+                            "2. Sur la TV : Paramètres → Télécommandes et accessoires → Ajouter un accessoire, " +
+                            "puis choisissez le téléphone (son nom Bluetooth) et acceptez l'association.\n" +
+                            "3. « Connecté à … » s'affiche ci-dessus : essayez Accueil.",
+                        color = Muted,
+                        fontSize = 13.sp,
+                    )
+                    Button(onClick = { BtRemote.startBle(context) }, modifier = Modifier.fillMaxWidth()) {
+                        Text("Se présenter comme télécommande (BLE)")
+                    }
+                }
+                BtCard {
+                    Text("Bluetooth classique : depuis le téléphone", fontWeight = FontWeight.SemiBold)
                     Text(
                         "1. Sur la TV, ouvrez Paramètres → Télécommandes et accessoires → Ajouter un accessoire " +
                             "(ou le menu Bluetooth) : la TV devient visible.\n" +
