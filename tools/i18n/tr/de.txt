@@ -1,0 +1,469 @@
+0	TV einschalten
+1	Bildschirmspiegelung beenden
+2	Diashow beenden
+3	TV-Bildschirmfoto
+4	Aufnahme…
+5	Andere Dateien wählen
+6	Fotos und Videos wählen
+7	Andere Marke wählen
+8	Verbunden mit {1}
+9	Diashow (6 s pro Foto)
+10	Bildschirm spiegeln (Google Home)
+11	Bildschirm auf den TV spiegeln
+12	Pro-Test: noch {1} Tag(e)
+13	Google Home installieren, um den Bildschirm zu spiegeln
+14	Wird geladen…
+15	Alle Apps des TVs auflisten
+16	Ja, diesen TV hinzufügen
+17	Ja, diese Codes verwenden
+18	Zu OmniZap Pro wechseln
+19	Fotos und Videos vom Handy
+20	Fotos und Videos auf dem TV
+21	Suche nach Google-Cast-fähigen TVs (Chromecast integriert)…
+22	Suche nach TVs im Netzwerk
+23	Suche…
+24	Zurück
+25	Zurück zur Fernbedienung
+26	Normaler oder älterer TV?
+27	TV gefunden!
+28	{1}: kein Google Cast
+29	{1}: Fernbedienungs-Viewer
+30	{1} TVs gefunden!
+31	(Handybild)
+32	(erfordert ein Handy mit Infrarotsender).
+33	({1} ignoriert)
+34	· verbunden
+35	(Das ist etwas anderes als die Bluetooth-Kopplung und wird durch sie nicht ersetzt.)
+36	(Android TV, Samsung, LG, Receiver…).
+37	(dient auch der App-Liste).
+38	(schaltet {1} ein/aus).
+39	(oder das Bluetooth-Menü): Der TV wird sichtbar.
+40	(zum Beispiel die alte App „Télécommande TV“ oder eine Bluetooth-Tastatur/Maus-App):
+41	(ältere Sicherung: Downloads → Télécommande TV).
+42	1. Öffnen Sie am TV Einstellungen → Fernbedienungen und Zubehör → Zubehör hinzufügen
+43	1. Tippen Sie unten auf die Schaltfläche: Das Handy meldet sich als Fernbedienung.
+44	2. Tippen Sie hier auf „TV suchen“ und dann auf den Namen des TVs.
+45	2. Am TV: Einstellungen → Fernbedienungen und Zubehör → Zubehör hinzufügen,
+46	3. Bestätigen Sie die Kopplung am TV und am Handy: OmniZap verbindet sich.
+47	3. „Verbunden mit …“ erscheint oben: Testen Sie Home.
+48	Home
+49	Lebenslanger Zugang · {1}
+50	OmniZap-Pro-Kauf wiederhergestellt, danke!
+51	Bluetooth aktivieren
+52	IP-Adresse
+53	IP-Adresse fehlt
+54	MAC-Adresse (zum Einschalten des TVs)
+55	MAC-Adresse des TVs
+56	MAC-Adresse des TVs unbekannt: Schalten Sie den TV einmal manuell ein oder geben Sie sie unter ⚙ ein
+57	MAC-Adresse nicht automatisch gefunden. Geben Sie sie oben ein: am TV,
+58	Ungültige MAC-Adresse
+59	Ungültige MAC-Adresse (Beispiel: A4:B1:C2:D3:E4:F5)
+60	TV hinzufügen
+61	{1} wird eingeschaltet…
+62	Schaltet den TV ein, auch wenn er aus ist
+63	Schalten Sie zuerst den TV ein
+64	Schalten Sie den TV ein und bleiben Sie im selben WLAN: Er erscheint unten.
+65	Eingeschaltet
+66	Android reagiert nicht auf die Anfrage für den Bluetooth-Fernbedienungsmodus. Auf manchen Handys
+67	Android verweigert die Bluetooth-Verbindung mit diesem TV. Deinstallieren Sie die alte App
+68	Abbrechen
+69	Kopplung unterbrochen, bitte neu starten
+70	Bereits gekoppelte Geräte (tippen Sie auf den TV, um zu verbinden):
+71	Apps
+72	TV-Apps
+73	Stopp
+74	Erneut koppeln
+75	Infrarot einrichten
+76	Bluetooth einrichten
+77	Mit diesem TV verknüpfen
+78	Gekoppelt ({1})
+79	Tipp: Wenn Menü oder Guide nichts tun, halten Sie die Taste gedrückt, um
+80	Kein OmniZap-Pro-Kauf auf diesem Google-Konto
+81	Kein Konto, keine Datensammlung. Ihre Einstellungen bleiben auf dem Handy, nirgendwo sonst.
+82	Keiner der {1} Codesätze hat funktioniert.
+83	Kein Link zum Öffnen auf dem TV
+84	Noch kein Google-Cast-TV gefunden
+85	Kein TV gespeichert
+86	Keine passende App.
+87	Keine Daten gesendet
+88	Kein Foto oder Video gewählt.
+89	Automatisch: WLAN, Bluetooth, wenn der TV nicht antwortet
+90	Automatisch: WLAN, Infrarot, wenn der TV nicht antwortet
+91	Erlauben
+92	Erlauben Sie OmniZap die Nutzung von Bluetooth („Geräte in der Nähe“).
+93	Erlauben Sie das Mikrofon für die Sprachsuche
+94	Andere Marke / weiß nicht
+95	Andere Methode: über den TV
+96	Andere Apps
+97	Vorspulen
+98	30 s vor
+99	Runter
+100	Viel mehr als eine Fernbedienung
+101	Bluetooth: TV nicht verbunden
+102	Bluetooth: Verbindung zum TV… versuchen Sie es gleich noch einmal
+103	Bluetooth: kein Netzwerk
+104	Bluetooth verknüpft: Die Fernbedienung nutzt es, wenn der TV nicht per WLAN antwortet.
+105	Klassisches Bluetooth (andere TVs, Receiver, Computer)…
+106	Klassisches Bluetooth: über das Handy
+107	Bluetooth · verbunden
+108	Bluetooth · verbinden… (TV an, in Reichweite)
+109	Fernbedienungstasten in Benachrichtigungen und auf dem Sperrbildschirm
+110	Aufnahme gespeichert: {1}/{2}
+111	Aufnahme in der Galerie gespeichert (Bilder/OmniZap)
+112	Aufnahme fehlgeschlagen: {1}
+113	Diese Datei ist keine OmniZap-Sicherung
+114	Dieses Handy hat einen Infrarotsender: Es kann jeden TV steuern,
+115	Dieses Handy hat keinen Infrarotsender
+116	Dieses Handy hat keinen Infrarotsender. Diese Funktion funktioniert auf Handys, die
+117	Dieses Handy erlaubt den Bluetooth-Fernbedienungsmodus nicht (von Android verweigert)
+118	Dieses Handy erlaubt den Bluetooth-Fernbedienungsmodus nicht.
+119	Dieser TV akzeptiert keinen Mikrofonton: Tippen Sie nur auf Sprache
+120	Diese Taste gibt es bei Bluetooth nicht
+121	Diese Taste gibt es für dieses TV-Modell nicht
+122	TV wechseln
+123	Codes wechseln
+124	Vorheriger Sender
+125	Live-Sender
+126	TV wählen
+127	Tastatur
+128	Falscher Code: Ein neuer Code erscheint auf dem TV
+129	Codes: {1}
+130	Codes noch nicht an einem echten TV bestätigt: Ihr Test zählt!
+131	Sprachbefehle
+132	Los geht’s
+133	Infrarot einrichten
+134	Bluetooth einrichten
+135	Verbinden
+136	Verbinden Sie Ihren TV
+137	Verbindung während der Eingabe verloren
+138	Verbindung verloren, neu verbinden…
+139	Verbindung zum TV-Bildschirm…
+140	Weiter
+141	Kopieren
+142	Bericht kopieren
+143	Kopiert ✓
+144	Tippen Sie in Google Home auf den TV und dann auf „Bildschirm übertragen“
+145	Diashow und Videos im Vollbild auf dem TV. Auch über die Galerie: Teilen → „Auf dem TV öffnen“.
+146	Rechts
+147	Spiegelung
+148	Bildschirmspiegelung
+149	Bildschirmspiegelung mit Ton
+150	Spiegelung nicht möglich: {1}
+151	Freischalten (Test)
+152	OmniZap Pro freischalten
+153	OmniZap Pro entdecken
+154	Öffnen Sie die Schnelleinstellungen und tippen Sie auf „Übertragen“ oder „Smart View“, dann wählen Sie den TV
+155	MAC-Adresse automatisch erkennen
+156	Erkennung…
+157	Löschen
+158	Standby
+159	Speichern
+160	Senden
+161	Unerwarteter Fehler ({1})
+162	Kostenloser Test: noch {1} Tag(e) mit allen Funktionen.
+163	Test {1} von {2}
+164	Testen
+165	Testen: Home
+166	Test: Die Home-Taste unten sollte auf den TV wirken.
+167	Exportieren
+168	Favoriten
+169	Schließen
+170	Pfeile
+171	Funktion von OmniZap Pro
+172	Funktion von OmniZap Pro: Öffnen Sie OmniZap, um sie freizuschalten
+173	Behalten
+174	Lassen Sie diesen Bildschirm während eines Videos offen: Der TV liest die Datei direkt vom Handy.
+175	Links
+176	Wischen zum Navigieren
+177	Google Cast hat die Übertragung auf dem TV beendet
+178	Google Cast ist auf diesem Handy nicht verfügbar
+179	Google Cast ist auf diesem Handy nicht verfügbar.
+180	Google Cast → nichts
+181	Google Play ist nicht erreichbar
+182	Programmführer
+183	Hoch
+184	Ohne Netzwerk · Bluetooth
+185	Ohne Netzwerk · Verbindung per Bluetooth…
+186	Ohne Netzwerk · Infrarot (auf den TV richten)
+187	Sie benötigen ein Handy mit Infrarotsender (viele Xiaomi, Redmi und Poco, einige Huawei und Honor).
+188	Erscheint jetzt auf dem TV-Bildschirm.
+189	Nur Bild, kein Ton. Geschützte Inhalte (Netflix, TV-Sender…)
+190	Mit einem per Infrarot oder Bluetooth gesteuerten TV nicht möglich
+191	{1} konnte nicht geöffnet werden: Aktivieren Sie am TV das „USB-Debugging“
+192	Datei konnte nicht gespeichert werden
+193	TV nicht erreichbar: Prüfen Sie, ob er an ist, die Adresse und das WLAN
+194	Datei konnte nicht gelesen werden
+195	Infrarot
+196	Infrarot: alle Marken
+197	Infrarot verknüpft: Die Fernbedienung nutzt es, wenn der TV nicht per WLAN antwortet.
+198	Infrarot · auf den TV richten
+199	Infrarot-Codesatz nicht gefunden: TV löschen und neu hinzufügen
+200	Protokoll
+201	Bluetooth-Protokoll
+202	Der Kauf erfolgt über Google Play, sobald OmniZap dort veröffentlicht ist. Genießen Sie bis dahin den Test.
+203	Die App hat einen Fehler festgestellt. Tippen Sie auf „Kopieren“ und fügen Sie diesen Text in Ihre
+204	Das Öffnen von Apps
+205	Der TV-Bildschirm auf dem Handy
+206	Der Handybildschirm (oder eine einzelne App) erscheint auf dem TV, ohne Google Cast oder
+207	Der TV hat die Datei angenommen
+208	Der TV hat die Spiegelung beendet
+209	Der TV hat die Bluetooth-Verbindung abgelehnt. Prüfen Sie, ob die Kopplung
+210	Der TV hat die Datei abgelehnt (Code {1})
+211	Hat der TV reagiert?
+212	Der TV ist bereits aus
+213	Ist der TV ausgeschaltet?
+214	Der TV hat die Kopplung nicht gestartet. Versuchen Sie es erneut.
+215	Der TV hat die Sprachsuche nicht geöffnet
+216	Der TV konnte den Viewer nicht öffnen: {1}
+217	Der TV hat auf den Einschaltbefehl nicht reagiert.
+218	Der TV hat auf den Ausschaltbefehl nicht reagiert. Aktivieren Sie am TV das „USB-Debugging“
+219	Der TV hat auf den Standby nicht reagiert.
+220	Der TV sendet seinen Bildschirm nicht. Prüfen Sie, ob ADB-Debugging erlaubt ist
+221	Der TV ist nicht mit dem Handy gekoppelt: Suchen Sie ihn und bestätigen Sie die Kopplung.
+222	Der TV erkennt dieses Handy per WLAN nicht mehr.
+223	Der TV reagiert nicht auf das Aufwecken: Aktivieren Sie am TV Netzwerk-Standby / „Wake on LAN“ (siehe ⚙)
+224	Die Erkennung der MAC-Adresse
+225	Die App-Liste
+226	Die Texteingabe
+227	Die Fernbedienung bleibt kostenlos: alle Tasten, Touchpad, Tastatur, Infrarot und TV-Einschalten.
+228	Die Universalfernbedienung für Ihren TV, auf Ihrem Handy.
+229	Bluetooth erfordert Android 9 oder neuer
+230	Das Bluetooth des Handys ist ausgeschaltet.
+231	Der Bluetooth-Fernbedienungsmodus des Handys wird bereits von einer anderen App genutzt
+232	Das Protokoll der Original-Fernbedienungen von Android TVs.
+233	Handy und TV arbeiten zusammen.
+234	Das Handy meldet sich bereits als Fernbedienung, sobald dieser Bildschirm geöffnet ist („BLE:“-Zeilen im Protokoll).
+235	Das Handy meldet sich beim TV als Bluetooth-Fernbedienung und -Tastatur:
+236	Wiedergabe / Pause
+237	Wiedergabe nicht möglich: Aktivieren Sie das „USB-Debugging“ in den
+238	Akzente und einige Symbole können per Bluetooth nicht eingegeben werden
+239	Akzente und einige Symbole können aus der Ferne nicht eingegeben werden
+240	Buchstaben mit Akzent werden durch den einfachen Buchstaben ersetzt (é → e).
+241	Die Apps des TVs, mit ihren Symbolen
+242	Die Apps des TVs, mit einem Tippen
+243	Nicht alle Hersteller nutzen denselben Befehl. Tippen Sie auf „Testen“, um
+244	Die Benachrichtigungen der App sind blockiert: Erlauben Sie sie auf der sich öffnenden Seite
+245	Die Einstellungen werden außerdem automatisch nach Downloads/OmniZap kopiert,
+246	Einschalten
+247	Einschalten, Lautstärke und Wiedergabe, auch bei gesperrtem Bildschirm
+248	Klassisches Bluetooth ausblenden
+249	Kontextmenü des TVs
+250	Übertragungsmenü des Handys (Miracast)
+251	Inhaltsmenü des TVs
+252	Hauptmenü (Medien)
+253	Standard-Android-Menü
+254	Danke! Alle Funktionen sind für immer freigeschaltet.
+255	Meine TVs
+256	Miracast, über ADB-Debugging, mit dem Ton der Apps (Android 10 oder neuer).
+257	Liste wird aktualisiert…
+258	Stumm
+259	Name
+260	Nicht eingerichtet. Das Handy kann als Bluetooth-Fernbedienung dienen, wenn das WLAN nicht antwortet,
+261	Nicht eingerichtet. Nützlich, um den komplett ausgeschalteten TV einzuschalten oder wenn das WLAN nicht antwortet
+262	Nein, weiter
+263	{1} wird geöffnet…
+264	Empfänger wird auf {1} geöffnet…
+265	Wird auf {1} geöffnet…
+266	Wo finden Sie die MAC-Adresse: am TV (Einstellungen → Info → Status oder Netzwerk), in der
+267	Einmalige Zahlung. Kein Abo, keine Werbung.
+268	Einstellungen
+269	Einstellungen (erweitert)
+270	Einstellungen → Netzwerk und Internet → Ihr Netzwerk, oder Einstellungen → Info → Status.
+271	Sprechen Sie…
+272	Kein Infrarotsender
+273	Noch mit keinem TV verbunden: Wählen Sie ihn in der Liste
+274	Überspringen
+275	Zu klassischem Bluetooth wechseln (für den Energiesparmodus)
+276	Ziffernblock
+277	Touchpad
+278	Fotos, Videos und Bildschirm auf dem TV
+279	Setzen Sie zuerst den Cursor in ein Textfeld auf dem TV (Suche, Passwort…) und tippen Sie hier.
+280	Play Spiele
+281	Später
+282	Mehrere TVs
+283	Richten Sie die Oberseite des Handys auf den TV und testen Sie die Tasten.
+284	Um den ausgeschalteten TV einzuschalten, muss er das Netzwerk im Standby halten. Aktivieren Sie am TV
+285	Für TVs, die Handys auflisten (Samsung, LG, Receiver…). Android TVs und Google TVs
+286	Um alle zu sehen, aktivieren Sie am TV das „USB-Debugging“ und tippen Sie oben auf die Schaltfläche.
+287	Bei einem TV mit integriertem Chromecast läuft die Spiegelung über Google Home: Tippen Sie auf den TV und dann auf
+288	Einführungspreis
+289	Programm
+290	Zurück
+291	Vorheriger
+292	Nach der Kopplung erscheint der TV oben als „Verbunden“.
+293	Welche Marke hat der TV?
+294	OmniZap-Bericht
+295	Bericht kopiert
+296	Suche nach „{1}“ auf dem TV
+297	Suche… Wenn nichts erscheint, prüfen Sie, ob der TV an und im selben WLAN wie dieses Handy ist.
+298	TV suchen
+299	App suchen
+300	Suche… Wenn der TV „USB-Debugging zulassen?“ fragt, bestätigen Sie mit den Pfeilen.
+301	Neu starten
+302	Spracherkennung auf diesem Handy nicht verfügbar
+303	10 s zurück
+304	Erneut per WLAN koppeln
+305	Koppeln Sie erneut per WLAN: Ein 6-stelliger Code erscheint auf dem TV.
+306	Ankündigung neu starten (BLE)
+307	Handy sichtbar machen (2 Min.)
+308	Wiederherstellung fehlgeschlagen: {1}
+309	Wiederherstellen
+310	Meinen Kauf wiederherstellen
+311	Sicherung wiederherstellen
+312	Stellen Sie Ihre TVs aus der Sicherung wieder her: Downloads → OmniZap → {1}
+313	Entfernen
+314	Zurückspulen
+315	Erneut versuchen
+316	Einstellungen
+317	TV-Einstellungen
+318	Schnelleinstellungen
+319	TV wird über das Netzwerk geweckt…
+320	IP-Adresse des TVs eingeben
+321	Geben Sie die IP-Adresse des TVs ein
+322	Code eingeben
+323	Ohne Google Cast: Ein kleiner Viewer wird per ADB-Debugging auf dem TV installiert.
+324	Keine Werbung, kein Abo
+325	Ohne Netzwerk und Infrarot: Das Handy kann auch als Bluetooth-Fernbedienung und -Tastatur dienen
+326	Sicherung gespeichert
+327	Lokale Sicherung
+328	Koppeln
+329	Nur gängige und bereits auf dem TV geöffnete Apps werden angezeigt.
+330	Wenn der TV „USB-Debugging zulassen?“ fragt, setzen Sie das Häkchen bei „Immer zulassen“
+331	Wecksignal gesendet: Der TV sollte innerhalb von 30 Sekunden in der Liste erscheinen.
+332	Untertitel
+333	Weiter
+334	Löschen
+335	Diesen TV löschen
+336	„{1}“ aus der Fernbedienung löschen? Sie müssen ihn erneut koppeln, um ihn zurückzubekommen.
+337	Am TV: Einstellungen → Netzwerk und Internet → Ihr WLAN.
+338	TV verbunden
+339	Live-TV
+340	TV nicht erreichbar
+341	TV nicht verbunden
+342	Gefundene TVs:
+343	TV aus: Drücken Sie zuerst Einschalten
+344	TV aus: Drücken Sie zuerst ⏻
+345	Zu sendender Text…
+346	Taste „{1}“
+347	Tippen für OK
+348	Tippen Sie auf „Stopp“, um die Spiegelung zu beenden
+349	Immer Infrarot
+350	Immer Bluetooth
+351	Immer WLAN
+352	Alle Apps
+353	Alle Ihre TVs
+354	Kachel: Schnelleinstellungen → Bearbeiten → „TV“. Teilen: in YouTube oder im
+355	Fernbedienung
+356	Fernbedienung ({1})
+357	Fernbedienung: {1}
+358	Bluetooth-Fernbedienung
+359	Bluetooth-Fernbedienung:
+360	OmniZap TV-Fernbedienung
+361	Fernbedienung zu den Benachrichtigungen hinzugefügt: Öffnen Sie die Benachrichtigungsleiste
+362	Energiesparende Fernbedienung (Android TV, Google TV)
+363	Fernbedienung in den Benachrichtigungen
+364	Infrarot-Fernbedienung
+365	Infrarot-Fernbedienung: {1}.
+366	Handy nicht im WLAN · Verbinden Sie es mit dem WLAN des TVs
+367	Live-Fernsehen
+368	Ein Problem ist aufgetreten
+369	Ein per Ethernet-Kabel verbundener TV wacht zuverlässiger auf als per WLAN.
+370	Ein ausgeschalteter TV ist im Netzwerk nicht sichtbar. Wenn er das Aufwecken übers Netzwerk unterstützt,
+371	Diesen TV verwenden
+372	Infrarot verwenden
+373	Bluetooth verwenden
+374	Bestätigen
+375	Standby
+376	Fernbedienungs-Viewer (ADB-Debugging). Wählen Sie ihn, wenn Google Cast die Übertragung beendet.
+377	Fernbedienungs-Viewer auf {1}
+378	Viewer auf dem TV geöffnet
+379	TV ansehen
+380	TV auf dem Handy ansehen
+381	Sprache
+382	Ihre Daten bleiben bei Ihnen
+383	Ihr {1}-tägiger Test ist beendet.
+384	Haben Sie die App schon einmal benutzt?
+385	Prüfen Sie, dass nichts den Sender (oben am Handy) verdeckt, und zielen Sie auf den Sensor des TVs,
+386	WLAN: automatische Erkennung
+387	WLAN nicht gefunden: Das Handy muss im selben Netzwerk wie der TV sein
+388	WLAN für Android TVs und Google TVs, Infrarot und Bluetooth für die anderen, auch ohne Netzwerk.
+389	Widget: Startbildschirm gedrückt halten → Widgets → OmniZap.
+390	Widget, Benachrichtigung und Schnelleinstellungen
+391	am TV bestätigt wurde, und tippen Sie dann am TV erneut unter „Bereits gekoppelte Geräte“.
+392	erscheinen schwarz. Tippen Sie auf das Bild für „OK“, wischen Sie für die Pfeile.
+393	kein WLAN-TV gespeichert
+394	Bildschirmaufnahme unterbrochen
+395	Bildschirmaufnahme abgelehnt
+396	jede Option am TV auszuprobieren, und behalten Sie die, die funktioniert.
+397	wie eine normale Fernbedienung.
+398	verbunden
+399	ADB-Debugging des TVs nicht erreichbar ({1})
+400	deinstallieren Sie sie, schalten Sie Bluetooth aus und wieder ein und tippen Sie auf „Erneut versuchen“.
+401	pausiert
+402	Video-Encoder nicht verfügbar
+403	Wiedergabefehler (Format vom TV nicht unterstützt?)
+404	und listen Sie die Apps einmal auf: Die Fernbedienung kann ihn dann ausschalten.
+405	Datei nicht erreichbar
+406	Galerie nicht erreichbar
+407	unbekannter Codesatz
+408	der TV hat den Empfänger nicht geöffnet: {1}
+409	der TV hat kein Bild zurückgegeben
+410	den passenden Befehl für Ihren TV zu wählen.
+411	der Hersteller hat diese Funktion deaktiviert. Tippen Sie auf „Erneut versuchen“, nachdem Sie Bluetooth aus- und eingeschaltet haben.
+412	läuft
+413	Entwickleroptionen des TVs und bestätigen Sie die Autorisierungsanfrage.
+414	Geräteliste Ihres Routers oder auf dem Etikett hinten am TV.
+415	Nachricht ein, damit er behoben wird.
+416	zeigen oft nur Tastaturen und Gamecontroller: Nutzen Sie dann die Methode oben.
+417	Browser, Teilen → „Auf dem TV öffnen“.
+418	nicht angekündigt
+419	nicht verbunden (der TV muss an und in Reichweite sein)
+420	nicht gelesen
+421	einen haben (viele Xiaomi, Redmi und Poco, einige Huawei und Honor).
+422	kompatibel
+423	und wählen Sie dann mit den Pfeilen dieser Fernbedienung OK (1 Minute).
+424	und wählen Sie dann das Handy (seinen Bluetooth-Namen) und bestätigen Sie die Kopplung.
+425	geben Sie seine MAC-Adresse ein: Er schaltet sich ein und erscheint oben in der Liste.
+426	ohne Netzwerk, auf etwa zehn Meter.
+427	ohne Netzwerk, auf etwa zehn Meter. (Version {1})
+428	je nach Modell „Wake on LAN“, „Aufwecken über Netzwerk“, „Netzwerk-Standby“ oder
+429	beendet
+430	eine Datei, die erhalten bleibt, wenn die App deinstalliert wird.
+431	{1}: Bluetooth nicht verbunden
+432	{1} TV(s) wiederhergestellt. Wenn der TV es verlangt, koppeln Sie erneut.
+433	{1} hinzugefügt.
+434	{1} hinzugefügt. Richten Sie die Oberseite des Handys auf den TV.
+435	{1} Apps: genaue Liste des TVs, mit den echten Namen.
+436	{1} installierte Apps (ungefähre Namen: das detaillierte Auslesen ist fehlgeschlagen).
+437	{1} ist nicht erreichbar
+438	{1} ist nicht erreichbar: Schalten Sie ihn zuerst ein
+439	{1} Datei(en) gewählt
+440	{1} ist mit einem per Bluetooth gesteuerten TV nicht verfügbar
+441	{1} ist mit einem per Infrarot gesteuerten TV nicht verfügbar
+442	{1} · bereits hinzugefügt
+443	„Bildschirm übertragen“. (Samsungs „Smart View“ nutzt Miracast, das viele Android TVs ignorieren.)
+444	„Schnellstart“ (Einstellungen → Netzwerk und Internet oder System → Energie).
+445	„Netflix öffnen“ per Sprache
+446	„Netflix öffnen“, „Actionfilme“…
+447	„Télécommande TV“, falls noch installiert, starten Sie das Bluetooth des Handys neu und versuchen Sie es erneut.
+448	„TV ansehen“ funktioniert mit einem per WLAN verbundenen Android TV.
+449	„{1}“: TV nicht verbunden
+450	„{1}“ gehört zu OmniZap Pro. Ihr {2}-tägiger Test ist beendet.
+451	Sicherung fehlgeschlagen: {1}
+452	Bildschirm
+453	TV-Bildschirm live
+454	TV-Bildschirm nicht verfügbar: {1}
+455	Handybildschirm wird auf dem TV angezeigt
+456	Handybildschirm an den TV gesendet ({1} × {2})
+457	Bildschirm auf dem TV gespiegelt
+458	Bildschirm ohne Ton gesendet („Mikrofon“-Berechtigung verweigert)
+459	Aus · Einschalten drücken
+460	aus weniger als 3 Metern. Sie können neu starten oder „Andere Marke“ versuchen.
+461	○ Bluetooth-Fernbedienung des Handys wird vorbereitet…
+462	● Handy als Bluetooth-Fernbedienung bereit
+463	● Handy als energiesparende Fernbedienung sichtbar
+464	✓ MAC-Adresse gefunden und gespeichert: {1}
+465	＋ TV hinzufügen
+466	Verbunden mit {1}
+467	Fotos und Videos auf dem TV
+468	Zurück

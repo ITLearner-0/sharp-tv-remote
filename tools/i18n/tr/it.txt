@@ -1,0 +1,469 @@
+0	Accendi la TV
+1	Interrompi la duplicazione
+2	Interrompi la presentazione
+3	Screenshot della TV
+4	Acquisizione…
+5	Scegli altri file
+6	Scegli foto e video
+7	Scegli un'altra marca
+8	Connesso a {1}
+9	Presentazione (6 s per foto)
+10	Duplica lo schermo (Google Home)
+11	Duplica lo schermo sulla TV
+12	Prova Pro: {1} giorno/i rimanente/i
+13	Installa Google Home per duplicare lo schermo
+14	Caricamento…
+15	Elenca tutte le app della TV
+16	Sì, aggiungi questa TV
+17	Sì, usa questi codici
+18	Passa a OmniZap Pro
+19	Foto e video del telefono
+20	Foto e video sulla TV
+21	Ricerca di TV compatibili con Google Cast (Chromecast integrato)…
+22	Ricerca di TV in rete
+23	Ricerca…
+24	Indietro
+25	Torna al telecomando
+26	TV normale o vecchia?
+27	TV trovata!
+28	{1}: senza Google Cast
+29	{1}: visualizzatore del telecomando
+30	{1} TV trovate!
+31	(immagine del telefono)
+32	(serve un telefono con emettitore infrarossi).
+33	({1} ignorati)
+34	· connesso
+35	(È diverso dall'abbinamento Bluetooth, che non lo sostituisce.)
+36	(Android TV, Samsung, LG, decoder…).
+37	(serve anche per l'elenco delle app).
+38	(accende/spegne {1}).
+39	(o il menu Bluetooth): la TV diventa visibile.
+40	(per esempio la vecchia app «Télécommande TV», o un'app tastiera/mouse Bluetooth):
+41	(backup più vecchio: Download → Télécommande TV).
+42	1. Sulla TV, apri Impostazioni → Telecomandi e accessori → Aggiungi accessorio
+43	1. Tocca il pulsante qui sotto: il telefono si annuncia come telecomando.
+44	2. Qui, tocca «Cerca la TV» e poi il nome della TV.
+45	2. Sulla TV: Impostazioni → Telecomandi e accessori → Aggiungi accessorio,
+46	3. Accetta l'abbinamento sulla TV e sul telefono: OmniZap si connette.
+47	3. «Connesso a …» appare sopra: prova Home.
+48	Home
+49	Accesso a vita · {1}
+50	Acquisto di OmniZap Pro ripristinato, grazie!
+51	Attiva il Bluetooth
+52	Indirizzo IP
+53	Indirizzo IP mancante
+54	Indirizzo MAC (per accendere la TV)
+55	Indirizzo MAC della TV
+56	Indirizzo MAC della TV sconosciuto: accendi la TV a mano una volta o inseriscilo in ⚙
+57	Indirizzo MAC non trovato automaticamente. Inseriscilo sopra: sulla TV,
+58	Indirizzo MAC non valido
+59	Indirizzo MAC non valido (esempio: A4:B1:C2:D3:E4:F5)
+60	Aggiungi una TV
+61	Accensione di {1}…
+62	Accende la TV, anche se è spenta
+63	Accendi prima la TV
+64	Accendi la TV e resta sulla stessa Wi-Fi: apparirà qui sotto.
+65	Accesa
+66	Android non risponde alla richiesta della modalità telecomando Bluetooth. Su alcuni telefoni,
+67	Android rifiuta la connessione Bluetooth con questa TV. Disinstalla la vecchia app
+68	Annulla
+69	Abbinamento interrotto, ricomincia
+70	Dispositivi già abbinati (tocca la TV per connetterti):
+71	App
+72	App TV
+73	Stop
+74	Abbina di nuovo
+75	Configura l'infrarosso
+76	Configura il Bluetooth
+77	Associa a questa TV
+78	Abbinato ({1})
+79	Consiglio: se Menu o Guida non fa nulla, tieni premuto il tasto per scegliere
+80	Nessun acquisto di OmniZap Pro su questo account Google
+81	Nessun account, nessuna raccolta di dati. Le tue impostazioni restano sul telefono, da nessun'altra parte.
+82	Nessuno dei {1} set di codici ha funzionato.
+83	Nessun link da aprire sulla TV
+84	Nessuna TV Google Cast trovata per ora
+85	Nessuna TV salvata
+86	Nessuna app corrispondente.
+87	Nessun dato inviato
+88	Nessuna foto o video scelto.
+89	Automatico: Wi-Fi, Bluetooth se la TV non risponde
+90	Automatico: Wi-Fi, infrarosso se la TV non risponde
+91	Consenti
+92	Consenti a OmniZap di usare il Bluetooth («Dispositivi nelle vicinanze»).
+93	Consenti il microfono per la ricerca vocale
+94	Altra marca / non lo so
+95	Altro metodo: dalla TV
+96	Altre app
+97	Avanti veloce
+98	Avanti 30 s
+99	Giù
+100	Molto più di un telecomando
+101	Bluetooth: TV non connessa
+102	Bluetooth: connessione alla TV… riprova tra un attimo
+103	Bluetooth: nessuna rete
+104	Bluetooth associato: il telecomando lo userà se la TV non risponde via Wi-Fi.
+105	Bluetooth classico (altre TV, decoder, computer)…
+106	Bluetooth classico: dal telefono
+107	Bluetooth · connesso
+108	Bluetooth · connessione… (TV accesa, a portata)
+109	Tasti del telecomando nelle notifiche e sulla schermata di blocco
+110	Acquisizione salvata: {1}/{2}
+111	Acquisizione salvata nella galleria (Immagini/OmniZap)
+112	Acquisizione non riuscita: {1}
+113	Questo file non è un backup di OmniZap
+114	Questo telefono ha un emettitore infrarossi: può comandare qualsiasi TV,
+115	Questo telefono non ha un emettitore infrarossi
+116	Questo telefono non ha un emettitore infrarossi. Questa funzione va sui telefoni che
+117	Questo telefono non consente la modalità telecomando Bluetooth (rifiutata da Android)
+118	Questo telefono non consente la modalità telecomando Bluetooth.
+119	Questa TV non accetta l'audio del microfono: tocca solo Voce
+120	Questo tasto non esiste in Bluetooth
+121	Questo tasto non esiste per questo modello di TV
+122	Cambia TV
+123	Cambia codici
+124	Canale precedente
+125	Canali in diretta
+126	Scegli la TV
+127	Tastiera
+128	Codice errato: un nuovo codice apparirà sulla TV
+129	Codici: {1}
+130	Codici non ancora confermati su una TV reale: la tua prova conta!
+131	Comandi vocali
+132	Inizia
+133	Configura l'infrarosso
+134	Configura il Bluetooth
+135	Connetti
+136	Connetti la tua TV
+137	Connessione persa durante la digitazione
+138	Connessione persa, riconnessione…
+139	Connessione allo schermo della TV…
+140	Continua
+141	Copia
+142	Copia il rapporto
+143	Copiato ✓
+144	In Google Home, tocca la TV e poi «Trasmetti il mio schermo»
+145	Presentazione e video a schermo intero sulla TV. Anche dalla Galleria: Condividi → «Apri sulla TV».
+146	Destra
+147	Duplicazione
+148	Duplicazione dello schermo
+149	Duplicazione dello schermo, con audio
+150	Duplicazione impossibile: {1}
+151	Sblocca (test)
+152	Sblocca OmniZap Pro
+153	Scopri OmniZap Pro
+154	Apri le impostazioni rapide e tocca «Trasmetti» o «Smart View», poi scegli la TV
+155	Rileva l'indirizzo MAC automaticamente
+156	Rilevamento…
+157	Cancella
+158	In standby
+159	Salva
+160	Invia
+161	Errore imprevisto ({1})
+162	Prova gratuita: ancora {1} giorno/i con tutte le funzioni.
+163	Prova {1} di {2}
+164	Prova
+165	Prova: Home
+166	Prova: il tasto Home qui sotto deve agire sulla TV.
+167	Esporta
+168	Preferiti
+169	Chiudi
+170	Frecce
+171	Funzione di OmniZap Pro
+172	Funzione di OmniZap Pro: apri OmniZap per sbloccarla
+173	Tieni
+174	Tieni aperta questa schermata durante un video: la TV legge il file direttamente dal telefono.
+175	Sinistra
+176	Scorri per navigare
+177	Google Cast ha interrotto la trasmissione sulla TV
+178	Google Cast non è disponibile su questo telefono
+179	Google Cast non è disponibile su questo telefono.
+180	Google Cast → niente
+181	Google Play non è raggiungibile
+182	Guida TV
+183	Su
+184	Fuori rete · Bluetooth
+185	Fuori rete · connessione Bluetooth…
+186	Fuori rete · infrarosso (punta la TV)
+187	Serve un telefono con emettitore infrarossi (molti Xiaomi, Redmi e Poco, alcuni Huawei e Honor).
+188	Ora appare sullo schermo della TV.
+189	Solo immagine, niente audio. I contenuti protetti (Netflix, canali TV…)
+190	Impossibile con una TV comandata via infrarosso o Bluetooth
+191	Impossibile aprire {1}: attiva il «Debug USB» sulla TV
+192	Impossibile salvare il file
+193	Impossibile raggiungere la TV: verifica che sia accesa, l'indirizzo e la Wi-Fi
+194	Impossibile leggere il file
+195	Infrarosso
+196	Infrarosso: tutte le marche
+197	Infrarosso associato: il telecomando lo userà se la TV non risponde via Wi-Fi.
+198	Infrarosso · punta la TV
+199	Set di codici infrarossi non trovato: elimina e aggiungi di nuovo la TV
+200	Registro
+201	Registro Bluetooth
+202	L'acquisto avverrà tramite Google Play, quando OmniZap sarà pubblicato. Nel frattempo, goditi la prova.
+203	L'app ha riscontrato un errore. Tocca «Copia» e incolla questo testo nel tuo
+204	L'apertura delle app
+205	Lo schermo della TV sul telefono
+206	Lo schermo del telefono (o una sola app) appare sulla TV, senza Google Cast né
+207	La TV ha accettato il file
+208	La TV ha interrotto la duplicazione
+209	La TV ha rifiutato la connessione Bluetooth. Verifica che l'abbinamento sia stato
+210	La TV ha rifiutato il file (codice {1})
+211	La TV ha reagito?
+212	La TV è già spenta
+213	La TV è spenta?
+214	La TV non ha avviato l'abbinamento. Riprova.
+215	La TV non ha aperto la ricerca vocale
+216	La TV non è riuscita ad aprire il visualizzatore: {1}
+217	La TV non ha reagito al comando di accensione.
+218	La TV non ha reagito al comando di spegnimento. Attiva il «Debug USB» sulla TV
+219	La TV non ha reagito allo standby.
+220	La TV non invia il suo schermo. Verifica che il debug ADB sia autorizzato
+221	La TV non è abbinata al telefono: cercala e accetta l'abbinamento.
+222	La TV non riconosce più questo telefono via Wi-Fi.
+223	La TV non risponde al risveglio: attiva sulla TV lo standby di rete / «Wake on LAN» (vedi ⚙)
+224	Il rilevamento dell'indirizzo MAC
+225	L'elenco delle app
+226	La digitazione del testo
+227	Il telecomando resta gratuito: tutti i tasti, il touchpad, la tastiera, l'infrarosso e l'accensione della TV.
+228	Il telecomando universale della tua TV, sul tuo telefono.
+229	Il Bluetooth richiede Android 9 o successivo
+230	Il Bluetooth del telefono è disattivato.
+231	La modalità telecomando Bluetooth del telefono è già usata da un'altra app
+232	Il protocollo dei telecomandi originali delle Android TV.
+233	Il telefono e la TV lavorano insieme.
+234	Il telefono si annuncia già come telecomando appena si apre questa schermata (righe «BLE:» del registro).
+235	Il telefono si presenta alla TV come telecomando e tastiera Bluetooth:
+236	Riproduci / pausa
+237	Riproduzione impossibile: attiva il «Debug USB» nelle opzioni
+238	Gli accenti e alcuni simboli non possono essere digitati via Bluetooth
+239	Gli accenti e alcuni simboli non possono essere digitati a distanza
+240	Le lettere accentate sono sostituite dalla lettera semplice (é → e).
+241	Le app della TV, con le loro icone
+242	Le app della TV, con un tocco
+243	Non tutti i produttori usano lo stesso comando. Tocca «Prova» per provare
+244	Le notifiche dell'app sono bloccate: consentile nella pagina che si apre
+245	Le impostazioni sono anche copiate automaticamente in Download/OmniZap,
+246	Accendi
+247	Accensione, volume e riproduzione, anche a schermo bloccato
+248	Nascondi il Bluetooth classico
+249	Menu contestuale della TV
+250	Menu di trasmissione del telefono (Miracast)
+251	Menu dei contenuti della TV
+252	Menu principale (media)
+253	Menu Android standard
+254	Grazie! Tutte le funzioni sono sbloccate per sempre.
+255	Le mie TV
+256	Miracast, tramite il debug ADB, con l'audio delle app (Android 10 o successivo).
+257	Aggiornamento dell'elenco…
+258	Muto
+259	Nome
+260	Non configurato. Il telefono può fare da telecomando Bluetooth quando la Wi-Fi non risponde,
+261	Non configurato. Utile per accendere la TV completamente spenta o quando la Wi-Fi non risponde
+262	No, successivo
+263	Apertura di {1}…
+264	Apertura del ricevitore su {1}…
+265	Apertura su {1}…
+266	Dove trovare l'indirizzo MAC: sulla TV (Impostazioni → Info → Stato, o Rete), nell'
+267	Pagamento unico. Nessun abbonamento, nessuna pubblicità.
+268	Impostazioni
+269	Impostazioni (avanzate)
+270	Impostazioni → Rete e Internet → la tua rete, oppure Impostazioni → Info → Stato.
+271	Parla…
+272	Nessun emettitore infrarossi
+273	Non ancora connesso a una TV: sceglila nell'elenco
+274	Salta
+275	Passa al Bluetooth classico (per la modalità a basso consumo)
+276	Tastierino numerico
+277	Touchpad
+278	Foto, video e schermo sulla TV
+279	Metti prima il cursore in un campo di testo sulla TV (ricerca, password…) e poi scrivi qui.
+280	Play Giochi
+281	Più tardi
+282	Più TV
+283	Punta la parte alta del telefono verso la TV e prova i tasti.
+284	Per accendere la TV spenta, deve mantenere la rete in standby. Sulla TV, attiva
+285	Per le TV che elencano i telefoni (Samsung, LG, decoder…). Le Android TV e Google TV
+286	Per vederle tutte, attiva il «Debug USB» sulla TV e tocca il pulsante qui sopra.
+287	Per una TV con Chromecast integrato, la duplicazione passa da Google Home: tocca la TV poi
+288	Prezzo di lancio
+289	Programmi
+290	Precedente
+291	Precedente
+292	Una volta abbinata, la TV appare sopra come «Connessa».
+293	Di che marca è la TV?
+294	Rapporto OmniZap
+295	Rapporto copiato
+296	Ricerca di «{1}» sulla TV
+297	Ricerca… Se non appare nulla, verifica che la TV sia accesa e sulla stessa Wi-Fi di questo telefono.
+298	Cerca la TV
+299	Cerca un'app
+300	Ricerca… Se la TV chiede «Consentire il debug?», accetta con le frecce.
+301	Ricomincia
+302	Riconoscimento vocale non disponibile su questo telefono
+303	Indietro 10 s
+304	Abbina di nuovo via Wi-Fi
+305	Abbina di nuovo via Wi-Fi: un codice di 6 caratteri apparirà sulla TV.
+306	Riavvia l'annuncio (BLE)
+307	Rendi visibile il telefono (2 min)
+308	Ripristino non riuscito: {1}
+309	Ripristina
+310	Ripristina il mio acquisto
+311	Ripristina un backup
+312	Ripristina le tue TV dal backup: Download → OmniZap → {1}
+313	Rimuovi
+314	Riavvolgi
+315	Riprova
+316	Impostazioni
+317	Impostazioni TV
+318	Impostazioni rapide
+319	Risveglio della TV tramite la rete…
+320	Inserisci l'indirizzo IP della TV
+321	Inserisci l'indirizzo IP della TV
+322	Inserisci il codice
+323	Senza Google Cast: un piccolo visualizzatore viene installato sulla TV tramite il debug ADB.
+324	Niente pubblicità, niente abbonamento
+325	Senza rete né infrarosso: il telefono può anche fare da telecomando e tastiera Bluetooth
+326	Backup salvato
+327	Backup locale
+328	Connetti
+329	Appaiono solo le app comuni e quelle già aperte sulla TV.
+330	Se la TV chiede «Consentire il debug?», seleziona «Consenti sempre»
+331	Segnale di risveglio inviato: la TV dovrebbe apparire nell'elenco entro 30 secondi.
+332	Sottotitoli
+333	Successivo
+334	Elimina
+335	Elimina questa TV
+336	Eliminare «{1}» dal telecomando? Dovrai abbinarla di nuovo per recuperarla.
+337	Sulla TV: Impostazioni → Rete e Internet → la tua Wi-Fi.
+338	TV connessa
+339	TV in diretta
+340	TV irraggiungibile
+341	TV non connessa
+342	TV trovate:
+343	TV spenta: premi prima Accendi
+344	TV spenta: premi prima ⏻
+345	Testo da inviare…
+346	Tasto «{1}»
+347	Tocca per OK
+348	Tocca «Stop» per interrompere la duplicazione
+349	Sempre infrarosso
+350	Sempre Bluetooth
+351	Sempre Wi-Fi
+352	Tutte le app
+353	Tutte le tue TV
+354	Riquadro: impostazioni rapide → modifica → «TV». Condividi: in YouTube o nel
+355	Telecomando
+356	Telecomando ({1})
+357	Telecomando: {1}
+358	Telecomando Bluetooth
+359	Telecomando Bluetooth:
+360	Telecomando TV OmniZap
+361	Telecomando aggiunto alle notifiche: apri la tendina delle notifiche
+362	Telecomando a basso consumo (Android TV, Google TV)
+363	Telecomando nelle notifiche
+364	Telecomando a infrarossi
+365	Telecomando a infrarossi: {1}.
+366	Telefono senza Wi-Fi · connettilo alla Wi-Fi della TV
+367	Televisione in diretta
+368	Si è verificato un problema
+369	Una TV collegata via cavo Ethernet si risveglia in modo più affidabile che via Wi-Fi.
+370	Una TV spenta non è visibile in rete. Se accetta il risveglio tramite la rete,
+371	Usa questa TV
+372	Usa l'infrarosso
+373	Usa il Bluetooth
+374	Conferma
+375	Standby
+376	Visualizzatore del telecomando (debug ADB). Sceglilo se Google Cast interrompe la trasmissione.
+377	Visualizzatore del telecomando su {1}
+378	Visualizzatore aperto sulla TV
+379	Guarda la TV
+380	Guarda la TV sul telefono
+381	Voce
+382	I tuoi dati restano tuoi
+383	La tua prova di {1} giorni è terminata.
+384	Hai già usato l'app?
+385	Verifica che nulla copra l'emettitore (in cima al telefono) e punta il sensore della TV,
+386	Wi-Fi: rilevamento automatico
+387	Wi-Fi non trovata: il telefono deve essere sulla stessa rete della TV
+388	Wi-Fi per le Android TV e Google TV, infrarosso e Bluetooth per le altre, anche senza rete.
+389	Widget: tieni premuto sulla schermata Home → Widget → OmniZap.
+390	Widget, notifica e impostazioni rapide
+391	accettato sulla TV, poi tocca di nuovo la TV in «Dispositivi già abbinati».
+392	appaiono neri. Tocca l'immagine per «OK», scorri per le frecce.
+393	nessuna TV Wi-Fi salvata
+394	acquisizione dello schermo interrotta
+395	acquisizione dello schermo rifiutata
+396	ogni opzione sulla TV e tieni quella che funziona.
+397	come un telecomando normale.
+398	connessa
+399	debug ADB della TV irraggiungibile ({1})
+400	disinstallala, spegni e riaccendi il Bluetooth e tocca «Riprova».
+401	in pausa
+402	codificatore video non disponibile
+403	errore di riproduzione (formato non supportato dalla TV?)
+404	ed elenca le app una volta: il telecomando potrà spegnerla.
+405	file irraggiungibile
+406	galleria irraggiungibile
+407	set di codici sconosciuto
+408	la TV non ha aperto il ricevitore: {1}
+409	la TV non ha restituito alcuna immagine
+410	il comando adatto alla tua TV.
+411	il produttore ha disattivato questa funzione. Tocca «Riprova» dopo aver spento e riacceso il Bluetooth.
+412	in riproduzione
+413	sviluppatore della TV e accetta la richiesta di autorizzazione.
+414	elenco dei dispositivi del router, o sull'etichetta dietro la TV.
+415	messaggio per farlo correggere.
+416	spesso mostrano solo tastiere e controller: usa allora il metodo qui sopra.
+417	browser, Condividi → «Apri sulla TV».
+418	non annunciato
+419	non connesso (la TV deve essere accesa e a portata)
+420	non letto
+421	ne hanno uno (molti Xiaomi, Redmi e Poco, alcuni Huawei e Honor).
+422	compatibile
+423	poi scegli OK con le frecce di questo telecomando (1 minuto).
+424	poi scegli il telefono (il suo nome Bluetooth) e accetta l'abbinamento.
+425	inserisci il suo indirizzo MAC: si accenderà e apparirà nell'elenco qui sopra.
+426	senza rete, a una decina di metri.
+427	senza rete, a una decina di metri. (Versione {1})
+428	a seconda del modello «Wake on LAN», «Risveglio tramite rete», «Standby di rete» o
+429	terminato
+430	un file conservato se l'app viene disinstallata.
+431	{1}: Bluetooth non connesso
+432	{1} TV ripristinata/e. Se la TV lo chiede, abbinala di nuovo.
+433	{1} aggiunta.
+434	{1} aggiunta. Punta la TV con la parte alta del telefono.
+435	{1} app: elenco esatto della TV, con i nomi reali.
+436	{1} app installate (nomi approssimativi: la lettura dettagliata non è riuscita).
+437	{1} è irraggiungibile
+438	{1} è irraggiungibile: accendila prima
+439	{1} file scelto/i
+440	{1} non è disponibile con una TV comandata via Bluetooth
+441	{1} non è disponibile con una TV comandata via infrarosso
+442	{1} · già aggiunta
+443	«Trasmetti il mio schermo». (Lo «Smart View» di Samsung usa Miracast, che molte Android TV ignorano.)
+444	«Avvio rapido» (Impostazioni → Rete e Internet, o Sistema → Alimentazione).
+445	«Apri Netflix» a voce
+446	«Apri Netflix», «film d'azione»…
+447	«Télécommande TV» se è ancora installata, riavvia il Bluetooth del telefono e riprova.
+448	«Guarda la TV» funziona con una Android TV connessa via Wi-Fi.
+449	«{1}»: TV non connessa
+450	«{1}» fa parte di OmniZap Pro. La tua prova di {2} giorni è terminata.
+451	Backup non riuscito: {1}
+452	Schermo
+453	Schermo della TV in diretta
+454	Schermo della TV non disponibile: {1}
+455	Schermo del telefono mostrato sulla TV
+456	Schermo del telefono inviato alla TV ({1} × {2})
+457	Schermo duplicato sulla TV
+458	Schermo inviato senza audio (permesso «Microfono» negato)
+459	Spenta · premi Accendi
+460	a meno di 3 metri. Puoi ricominciare o provare «Altra marca».
+461	○ Preparazione del telecomando Bluetooth del telefono…
+462	● Telefono pronto come telecomando Bluetooth
+463	● Telefono visibile come telecomando a basso consumo
+464	✓ Indirizzo MAC trovato e salvato: {1}
+465	＋ Aggiungi una TV
+466	Connesso a {1}
+467	Foto e video sulla TV
+468	Indietro

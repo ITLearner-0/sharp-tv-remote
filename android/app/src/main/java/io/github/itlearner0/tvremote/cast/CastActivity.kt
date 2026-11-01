@@ -74,6 +74,10 @@ import io.github.itlearner0.tvremote.ui.RemoteTheme
 
 /** Écran d'envoi des photos et vidéos du téléphone vers la TV (Google Cast). */
 class CastActivity : ComponentActivity() {
+
+    override fun attachBaseContext(base: android.content.Context) {
+        super.attachBaseContext(io.github.itlearner0.tvremote.i18n.AppLanguage.wrap(base))
+    }
     private val vm: CastViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {

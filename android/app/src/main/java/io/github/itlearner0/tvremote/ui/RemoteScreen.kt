@@ -611,7 +611,7 @@ private fun ScreenPanel() {
         }
         val mirrorReport by MirrorService.report.collectAsState()
         Text(
-            mirrorStatus?.takeIf { mirroring || mirrorReport != null || it.startsWith(tr("Duplication")) }
+            mirrorStatus?.takeIf { mirroring || mirrorReport != null || it.startsWith(tr("Duplication impossible : {1}").substringBefore("{1}")) }
                 ?: (tr("L'écran du téléphone (ou une seule application) s'affiche sur la TV, sans Google Cast ni ") +
                     tr("Miracast, par le débogage ADB, avec le son des applications (Android 10 et plus).")),
             color = Muted,

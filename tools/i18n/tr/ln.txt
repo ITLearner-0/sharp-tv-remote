@@ -1,0 +1,469 @@
+0	Pelisa TV
+1	Telemisa kolakisa ekrani
+2	Telemisa kolakisa bafoto
+3	Foto ya ekrani ya TV
+4	Ezali kozwa…
+5	Pona bafisye mosusu
+6	Pona bafoto mpe bavideo
+7	Pona marque mosusu
+8	Ekangami na {1}
+9	Kolakisa bafoto (basekondi 6 na foto moko)
+10	Lakisa ekrani (Google Home)
+11	Lakisa ekrani na TV
+12	Komeka Pro: mikolo {1} etikali
+13	Tia Google Home mpo na kolakisa ekrani
+14	Ezali kokota…
+15	Lakisa ba-application nyonso ya TV
+16	Iyo, bakisa TV oyo
+17	Iyo, salela bakode oyo
+18	Kende na OmniZap Pro
+19	Bafoto mpe bavideo ya telefone
+20	Bafoto mpe bavideo na TV
+21	Ezali koluka ba-TV oyo ezali na Google Cast (Chromecast na kati)…
+22	Ezali koluka ba-TV na réseau
+23	Ezali koluka…
+24	Zonga
+25	Zonga na télécommande
+26	TV ya momesano to ya kala?
+27	TV emonani!
+28	{1}: ezangi Google Cast
+29	{1}: momoni ya télécommande
+30	Ba-TV {1} emonani!
+31	(elili ya telefone)
+32	(esengeli telefone oyo ezali na mwinda ya infrarouge).
+33	({1} etikami)
+34	· ekangami
+35	(Yango ekeseni na kokangisa Bluetooth, oyo ekoki kozwa esika na yango te.)
+36	(Android TV, Samsung, LG, décodeur…).
+37	(esalisaka mpe mpo na liste ya ba-application).
+38	(epelisaka/ekufisaka {1}).
+39	(to menu ya Bluetooth): TV ekomonana.
+40	(ndakisa application ya kala «Télécommande TV», to application ya clavier/souris Bluetooth):
+41	(sauvegarde ya kala: Downloads → Télécommande TV).
+42	1. Na TV, fungola Paramètres → Ba-télécommande mpe accessoires → Bakisa accessoire
+43	1. Finá bouton oyo ezali na nse: telefone ekomilakisa lokola télécommande.
+44	2. Awa, finá «Luka TV», sima nkombo ya TV.
+45	2. Na TV: Paramètres → Ba-télécommande mpe accessoires → Bakisa accessoire,
+46	3. Ndima kokangisa na TV mpe na telefone: OmniZap ekokangama.
+47	3. «Ekangami na …» ekomonana likolo: meka Ndako.
+48	Ndako
+49	Kokota mpo na libela · {1}
+50	Kosomba OmniZap Pro ezongi, matondi!
+51	Pelisa Bluetooth
+52	Adresi IP
+53	Adresi IP ezali te
+54	Adresi MAC (mpo na kopelisa TV)
+55	Adresi MAC ya TV
+56	Adresi MAC ya TV eyebani te: pelisa TV na loboko mbala moko to koma yango na ⚙
+57	Adresi MAC emonani yango moko te. Koma yango likolo: na TV,
+58	Adresi MAC ezali malamu te
+59	Adresi MAC ezali malamu te (ndakisa: A4:B1:C2:D3:E4:F5)
+60	Bakisa TV
+61	Ezali kopelisa {1}…
+62	Epelisaka TV, ata soki ekufi
+63	Pelisa TV liboso
+64	Pelisa TV mpe tikala na Wi-Fi moko: ekomonana na nse.
+65	Epeli
+66	Android ezongisi eyano te na bosenga ya télécommande Bluetooth. Na ba-telefone mosusu,
+67	Android eboyi boyokani ya Bluetooth na TV oyo. Longola application ya kala
+68	Tika
+69	Kokangisa etelemi, banda lisusu
+70	Bisaleli oyo bikangisami kala (finá TV mpo na kokangama):
+71	Ba-application
+72	Ba-application ya TV
+73	Telema
+74	Kangisa lisusu
+75	Bongisa infrarouge
+76	Bongisa Bluetooth
+77	Kangisa na TV oyo
+78	Ekangisami ({1})
+79	Toli: soki Menu to Guide esali eloko te, finá bouton mpe simba yango mpo na kopona
+80	Kosomba moko te ya OmniZap Pro na compte Google oyo
+81	Compte te, kosangisa ba-données te. Ba-paramètres na yo etikalaka na telefone, esika mosusu te.
+82	Ata moko te kati na masanga {1} ya bakode esali.
+83	Lien moko te ya kofungola na TV
+84	TV ya Google Cast emonani naino te
+85	TV moko te ebombami
+86	Application moko te ekokani.
+87	Ba-données moko te etindami
+88	Oponi foto to video moko te.
+89	Automatique: Wi-Fi, Bluetooth soki TV ezongisi eyano te
+90	Automatique: Wi-Fi, infrarouge soki TV ezongisi eyano te
+91	Pesa ndingisa
+92	Pesa OmniZap ndingisa ya kosalela Bluetooth («Bisaleli ya pembeni»).
+93	Pesa ndingisa na micro mpo na koluka na mongongo
+94	Marque mosusu / nayebi te
+95	Lolenge mosusu: na nzela ya TV
+96	Ba-application mosusu
+97	Kende liboso noki
+98	Liboso basekondi 30
+99	Nse
+100	Koleka mingi télécommande
+101	Bluetooth: TV ekangami te
+102	Bluetooth: ezali kokangama na TV… meka lisusu sima ya mwa ntango
+103	Bluetooth: réseau ezali te
+104	Bluetooth ekangisami: télécommande ekosalela yango soki TV ezongisi eyano te na Wi-Fi.
+105	Bluetooth classique (ba-TV mosusu, décodeur, ordinateur)…
+106	Bluetooth classique: na nzela ya telefone
+107	Bluetooth · ekangami
+108	Bluetooth · ezali kokangama… (TV epeli, ezali pembeni)
+109	Ba-bouton ya télécommande na ba-notification mpe na ekrani oyo ekangami
+110	Foto ebombami: {1}/{2}
+111	Foto ebombami na galerie (Pictures/OmniZap)
+112	Kozwa foto elongi te: {1}
+113	Fisye oyo ezali sauvegarde ya OmniZap te
+114	Telefone oyo ezali na mwinda ya infrarouge: ekoki kotambwisa TV nyonso,
+115	Telefone oyo ezangi mwinda ya infrarouge
+116	Telefone oyo ezangi mwinda ya infrarouge. Likoki oyo esalaka na ba-telefone oyo
+117	Telefone oyo endimaka télécommande Bluetooth te (Android eboyi)
+118	Telefone oyo endimaka télécommande Bluetooth te.
+119	TV oyo endimaka mongongo ya micro te: finá kaka Mongongo
+120	Bouton oyo ezali te na Bluetooth
+121	Bouton oyo ezali te mpo na modèle oyo ya TV
+122	Bongola TV
+123	Bongola bakode
+124	Chaîne ya liboso
+125	Ba-chaîne ya live
+126	Pona TV
+127	Clavier
+128	Kode ya mabe: kode ya sika ekomonana na TV
+129	Bakode: {1}
+130	Bakode endimami naino te na TV ya solo: komeka na yo ezali na ntina!
+131	Mitindo na mongongo
+132	Banda
+133	Bongisa infrarouge
+134	Bongisa Bluetooth
+135	Kangama
+136	Kangisa TV na yo
+137	Boyokani ekatani ntango ozalaki kokoma
+138	Boyokani ekatani, ezali kokangama lisusu…
+139	Ezali kokangama na ekrani ya TV…
+140	Kobanda lisusu
+141	Kopi
+142	Kopi rapport
+143	Ekopiami ✓
+144	Na Google Home, finá TV, sima «Tinda ekrani na ngai»
+145	Kolakisa bafoto mpe bavideo na ekrani mobimba ya TV. Mpe na Galerie: Kabola → «Fungola na TV».
+146	Mobali
+147	Kolakisa ekrani
+148	Kolakisa ekrani
+149	Kolakisa ekrani, elongo na mongongo
+150	Kolakisa ekrani ekoki te: {1}
+151	Fungola (komeka)
+152	Fungola OmniZap Pro
+153	Yeba OmniZap Pro
+154	Fungola ba-paramètres ya noki mpe finá «Cast» to «Smart View», sima pona TV
+155	Luka adresi MAC yango moko
+156	Ezali koluka…
+157	Longola
+158	Na veille
+159	Bomba
+160	Tinda
+161	Libunga oyo ezalaki kokanisama te ({1})
+162	Komeka ya ofele: mikolo {1} lisusu na makoki nyonso.
+163	Komeka {1} na {2}
+164	Meka
+165	Meka: Ndako
+166	Komeka: bouton Ndako na nse esengeli kosala na TV.
+167	Bimisa
+168	Oyo olingaka
+169	Kanga
+170	Ba-flèche
+171	Likoki ya OmniZap Pro
+172	Likoki ya OmniZap Pro: fungola OmniZap mpo na kofungola yango
+173	Bomba
+174	Tika ekrani oyo efungwama ntango video ezali kotambola: TV etangaka fisye mbala moko na telefone.
+175	Mwasi
+176	Benda mosapi mpo na kotambola
+177	Google Cast etelemisi kotinda na TV
+178	Google Cast ezali te na telefone oyo
+179	Google Cast ezali te na telefone oyo.
+180	Google Cast → eloko te
+181	Google Play ekoki kokomama te
+182	Guide ya ba-programme
+183	Likolo
+184	Réseau te · Bluetooth
+185	Réseau te · ezali kokangama na Bluetooth…
+186	Réseau te · infrarouge (tala TV)
+187	Osengeli na telefone oyo ezali na mwinda ya infrarouge (ebele ya Xiaomi, Redmi mpe Poco, mosusu ya Huawei mpe Honor).
+188	Sikoyo ezali komonana na ekrani ya TV.
+189	Elili kaka, mongongo te. Biloko oyo ebatelami (Netflix, ba-chaîne ya TV…)
+190	Ekoki te na TV oyo etambwisami na infrarouge to Bluetooth
+191	Ekoki kofungola {1} te: pelisa «USB debugging» na TV
+192	Ekoki kobomba fisye te
+193	Ekoki kokoma na TV te: tala soki epeli, adresi mpe Wi-Fi
+194	Ekoki kotanga fisye te
+195	Infrarouge
+196	Infrarouge: ba-marque nyonso
+197	Infrarouge ekangisami: télécommande ekosalela yango soki TV ezongisi eyano te na Wi-Fi.
+198	Infrarouge · tala TV
+199	Lisanga ya bakode infrarouge emonani te: longola TV mpe bakisa yango lisusu
+200	Journal
+201	Journal ya Bluetooth
+202	Kosomba ekosalema na Google Play ntango OmniZap ekobima kuna. Kino wana, sepela na komeka.
+203	Application ekutani na libunga. Finá «Kopi» sima tia makomi oyo na
+204	Kofungola ba-application
+205	Ekrani ya TV na telefone
+206	Ekrani ya telefone (to application moko kaka) ekomonana na TV, kozanga Google Cast to
+207	TV endimi fisye
+208	TV etelemisi kolakisa ekrani
+209	TV eboyi boyokani ya Bluetooth. Tala soki kokangisa
+210	TV eboyi fisye (kode {1})
+211	TV eyanoli?
+212	TV ekufi kala
+213	TV ekufi?
+214	TV ebandi kokangisa te. Meka lisusu.
+215	TV efungoli koluka na mongongo te
+216	TV ekoki kofungola momoni te: {1}
+217	TV eyanoli te na mitindo ya kopela.
+218	TV eyanoli te na mitindo ya kokufa. Pelisa «USB debugging» na TV
+219	TV eyanoli te na veille.
+220	TV etindaka ekrani na yango te. Tala soki ADB debugging endimami
+221	TV ekangisami na telefone te: luka yango mpe ndima kokangisa.
+222	TV eyebi lisusu telefone oyo te na Wi-Fi.
+223	TV eyanolaka te na kolamwisa: pelisa na TV veille ya réseau / «Wake on LAN» (tala ⚙)
+224	Koluka adresi MAC
+225	Liste ya ba-application
+226	Kokoma makomi
+227	Télécommande etikali ofele: ba-bouton nyonso, touchpad, clavier, infrarouge mpe kopelisa TV.
+228	Télécommande ya mokili mobimba mpo na TV na yo, na telefone na yo.
+229	Bluetooth esengi Android 9 to ya sika koleka
+230	Bluetooth ya telefone ekufi.
+231	Application mosusu ezali kosalela télécommande Bluetooth ya telefone
+232	Protocole ya ba-télécommande ya ebandeli ya Android TV.
+233	Telefone mpe TV basalaka elongo.
+234	Telefone ekomilakisa lokola télécommande soki ekrani oyo efungwami (milongo «BLE:» na journal).
+235	Telefone ekomilakisa na TV lokola télécommande mpe clavier Bluetooth:
+236	Tambwisa / telemisa mwa moke
+237	Ekoki kotambwisa te: pelisa «USB debugging» na ba-option ya
+238	Bilembo ya accent mpe bilembo mosusu ekoki kokomama na Bluetooth te
+239	Bilembo ya accent mpe bilembo mosusu ekoki kokomama mosika te
+240	Ba-lettre na accent ebongolamaka na lettre ya pete (é → e).
+241	Ba-application ya TV, elongo na ba-icône na yango
+242	Ba-application ya TV, na kofina moko
+243	Ba-fabricant nyonso basalelaka mitindo moko te. Finá «Meka» mpo na komeka
+244	Ba-notification ya application ekangami: pesa ndingisa na lokasa oyo ekofungwama
+245	Ba-paramètres ekopiamaka mpe yango moko na Downloads/OmniZap,
+246	Pelisa
+247	Kopelisa, mongongo mpe kotambwisa, ata ekrani ekangami
+248	Bomba Bluetooth classique
+249	Menu ya contexte ya TV
+250	Menu ya kotinda ya telefone (Miracast)
+251	Menu ya biloko ya TV
+252	Menu monene (média)
+253	Menu ya Android ya momesano
+254	Matondi! Makoki nyonso efungwami mpo na libela.
+255	Ba-TV na ngai
+256	Miracast, na nzela ya ADB debugging, elongo na mongongo ya ba-application (Android 10 to ya sika koleka).
+257	Ezali kobongisa liste…
+258	Kokangisa mongongo
+259	Nkombo
+260	Ebongisami te. Telefone ekoki kozala télécommande Bluetooth soki Wi-Fi eyanoli te,
+261	Ebongisami te. Ezali na ntina mpo na kopelisa TV oyo ekufi mobimba to soki Wi-Fi eyanoli te
+262	Te, oyo elandi
+263	Ezali kofungola {1}…
+264	Ezali kofungola moyambi na {1}…
+265	Ezali kofungola na {1}…
+266	Esika ya koluka adresi MAC: na TV (Paramètres → Na ntina → Ezalela, to Réseau), na
+267	Kofuta mbala moko. Abonnement te, piblisite te.
+268	Ba-paramètres
+269	Ba-paramètres (ya mozindo)
+270	Ba-paramètres → Réseau mpe Internet → réseau na yo, to Ba-paramètres → Na ntina → Ezalela.
+271	Loba…
+272	Mwinda ya infrarouge ezali te
+273	Ekangami naino na TV te: pona yango na liste
+274	Leka
+275	Kende na Bluetooth classique (mpo na mode ya énergie moke)
+276	Ba-nimero
+277	Touchpad
+278	Bafoto, bavideo mpe ekrani na TV
+279	Liboso tia curseur na esika ya kokoma na TV (koluka, mot de passe…), sima koma awa.
+280	Masano ya Play
+281	Sima
+282	Ba-TV ebele
+283	Tala TV na likolo ya telefone mpe meka ba-bouton.
+284	Mpo na kopelisa TV oyo ekufi, esengeli kotika réseau epela na veille. Na TV, pelisa
+285	Mpo na ba-TV oyo elakisaka ba-telefone (Samsung, LG, décodeur…). Android TV mpe Google TV
+286	Mpo na komona yango nyonso, pelisa «USB debugging» na TV mpe finá bouton oyo ezali likolo.
+287	Mpo na TV oyo ezali na Chromecast na kati, kolakisa ekrani elekaka na Google Home: finá TV, sima
+288	Ntalo ya ebandeli
+289	Ba-programme
+290	Oyo eleki
+291	Oyo eleki
+292	Soki ekangisami, TV ekomonana likolo lokola «Ekangami».
+293	Marque nini ya TV?
+294	Rapport ya OmniZap
+295	Rapport ekopiami
+296	Ezali koluka «{1}» na TV
+297	Ezali koluka… Soki eloko emonani te, tala soki TV epeli mpe ezali na Wi-Fi moko na telefone oyo.
+298	Luka TV
+299	Luka application
+300	Ezali koluka… Soki TV etuni «Ndima debugging?», ndima na ba-flèche.
+301	Banda lisusu
+302	Koyeba mongongo ezali te na telefone oyo
+303	Sima basekondi 10
+304	Kangisa lisusu na Wi-Fi
+305	Kangisa lisusu na Wi-Fi: kode ya ba-lettre 6 ekomonana na TV.
+306	Banda lisusu kosakola (BLE)
+307	Monisa telefone (miniti 2)
+308	Kozongisa elongi te: {1}
+309	Zongisa
+310	Zongisa kosomba na ngai
+311	Zongisa sauvegarde
+312	Zongisa ba-TV na yo uta na sauvegarde: Downloads → OmniZap → {1}
+313	Longola
+314	Zongisa sima
+315	Meka lisusu
+316	Ba-paramètres
+317	Ba-paramètres ya TV
+318	Ba-paramètres ya noki
+319	Ezali kolamwisa TV na nzela ya réseau…
+320	Koma adresi IP ya TV
+321	Koma adresi IP ya TV
+322	Koma kode
+323	Kozanga Google Cast: momoni moke etiamaka na TV na nzela ya ADB debugging.
+324	Piblisite te, abonnement te
+325	Kozanga réseau to infrarouge: telefone ekoki mpe kozala télécommande mpe clavier Bluetooth
+326	Sauvegarde ebombami
+327	Sauvegarde ya esika
+328	Kangisa
+329	Ba-application ya momesano mpe oyo efungwamaki na TV kaka nde emonanaka.
+330	Soki TV etuni «Ndima debugging?», pona «Ndima ntango nyonso»
+331	Elembo ya kolamwisa etindami: TV esengeli komonana na liste na basekondi 30.
+332	Ba-sous-titre
+333	Oyo elandi
+334	Longola
+335	Longola TV oyo
+336	Longola «{1}» na télécommande? Okosengela kokangisa lisusu mpo na kozwa yango.
+337	Na TV: Ba-paramètres → Réseau mpe Internet → Wi-Fi na yo.
+338	TV ekangami
+339	TV ya live
+340	TV ekoki kokomama te
+341	TV ekangami te
+342	Ba-TV oyo emonani:
+343	TV ekufi: finá liboso Pelisa
+344	TV ekufi: finá liboso ⏻
+345	Makomi ya kotinda…
+346	Bouton «{1}»
+347	Finá mpo na OK
+348	Finá «Telema» mpo na kotelemisa kolakisa ekrani
+349	Ntango nyonso infrarouge
+350	Ntango nyonso Bluetooth
+351	Ntango nyonso Wi-Fi
+352	Ba-application nyonso
+353	Ba-TV na yo nyonso
+354	Tuile: ba-paramètres ya noki → bongola → «TV». Kabola: na YouTube to na
+355	Télécommande
+356	Télécommande ({1})
+357	Télécommande: {1}
+358	Télécommande Bluetooth
+359	Télécommande Bluetooth:
+360	Télécommande ya TV OmniZap
+361	Télécommande ebakisami na ba-notification: fungola panneau ya ba-notification
+362	Télécommande ya énergie moke (Android TV, Google TV)
+363	Télécommande na ba-notification
+364	Télécommande ya infrarouge
+365	Télécommande ya infrarouge: {1}.
+366	Telefone ezali na Wi-Fi te · kangisa yango na Wi-Fi ya TV
+367	Televizio ya live
+368	Mokakatano moko ebimi
+369	TV oyo ekangisami na nsinga Ethernet elamukaka malamu koleka Wi-Fi.
+370	TV oyo ekufi emonanaka te na réseau. Soki endimaka kolamuka na nzela ya réseau,
+371	Salela TV oyo
+372	Salela infrarouge
+373	Salela Bluetooth
+374	Ndima
+375	Veille
+376	Momoni ya télécommande (ADB debugging). Pona yango soki Google Cast etelemisi kotinda.
+377	Momoni ya télécommande na {1}
+378	Momoni efungwami na TV
+379	Tala TV
+380	Tala TV na telefone
+381	Mongongo
+382	Ba-données na yo etikalaka epai na yo
+383	Komeka na yo ya mikolo {1} esili.
+384	Osalelaki application oyo liboso?
+385	Tala ete eloko moko te ezipi mwinda (likolo ya telefone) mpe tala capteur ya TV,
+386	Wi-Fi: koluka yango moko
+387	Wi-Fi emonani te: telefone esengeli kozala na réseau moko na TV
+388	Wi-Fi mpo na Android TV mpe Google TV, infrarouge mpe Bluetooth mpo na mosusu, ata kozanga réseau.
+389	Widget: finá ekrani ya ndako mpe simba → Ba-widget → OmniZap.
+390	Widget, notification mpe ba-paramètres ya noki
+391	endimami na TV, sima finá lisusu TV na «Bisaleli oyo bikangisami kala».
+392	emonanaka moindo. Finá elili mpo na «OK», benda mosapi mpo na ba-flèche.
+393	TV Wi-Fi moko te ebombami
+394	kozwa ekrani ekatani
+395	kozwa ekrani eboyami
+396	option moko na moko na TV mpe bomba oyo esali.
+397	lokola télécommande ya momesano.
+398	ekangami
+399	ADB debugging ya TV ekoki kokomama te ({1})
+400	longola yango, kufisa Bluetooth mpe pelisa yango lisusu, sima finá «Meka lisusu».
+401	etelemi mwa moke
+402	encodeur ya video ezali te
+403	libunga ya kotambwisa (TV endimaka format oyo te?)
+404	mpe lakisa ba-application mbala moko: télécommande ekokoka kokufisa yango.
+405	fisye ekoki kokomama te
+406	galerie ekoki kokomama te
+407	lisanga ya bakode oyo eyebani te
+408	TV efungoli moyambi te: {1}
+409	TV ezongisi elili moko te
+410	mitindo oyo ekoki na TV na yo.
+411	fabricant akangi likoki oyo. Finá «Meka lisusu» sima ya kokufisa mpe kopelisa Bluetooth.
+412	ezali kotambola
+413	ba-développeur na TV, sima ndima bosenga ya ndingisa.
+414	liste ya bisaleli ya routeur na yo, to na étiquette na sima ya TV.
+415	nsango na yo mpo ete ebongisama.
+416	mbala mingi elakisaka kaka ba-clavier mpe ba-manette: salela bongo lolenge oyo ezali likolo.
+417	navigateur, Kabola → «Fungola na TV».
+418	esakolami te
+419	ekangami te (TV esengeli kopela mpe kozala pembeni)
+420	etangami te
+421	ezali na yango (ebele ya Xiaomi, Redmi mpe Poco, mosusu ya Huawei mpe Honor).
+422	ekoki
+423	sima pona OK na ba-flèche ya télécommande oyo (miniti 1).
+424	sima pona telefone (nkombo na yango ya Bluetooth) mpe ndima kokangisa.
+425	koma adresi MAC na yango: ekopela sima ekomonana na liste likolo.
+426	kozanga réseau, na mosika ya pene na bametele zomi.
+427	kozanga réseau, na mosika ya pene na bametele zomi. (Version {1})
+428	engebene modèle «Wake on LAN», «Kolamwisa na réseau», «Veille ya réseau» to
+429	esili
+430	fisye oyo etikalaka ata soki olongoli application.
+431	{1}: Bluetooth ekangami te
+432	Ba-TV {1} ezongisami. Soki TV esengi, kangisa lisusu.
+433	{1} ebakisami.
+434	{1} ebakisami. Tala TV na likolo ya telefone.
+435	Ba-application {1}: liste ya solo ya TV, na bankombo ya solo.
+436	Ba-application {1} etiami (bankombo ya pene: kotanga na mozindo elongi te).
+437	{1} ekoki kokomama te
+438	{1} ekoki kokomama te: pelisa yango liboso
+439	Bafisye {1} eponami
+440	{1} ezali te na TV oyo etambwisami na Bluetooth
+441	{1} ezali te na TV oyo etambwisami na infrarouge
+442	{1} · ebakisami kala
+443	«Tinda ekrani na ngai». («Smart View» ya Samsung esalelaka Miracast, oyo ebele ya Android TV endimaka te.)
+444	«Kobanda noki» (Ba-paramètres → Réseau mpe Internet, to Système → Énergie).
+445	«Fungola Netflix» na mongongo
+446	«Fungola Netflix», «ba-film ya bitumba»…
+447	«Télécommande TV» soki ezali naino, banda lisusu Bluetooth ya telefone mpe meka lisusu.
+448	«Tala TV» esalaka na Android TV oyo ekangisami na Wi-Fi.
+449	«{1}»: TV ekangami te
+450	«{1}» ezali na kati ya OmniZap Pro. Komeka na yo ya mikolo {2} esili.
+451	Sauvegarde elongi te: {1}
+452	Ekrani
+453	Ekrani ya TV na live
+454	Ekrani ya TV ezali te: {1}
+455	Ekrani ya telefone ezali komonana na TV
+456	Ekrani ya telefone etindami na TV ({1} × {2})
+457	Ekrani ezali kolakisama na TV
+458	Ekrani etindami kozanga mongongo (ndingisa ya «Micro» eboyami)
+459	Ekufi · finá Pelisa
+460	na mosika ya moke koleka bametele 3. Okoki kobanda lisusu to komeka «Marque mosusu».
+461	○ Ezali kobongisa télécommande Bluetooth ya telefone…
+462	● Telefone ebongi lokola télécommande Bluetooth
+463	● Telefone ezali komonana lokola télécommande ya énergie moke
+464	✓ Adresi MAC emonani mpe ebombami: {1}
+465	＋ Bakisa TV
+466	Ekangami na {1}
+467	Bafoto mpe bavideo na TV
+468	Zonga

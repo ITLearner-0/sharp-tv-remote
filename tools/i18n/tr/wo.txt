@@ -1,0 +1,469 @@
+0	Taal TV bi
+1	Taxawal wone ekraan bi
+2	Taxawal wone nataal yi
+3	Nataalu ekraanu TV bi
+4	Mi ngi koy jël…
+5	Tànn yeneen fisiye
+6	Tànn nataal ak widewo
+7	Tànn beneen marke
+8	Lëkkaloo na ak {1}
+9	Wone nataal (6 segonn ci nataal bu nekk)
+10	Wone ekraan bi (Google Home)
+11	Wone ekraan bi ci TV bi
+12	Natt Pro: {1} fan a des
+13	Samp Google Home ngir wone ekraan bi
+14	Mi ngi yeb…
+15	Wone aplikasioŋ yépp yu TV bi
+16	Waaw, yokk TV bii
+17	Waaw, jëfandikoo kod yii
+18	Dem ci OmniZap Pro
+19	Nataal ak widewoy telefon bi
+20	Nataal ak widewo ci TV bi
+21	Mi ngi seet TV yu am Google Cast (Chromecast ci biir)…
+22	Mi ngi seet TV yi ci rezo bi
+23	Mi ngi seet…
+24	Dellu
+25	Dellu ci telekomand bi
+26	TV bu nekk ni mu ware walla bu màggat?
+27	Gis nanu TV bi!
+28	{1}: amul Google Cast
+29	{1}: gisukaayu telekomand bi
+30	Gis nanu {1} TV!
+31	(nataalu telefon bi)
+32	(soxla na telefon bu am lampu infraruus).
+33	({1} lañu bàyyi)
+34	· lëkkaloo na
+35	(Lii wuute na ak lëkkalekaayu Bluetooth, te loolu du ko wuutu.)
+36	(Android TV, Samsung, LG, dekodër…).
+37	(liggéey na itam ngir limu aplikasioŋ yi).
+38	(day taal/fey {1}).
+39	(walla menuw Bluetooth): TV bi day feeñ.
+40	(misaal aplikasioŋ bu yàgg bi «Télécommande TV», walla aplikasioŋu klawie/suuris Bluetooth):
+41	(denc bu yàgg: Downloads → Télécommande TV).
+42	1. Ci TV bi, ubbil Paramètre → Telekomand ak aksesuwaar → Yokk aksesuwaar
+43	1. Bësal butoŋ bi ci suuf: telefon bi day yégle ne mooy telekomand.
+44	2. Fii, bësal «Seet TV bi», ba noppi tur wu TV bi.
+45	2. Ci TV bi: Paramètre → Telekomand ak aksesuwaar → Yokk aksesuwaar,
+46	3. Nangul lëkkale bi ci TV bi ak ci telefon bi: OmniZap day lëkkaloo.
+47	3. «Lëkkaloo na ak …» dina feeñ ci kaw: natt Kër.
+48	Kër
+49	Duggu ba fàww · {1}
+50	Jënd bu OmniZap Pro dellu na, jërëjëf!
+51	Taal Bluetooth
+52	Adrees IP
+53	Adrees IP amul
+54	Adrees MAC (ngir taal TV bi)
+55	Adrees MAC bu TV bi
+56	Xamuñu adrees MAC bu TV bi: taal TV bi ak sa loxo benn yoon walla bind ko ci ⚙
+57	Gisuñu adrees MAC bi ci boppam. Bind ko ci kaw: ci TV bi,
+58	Adrees MAC bi baaxul
+59	Adrees MAC bi baaxul (misaal: A4:B1:C2:D3:E4:F5)
+60	Yokk TV
+61	Mi ngi taal {1}…
+62	Day taal TV bi, su fey woon sax
+63	Taalal TV bi jëkk
+64	Taalal TV bi te nekk ci benn Wi-Fi bi: dina feeñ ci suuf.
+65	Taal na
+66	Android tontuwul laaj bu telekomandu Bluetooth bi. Ci yenn telefon yi,
+67	Android bañ na lëkkaloo Bluetooth ak TV bii. Far aplikasioŋ bu yàgg bi
+68	Neenal
+69	Lëkkale bi dog na, tàmbaliwaat
+70	Masin yu ñu lëkkale ba noppi (bësal TV bi ngir lëkkaloo):
+71	Aplikasioŋ yi
+72	Aplikasioŋu TV yi
+73	Taxawal
+74	Lëkkalewaat
+75	Defar infraruus
+76	Defar Bluetooth
+77	Lëkkale ak TV bii
+78	Lëkkale nañu ({1})
+79	Digle: su Menu walla Gid deful dara, bësal butoŋ bi te téye ko ngir tànn
+80	Amul benn jënd bu OmniZap Pro ci kontu Google bii
+81	Amul kont, amul dajale done. Sa paramètre yi ci telefon bi lañuy des, du feneen.
+82	Benn ci {1} kurelu kod yi liggéeyul.
+83	Amul lëkkalekaay bu ñuy ubbi ci TV bi
+84	Gisaguñu benn TV bu am Google Cast
+85	Amul TV bu ñu denc
+86	Amul aplikasioŋ bu ci dëppoo.
+87	Duñu yónnee benn done
+88	Tànnuloo benn nataal walla widewo.
+89	Otomatik: Wi-Fi, Bluetooth su TV bi tontuwul
+90	Otomatik: Wi-Fi, infraruus su TV bi tontuwul
+91	May
+92	May OmniZap mu jëfandikoo Bluetooth («Masin yu jege»).
+93	May mikoro bi ngir seet ak baat
+94	Beneen marke / xamuma
+95	Beneen pexe: jaare ci TV bi
+96	Yeneen aplikasioŋ
+97	Jëm kanam bu gaaw
+98	Jëm kanam 30 segonn
+99	Suuf
+100	Ëpp lool telekomand
+101	Bluetooth: TV bi lëkkaloowul
+102	Bluetooth: mi ngi lëkkaloo ak TV bi… jéemaatal ci kanam tuuti
+103	Bluetooth: amul rezo
+104	Bluetooth lëkkale na: telekomand bi dina ko jëfandikoo su TV bi tontuwul ci Wi-Fi.
+105	Bluetooth klasik (yeneen TV, dekodër, ordinatëer)…
+106	Bluetooth klasik: jaare ci telefon bi
+107	Bluetooth · lëkkaloo na
+108	Bluetooth · mi ngi lëkkaloo… (TV bi taal na, jege na)
+109	Butoŋu telekomand bi ci notifikasioŋ yi ak ci ekraan bu tëj bi
+110	Nataal bi denc nañu ko: {1}/{2}
+111	Nataal bi denc nañu ko ci galeri bi (Pictures/OmniZap)
+112	Jël nataal bi antuwul: {1}
+113	Fisiye bii du dencu OmniZap
+114	Telefon bii am na lampu infraruus: mën na yore benn TV bu nekk,
+115	Telefon bii amul lampu infraruus
+116	Telefon bii amul lampu infraruus. Jumtukaay bii day liggéey ci telefon yi
+117	Telefon bii mayul telekomandu Bluetooth (Android bañ na)
+118	Telefon bii mayul telekomandu Bluetooth.
+119	TV bii nanguwul baatu mikoro bi: bësal Baat rekk
+120	Butoŋ bii amul ci Bluetooth
+121	Butoŋ bii amul ci modelu TV bii
+122	Soppi TV
+123	Soppi kod yi
+124	Kanaal bu jiitu
+125	Kanaal yu dundu
+126	Tànn TV bi
+127	Klawie
+128	Kod bi baaxul: kod bu bees dina feeñ ci TV bi
+129	Kod yi: {1}
+130	Kod yii firndeeguñu ko ci TV bu dëgg: sa natt am na solo!
+131	Ndigal ak baat
+132	Tàmbali
+133	Defar infraruus
+134	Defar Bluetooth
+135	Lëkkaloo
+136	Lëkkale sa TV
+137	Lëkkaloo bi dog na bi ngay bind
+138	Lëkkaloo bi dog na, mi ngi lëkkaloowaat…
+139	Mi ngi lëkkaloo ak ekraanu TV bi…
+140	Kontine
+141	Duppi
+142	Duppi rapoor bi
+143	Duppi nañu ko ✓
+144	Ci Google Home, bësal TV bi, ba noppi «Yónnee sama ekraan»
+145	Wone nataal ak widewo ci ekraan bu mat ci TV bi. Ci Galeri bi itam: Séddoo → «Ubbi ci TV bi».
+146	Ndijoor
+147	Wone ekraan
+148	Wone ekraan bi
+149	Wone ekraan bi, ak baat
+150	Wone ekraan bi antuwul: {1}
+151	Ubbi (natt)
+152	Ubbi OmniZap Pro
+153	Xam OmniZap Pro
+154	Ubbil paramètre yu gaaw yi te bës «Cast» walla «Smart View», ba noppi tànn TV bi
+155	Seet adrees MAC bi ci boppam
+156	Mi ngi seet…
+157	Far
+158	Mi ngi nelaw
+159	Denc
+160	Yónnee
+161	Njuumte bu ñu séentuwul ({1})
+162	Natt bu amul pay: {1} fan ci kaw ak jumtukaay yépp.
+163	Natt {1} ci {2}
+164	Natt
+165	Natt: Kër
+166	Natt: butoŋu Kër bi ci suuf war na liggéey ci TV bi.
+167	Génne
+168	Yi nga gëm
+169	Tëj
+170	Fes yi
+171	Jumtukaayu OmniZap Pro
+172	Jumtukaayu OmniZap Pro: ubbil OmniZap ngir ubbi ko
+173	Denc
+174	Bàyyil ekraan bii mu ubbiku bi widewo bi di dox: TV bi day jàng fisiye bi ci telefon bi rekk.
+175	Càmmoñ
+176	Wëñal ngir dox
+177	Google Cast taxawal na yónnee bi ci TV bi
+178	Google Cast amul ci telefon bii
+179	Google Cast amul ci telefon bii.
+180	Google Cast → dara
+181	Mënuñu agsi ci Google Play
+182	Gidu porogaraam yi
+183	Kaw
+184	Amul rezo · Bluetooth
+185	Amul rezo · mi ngi lëkkaloo ak Bluetooth…
+186	Amul rezo · infraruus (jublu ci TV bi)
+187	Soxla nga telefon bu am lampu infraruus (bari Xiaomi, Redmi ak Poco, yenn Huawei ak Honor).
+188	Léegi mi ngi feeñ ci ekraanu TV bi.
+189	Nataal rekk, amul baat. Li ñu aar (Netflix, kanaalu TV…)
+190	Mënul nekk ak TV bu ñuy yore ak infraruus walla Bluetooth
+191	Mënuñu ubbi {1}: taalal «USB debugging» ci TV bi
+192	Mënuñu denc fisiye bi
+193	Mënuñu agsi ci TV bi: xoolal ndax taal na, adrees bi ak Wi-Fi bi
+194	Mënuñu jàng fisiye bi
+195	Infraruus
+196	Infraruus: marke yépp
+197	Infraruus lëkkale na: telekomand bi dina ko jëfandikoo su TV bi tontuwul ci Wi-Fi.
+198	Infraruus · jublu ci TV bi
+199	Gisuñu kurelu kod infraruus bi: far TV bi te yokkaat ko
+200	Jurnaal
+201	Jurnaalu Bluetooth
+202	Jënd bi dina jaar ci Google Play su ñu génnee OmniZap fa. Ba ci kaw, bégal ci natt bi.
+203	Aplikasioŋ bi am na njuumte. Bësal «Duppi» te taf mbind mii ci sa
+204	Ubbi aplikasioŋ yi
+205	Ekraanu TV bi ci telefon bi
+206	Ekraanu telefon bi (walla benn aplikasioŋ rekk) day feeñ ci TV bi, te amul Google Cast walla
+207	TV bi nangu na fisiye bi
+208	TV bi taxawal na wone ekraan bi
+209	TV bi bañ na lëkkaloo Bluetooth bi. Xoolal ndax lëkkale bi
+210	TV bi bañ na fisiye bi (kod {1})
+211	Ndax TV bi tontu na?
+212	TV bi fey na ba noppi
+213	Ndax TV bi fey na?
+214	TV bi tàmbaliwul lëkkale bi. Jéemaatal.
+215	TV bi ubbiwul seet ak baat
+216	TV bi mënul ubbi gisukaay bi: {1}
+217	TV bi tontuwul ndigalu taal bi.
+218	TV bi tontuwul ndigalu fey bi. Taalal «USB debugging» ci TV bi
+219	TV bi tontuwul nelaw bi.
+220	TV bi yónneewul ekraanam. Xoolal ndax ADB debugging may nañu ko
+221	TV bi lëkkalewul ak telefon bi: seet ko te nangu lëkkale bi.
+222	TV bi xamatul telefon bii ci Wi-Fi.
+223	TV bi tontuwul yee gi: taalal ci TV bi nelawu rezo / «Wake on LAN» (xool ⚙)
+224	Seet adrees MAC bi
+225	Limu aplikasioŋ yi
+226	Bind mbind
+227	Telekomand bi du jënd: butoŋ yépp, touchpad, klawie, infraruus ak taal TV bi.
+228	Telekomand bu mat bu sa TV, ci sa telefon.
+229	Bluetooth soxla na Android 9 walla bu gën a bees
+230	Bluetooth bu telefon bi fey na.
+231	Beneen aplikasioŋ jëfandikoo na telekomandu Bluetooth bu telefon bi
+232	Protokolu telekomand yu njëkk yu Android TV.
+233	Telefon bi ak TV bi ñoo ànd di liggéey.
+234	Telefon bi day yégle ne mooy telekomand su ekraan bii ubbikoo (rëdd yu «BLE:» ci jurnaal bi).
+235	Telefon bi day wone boppam ci TV bi ni telekomand ak klawie Bluetooth:
+236	Dox / taxawal tuuti
+237	Mënuñu dox: taalal «USB debugging» ci tànneefu
+238	Mënuñu bind araf yu am aksaŋ ak yenn màndarga ci Bluetooth
+239	Mënuñu bind araf yu am aksaŋ ak yenn màndarga ci sore
+240	Araf yu am aksaŋ dañuy soppi ak araf bu woyof (é → e).
+241	Aplikasioŋu TV bi, ak seeni ikon
+242	Aplikasioŋu TV bi, ak benn bës
+243	Defarkat yépp jëfandikoowuñu benn ndigal. Bësal «Natt» ngir natt
+244	Notifikasioŋu aplikasioŋ bi tëj nañu: may leen ci xët wi dina ubbiku
+245	Paramètre yi itam dañuy duppiku ci seen bopp ci Downloads/OmniZap,
+246	Taal
+247	Taal, baat ak dox, su ekraan bi tëju sax
+248	Nëbb Bluetooth klasik
+249	Menuw konteks bu TV bi
+250	Menuw yónnee bu telefon bi (Miracast)
+251	Menuw li TV bi am
+252	Menu bu mag (miidiya)
+253	Menuw Android bu ñu miin
+254	Jërëjëf! Jumtukaay yépp ubbiku nañu ba fàww.
+255	Samay TV
+256	Miracast, jaare ci ADB debugging, ak baatu aplikasioŋ yi (Android 10 walla bu gën a bees).
+257	Mi ngi yeesal lim bi…
+258	Ñibbi baat bi
+259	Tur
+260	Defaruñu ko. Telefon bi mën na nekk telekomandu Bluetooth su Wi-Fi bi tontuwul,
+261	Defaruñu ko. Am na njariñ ngir taal TV bu fey lépp walla su Wi-Fi bi tontuwul
+262	Déedéet, bi ci topp
+263	Mi ngi ubbi {1}…
+264	Mi ngi ubbi jëlukaay bi ci {1}…
+265	Mi ngi ubbi ci {1}…
+266	Fan lañuy gis adrees MAC bi: ci TV bi (Paramètre → Ci mbir mi → Taxawaay, walla Rezo), ci
+267	Pay benn yoon. Amul abonma, amul kéemtalukaay.
+268	Paramètre
+269	Paramètre (yu xóot)
+270	Paramètre → Rezo ak Internet → sa rezo, walla Paramètre → Ci mbir mi → Taxawaay.
+271	Waxal…
+272	Amul lampu infraruus
+273	Lëkkaloogul ak benn TV: tànn ko ci lim bi
+274	Romb
+275	Dem ci Bluetooth klasik (ngir mood bu lekkul doole)
+276	Klawie nimero
+277	Touchpad
+278	Nataal, widewo ak ekraan ci TV bi
+279	Jëkkal def kursëer bi ci benn barab bu ñuy bind ci TV bi (seet, baatu jàll…), ba noppi bind fii.
+280	Play Po
+281	Ci kanam
+282	Ay TV yu bari
+283	Jubbal kawu telefon bi ci TV bi te natt butoŋ yi.
+284	Ngir taal TV bu fey, war na bàyyi rezo bi mu taal ci nelaw. Ci TV bi, taalal
+285	Ngir TV yi di wone telefon yi (Samsung, LG, dekodër…). Android TV ak Google TV
+286	Ngir gis leen ñépp, taalal «USB debugging» ci TV bi te bës butoŋ bi ci kaw.
+287	Ngir TV bu am Chromecast ci biir, wone ekraan bi day jaar ci Google Home: bësal TV bi, ba noppi
+288	Njëgu tàmbali
+289	Porogaraam yi
+290	Bi jiitu
+291	Bi jiitu
+292	Bu ñu lëkkalee ba noppi, TV bi dina feeñ ci kaw ni «Lëkkaloo na».
+293	Ban marke la TV bi?
+294	Rapooru OmniZap
+295	Rapoor bi duppi nañu ko
+296	Mi ngi seet «{1}» ci TV bi
+297	Mi ngi seet… Su dara feeñul, xoolal ndax TV bi taal na te nekk ci benn Wi-Fi ak telefon bii.
+298	Seet TV bi
+299	Seet aplikasioŋ
+300	Mi ngi seet… Su TV bi laajee «May debugging?», nangul ko ak fes yi.
+301	Tàmbaliwaat
+302	Xàmmee baat amul ci telefon bii
+303	Dellu ginnaaw 10 segonn
+304	Lëkkalewaat ci Wi-Fi
+305	Lëkkalewaat ci Wi-Fi: kod bu am 6 araf dina feeñ ci TV bi.
+306	Tàmbaliwaat yégle bi (BLE)
+307	Feeñal telefon bi (2 simili)
+308	Delloo bi antuwul: {1}
+309	Delloo
+310	Delloo sama jënd
+311	Delloo benn denc
+312	Delloo say TV ci denc bi: Downloads → OmniZap → {1}
+313	Dindi
+314	Dellu ginnaaw
+315	Jéemaat
+316	Paramètre
+317	Paramètreu TV bi
+318	Paramètre yu gaaw
+319	Mi ngi yee TV bi jaare ci rezo bi…
+320	Bindal adrees IP bu TV bi
+321	Bindal adrees IP bu TV bi
+322	Bindal kod bi
+323	Te amul Google Cast: gisukaay bu ndaw lañuy samp ci TV bi jaare ci ADB debugging.
+324	Amul kéemtalukaay, amul abonma
+325	Amul rezo walla infraruus: telefon bi mën na itam nekk telekomand ak klawie Bluetooth
+326	Denc bi denc nañu ko
+327	Denc ci biir
+328	Lëkkale
+329	Aplikasioŋ yu ñu miin ak yi ñu ubbi woon ci TV bi rekk ñoy feeñ.
+330	Su TV bi laajee «May debugging?», tànnal «May saa su ne»
+331	Yónnee nañu yee gi: TV bi war na feeñ ci lim bi ci 30 segonn.
+332	Sutitar
+333	Bi ci topp
+334	Far
+335	Far TV bii
+336	Far «{1}» ci telekomand bi? Dinga lëkkalewaat ngir delloo ko.
+337	Ci TV bi: Paramètre → Rezo ak Internet → sa Wi-Fi.
+338	TV bi lëkkaloo na
+339	TV bu dundu
+340	Mënuñu agsi ci TV bi
+341	TV bi lëkkaloowul
+342	TV yi ñu gis:
+343	TV bi fey na: jëkkal bës Taal
+344	TV bi fey na: jëkkal bës ⏻
+345	Mbind mi ngay yónnee…
+346	Butoŋ «{1}»
+347	Bësal ngir OK
+348	Bësal «Taxawal» ngir taxawal wone ekraan bi
+349	Saa su ne infraruus
+350	Saa su ne Bluetooth
+351	Saa su ne Wi-Fi
+352	Aplikasioŋ yépp
+353	Say TV yépp
+354	Kaaro: paramètre yu gaaw → soppi → «TV». Séddoo: ci YouTube walla ci
+355	Telekomand
+356	Telekomand ({1})
+357	Telekomand: {1}
+358	Telekomandu Bluetooth
+359	Telekomandu Bluetooth:
+360	Telekomandu TV OmniZap
+361	Telekomand bi yokk nañu ko ci notifikasioŋ yi: ubbil panelu notifikasioŋ yi
+362	Telekomand bu lekkul doole (Android TV, Google TV)
+363	Telekomand ci notifikasioŋ yi
+364	Telekomandu infraruus
+365	Telekomandu infraruus: {1}.
+366	Telefon bi nekkul ci Wi-Fi · lëkkale ko ak Wi-Fi bu TV bi
+367	Telewisioŋ bu dundu
+368	Am na jafe-jafe
+369	TV bu ñu lëkkale ak kaabal Ethernet day yewwu bu gën a wóor Wi-Fi.
+370	TV bu fey du feeñ ci rezo bi. Su nangoo yewwu jaare ci rezo bi,
+371	Jëfandikoo TV bii
+372	Jëfandikoo infraruus
+373	Jëfandikoo Bluetooth
+374	Dëggal
+375	Nelaw
+376	Gisukaayu telekomand bi (ADB debugging). Tànn ko su Google Cast taxawalee yónnee bi.
+377	Gisukaayu telekomand bi ci {1}
+378	Gisukaay bi ubbiku na ci TV bi
+379	Xool TV bi
+380	Xool TV bi ci telefon bi
+381	Baat
+382	Sa done yi yaa leen moom
+383	Sa natt bu {1} fan jeex na.
+384	Ndax jëfandikoo nga aplikasioŋ bi ba noppi?
+385	Xoolal ndax dara muurul lamp bi (ci kawu telefon bi) te jubbal ko ci sansëeru TV bi,
+386	Wi-Fi: seet ci boppam
+387	Gisuñu Wi-Fi: telefon bi war na nekk ci benn rezo ak TV bi
+388	Wi-Fi ngir Android TV ak Google TV, infraruus ak Bluetooth ngir yeneen yi, te amul rezo sax.
+389	Widget: bësal ekraanu kër bi te téye → Widget → OmniZap.
+390	Widget, notifikasioŋ ak paramètre yu gaaw
+391	nangu nañu ko ci TV bi, ba noppi bësaat TV bi ci «Masin yu ñu lëkkale ba noppi».
+392	dañuy ñuul. Bësal nataal bi ngir «OK», wëñal ngir fes yi.
+393	amul TV Wi-Fi bu ñu denc
+394	jël ekraan bi dog na
+395	jël ekraan bi bañ nañu ko
+396	tànneef bu nekk ci TV bi te denc bi liggéey.
+397	ni telekomand bu ñu miin.
+398	lëkkaloo na
+399	mënuñu agsi ci ADB debugging bu TV bi ({1})
+400	far ko, fey Bluetooth te taalaat ko, ba noppi bës «Jéemaat».
+401	taxaw na tuuti
+402	enkodëer widewo amul
+403	njuumte ci dox bi (TV bi nanguwul fomaa bi?)
+404	te wone aplikasioŋ yi benn yoon: telekomand bi dina mën a fey ko.
+405	mënuñu agsi ci fisiye bi
+406	mënuñu agsi ci galeri bi
+407	kurelu kod bu ñu xamul
+408	TV bi ubbiwul jëlukaay bi: {1}
+409	TV bi dellooguñu benn nataal
+410	ndigal bi dëppoo ak sa TV.
+411	defarkat bi fey na jumtukaay bii. Bësal «Jéemaat» bu nga feyee Bluetooth te taalaat ko.
+412	mi ngi dox
+413	defarkat yu TV bi, ba noppi nangu laaju may bi.
+414	limu masin yu sa routeur, walla ci etiket bi ci ginnaawu TV bi.
+415	bataaxal ngir ñu defar ko.
+416	dañuy faral di wone klawie ak manet rekk: kon jëfandikool pexe bi ci kaw.
+417	navigatëer bi, Séddoo → «Ubbi ci TV bi».
+418	yégleeguñu ko
+419	lëkkaloowul (TV bi war na taal te jege)
+420	jànguñu ko
+421	am benn (bari Xiaomi, Redmi ak Poco, yenn Huawei ak Honor).
+422	dëppoo na
+423	ba noppi tànn OK ak fesu telekomand bii (1 simili).
+424	ba noppi tànn telefon bi (turam ci Bluetooth) te nangu lëkkale bi.
+425	bindal adrees MAC bu TV bi: dina taal, ba noppi feeñ ci lim bi ci kaw.
+426	te amul rezo, ci lu mat fukki meetar.
+427	te amul rezo, ci lu mat fukki meetar. (Sumb {1})
+428	ci modelu TV bi «Wake on LAN», «Yee jaare ci rezo», «Nelawu rezo» walla
+429	jeex na
+430	fisiye bu desi su ñu faree aplikasioŋ bi sax.
+431	{1}: Bluetooth lëkkaloowul
+432	{1} TV dellu nañu. Su TV bi laajee, lëkkalewaat.
+433	{1} yokk nañu ko.
+434	{1} yokk nañu ko. Jubbal kawu telefon bi ci TV bi.
+435	{1} aplikasioŋ: limu TV bi bu wóor, ak seeni tur yu dëgg.
+436	{1} aplikasioŋ yu ñu samp (tur yu jege: jàng bu xóot bi antuwul).
+437	Mënuñu agsi ci {1}
+438	Mënuñu agsi ci {1}: jëkkal taal ko
+439	{1} fisiye lañu tànn
+440	{1} amul ak TV bu ñuy yore ak Bluetooth
+441	{1} amul ak TV bu ñuy yore ak infraruus
+442	{1} · yokk nañu ko ba noppi
+443	«Yónnee sama ekraan». («Smart View» bu Samsung day jëfandikoo Miracast, te bari Android TV duñu ko nangu.)
+444	«Tàmbali bu gaaw» (Paramètre → Rezo ak Internet, walla Sistem → Doole).
+445	«Ubbil Netflix» ak baat
+446	«Ubbil Netflix», «filmu xeex»…
+447	«Télécommande TV» su fekkee mi ngi fi, tàmbaliwaat Bluetooth bu telefon bi te jéemaat.
+448	«Xool TV bi» day liggéey ak Android TV bu lëkkaloo ci Wi-Fi.
+449	«{1}»: TV bi lëkkaloowul
+450	«{1}» bokk na ci OmniZap Pro. Sa natt bu {2} fan jeex na.
+451	Denc bi antuwul: {1}
+452	Ekraan
+453	Ekraanu TV bi ci saa si
+454	Ekraanu TV bi amul: {1}
+455	Ekraanu telefon bi mi ngi feeñ ci TV bi
+456	Ekraanu telefon bi yónnee nañu ko ci TV bi ({1} × {2})
+457	Ekraan bi mi ngi wone ci TV bi
+458	Ekraan bi yónnee nañu ko te amul baat (mayu «Mikoro» bi bañ nañu ko)
+459	Fey na · bësal Taal
+460	ci lu yées 3 meetar. Mën nga tàmbaliwaat walla jéem «Beneen marke».
+461	○ Mi ngi waajal telekomandu Bluetooth bu telefon bi…
+462	● Telefon bi pare na ni telekomandu Bluetooth
+463	● Telefon bi mi ngi feeñ ni telekomand bu lekkul doole
+464	✓ Gis nañu adrees MAC bi te denc nañu ko: {1}
+465	＋ Yokk TV
+466	Lëkkaloo na ak {1}
+467	Nataal ak widewo ci TV bi
+468	Dellu

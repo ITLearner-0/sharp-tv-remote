@@ -1,0 +1,469 @@
+0	Tan TV
+1	Dá dídàkọ iboju dúró
+2	Dá ìfihàn àwòrán dúró
+3	Àwòrán iboju TV
+4	Ó ń yà á…
+5	Yan àwọn fáìlì míì
+6	Yan àwọn fọ́tò àti fídíò
+7	Yan àmì-ìdámọ̀ míì
+8	Ti sopọ̀ mọ́ {1}
+9	Ìfihàn àwòrán (ìṣẹ́jú-àáyá 6 fún fọ́tò kọ̀ọ̀kan)
+10	Dàkọ iboju (Google Home)
+11	Dàkọ iboju sí TV
+12	Ìdánwò Pro: ọjọ́ {1} ló kù
+13	Fi Google Home sórí fóònù láti dàkọ iboju
+14	Ó ń gbé e wọlé…
+15	Ṣe àkójọ gbogbo áàpù TV
+16	Bẹ́ẹ̀ni, ṣàfikún TV yìí
+17	Bẹ́ẹ̀ni, lo àwọn kóòdù wọ̀nyí
+18	Lọ sí OmniZap Pro
+19	Àwọn fọ́tò àti fídíò fóònù
+20	Fọ́tò àti fídíò lórí TV
+21	Ó ń wá àwọn TV tí Google Cast ń ṣiṣẹ́ lórí (Chromecast inú)…
+22	Ó ń wá àwọn TV lórí nẹ́tíwọ̀ọ̀kì
+23	Ó ń wá…
+24	Padà
+25	Padà sí rìmóòtì
+26	TV lásán tàbí TV àtijọ́?
+27	A rí TV!
+28	{1}: kò ní Google Cast
+29	{1}: olùwò rìmóòtì
+30	A rí TV {1}!
+31	(àwòrán fóònù)
+32	(ó nílò fóònù tí ó ní ìtànná infurarẹẹdi).
+33	(a fojú fo {1})
+34	· ti sopọ̀
+35	(Èyí yàtọ̀ sí ìsopọ̀ Bluetooth, tí kò sì rọ́pò rẹ̀.)
+36	(Android TV, Samsung, LG, dikóda…).
+37	(ó tún wúlò fún àkójọ áàpù).
+38	(ó ń tan/pa {1}).
+39	(tàbí àkójọ Bluetooth): TV yóò hàn.
+40	(fún àpẹẹrẹ áàpù àtijọ́ «Télécommande TV», tàbí áàpù kíbọ́ọ̀dù/àsin Bluetooth):
+41	(ẹ̀dà àtijọ́: Downloads → Télécommande TV).
+42	1. Lórí TV, ṣí Ètò → Rìmóòtì àti ẹ̀yà ẹ̀rọ → Ṣàfikún ẹ̀yà ẹ̀rọ
+43	1. Tẹ bọ́tìnnì ìsàlẹ̀: fóònù yóò kéde ara rẹ̀ bí rìmóòtì.
+44	2. Níbí, tẹ «Wá TV», lẹ́yìn náà orúkọ TV.
+45	2. Lórí TV: Ètò → Rìmóòtì àti ẹ̀yà ẹ̀rọ → Ṣàfikún ẹ̀yà ẹ̀rọ,
+46	3. Gba ìsopọ̀ lórí TV àti fóònù: OmniZap yóò sopọ̀.
+47	3. «Ti sopọ̀ mọ́ …» yóò hàn lókè: dán Ilé wò.
+48	Ilé
+49	Ìwọlé títí ayé · {1}
+50	A ti dá ríra OmniZap Pro padà, ẹ ṣé!
+51	Tan Bluetooth
+52	Àdírẹ́sì IP
+53	Kò sí àdírẹ́sì IP
+54	Àdírẹ́sì MAC (láti tan TV)
+55	Àdírẹ́sì MAC TV
+56	A kò mọ àdírẹ́sì MAC TV: tan TV fúnra rẹ lẹ́ẹ̀kan tàbí kọ ọ́ sínú ⚙
+57	A kò rí àdírẹ́sì MAC fúnra rẹ̀. Kọ ọ́ sókè: lórí TV,
+58	Àdírẹ́sì MAC kò tọ́
+59	Àdírẹ́sì MAC kò tọ́ (àpẹẹrẹ: A4:B1:C2:D3:E4:F5)
+60	Ṣàfikún TV
+61	Ó ń tan {1}…
+62	Ó ń tan TV, kódà tí ó bá wà ní pípa
+63	Kọ́kọ́ tan TV
+64	Tan TV kí o sì wà lórí Wi-Fi kan náà: yóò hàn nísàlẹ̀.
+65	Ó wà ní títàn
+66	Android kò dáhùn sí ìbéèrè ipò rìmóòtì Bluetooth. Lórí àwọn fóònù kan,
+67	Android kọ ìsopọ̀ Bluetooth pẹ̀lú TV yìí. Yọ áàpù àtijọ́ kúrò
+68	Fagilé
+69	Ìsopọ̀ dáwọ́ dúró, tún bẹ̀rẹ̀
+70	Àwọn ẹ̀rọ tí a ti so pọ̀ tẹ́lẹ̀ (tẹ TV láti sopọ̀):
+71	Àwọn áàpù
+72	Àwọn áàpù TV
+73	Dúró
+74	Tún so pọ̀
+75	Ṣètò infurarẹẹdi
+76	Ṣètò Bluetooth
+77	So mọ́ TV yìí
+78	Ti so pọ̀ ({1})
+79	Ìmọ̀ràn: tí Àkójọ tàbí Ìtọ́sọ́nà kò bá ṣe nǹkan, tẹ bọ́tìnnì náà mọ́lẹ̀ láti yan
+80	Kò sí ríra OmniZap Pro lórí àkọọ́lẹ̀ Google yìí
+81	Kò sí àkọọ́lẹ̀, kò sí gbígba dátà. Ètò rẹ wà lórí fóònù nìkan, kò sí ibòmíì.
+82	Kò sí èyíkéyìí nínú àwọn àkójọ kóòdù {1} tí ó ṣiṣẹ́.
+83	Kò sí ọ̀nà-àsopọ̀ láti ṣí lórí TV
+84	A kò tíì rí TV Google Cast kankan
+85	Kò sí TV tí a fi pamọ́
+86	Kò sí áàpù tí ó báramu.
+87	A kò fi dátà kankan ránṣẹ́
+88	A kò yan fọ́tò tàbí fídíò kankan.
+89	Aládàáṣe: Wi-Fi, Bluetooth tí TV kò bá dáhùn
+90	Aládàáṣe: Wi-Fi, infurarẹẹdi tí TV kò bá dáhùn
+91	Gbà láàyè
+92	Gba OmniZap láàyè láti lo Bluetooth («Àwọn ẹ̀rọ nítòsí»).
+93	Gba máíkírófóònù láàyè fún ìwádìí ohùn
+94	Àmì-ìdámọ̀ míì / n kò mọ̀
+95	Ọ̀nà míì: láti ọ̀dọ̀ TV
+96	Àwọn áàpù míì
+97	Síwájú kíákíá
+98	Síwájú ìṣẹ́jú-àáyá 30
+99	Ìsàlẹ̀
+100	Ó ju rìmóòtì lọ púpọ̀
+101	Bluetooth: TV kò sopọ̀
+102	Bluetooth: ó ń sopọ̀ mọ́ TV… tún gbìyànjú láìpẹ́
+103	Bluetooth: kò sí nẹ́tíwọ̀ọ̀kì
+104	Bluetooth ti so pọ̀: rìmóòtì yóò lò ó tí TV kò bá dáhùn lórí Wi-Fi.
+105	Bluetooth àtijọ́ (TV míì, dikóda, kọ̀ǹpútà)…
+106	Bluetooth àtijọ́: láti ọ̀dọ̀ fóònù
+107	Bluetooth · ti sopọ̀
+108	Bluetooth · ó ń sopọ̀… (TV wà ní títàn, nítòsí)
+109	Àwọn bọ́tìnnì rìmóòtì nínú ìfitónilétí àti lórí iboju títìpa
+110	A ti fi àwòrán pamọ́: {1}/{2}
+111	A ti fi àwòrán pamọ́ sínú ibi àwòrán (Pictures/OmniZap)
+112	Yíya àwòrán kùnà: {1}
+113	Fáìlì yìí kì í ṣe ẹ̀dà ìpamọ́ OmniZap
+114	Fóònù yìí ní ìtànná infurarẹẹdi: ó lè darí TV èyíkéyìí,
+115	Fóònù yìí kò ní ìtànná infurarẹẹdi
+116	Fóònù yìí kò ní ìtànná infurarẹẹdi. Ẹ̀yà yìí ń ṣiṣẹ́ lórí àwọn fóònù tí
+117	Fóònù yìí kò gba ipò rìmóòtì Bluetooth láàyè (Android kọ̀ ọ́)
+118	Fóònù yìí kò gba ipò rìmóòtì Bluetooth láàyè.
+119	TV yìí kò gba ohùn máíkírófóònù: tẹ Ohùn nìkan
+120	Bọ́tìnnì yìí kò sí lórí Bluetooth
+121	Bọ́tìnnì yìí kò sí fún irú TV yìí
+122	Yí TV padà
+123	Yí kóòdù padà
+124	Ìkànnì tó ṣáájú
+125	Àwọn ìkànnì tààrà
+126	Yan TV
+127	Kíbọ́ọ̀dù
+128	Kóòdù kò tọ́: kóòdù tuntun yóò hàn lórí TV
+129	Kóòdù: {1}
+130	A kò tíì jẹ́rìí sí àwọn kóòdù yìí lórí TV gidi: ìdánwò rẹ ṣe pàtàkì!
+131	Àwọn àṣẹ ohùn
+132	Bẹ̀rẹ̀
+133	Ṣètò infurarẹẹdi
+134	Ṣètò Bluetooth
+135	Sopọ̀
+136	So TV rẹ pọ̀
+137	Ìsopọ̀ já nígbà tí o ń tẹ̀wé
+138	Ìsopọ̀ já, ó ń tún sopọ̀…
+139	Ó ń sopọ̀ mọ́ iboju TV…
+140	Tẹ̀síwájú
+141	Dàkọ
+142	Dàkọ ìròyìn
+143	A ti dàkọ ✓
+144	Nínú Google Home, tẹ TV, lẹ́yìn náà «Ṣàfihàn iboju mi»
+145	Ìfihàn àwòrán àti fídíò ní iboju kíkún lórí TV. Láti Ibi àwòrán náà: Pín → «Ṣí lórí TV».
+146	Ọ̀tún
+147	Dídàkọ
+148	Dídàkọ iboju
+149	Dídàkọ iboju, pẹ̀lú ohùn
+150	Dídàkọ kò ṣeé ṣe: {1}
+151	Ṣí sílẹ̀ (ìdánwò)
+152	Ṣí OmniZap Pro sílẹ̀
+153	Mọ OmniZap Pro
+154	Ṣí ètò kíákíá kí o tẹ «Cast» tàbí «Smart View», lẹ́yìn náà yan TV
+155	Wá àdírẹ́sì MAC fúnra rẹ̀
+156	Ó ń wá…
+157	Pa rẹ́
+158	Ní ìdádúró
+159	Fi pamọ́
+160	Fi ránṣẹ́
+161	Àṣìṣe àìròtẹ́lẹ̀ ({1})
+162	Ìdánwò ọ̀fẹ́: ọjọ́ {1} sí i pẹ̀lú gbogbo ẹ̀yà.
+163	Ìdánwò {1} nínú {2}
+164	Dán an wò
+165	Dán an wò: Ilé
+166	Ìdánwò: bọ́tìnnì Ilé nísàlẹ̀ gbọ́dọ̀ ṣiṣẹ́ lórí TV.
+167	Gbé jáde
+168	Àwọn àyànfẹ́
+169	Pa dé
+170	Àwọn ọfà
+171	Ẹ̀yà OmniZap Pro
+172	Ẹ̀yà OmniZap Pro: ṣí OmniZap láti ṣí i sílẹ̀
+173	Pa mọ́
+174	Fi iboju yìí sílẹ̀ ní ṣíṣí nígbà fídíò: TV ń ka fáìlì tààrà láti fóònù.
+175	Òsì
+176	Fa ìka láti rìn kiri
+177	Google Cast ti dá ìgbéjáde dúró lórí TV
+178	Google Cast kò sí lórí fóònù yìí
+179	Google Cast kò sí lórí fóònù yìí.
+180	Google Cast → kò sí nǹkan
+181	A kò lè dé Google Play
+182	Ìtọ́sọ́nà ètò
+183	Òkè
+184	Láìsí nẹ́tíwọ̀ọ̀kì · Bluetooth
+185	Láìsí nẹ́tíwọ̀ọ̀kì · ó ń sopọ̀ nípasẹ̀ Bluetooth…
+186	Láìsí nẹ́tíwọ̀ọ̀kì · infurarẹẹdi (dojú kọ TV)
+187	O nílò fóònù tí ó ní ìtànná infurarẹẹdi (ọ̀pọ̀ Xiaomi, Redmi àti Poco, àwọn Huawei àti Honor kan).
+188	Ó ti ń hàn lórí iboju TV báyìí.
+189	Àwòrán nìkan, kò sí ohùn. Àwọn àkóónú tí a dáàbò bò (Netflix, ìkànnì TV…)
+190	Kò ṣeé ṣe pẹ̀lú TV tí a ń darí pẹ̀lú infurarẹẹdi tàbí Bluetooth
+191	A kò lè ṣí {1}: tan «USB debugging» lórí TV
+192	A kò lè fi fáìlì pamọ́
+193	A kò lè dé TV: rí i dájú pé ó wà ní títàn, àdírẹ́sì àti Wi-Fi
+194	A kò lè ka fáìlì
+195	Infurarẹẹdi
+196	Infurarẹẹdi: gbogbo àmì-ìdámọ̀
+197	Infurarẹẹdi ti so pọ̀: rìmóòtì yóò lò ó tí TV kò bá dáhùn lórí Wi-Fi.
+198	Infurarẹẹdi · dojú kọ TV
+199	A kò rí àkójọ kóòdù infurarẹẹdi: pa TV rẹ́ kí o tún ṣàfikún rẹ̀
+200	Àkọsílẹ̀
+201	Àkọsílẹ̀ Bluetooth
+202	Ríra yóò wáyé nípasẹ̀ Google Play nígbà tí a bá tẹ OmniZap jáde níbẹ̀. Títí di ìgbà náà, gbádùn ìdánwò.
+203	Áàpù náà ní àṣìṣe. Tẹ «Dàkọ» kí o sì lẹ ọ̀rọ̀ yìí sínú
+204	Ṣíṣí àwọn áàpù
+205	Iboju TV lórí fóònù
+206	Iboju fóònù (tàbí áàpù kan ṣoṣo) ń hàn lórí TV, láìsí Google Cast tàbí
+207	TV gba fáìlì náà
+208	TV dá dídàkọ dúró
+209	TV kọ ìsopọ̀ Bluetooth. Rí i dájú pé ìsopọ̀
+210	TV kọ fáìlì náà (kóòdù {1})
+211	Ṣé TV dáhùn?
+212	TV ti wà ní pípa tẹ́lẹ̀
+213	Ṣé TV wà ní pípa?
+214	TV kò bẹ̀rẹ̀ ìsopọ̀. Tún gbìyànjú.
+215	TV kò ṣí ìwádìí ohùn
+216	TV kò lè ṣí olùwò: {1}
+217	TV kò dáhùn sí àṣẹ títàn.
+218	TV kò dáhùn sí àṣẹ pípa. Tan «USB debugging» lórí TV
+219	TV kò dáhùn sí ìdádúró.
+220	TV kò fi iboju rẹ̀ ránṣẹ́. Rí i dájú pé a gba ADB debugging láàyè
+221	TV kò so pọ̀ mọ́ fóònù: wá a kí o sì gba ìsopọ̀.
+222	TV kò mọ fóònù yìí mọ́ lórí Wi-Fi.
+223	TV kò dáhùn sí jíjí: tan ìdádúró nẹ́tíwọ̀ọ̀kì / «Wake on LAN» lórí TV (wo ⚙)
+224	Wíwá àdírẹ́sì MAC
+225	Àkójọ áàpù
+226	Títẹ ọ̀rọ̀
+227	Rìmóòtì wà ní ọ̀fẹ́: gbogbo bọ́tìnnì, pádì ìfọwọ́kàn, kíbọ́ọ̀dù, infurarẹẹdi àti títan TV.
+228	Rìmóòtì gbogbogbò fún TV rẹ, lórí fóònù rẹ.
+229	Bluetooth nílò Android 9 tàbí tuntun jù bẹ́ẹ̀ lọ
+230	Bluetooth fóònù wà ní pípa.
+231	Áàpù míì ti ń lo ipò rìmóòtì Bluetooth fóònù
+232	Ìlànà àwọn rìmóòtì àkọ́kọ́ Android TV.
+233	Fóònù àti TV ń ṣiṣẹ́ papọ̀.
+234	Fóònù ti ń kéde ara rẹ̀ bí rìmóòtì ní kété tí iboju yìí bá ṣí (àwọn ìlà «BLE:» nínú àkọsílẹ̀).
+235	Fóònù ń fi ara rẹ̀ hàn sí TV bí rìmóòtì àti kíbọ́ọ̀dù Bluetooth:
+236	Ṣeré / dá dúró díẹ̀
+237	A kò lè ṣeré: tan «USB debugging» nínú àwọn àṣàyàn
+238	A kò lè tẹ àwọn lẹ́tà ohùn àti àwọn àmì kan nípasẹ̀ Bluetooth
+239	A kò lè tẹ àwọn lẹ́tà ohùn àti àwọn àmì kan láti ọ̀nà jíjìn
+240	A ń fi lẹ́tà lásán rọ́pò àwọn lẹ́tà tí ó ní àmì (é → e).
+241	Àwọn áàpù TV, pẹ̀lú àwọn àmì wọn
+242	Àwọn áàpù TV, pẹ̀lú ìfọwọ́kàn kan
+243	Kì í ṣe gbogbo olùpèsè ló ń lo àṣẹ kan náà. Tẹ «Dán an wò» láti dán
+244	A ti dí ìfitónilétí áàpù: gbà wọ́n láàyè lórí ojú-ìwé tí yóò ṣí
+245	A tún ń dàkọ ètò fúnra rẹ̀ sí Downloads/OmniZap,
+246	Tan
+247	Títàn, ohùn àti ṣíṣeré, kódà nígbà tí iboju bá wà ní títìpa
+248	Fi Bluetooth àtijọ́ pamọ́
+249	Àkójọ àyíká TV
+250	Àkójọ ìgbéjáde fóònù (Miracast)
+251	Àkójọ àkóónú TV
+252	Àkójọ àkọ́kọ́ (mídíà)
+253	Àkójọ Android lásán
+254	Ẹ ṣé! Gbogbo ẹ̀yà ti ṣí sílẹ̀ títí láé.
+255	Àwọn TV mi
+256	Miracast, nípasẹ̀ ADB debugging, pẹ̀lú ohùn àwọn áàpù (Android 10 tàbí tuntun jù bẹ́ẹ̀ lọ).
+257	Ó ń ṣe àkójọ náà ní ọ̀tun…
+258	Pa ohùn
+259	Orúkọ
+260	A kò tíì ṣètò rẹ̀. Fóònù lè jẹ́ rìmóòtì Bluetooth nígbà tí Wi-Fi kò bá dáhùn,
+261	A kò tíì ṣètò rẹ̀. Ó wúlò láti tan TV tí a pa pátápátá tàbí nígbà tí Wi-Fi kò bá dáhùn
+262	Rárá, èyí tó kàn
+263	Ó ń ṣí {1}…
+264	Ó ń ṣí olùgbà lórí {1}…
+265	Ó ń ṣí i lórí {1}…
+266	Ibi tí o ti lè rí àdírẹ́sì MAC: lórí TV (Ètò → Nípa → Ipò, tàbí Nẹ́tíwọ̀ọ̀kì), nínú
+267	Ìsanwó ẹ̀ẹ̀kan. Kò sí ìforúkọsílẹ̀ oṣooṣù, kò sí ìpolówó.
+268	Ètò
+269	Ètò (onípele gíga)
+270	Ètò → Nẹ́tíwọ̀ọ̀kì àti Íńtánẹ́ẹ̀tì → nẹ́tíwọ̀ọ̀kì rẹ, tàbí Ètò → Nípa → Ipò.
+271	Sọ̀rọ̀…
+272	Kò sí ìtànná infurarẹẹdi
+273	A kò tíì sopọ̀ mọ́ TV kankan: yàn án nínú àkójọ
+274	Fo kọjá
+275	Lọ sí Bluetooth àtijọ́ (fún ipò agbára kékeré)
+276	Pádì nọ́ńbà
+277	Pádì ìfọwọ́kàn
+278	Fọ́tò, fídíò àti iboju lórí TV
+279	Kọ́kọ́ fi kọ́sọ̀ sínú àyè ọ̀rọ̀ kan lórí TV (ìwádìí, ọ̀rọ̀ aṣínà…), lẹ́yìn náà tẹ̀ ẹ́ níbí.
+280	Eré Play
+281	Lẹ́yìn náà
+282	Ọ̀pọ̀ TV
+283	Dojú òkè fóònù kọ TV kí o dán àwọn bọ́tìnnì wò.
+284	Láti tan TV tí ó wà ní pípa, ó gbọ́dọ̀ fi nẹ́tíwọ̀ọ̀kì sílẹ̀ ní títàn nígbà ìdádúró. Lórí TV, tan
+285	Fún àwọn TV tí ń ṣe àkójọ fóònù (Samsung, LG, dikóda…). Android TV àti Google TV
+286	Láti rí gbogbo wọn, tan «USB debugging» lórí TV kí o tẹ bọ́tìnnì lókè.
+287	Fún TV tí ó ní Chromecast inú, dídàkọ ń gba Google Home kọjá: tẹ TV, lẹ́yìn náà
+288	Iye owó ìfilọ́lẹ̀
+289	Àwọn ètò
+290	Èyí tó ṣáájú
+291	Èyí tó ṣáájú
+292	Lẹ́yìn ìsopọ̀, TV yóò hàn lókè bí «Ti sopọ̀».
+293	Àmì-ìdámọ̀ wo ni TV?
+294	Ìròyìn OmniZap
+295	A ti dàkọ ìròyìn
+296	Ó ń wá «{1}» lórí TV
+297	Ó ń wá… Tí kò bá sí nǹkan tí ó hàn, rí i dájú pé TV wà ní títàn àti lórí Wi-Fi kan náà pẹ̀lú fóònù yìí.
+298	Wá TV
+299	Wá áàpù
+300	Ó ń wá… Tí TV bá béèrè «Gba debugging láàyè?», gbà á pẹ̀lú àwọn ọfà.
+301	Tún bẹ̀rẹ̀
+302	Ìdámọ̀ ohùn kò sí lórí fóònù yìí
+303	Padà sẹ́yìn ìṣẹ́jú-àáyá 10
+304	Tún so pọ̀ nípasẹ̀ Wi-Fi
+305	Tún so pọ̀ nípasẹ̀ Wi-Fi: kóòdù oní-lẹ́tà 6 yóò hàn lórí TV.
+306	Tún ìkéde bẹ̀rẹ̀ (BLE)
+307	Jẹ́ kí fóònù hàn (ìṣẹ́jú 2)
+308	Ìdápadà kùnà: {1}
+309	Dá padà
+310	Dá ríra mi padà
+311	Dá ẹ̀dà ìpamọ́ padà
+312	Dá àwọn TV rẹ padà láti ẹ̀dà ìpamọ́: Downloads → OmniZap → {1}
+313	Yọ kúrò
+314	Yí padà sẹ́yìn
+315	Tún gbìyànjú
+316	Ètò
+317	Ètò TV
+318	Ètò kíákíá
+319	Ó ń jí TV nípasẹ̀ nẹ́tíwọ̀ọ̀kì…
+320	Kọ àdírẹ́sì IP TV
+321	Kọ àdírẹ́sì IP TV
+322	Kọ kóòdù
+323	Láìsí Google Cast: a ń fi olùwò kékeré sórí TV nípasẹ̀ ADB debugging.
+324	Kò sí ìpolówó, kò sí ìforúkọsílẹ̀ oṣooṣù
+325	Láìsí nẹ́tíwọ̀ọ̀kì tàbí infurarẹẹdi: fóònù tún lè jẹ́ rìmóòtì àti kíbọ́ọ̀dù Bluetooth
+326	A ti fi ẹ̀dà ìpamọ́ pamọ́
+327	Ẹ̀dà ìpamọ́ àdúgbò
+328	So pọ̀
+329	Àwọn áàpù tí ó wọ́pọ̀ àti èyí tí a ti ṣí lórí TV nìkan ló ń hàn.
+330	Tí TV bá béèrè «Gba debugging láàyè?», sàmì sí «Gbà láàyè nígbà gbogbo»
+331	A ti fi àmì jíjí ránṣẹ́: TV gbọ́dọ̀ hàn nínú àkójọ láàárín ìṣẹ́jú-àáyá 30.
+332	Àkọlé
+333	Èyí tó kàn
+334	Pa rẹ́
+335	Pa TV yìí rẹ́
+336	Pa «{1}» rẹ́ kúrò nínú rìmóòtì? Wàá ní láti tún so pọ̀ láti rí i padà.
+337	Lórí TV: Ètò → Nẹ́tíwọ̀ọ̀kì àti Íńtánẹ́ẹ̀tì → Wi-Fi rẹ.
+338	TV ti sopọ̀
+339	TV tààrà
+340	A kò lè dé TV
+341	TV kò sopọ̀
+342	Àwọn TV tí a rí:
+343	TV wà ní pípa: kọ́kọ́ tẹ Tan
+344	TV wà ní pípa: kọ́kọ́ tẹ ⏻
+345	Ọ̀rọ̀ tí a ó fi ránṣẹ́…
+346	Bọ́tìnnì «{1}»
+347	Tẹ fún OK
+348	Tẹ «Dúró» láti dá dídàkọ dúró
+349	Infurarẹẹdi nígbà gbogbo
+350	Bluetooth nígbà gbogbo
+351	Wi-Fi nígbà gbogbo
+352	Gbogbo áàpù
+353	Gbogbo TV rẹ
+354	Táìlì: ètò kíákíá → ṣàtúnṣe → «TV». Pín: nínú YouTube tàbí nínú
+355	Rìmóòtì
+356	Rìmóòtì ({1})
+357	Rìmóòtì: {1}
+358	Rìmóòtì Bluetooth
+359	Rìmóòtì Bluetooth:
+360	Rìmóòtì TV OmniZap
+361	A ti ṣàfikún rìmóòtì sínú ìfitónilétí: ṣí pánẹ́ẹ̀lì ìfitónilétí
+362	Rìmóòtì agbára kékeré (Android TV, Google TV)
+363	Rìmóòtì nínú ìfitónilétí
+364	Rìmóòtì infurarẹẹdi
+365	Rìmóòtì infurarẹẹdi: {1}.
+366	Fóònù kò sí lórí Wi-Fi · so ó mọ́ Wi-Fi TV
+367	Tẹlifíṣọ̀n tààrà
+368	Ìṣòro kan ṣẹlẹ̀
+369	TV tí a so mọ́ okùn Ethernet ń jí dáadáa ju Wi-Fi lọ.
+370	TV tí ó wà ní pípa kò hàn lórí nẹ́tíwọ̀ọ̀kì. Tí ó bá gba jíjí nípasẹ̀ nẹ́tíwọ̀ọ̀kì,
+371	Lo TV yìí
+372	Lo infurarẹẹdi
+373	Lo Bluetooth
+374	Jẹ́rìí
+375	Ìdádúró
+376	Olùwò rìmóòtì (ADB debugging). Yàn án tí Google Cast bá dá ìgbéjáde dúró.
+377	Olùwò rìmóòtì lórí {1}
+378	Olùwò ti ṣí lórí TV
+379	Wo TV
+380	Wo TV lórí fóònù
+381	Ohùn
+382	Dátà rẹ wà lọ́dọ̀ rẹ
+383	Ìdánwò ọjọ́ {1} rẹ ti parí.
+384	Ṣé o ti lo áàpù yìí rí?
+385	Rí i dájú pé kò sí nǹkan tí ó bo ìtànná (lókè fóònù) kí o dojú kọ sẹ́ńsọ̀ TV,
+386	Wi-Fi: ìwárí aládàáṣe
+387	A kò rí Wi-Fi: fóònù gbọ́dọ̀ wà lórí nẹ́tíwọ̀ọ̀kì kan náà pẹ̀lú TV
+388	Wi-Fi fún Android TV àti Google TV, infurarẹẹdi àti Bluetooth fún àwọn yòókù, kódà láìsí nẹ́tíwọ̀ọ̀kì.
+389	Wíjẹ́ẹ̀tì: tẹ iboju ilé mọ́lẹ̀ → Wíjẹ́ẹ̀tì → OmniZap.
+390	Wíjẹ́ẹ̀tì, ìfitónilétí àti ètò kíákíá
+391	ti gbà lórí TV, lẹ́yìn náà tún tẹ TV nínú «Àwọn ẹ̀rọ tí a ti so pọ̀ tẹ́lẹ̀».
+392	ń hàn ní dúdú. Tẹ àwòrán fún «OK», fa ìka fún àwọn ọfà.
+393	kò sí TV Wi-Fi tí a fi pamọ́
+394	yíya iboju dáwọ́ dúró
+395	a kọ yíya iboju
+396	àṣàyàn kọ̀ọ̀kan lórí TV kí o sì pa èyí tí ó ṣiṣẹ́ mọ́.
+397	bí rìmóòtì lásán.
+398	ti sopọ̀
+399	a kò lè dé ADB debugging TV ({1})
+400	yọ ọ́ kúrò, pa Bluetooth kí o tún tàn án, lẹ́yìn náà tẹ «Tún gbìyànjú».
+401	ti dá dúró díẹ̀
+402	ẹ̀rọ àkóónú fídíò kò sí
+403	àṣìṣe ṣíṣeré (TV kò ṣe àtìlẹ́yìn fún fọ́ọ̀mù yìí?)
+404	kí o sì ṣe àkójọ áàpù lẹ́ẹ̀kan: rìmóòtì yóò lè pa á.
+405	a kò lè dé fáìlì
+406	a kò lè dé ibi àwòrán
+407	àkójọ kóòdù tí a kò mọ̀
+408	TV kò ṣí olùgbà: {1}
+409	TV kò dá àwòrán kankan padà
+410	àṣẹ tí ó bá TV rẹ mu.
+411	olùpèsè ti pa ẹ̀yà yìí. Tẹ «Tún gbìyànjú» lẹ́yìn tí o bá pa Bluetooth tí o sì tún tàn án.
+412	ó ń ṣeré
+413	olùgbéjáde lórí TV, lẹ́yìn náà gba ìbéèrè àṣẹ.
+414	àkójọ ẹ̀rọ ráútà rẹ, tàbí lórí àmì ẹ̀yìn TV.
+415	ìfiránṣẹ́ rẹ kí a lè ṣàtúnṣe rẹ̀.
+416	sábà máa ń fi kíbọ́ọ̀dù àti ẹ̀rọ eré nìkan hàn: nígbà náà lo ọ̀nà tí ó wà lókè.
+417	aṣàwákiri, Pín → «Ṣí lórí TV».
+418	a kò kéde
+419	kò sopọ̀ (TV gbọ́dọ̀ wà ní títàn àti nítòsí)
+420	a kò kà á
+421	ní ọ̀kan (ọ̀pọ̀ Xiaomi, Redmi àti Poco, àwọn Huawei àti Honor kan).
+422	ó báramu
+423	lẹ́yìn náà yan OK pẹ̀lú àwọn ọfà rìmóòtì yìí (ìṣẹ́jú 1).
+424	lẹ́yìn náà yan fóònù (orúkọ Bluetooth rẹ̀) kí o sì gba ìsopọ̀.
+425	kọ àdírẹ́sì MAC rẹ̀: yóò tàn, lẹ́yìn náà yóò hàn nínú àkójọ lókè.
+426	láìsí nẹ́tíwọ̀ọ̀kì, ní nǹkan bí mítà mẹ́wàá.
+427	láìsí nẹ́tíwọ̀ọ̀kì, ní nǹkan bí mítà mẹ́wàá. (Ẹ̀dà {1})
+428	gẹ́gẹ́ bí irú rẹ̀ «Wake on LAN», «Jíjí nípasẹ̀ nẹ́tíwọ̀ọ̀kì», «Ìdádúró nẹ́tíwọ̀ọ̀kì» tàbí
+429	ti parí
+430	fáìlì tí ó máa wà kódà tí a bá yọ áàpù kúrò.
+431	{1}: Bluetooth kò sopọ̀
+432	A ti dá TV {1} padà. Tí TV bá béèrè, tún so pọ̀.
+433	A ti ṣàfikún {1}.
+434	A ti ṣàfikún {1}. Dojú òkè fóònù kọ TV.
+435	Áàpù {1}: àkójọ gidi TV, pẹ̀lú orúkọ gidi.
+436	Áàpù {1} wà lórí rẹ̀ (orúkọ ìfojúbù: kíkà kíkún kùnà).
+437	A kò lè dé {1}
+438	A kò lè dé {1}: kọ́kọ́ tàn án
+439	A ti yan fáìlì {1}
+440	{1} kò sí pẹ̀lú TV tí a ń darí pẹ̀lú Bluetooth
+441	{1} kò sí pẹ̀lú TV tí a ń darí pẹ̀lú infurarẹẹdi
+442	{1} · a ti ṣàfikún rẹ̀ tẹ́lẹ̀
+443	«Ṣàfihàn iboju mi». («Smart View» ti Samsung ń lo Miracast, tí ọ̀pọ̀ Android TV kì í gbà.)
+444	«Ìbẹ̀rẹ̀ kíákíá» (Ètò → Nẹ́tíwọ̀ọ̀kì àti Íńtánẹ́ẹ̀tì, tàbí Ẹ̀rọ → Agbára).
+445	«Ṣí Netflix» pẹ̀lú ohùn
+446	«Ṣí Netflix», «fíìmù ìjà»…
+447	«Télécommande TV» tí ó bá ṣì wà, tún Bluetooth fóònù bẹ̀rẹ̀ kí o sì tún gbìyànjú.
+448	«Wo TV» ń ṣiṣẹ́ pẹ̀lú Android TV tí a so mọ́ Wi-Fi.
+449	«{1}»: TV kò sopọ̀
+450	«{1}» jẹ́ apá kan OmniZap Pro. Ìdánwò ọjọ́ {2} rẹ ti parí.
+451	Ìpamọ́ kùnà: {1}
+452	Iboju
+453	Iboju TV tààrà
+454	Iboju TV kò sí: {1}
+455	Iboju fóònù ń hàn lórí TV
+456	A ti fi iboju fóònù ránṣẹ́ sí TV ({1} × {2})
+457	A ti dàkọ iboju sí TV
+458	A fi iboju ránṣẹ́ láìsí ohùn (a kọ àṣẹ «Máíkírófóònù»)
+459	Ó wà ní pípa · tẹ Tan
+460	láti ìjìnnà tí kò tó mítà 3. O lè tún bẹ̀rẹ̀ tàbí gbìyànjú «Àmì-ìdámọ̀ míì».
+461	○ Ó ń pèsè rìmóòtì Bluetooth fóònù…
+462	● Fóònù ti ṣetán bí rìmóòtì Bluetooth
+463	● Fóònù ń hàn bí rìmóòtì agbára kékeré
+464	✓ A rí àdírẹ́sì MAC a sì fi pamọ́: {1}
+465	＋ Ṣàfikún TV
+466	Ti sopọ̀ mọ́ {1}
+467	Fọ́tò àti fídíò lórí TV
+468	Padà

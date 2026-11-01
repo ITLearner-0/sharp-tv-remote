@@ -1,0 +1,469 @@
+0	Washa TV
+1	Simamisha kuakisi skrini
+2	Simamisha onyesho la picha
+3	Picha ya skrini ya TV
+4	Inapiga picha…
+5	Chagua faili zingine
+6	Chagua picha na video
+7	Chagua chapa nyingine
+8	Imeunganishwa na {1}
+9	Onyesho la picha (sekunde 6 kwa kila picha)
+10	Akisi skrini (Google Home)
+11	Akisi skrini kwenye TV
+12	Majaribio ya Pro: siku {1} zimebaki
+13	Sakinisha Google Home ili kuakisi skrini
+14	Inapakia…
+15	Orodhesha programu zote za TV
+16	Ndiyo, ongeza TV hii
+17	Ndiyo, tumia misimbo hii
+18	Hamia OmniZap Pro
+19	Picha na video za simu
+20	Picha na video kwenye TV
+21	Inatafuta TV zinazotumia Google Cast (Chromecast iliyojengwa ndani)…
+22	Inatafuta TV kwenye mtandao
+23	Inatafuta…
+24	Rudi
+25	Rudi kwenye rimoti
+26	TV ya kawaida au ya zamani?
+27	TV imepatikana!
+28	{1}: haina Google Cast
+29	{1}: kitazamaji cha rimoti
+30	TV {1} zimepatikana!
+31	(picha ya simu)
+32	(inahitaji simu yenye kitoa mwanga wa infraredi).
+33	({1} zimepuuzwa)
+34	· imeunganishwa
+35	(Hii ni tofauti na kuoanisha Bluetooth, ambako hakuchukui nafasi yake.)
+36	(Android TV, Samsung, LG, ving'amuzi…).
+37	(pia inatumika kwa orodha ya programu).
+38	(inawasha/inazima {1}).
+39	(au menyu ya Bluetooth): TV inaonekana.
+40	(kwa mfano programu ya zamani «Télécommande TV», au programu ya kibodi/kipanya cha Bluetooth):
+41	(nakala ya zamani zaidi: Downloads → Télécommande TV).
+42	1. Kwenye TV, fungua Mipangilio → Rimoti na vifaa → Ongeza kifaa
+43	1. Gusa kitufe hapa chini: simu inajitangaza kama rimoti.
+44	2. Hapa, gusa «Tafuta TV», kisha jina la TV.
+45	2. Kwenye TV: Mipangilio → Rimoti na vifaa → Ongeza kifaa,
+46	3. Kubali kuoanisha kwenye TV na kwenye simu: OmniZap inaunganishwa.
+47	3. «Imeunganishwa na …» inaonekana juu: jaribu Nyumbani.
+48	Nyumbani
+49	Ufikiaji wa maisha · {1}
+50	Ununuzi wa OmniZap Pro umerejeshwa, asante!
+51	Washa Bluetooth
+52	Anwani ya IP
+53	Anwani ya IP haipo
+54	Anwani ya MAC (kuwasha TV)
+55	Anwani ya MAC ya TV
+56	Anwani ya MAC ya TV haijulikani: washa TV kwa mkono mara moja au iandike kwenye ⚙
+57	Anwani ya MAC haikupatikana yenyewe. Iandike hapo juu: kwenye TV,
+58	Anwani ya MAC si sahihi
+59	Anwani ya MAC si sahihi (mfano: A4:B1:C2:D3:E4:F5)
+60	Ongeza TV
+61	Inawasha {1}…
+62	Inawasha TV, hata ikiwa imezimwa
+63	Washa TV kwanza
+64	Washa TV na ubaki kwenye Wi-Fi ileile: itaonekana hapa chini.
+65	Imewashwa
+66	Android haijibu ombi la hali ya rimoti ya Bluetooth. Kwenye simu zingine,
+67	Android inakataa muunganisho wa Bluetooth na TV hii. Ondoa programu ya zamani
+68	Ghairi
+69	Kuoanisha kumekatizwa, anza upya
+70	Vifaa vilivyooanishwa tayari (gusa TV ili kuunganisha):
+71	Programu
+72	Programu za TV
+73	Simamisha
+74	Oanisha tena
+75	Weka infraredi
+76	Weka Bluetooth
+77	Unganisha na TV hii
+78	Imeoanishwa ({1})
+79	Kidokezo: ikiwa Menyu au Mwongozo haifanyi kitu, bonyeza na ushikilie kitufe ili kuchagua
+80	Hakuna ununuzi wa OmniZap Pro kwenye akaunti hii ya Google
+81	Hakuna akaunti, hakuna ukusanyaji wa data. Mipangilio yako inabaki kwenye simu, si kwingine.
+82	Hakuna kati ya seti {1} za misimbo iliyofanya kazi.
+83	Hakuna kiungo cha kufungua kwenye TV
+84	Bado hakuna TV ya Google Cast iliyopatikana
+85	Hakuna TV iliyohifadhiwa
+86	Hakuna programu inayolingana.
+87	Hakuna data inayotumwa
+88	Hakuna picha wala video iliyochaguliwa.
+89	Kiotomatiki: Wi-Fi, Bluetooth ikiwa TV haijibu
+90	Kiotomatiki: Wi-Fi, infraredi ikiwa TV haijibu
+91	Ruhusu
+92	Ruhusu OmniZap kutumia Bluetooth («Vifaa vilivyo karibu»).
+93	Ruhusu maikrofoni kwa utafutaji wa sauti
+94	Chapa nyingine / sijui
+95	Njia nyingine: kupitia TV
+96	Programu zingine
+97	Songa mbele haraka
+98	Mbele sekunde 30
+99	Chini
+100	Zaidi sana ya rimoti
+101	Bluetooth: TV haijaunganishwa
+102	Bluetooth: inaunganisha na TV… jaribu tena baada ya muda mfupi
+103	Bluetooth: hakuna mtandao
+104	Bluetooth imeunganishwa: rimoti itaitumia ikiwa TV haijibu kupitia Wi-Fi.
+105	Bluetooth ya kawaida (TV zingine, ving'amuzi, kompyuta)…
+106	Bluetooth ya kawaida: kupitia simu
+107	Bluetooth · imeunganishwa
+108	Bluetooth · inaunganisha… (TV imewashwa, iko karibu)
+109	Vitufe vya rimoti kwenye arifa na skrini iliyofungwa
+110	Picha imehifadhiwa: {1}/{2}
+111	Picha imehifadhiwa kwenye matunzio (Pictures/OmniZap)
+112	Kupiga picha kumeshindwa: {1}
+113	Faili hii si nakala ya OmniZap
+114	Simu hii ina kitoa mwanga wa infraredi: inaweza kuendesha TV yoyote,
+115	Simu hii haina kitoa mwanga wa infraredi
+116	Simu hii haina kitoa mwanga wa infraredi. Kipengele hiki kinafanya kazi kwenye simu ambazo
+117	Simu hii hairuhusu hali ya rimoti ya Bluetooth (Android imekataa)
+118	Simu hii hairuhusu hali ya rimoti ya Bluetooth.
+119	TV hii haikubali sauti ya maikrofoni: gusa tu Sauti
+120	Kitufe hiki hakipo kwenye Bluetooth
+121	Kitufe hiki hakipo kwa modeli hii ya TV
+122	Badilisha TV
+123	Badilisha misimbo
+124	Chaneli iliyotangulia
+125	Chaneli za moja kwa moja
+126	Chagua TV
+127	Kibodi
+128	Msimbo si sahihi: msimbo mpya utaonekana kwenye TV
+129	Misimbo: {1}
+130	Misimbo bado haijathibitishwa kwenye TV halisi: jaribio lako ni muhimu!
+131	Amri za sauti
+132	Anza
+133	Weka infraredi
+134	Weka Bluetooth
+135	Unganisha
+136	Unganisha TV yako
+137	Muunganisho umekatika wakati wa kuandika
+138	Muunganisho umekatika, inaunganisha upya…
+139	Inaunganisha na skrini ya TV…
+140	Endelea
+141	Nakili
+142	Nakili ripoti
+143	Imenakiliwa ✓
+144	Kwenye Google Home, gusa TV, kisha «Tuma skrini yangu»
+145	Onyesho la picha na video kwenye skrini nzima ya TV. Pia kutoka Matunzio: Shiriki → «Fungua kwenye TV».
+146	Kulia
+147	Kuakisi
+148	Kuakisi skrini
+149	Kuakisi skrini, pamoja na sauti
+150	Kuakisi kumeshindwa: {1}
+151	Fungua (jaribio)
+152	Fungua OmniZap Pro
+153	Gundua OmniZap Pro
+154	Fungua mipangilio ya haraka na ugusa «Tuma» au «Smart View», kisha uchague TV
+155	Tambua anwani ya MAC yenyewe
+156	Inatambua…
+157	Futa
+158	Katika hali ya kusubiri
+159	Hifadhi
+160	Tuma
+161	Hitilafu isiyotarajiwa ({1})
+162	Majaribio ya bure: siku {1} zaidi zenye vipengele vyote.
+163	Jaribio {1} kati ya {2}
+164	Jaribu
+165	Jaribu: Nyumbani
+166	Jaribio: kitufe cha Nyumbani hapa chini kinapaswa kufanya kazi kwenye TV.
+167	Hamisha
+168	Vipendwa
+169	Funga
+170	Mishale
+171	Kipengele cha OmniZap Pro
+172	Kipengele cha OmniZap Pro: fungua OmniZap ili kukifungua
+173	Weka
+174	Acha skrini hii wazi wakati wa video: TV inasoma faili moja kwa moja kutoka kwenye simu.
+175	Kushoto
+176	Telezesha ili kusogea
+177	Google Cast imesimamisha utumaji kwenye TV
+178	Google Cast haipatikani kwenye simu hii
+179	Google Cast haipatikani kwenye simu hii.
+180	Google Cast → hakuna kitu
+181	Google Play haifikiki
+182	Mwongozo wa vipindi
+183	Juu
+184	Bila mtandao · Bluetooth
+185	Bila mtandao · inaunganisha kwa Bluetooth…
+186	Bila mtandao · infraredi (elekeza kwenye TV)
+187	Unahitaji simu yenye kitoa mwanga wa infraredi (Xiaomi, Redmi na Poco nyingi, baadhi ya Huawei na Honor).
+188	Sasa inaonekana kwenye skrini ya TV.
+189	Picha pekee, bila sauti. Maudhui yanayolindwa (Netflix, chaneli za TV…)
+190	Haiwezekani kwa TV inayoendeshwa kwa infraredi au Bluetooth
+191	Imeshindwa kufungua {1}: washa «USB debugging» kwenye TV
+192	Imeshindwa kuhifadhi faili
+193	Imeshindwa kufikia TV: hakikisha imewashwa, anwani na Wi-Fi
+194	Imeshindwa kusoma faili
+195	Infraredi
+196	Infraredi: chapa zote
+197	Infraredi imeunganishwa: rimoti itaitumia ikiwa TV haijibu kupitia Wi-Fi.
+198	Infraredi · elekeza kwenye TV
+199	Seti ya misimbo ya infraredi haikupatikana: futa na uongeze TV tena
+200	Kumbukumbu
+201	Kumbukumbu ya Bluetooth
+202	Ununuzi utafanyika kupitia Google Play OmniZap itakapochapishwa huko. Kwa sasa, furahia majaribio.
+203	Programu imepata hitilafu. Gusa «Nakili» kisha ubandike maandishi haya kwenye
+204	Kufungua programu
+205	Skrini ya TV kwenye simu
+206	Skrini ya simu (au programu moja tu) inaonekana kwenye TV, bila Google Cast wala
+207	TV imekubali faili
+208	TV imesimamisha kuakisi
+209	TV imekataa muunganisho wa Bluetooth. Hakikisha kuoanisha
+210	TV imekataa faili (msimbo {1})
+211	Je, TV imeitikia?
+212	TV tayari imezimwa
+213	Je, TV imezimwa?
+214	TV haikuanzisha kuoanisha. Jaribu tena.
+215	TV haikufungua utafutaji wa sauti
+216	TV imeshindwa kufungua kitazamaji: {1}
+217	TV haikuitikia amri ya kuwasha.
+218	TV haikuitikia amri ya kuzima. Washa «USB debugging» kwenye TV
+219	TV haikuitikia hali ya kusubiri.
+220	TV haitumi skrini yake. Hakikisha ADB debugging imeruhusiwa
+221	TV haijaoanishwa na simu: itafute na ukubali kuoanisha.
+222	TV haitambui tena simu hii kupitia Wi-Fi.
+223	TV haijibu kuamshwa: washa kwenye TV hali ya kusubiri ya mtandao / «Wake on LAN» (tazama ⚙)
+224	Utambuzi wa anwani ya MAC
+225	Orodha ya programu
+226	Kuandika maandishi
+227	Rimoti inabaki bure: vitufe vyote, padi ya kugusa, kibodi, infraredi na kuwasha TV.
+228	Rimoti ya ulimwengu wote ya TV yako, kwenye simu yako.
+229	Bluetooth inahitaji Android 9 au mpya zaidi
+230	Bluetooth ya simu imezimwa.
+231	Hali ya rimoti ya Bluetooth ya simu tayari inatumiwa na programu nyingine
+232	Itifaki ya rimoti asili za Android TV.
+233	Simu na TV zinafanya kazi pamoja.
+234	Simu tayari inajitangaza kama rimoti skrini hii inapofunguliwa (mistari «BLE:» kwenye kumbukumbu).
+235	Simu inajitambulisha kwa TV kama rimoti na kibodi ya Bluetooth:
+236	Cheza / sitisha
+237	Haiwezi kucheza: washa «USB debugging» katika chaguo za
+238	Herufi zenye alama na baadhi ya alama haziwezi kuandikwa kwa Bluetooth
+239	Herufi zenye alama na baadhi ya alama haziwezi kuandikwa kwa mbali
+240	Herufi zenye alama zinabadilishwa na herufi rahisi (é → e).
+241	Programu za TV, pamoja na aikoni zake
+242	Programu za TV, kwa mguso mmoja
+243	Si watengenezaji wote wanaotumia amri ileile. Gusa «Jaribu» ili kujaribu
+244	Arifa za programu zimezuiwa: ziruhusu kwenye ukurasa unaofunguka
+245	Mipangilio pia inanakiliwa yenyewe kwenye Downloads/OmniZap,
+246	Washa
+247	Kuwasha, sauti na uchezaji, hata skrini ikiwa imefungwa
+248	Ficha Bluetooth ya kawaida
+249	Menyu ya muktadha ya TV
+250	Menyu ya kutuma ya simu (Miracast)
+251	Menyu ya maudhui ya TV
+252	Menyu kuu (midia)
+253	Menyu ya kawaida ya Android
+254	Asante! Vipengele vyote vimefunguliwa milele.
+255	TV zangu
+256	Miracast, kupitia ADB debugging, pamoja na sauti ya programu (Android 10 au mpya zaidi).
+257	Inasasisha orodha…
+258	Zima sauti
+259	Jina
+260	Haijawekwa. Simu inaweza kutumika kama rimoti ya Bluetooth Wi-Fi isipojibu,
+261	Haijawekwa. Inafaa kuwasha TV iliyozimwa kabisa au Wi-Fi isipojibu
+262	Hapana, inayofuata
+263	Inafungua {1}…
+264	Inafungua kipokezi kwenye {1}…
+265	Inafungua kwenye {1}…
+266	Mahali pa kupata anwani ya MAC: kwenye TV (Mipangilio → Kuhusu → Hali, au Mtandao), kwenye
+267	Malipo ya mara moja. Hakuna usajili, hakuna matangazo.
+268	Mipangilio
+269	Mipangilio (ya juu)
+270	Mipangilio → Mtandao na Intaneti → mtandao wako, au Mipangilio → Kuhusu → Hali.
+271	Ongea…
+272	Hakuna kitoa mwanga wa infraredi
+273	Bado haijaunganishwa na TV: ichague kwenye orodha
+274	Ruka
+275	Hamia Bluetooth ya kawaida (kwa hali ya nishati ndogo)
+276	Vitufe vya nambari
+277	Padi ya kugusa
+278	Picha, video na skrini kwenye TV
+279	Kwanza weka kishale kwenye sehemu ya maandishi kwenye TV (utafutaji, nenosiri…), kisha andika hapa.
+280	Michezo ya Play
+281	Baadaye
+282	TV nyingi
+283	Elekeza sehemu ya juu ya simu kwenye TV na ujaribu vitufe.
+284	Ili kuwasha TV iliyozimwa, lazima iache mtandao ukiwa hai wakati wa kusubiri. Kwenye TV, washa
+285	Kwa TV zinazoorodhesha simu (Samsung, LG, ving'amuzi…). Android TV na Google TV
+286	Ili kuziona zote, washa «USB debugging» kwenye TV na ugusa kitufe hapo juu.
+287	Kwa TV yenye Chromecast iliyojengwa ndani, kuakisi kunapitia Google Home: gusa TV, kisha
+288	Bei ya uzinduzi
+289	Vipindi
+290	Iliyotangulia
+291	Iliyotangulia
+292	Ikishaoanishwa, TV inaonekana juu kama «Imeunganishwa».
+293	TV ni ya chapa gani?
+294	Ripoti ya OmniZap
+295	Ripoti imenakiliwa
+296	Inatafuta «{1}» kwenye TV
+297	Inatafuta… Kisipoonekana kitu, hakikisha TV imewashwa na iko kwenye Wi-Fi ileile na simu hii.
+298	Tafuta TV
+299	Tafuta programu
+300	Inatafuta… TV ikiuliza «Ruhusu debugging?», kubali kwa mishale.
+301	Anza upya
+302	Utambuzi wa sauti haupatikani kwenye simu hii
+303	Nyuma sekunde 10
+304	Oanisha tena kupitia Wi-Fi
+305	Oanisha tena kupitia Wi-Fi: msimbo wa herufi 6 utaonekana kwenye TV.
+306	Anzisha tena tangazo (BLE)
+307	Fanya simu ionekane (dakika 2)
+308	Kurejesha kumeshindwa: {1}
+309	Rejesha
+310	Rejesha ununuzi wangu
+311	Rejesha nakala
+312	Rejesha TV zako kutoka kwa nakala: Downloads → OmniZap → {1}
+313	Ondoa
+314	Rudisha nyuma
+315	Jaribu tena
+316	Mipangilio
+317	Mipangilio ya TV
+318	Mipangilio ya haraka
+319	Inaamsha TV kupitia mtandao…
+320	Andika anwani ya IP ya TV
+321	Andika anwani ya IP ya TV
+322	Andika msimbo
+323	Bila Google Cast: kitazamaji kidogo kinasakinishwa kwenye TV kupitia ADB debugging.
+324	Hakuna matangazo, hakuna usajili
+325	Bila mtandao wala infraredi: simu inaweza pia kutumika kama rimoti na kibodi ya Bluetooth
+326	Nakala imehifadhiwa
+327	Nakala ya ndani
+328	Oanisha
+329	Programu za kawaida na zilizofunguliwa awali kwenye TV pekee ndizo zinaonekana.
+330	TV ikiuliza «Ruhusu debugging?», weka alama kwenye «Ruhusu kila wakati»
+331	Ishara ya kuamsha imetumwa: TV inapaswa kuonekana kwenye orodha ndani ya sekunde 30.
+332	Manukuu
+333	Inayofuata
+334	Futa
+335	Futa TV hii
+336	Futa «{1}» kwenye rimoti? Utahitaji kuoanisha tena ili kuirudisha.
+337	Kwenye TV: Mipangilio → Mtandao na Intaneti → Wi-Fi yako.
+338	TV imeunganishwa
+339	TV ya moja kwa moja
+340	TV haifikiki
+341	TV haijaunganishwa
+342	TV zilizopatikana:
+343	TV imezimwa: bonyeza kwanza Washa
+344	TV imezimwa: bonyeza kwanza ⏻
+345	Maandishi ya kutuma…
+346	Kitufe «{1}»
+347	Gusa kwa OK
+348	Gusa «Simamisha» ili kusimamisha kuakisi
+349	Infraredi kila wakati
+350	Bluetooth kila wakati
+351	Wi-Fi kila wakati
+352	Programu zote
+353	TV zako zote
+354	Kigae: mipangilio ya haraka → hariri → «TV». Shiriki: kwenye YouTube au
+355	Rimoti
+356	Rimoti ({1})
+357	Rimoti: {1}
+358	Rimoti ya Bluetooth
+359	Rimoti ya Bluetooth:
+360	Rimoti ya TV ya OmniZap
+361	Rimoti imeongezwa kwenye arifa: fungua kidirisha cha arifa
+362	Rimoti ya nishati ndogo (Android TV, Google TV)
+363	Rimoti kwenye arifa
+364	Rimoti ya infraredi
+365	Rimoti ya infraredi: {1}.
+366	Simu haiko kwenye Wi-Fi · iunganishe na Wi-Fi ya TV
+367	Televisheni ya moja kwa moja
+368	Tatizo limetokea
+369	TV iliyounganishwa kwa kebo ya Ethernet inaamka kwa uhakika zaidi kuliko kwa Wi-Fi.
+370	TV iliyozimwa haionekani kwenye mtandao. Ikikubali kuamshwa kupitia mtandao,
+371	Tumia TV hii
+372	Tumia infraredi
+373	Tumia Bluetooth
+374	Thibitisha
+375	Kusubiri
+376	Kitazamaji cha rimoti (ADB debugging). Kichague ikiwa Google Cast inasimamisha utumaji.
+377	Kitazamaji cha rimoti kwenye {1}
+378	Kitazamaji kimefunguliwa kwenye TV
+379	Tazama TV
+380	Tazama TV kwenye simu
+381	Sauti
+382	Data yako inabaki kwako
+383	Majaribio yako ya siku {1} yameisha.
+384	Umewahi kutumia programu hii?
+385	Hakikisha hakuna kinachofunika kitoa mwanga (juu ya simu) na uelekeze kwenye kihisi cha TV,
+386	Wi-Fi: utambuzi wa kiotomatiki
+387	Wi-Fi haikupatikana: simu lazima iwe kwenye mtandao uleule na TV
+388	Wi-Fi kwa Android TV na Google TV, infraredi na Bluetooth kwa zingine, hata bila mtandao.
+389	Wijeti: bonyeza na ushikilie skrini ya nyumbani → Wijeti → OmniZap.
+390	Wijeti, arifa na mipangilio ya haraka
+391	kumekubaliwa kwenye TV, kisha gusa TV tena katika «Vifaa vilivyooanishwa tayari».
+392	yanaonekana meusi. Gusa picha kwa «OK», telezesha kwa mishale.
+393	hakuna TV ya Wi-Fi iliyohifadhiwa
+394	kurekodi skrini kumekatizwa
+395	kurekodi skrini kumekataliwa
+396	kila chaguo kwenye TV na uweke kile kinachofanya kazi.
+397	kama rimoti ya kawaida.
+398	imeunganishwa
+399	ADB debugging ya TV haifikiki ({1})
+400	iondoe, zima na uwashe Bluetooth, kisha ugusa «Jaribu tena».
+401	imesitishwa
+402	kisimbaji cha video hakipatikani
+403	hitilafu ya uchezaji (muundo hautumiki na TV?)
+404	na uorodheshe programu mara moja: rimoti itaweza kuizima.
+405	faili haifikiki
+406	matunzio hayafikiki
+407	seti ya misimbo isiyojulikana
+408	TV haikufungua kipokezi: {1}
+409	TV haikurudisha picha yoyote
+410	amri inayofaa TV yako.
+411	mtengenezaji amezima kipengele hiki. Gusa «Jaribu tena» baada ya kuzima na kuwasha Bluetooth.
+412	inacheza
+413	wasanidi programu kwenye TV, kisha ukubali ombi la ruhusa.
+414	orodha ya vifaa vya ruta yako, au kwenye lebo nyuma ya TV.
+415	ujumbe wako ili lirekebishwe.
+416	mara nyingi huonyesha kibodi na vidhibiti vya michezo pekee: tumia basi njia iliyo hapo juu.
+417	kivinjari, Shiriki → «Fungua kwenye TV».
+418	haijatangazwa
+419	haijaunganishwa (TV lazima iwe imewashwa na iko karibu)
+420	haijasomwa
+421	zina kimoja (Xiaomi, Redmi na Poco nyingi, baadhi ya Huawei na Honor).
+422	inaoana
+423	kisha uchague OK kwa mishale ya rimoti hii (dakika 1).
+424	kisha uchague simu (jina lake la Bluetooth) na ukubali kuoanisha.
+425	andika anwani yake ya MAC: itawaka kisha itaonekana kwenye orodha hapo juu.
+426	bila mtandao, kwa umbali wa takriban mita kumi.
+427	bila mtandao, kwa umbali wa takriban mita kumi. (Toleo {1})
+428	kulingana na modeli «Wake on LAN», «Amsha kupitia mtandao», «Kusubiri kwa mtandao» au
+429	imeisha
+430	faili inayobaki hata programu ikiondolewa.
+431	{1}: Bluetooth haijaunganishwa
+432	TV {1} zimerejeshwa. TV ikiomba, oanisha tena.
+433	{1} imeongezwa.
+434	{1} imeongezwa. Elekeza sehemu ya juu ya simu kwenye TV.
+435	Programu {1}: orodha kamili ya TV, yenye majina halisi.
+436	Programu {1} zimesakinishwa (majina ya kukadiria: usomaji wa kina umeshindwa).
+437	{1} haifikiki
+438	{1} haifikiki: iwashe kwanza
+439	Faili {1} zimechaguliwa
+440	{1} haipatikani kwa TV inayoendeshwa kwa Bluetooth
+441	{1} haipatikani kwa TV inayoendeshwa kwa infraredi
+442	{1} · tayari imeongezwa
+443	«Tuma skrini yangu». («Smart View» ya Samsung inatumia Miracast, ambayo Android TV nyingi hupuuza.)
+444	«Kuanza haraka» (Mipangilio → Mtandao na Intaneti, au Mfumo → Nishati).
+445	«Fungua Netflix» kwa sauti
+446	«Fungua Netflix», «filamu za mapigano»…
+447	«Télécommande TV» ikiwa bado imesakinishwa, anzisha upya Bluetooth ya simu na ujaribu tena.
+448	«Tazama TV» inafanya kazi na Android TV iliyounganishwa kwa Wi-Fi.
+449	«{1}»: TV haijaunganishwa
+450	«{1}» ni sehemu ya OmniZap Pro. Majaribio yako ya siku {2} yameisha.
+451	Kuhifadhi nakala kumeshindwa: {1}
+452	Skrini
+453	Skrini ya TV moja kwa moja
+454	Skrini ya TV haipatikani: {1}
+455	Skrini ya simu inaonyeshwa kwenye TV
+456	Skrini ya simu imetumwa kwa TV ({1} × {2})
+457	Skrini imeakisiwa kwenye TV
+458	Skrini imetumwa bila sauti (ruhusa ya «Maikrofoni» imekataliwa)
+459	Imezimwa · bonyeza Washa
+460	kutoka chini ya mita 3. Unaweza kuanza upya au kujaribu «Chapa nyingine».
+461	○ Inaandaa rimoti ya Bluetooth ya simu…
+462	● Simu iko tayari kama rimoti ya Bluetooth
+463	● Simu inaonekana kama rimoti ya nishati ndogo
+464	✓ Anwani ya MAC imepatikana na kuhifadhiwa: {1}
+465	＋ Ongeza TV
+466	Imeunganishwa na {1}
+467	Picha na video kwenye TV
+468	Rudi

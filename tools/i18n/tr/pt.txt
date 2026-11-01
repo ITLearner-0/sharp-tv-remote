@@ -1,0 +1,469 @@
+0	Ligar a TV
+1	Parar o espelhamento
+2	Parar a apresentação
+3	Captura de tela da TV
+4	Capturando…
+5	Escolher outros arquivos
+6	Escolher fotos e vídeos
+7	Escolher outra marca
+8	Conectado a {1}
+9	Apresentação (6 s por foto)
+10	Espelhar a tela (Google Home)
+11	Espelhar a tela na TV
+12	Teste Pro: {1} dia(s) restante(s)
+13	Instalar o Google Home para espelhar a tela
+14	Carregando…
+15	Listar todos os apps da TV
+16	Sim, adicionar esta TV
+17	Sim, usar estes códigos
+18	Passar para o OmniZap Pro
+19	Fotos e vídeos do celular
+20	Fotos e vídeos na TV
+21	Procurando TVs compatíveis com Google Cast (Chromecast integrado)…
+22	Procurando TVs na rede
+23	Procurando…
+24	Voltar
+25	Voltar ao controle
+26	TV comum ou antiga?
+27	TV encontrada!
+28	{1}: sem Google Cast
+29	{1}: visualizador do controle
+30	{1} TVs encontradas!
+31	(imagem do celular)
+32	(requer um celular com emissor infravermelho).
+33	({1} ignorados)
+34	· conectado
+35	(É diferente do pareamento Bluetooth, que não o substitui.)
+36	(Android TV, Samsung, LG, receptores…).
+37	(também serve para a lista de apps).
+38	(liga/desliga {1}).
+39	(ou o menu Bluetooth): a TV fica visível.
+40	(por exemplo o antigo app «Télécommande TV», ou um app de teclado/mouse Bluetooth):
+41	(backup mais antigo: Downloads → Télécommande TV).
+42	1. Na TV, abra Configurações → Controles e acessórios → Adicionar acessório
+43	1. Toque no botão abaixo: o celular se anuncia como controle.
+44	2. Aqui, toque em «Procurar a TV» e depois no nome da TV.
+45	2. Na TV: Configurações → Controles e acessórios → Adicionar acessório,
+46	3. Aceite o pareamento na TV e no celular: o OmniZap se conecta.
+47	3. «Conectado a …» aparece acima: teste Início.
+48	Início
+49	Acesso vitalício · {1}
+50	Compra do OmniZap Pro restaurada, obrigado!
+51	Ativar o Bluetooth
+52	Endereço IP
+53	Endereço IP ausente
+54	Endereço MAC (para ligar a TV)
+55	Endereço MAC da TV
+56	Endereço MAC da TV desconhecido: ligue a TV manualmente uma vez ou digite-o em ⚙
+57	Endereço MAC não encontrado automaticamente. Digite-o acima: na TV,
+58	Endereço MAC inválido
+59	Endereço MAC inválido (exemplo: A4:B1:C2:D3:E4:F5)
+60	Adicionar uma TV
+61	Ligando {1}…
+62	Liga a TV, mesmo desligada
+63	Ligue a TV primeiro
+64	Ligue a TV e fique no mesmo Wi-Fi: ela aparecerá abaixo.
+65	Ligada
+66	O Android não responde ao pedido do modo controle Bluetooth. Em alguns celulares,
+67	O Android recusa a conexão Bluetooth com esta TV. Desinstale o antigo app
+68	Cancelar
+69	Pareamento interrompido, recomece
+70	Dispositivos já pareados (toque na TV para conectar):
+71	Apps
+72	Apps de TV
+73	Parar
+74	Parear novamente
+75	Configurar o infravermelho
+76	Configurar o Bluetooth
+77	Associar a esta TV
+78	Pareado ({1})
+79	Dica: se Menu ou Guia não fizer nada, mantenha a tecla pressionada para escolher
+80	Nenhuma compra do OmniZap Pro nesta conta Google
+81	Sem conta, sem coleta de dados. Suas configurações ficam salvas no celular, nunca em outro lugar.
+82	Nenhum dos {1} conjuntos de códigos funcionou.
+83	Nenhum link para abrir na TV
+84	Nenhuma TV Google Cast encontrada por enquanto
+85	Nenhuma TV salva
+86	Nenhum app corresponde.
+87	Nenhum dado enviado
+88	Nenhuma foto ou vídeo escolhido.
+89	Automático: Wi-Fi, Bluetooth se a TV não responder
+90	Automático: Wi-Fi, infravermelho se a TV não responder
+91	Permitir
+92	Permita que o OmniZap use o Bluetooth («Dispositivos próximos»).
+93	Permita o microfone para a busca por voz
+94	Outra marca / não sei
+95	Outro método: pela TV
+96	Outros apps
+97	Avançar rápido
+98	Avançar 30 s
+99	Baixo
+100	Muito mais que um controle
+101	Bluetooth: TV não conectada
+102	Bluetooth: conectando à TV… tente de novo em instantes
+103	Bluetooth: sem rede
+104	Bluetooth associado: o controle vai usá-lo se a TV não responder pelo Wi-Fi.
+105	Bluetooth clássico (outras TVs, receptores, computadores)…
+106	Bluetooth clássico: pelo celular
+107	Bluetooth · conectado
+108	Bluetooth · conectando… (TV ligada, ao alcance)
+109	Botões do controle nas notificações e na tela de bloqueio
+110	Captura salva: {1}/{2}
+111	Captura salva na galeria (Imagens/OmniZap)
+112	Falha na captura: {1}
+113	Este arquivo não é um backup do OmniZap
+114	Este celular tem emissor infravermelho: pode controlar qualquer TV,
+115	Este celular não tem emissor infravermelho
+116	Este celular não tem emissor infravermelho. Este recurso funciona nos celulares que
+117	Este celular não permite o modo controle Bluetooth (recusado pelo Android)
+118	Este celular não permite o modo controle Bluetooth.
+119	Esta TV não aceita o áudio do microfone: toque apenas em Voz
+120	Esta tecla não existe no Bluetooth
+121	Esta tecla não existe para este modelo de TV
+122	Trocar de TV
+123	Trocar os códigos
+124	Canal anterior
+125	Canais ao vivo
+126	Escolha a TV
+127	Teclado
+128	Código incorreto: um novo código vai aparecer na TV
+129	Códigos: {1}
+130	Códigos ainda não confirmados numa TV real: seu teste conta!
+131	Comandos de voz
+132	Começar
+133	Configurar o infravermelho
+134	Configurar o Bluetooth
+135	Conectar
+136	Conecte sua TV
+137	Conexão perdida durante a digitação
+138	Conexão perdida, reconectando…
+139	Conectando à tela da TV…
+140	Continuar
+141	Copiar
+142	Copiar o relatório
+143	Copiado ✓
+144	No Google Home, toque na TV e depois em «Transmitir minha tela»
+145	Apresentação e vídeos em tela cheia na TV. Também pela Galeria: Compartilhar → «Abrir na TV».
+146	Direita
+147	Espelhamento
+148	Espelhamento de tela
+149	Espelhamento de tela, com som
+150	Espelhamento impossível: {1}
+151	Desbloquear (teste)
+152	Desbloquear o OmniZap Pro
+153	Conhecer o OmniZap Pro
+154	Abra as configurações rápidas e toque em «Transmitir» ou «Smart View», depois escolha a TV
+155	Detectar o endereço MAC automaticamente
+156	Detectando…
+157	Apagar
+158	Em espera
+159	Salvar
+160	Enviar
+161	Erro inesperado ({1})
+162	Teste grátis: mais {1} dia(s) com todos os recursos.
+163	Teste {1} de {2}
+164	Testar
+165	Testar: Início
+166	Teste: a tecla Início abaixo deve agir na TV.
+167	Exportar
+168	Favoritos
+169	Fechar
+170	Setas
+171	Recurso do OmniZap Pro
+172	Recurso do OmniZap Pro: abra o OmniZap para desbloqueá-lo
+173	Manter
+174	Mantenha esta tela aberta durante um vídeo: a TV lê o arquivo diretamente do celular.
+175	Esquerda
+176	Deslize para navegar
+177	O Google Cast interrompeu a transmissão na TV
+178	O Google Cast não está disponível neste celular
+179	O Google Cast não está disponível neste celular.
+180	Google Cast → nada
+181	O Google Play não está acessível
+182	Guia de programação
+183	Cima
+184	Fora da rede · Bluetooth
+185	Fora da rede · conectando por Bluetooth…
+186	Fora da rede · infravermelho (aponte para a TV)
+187	É preciso um celular com emissor infravermelho (muitos Xiaomi, Redmi e Poco, alguns Huawei e Honor).
+188	Agora aparece na tela da TV.
+189	Só imagem, sem som. Os conteúdos protegidos (Netflix, canais de TV…)
+190	Impossível com uma TV controlada por infravermelho ou Bluetooth
+191	Não foi possível abrir {1}: ative a «Depuração USB» na TV
+192	Não foi possível gravar o arquivo
+193	Não foi possível alcançar a TV: verifique se está ligada, o endereço e o Wi-Fi
+194	Não foi possível ler o arquivo
+195	Infravermelho
+196	Infravermelho: todas as marcas
+197	Infravermelho associado: o controle vai usá-lo se a TV não responder pelo Wi-Fi.
+198	Infravermelho · aponte para a TV
+199	Conjunto de códigos infravermelhos não encontrado: exclua e adicione a TV de novo
+200	Registro
+201	Registro Bluetooth
+202	A compra será feita pelo Google Play quando o OmniZap estiver publicado. Enquanto isso, aproveite o teste.
+203	O app encontrou um erro. Toque em «Copiar» e cole este texto na sua
+204	A abertura de apps
+205	A tela da TV no celular
+206	A tela do celular (ou um único app) aparece na TV, sem Google Cast nem
+207	A TV aceitou o arquivo
+208	A TV interrompeu o espelhamento
+209	A TV recusou a conexão Bluetooth. Verifique se o pareamento foi
+210	A TV recusou o arquivo (código {1})
+211	A TV reagiu?
+212	A TV já está desligada
+213	A TV está desligada?
+214	A TV não iniciou o pareamento. Tente de novo.
+215	A TV não abriu a busca por voz
+216	A TV não conseguiu abrir o visualizador: {1}
+217	A TV não reagiu ao comando de ligar.
+218	A TV não reagiu ao comando de desligar. Ative a «Depuração USB» na TV
+219	A TV não reagiu ao modo de espera.
+220	A TV não envia sua tela. Verifique se a depuração ADB está autorizada
+221	A TV não está pareada com o celular: procure-a e aceite o pareamento.
+222	A TV não reconhece mais este celular pelo Wi-Fi.
+223	A TV não responde ao despertar: ative na TV a espera em rede / «Wake on LAN» (ver ⚙)
+224	A detecção do endereço MAC
+225	A lista de apps
+226	A digitação de texto
+227	O controle continua grátis: todas as teclas, o touchpad, o teclado, o infravermelho e ligar a TV.
+228	O controle universal da sua TV, no seu celular.
+229	O Bluetooth requer Android 9 ou mais recente
+230	O Bluetooth do celular está desativado.
+231	O modo controle Bluetooth do celular já está em uso por outro app
+232	O protocolo dos controles originais das Android TVs.
+233	O celular e a TV trabalham juntos.
+234	O celular já se anuncia como controle ao abrir esta tela (linhas «BLE:» do registro).
+235	O celular se apresenta à TV como controle e teclado Bluetooth:
+236	Reproduzir / pausar
+237	Leitura impossível: ative a «Depuração USB» nas opções do
+238	Acentos e alguns símbolos não podem ser digitados por Bluetooth
+239	Acentos e alguns símbolos não podem ser digitados a distância
+240	As letras acentuadas são trocadas pela letra simples (é → e).
+241	Os apps da TV, com seus ícones
+242	Os apps da TV, com um toque
+243	Nem todos os fabricantes usam o mesmo comando. Toque em «Testar» para experimentar
+244	As notificações do app estão bloqueadas: permita-as na página que se abre
+245	As configurações também são copiadas automaticamente em Downloads/OmniZap,
+246	Ligar
+247	Ligar, volume e reprodução, mesmo com a tela bloqueada
+248	Ocultar o Bluetooth clássico
+249	Menu de contexto da TV
+250	Menu de transmissão do celular (Miracast)
+251	Menu de conteúdos da TV
+252	Menu principal (mídia)
+253	Menu padrão do Android
+254	Obrigado! Todos os recursos estão desbloqueados para sempre.
+255	Minhas TVs
+256	Miracast, pela depuração ADB, com o som dos apps (Android 10 ou mais recente).
+257	Atualizando a lista…
+258	Mudo
+259	Nome
+260	Não configurado. O celular pode servir de controle Bluetooth quando o Wi-Fi não responde,
+261	Não configurado. Útil para ligar a TV totalmente desligada ou quando o Wi-Fi não responde
+262	Não, próximo
+263	Abrindo {1}…
+264	Abrindo o receptor em {1}…
+265	Abrindo em {1}…
+266	Onde encontrar o endereço MAC: na TV (Configurações → Sobre → Status, ou Rede), na
+267	Pagamento único. Sem assinatura, sem anúncios.
+268	Configurações
+269	Configurações (avançadas)
+270	Configurações → Rede e Internet → sua rede, ou Configurações → Sobre → Status.
+271	Fale…
+272	Sem emissor infravermelho
+273	Ainda não conectado a uma TV: escolha-a na lista
+274	Pular
+275	Passar para Bluetooth clássico (para o modo de baixo consumo)
+276	Teclado numérico
+277	Touchpad
+278	Fotos, vídeos e tela na TV
+279	Coloque primeiro o cursor num campo de texto na TV (busca, senha…) e digite aqui.
+280	Play Jogos
+281	Mais tarde
+282	Várias TVs
+283	Aponte a parte de cima do celular para a TV e teste as teclas.
+284	Para ligar a TV desligada, ela precisa manter a rede em espera. Na TV, ative
+285	Para TVs que listam celulares (Samsung, LG, receptores…). As Android TVs e Google TVs
+286	Para ver todos, ative a «Depuração USB» na TV e toque no botão acima.
+287	Para uma TV com Chromecast integrado, o espelhamento passa pelo Google Home: toque na TV e depois em
+288	Preço de lançamento
+289	Programação
+290	Anterior
+291	Anterior
+292	Depois de pareada, a TV aparece acima como «Conectado».
+293	Qual é a marca da TV?
+294	Relatório do OmniZap
+295	Relatório copiado
+296	Procurando «{1}» na TV
+297	Procurando… Se nada aparecer, verifique se a TV está ligada e no mesmo Wi-Fi que este celular.
+298	Procurar a TV
+299	Procurar um app
+300	Procurando… Se a TV perguntar «Permitir depuração?», aceite com as setas.
+301	Recomeçar
+302	Reconhecimento de voz indisponível neste celular
+303	Voltar 10 s
+304	Parear novamente pelo Wi-Fi
+305	Pareie novamente pelo Wi-Fi: um código de 6 caracteres vai aparecer na TV.
+306	Reiniciar o anúncio (BLE)
+307	Tornar o celular visível (2 min)
+308	Falha na restauração: {1}
+309	Restaurar
+310	Restaurar minha compra
+311	Restaurar um backup
+312	Restaure suas TVs pelo backup: Downloads → OmniZap → {1}
+313	Remover
+314	Retroceder
+315	Tentar de novo
+316	Configurações
+317	Configurações da TV
+318	Configurações rápidas
+319	Despertando a TV pela rede…
+320	Digitar o endereço IP da TV
+321	Digite o endereço IP da TV
+322	Digite o código
+323	Sem Google Cast: um pequeno visualizador é instalado na TV pela depuração ADB.
+324	Sem anúncios, sem assinatura
+325	Sem rede nem infravermelho: o celular também pode servir de controle e teclado Bluetooth
+326	Backup salvo
+327	Backup local
+328	Conectar
+329	Só aparecem os apps comuns e os já abertos na TV.
+330	Se a TV perguntar «Permitir depuração?», marque «Sempre permitir»
+331	Sinal de despertar enviado: a TV deve aparecer na lista em até 30 segundos.
+332	Legendas
+333	Próxima
+334	Excluir
+335	Excluir esta TV
+336	Excluir «{1}» do controle? Será preciso parear de novo para recuperá-la.
+337	Na TV: Configurações → Rede e Internet → seu Wi-Fi.
+338	TV conectada
+339	TV ao vivo
+340	TV inacessível
+341	TV não conectada
+342	TVs encontradas:
+343	TV desligada: aperte primeiro Ligar
+344	TV desligada: aperte primeiro ⏻
+345	Texto a enviar…
+346	Tecla «{1}»
+347	Toque para OK
+348	Toque em «Parar» para parar o espelhamento
+349	Sempre infravermelho
+350	Sempre Bluetooth
+351	Sempre Wi-Fi
+352	Todos os apps
+353	Todas as suas TVs
+354	Bloco: configurações rápidas → editar → «TV». Compartilhar: no YouTube ou no
+355	Controle
+356	Controle ({1})
+357	Controle: {1}
+358	Controle Bluetooth
+359	Controle Bluetooth:
+360	Controle de TV OmniZap
+361	Controle adicionado às notificações: abra a área de notificações
+362	Controle de baixo consumo (Android TV, Google TV)
+363	Controle nas notificações
+364	Controle infravermelho
+365	Controle infravermelho: {1}.
+366	Celular fora do Wi-Fi · conecte-o ao Wi-Fi da TV
+367	Televisão ao vivo
+368	Ocorreu um problema
+369	Uma TV ligada por cabo Ethernet desperta com mais segurança que pelo Wi-Fi.
+370	Uma TV desligada não fica visível na rede. Se ela aceitar despertar pela rede,
+371	Usar esta TV
+372	Usar o infravermelho
+373	Usar o Bluetooth
+374	Confirmar
+375	Em espera
+376	Visualizador do controle (depuração ADB). Escolha-o se o Google Cast interromper a transmissão.
+377	Visualizador do controle em {1}
+378	Visualizador aberto na TV
+379	Ver a TV
+380	Ver a TV no celular
+381	Voz
+382	Seus dados ficam com você
+383	Seu teste de {1} dias terminou.
+384	Já usou o app antes?
+385	Verifique se nada cobre o emissor (no topo do celular) e aponte para o sensor da TV,
+386	Wi-Fi: detecção automática
+387	Wi-Fi não encontrado: o celular precisa estar na mesma rede que a TV
+388	Wi-Fi para Android TVs e Google TVs, infravermelho e Bluetooth para as outras, mesmo sem rede.
+389	Widget: toque e segure a tela inicial → Widgets → OmniZap.
+390	Widget, notificação e configurações rápidas
+391	aceito na TV e depois toque de novo na TV em «Dispositivos já pareados».
+392	aparecem em preto. Toque na imagem para «OK», deslize para as setas.
+393	nenhuma TV Wi-Fi salva
+394	captura de tela interrompida
+395	captura de tela recusada
+396	cada opção na TV e fique com a que funcionar.
+397	como um controle comum.
+398	conectada
+399	depuração ADB da TV inacessível ({1})
+400	desinstale-o, desligue e ligue o Bluetooth e toque em «Tentar de novo».
+401	pausado
+402	codificador de vídeo indisponível
+403	erro de reprodução (formato não suportado pela TV?)
+404	e liste os apps uma vez: o controle poderá desligá-la.
+405	arquivo inacessível
+406	galeria inacessível
+407	conjunto de códigos desconhecido
+408	a TV não abriu o receptor: {1}
+409	a TV não devolveu nenhuma imagem
+410	o comando adequado à sua TV.
+411	o fabricante desativou este recurso. Toque em «Tentar de novo» depois de desligar e ligar o Bluetooth.
+412	reproduzindo
+413	desenvolvedor na TV e aceite o pedido de autorização.
+414	lista de dispositivos do seu roteador, ou na etiqueta atrás da TV.
+415	mensagem para que seja corrigido.
+416	muitas vezes só mostram teclados e controles de jogo: use então o método acima.
+417	navegador, Compartilhar → «Abrir na TV».
+418	não anunciado
+419	não conectada (a TV precisa estar ligada e ao alcance)
+420	não lido
+421	têm um (muitos Xiaomi, Redmi e Poco, alguns Huawei e Honor).
+422	compatível
+423	depois escolha OK com as setas deste controle (1 minuto).
+424	depois escolha o celular (seu nome Bluetooth) e aceite o pareamento.
+425	digite o endereço MAC dela: ela vai ligar e aparecer na lista acima.
+426	sem rede, a cerca de dez metros.
+427	sem rede, a cerca de dez metros. (Versão {1})
+428	conforme o modelo «Wake on LAN», «Despertar pela rede», «Espera em rede» ou
+429	terminado
+430	um arquivo mantido se o app for desinstalado.
+431	{1}: Bluetooth não conectado
+432	{1} TV(s) restaurada(s). Se a TV pedir, pareie de novo.
+433	{1} adicionada.
+434	{1} adicionada. Aponte para a TV com a parte de cima do celular.
+435	{1} apps: lista exata da TV, com os nomes reais.
+436	{1} apps instalados (nomes aproximados: a leitura detalhada falhou).
+437	{1} está inacessível
+438	{1} está inacessível: ligue-a primeiro
+439	{1} arquivo(s) escolhido(s)
+440	{1} não está disponível com uma TV controlada por Bluetooth
+441	{1} não está disponível com uma TV controlada por infravermelho
+442	{1} · já adicionada
+443	«Transmitir minha tela». (O «Smart View» da Samsung usa Miracast, que muitas Android TVs ignoram.)
+444	«Início rápido» (Configurações → Rede e Internet, ou Sistema → Energia).
+445	«Abrir Netflix» por voz
+446	«Abrir Netflix», «filmes de ação»…
+447	«Télécommande TV» se ainda estiver instalado, reinicie o Bluetooth do celular e tente de novo.
+448	«Ver a TV» funciona com uma Android TV conectada pelo Wi-Fi.
+449	«{1}»: TV não conectada
+450	«{1}» faz parte do OmniZap Pro. Seu teste de {2} dias terminou.
+451	Falha no backup: {1}
+452	Tela
+453	Tela da TV ao vivo
+454	Tela da TV indisponível: {1}
+455	Tela do celular exibida na TV
+456	Tela do celular enviada à TV ({1} × {2})
+457	Tela espelhada na TV
+458	Tela enviada sem som (permissão de «Microfone» negada)
+459	Desligada · aperte Ligar
+460	a menos de 3 metros. Você pode recomeçar ou tentar «Outra marca».
+461	○ Preparando o controle Bluetooth do celular…
+462	● Celular pronto como controle Bluetooth
+463	● Celular visível como controle de baixo consumo
+464	✓ Endereço MAC encontrado e salvo: {1}
+465	＋ Adicionar uma TV
+466	Conectado a {1}
+467	Fotos e vídeos na TV
+468	Voltar

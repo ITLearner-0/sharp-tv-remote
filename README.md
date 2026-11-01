@@ -56,12 +56,24 @@ version (GitHub Actions), qui s'installe par-dessus la précédente.
 
 ### 🌍 Langues
 
-OmniZap s'affiche en **français** sur un téléphone en français, en **anglais**
-ailleurs ; sur Android 13 et plus, la langue se choisit aussi dans Paramètres →
-Applications → OmniZap → Langue. Le français est la langue du code : les textes
-affichés passent par `tr("…")` ; le dictionnaire anglais est `tools/i18n/en.tsv`
-(→ `i18n/EnStrings.kt` par `tools/i18n/build_en.py`). Pour un nouveau texte :
-relancer `tools/i18n/wrap_strings.py`, ajouter la ligne au fichier `en.tsv`.
+15 langues, choisies au premier lancement (puis dans « Mes TV ») : français,
+anglais, espagnol, portugais (Brésil), allemand, italien, hindi, arabe, darija
+marocaine, haoussa, yoruba, wolof, lingala, swahili et amharique. Par défaut,
+c'est celle du téléphone (anglais si elle n'y est pas). Sur Android 13 et plus,
+elle se change aussi dans Paramètres → Applications → OmniZap → Langue. L'arabe
+et la darija s'affichent de droite à gauche.
+
+Le français est la langue du code : les textes affichés passent par `tr("…")`.
+- Anglais : `tools/i18n/en.tsv` → `i18n/EnStrings.kt` (`tools/i18n/build_en.py`).
+- Autres langues : `tools/i18n/tr/<code>.txt` (« numéro⇥traduction », numéros de
+  `core_en_numbered.txt`) → `i18n/Strings_<code>.kt` et `i18n/Languages.kt`
+  (`cd tools/i18n && python3 build_langs.py ../../android/app/src/main/java/io/github/itlearner0/tvremote/i18n`).
+  Un texte absent d'une langue s'affiche en anglais (c'est le cas des journaux techniques).
+- Les traductions haoussa, yoruba, wolof, lingala, swahili, amharique et darija
+  sont à faire relire par des locuteurs natifs avant publication.
+
+Pour un nouveau texte : relancer `tools/i18n/wrap_strings.py`, ajouter la ligne
+au fichier `en.tsv` (et aux fichiers `tr/`).
 Commandes vocales : « lance / ouvre … » et « open / launch … ».
 
 ### ⭐ Gratuit et OmniZap Pro

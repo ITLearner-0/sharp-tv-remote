@@ -1,0 +1,469 @@
+0	Kunna TV
+1	Dakatar da madubin allo
+2	Dakatar da nunin hotuna
+3	Hoton allon TV
+4	Ana ɗauka…
+5	Zaɓi wasu fayiloli
+6	Zaɓi hotuna da bidiyo
+7	Zaɓi wata alama
+8	An haɗa da {1}
+9	Nunin hotuna (daƙiƙa 6 kowane hoto)
+10	Madubin allo (Google Home)
+11	Madubin allo a kan TV
+12	Gwajin Pro: saura kwana {1}
+13	Saka Google Home don yin madubin allo
+14	Ana lodawa…
+15	Jera duk manhajojin TV
+16	Ee, ƙara wannan TV
+17	Ee, yi amfani da waɗannan lambobi
+18	Koma OmniZap Pro
+19	Hotuna da bidiyon waya
+20	Hotuna da bidiyo a kan TV
+21	Ana neman TV masu Google Cast (Chromecast a ciki)…
+22	Ana neman TV a kan hanyar sadarwa
+23	Ana nema…
+24	Koma
+25	Koma ga rimot
+26	TV na yau da kullum ko tsoho?
+27	An sami TV!
+28	{1}: babu Google Cast
+29	{1}: mai kallo na rimot
+30	An sami TV {1}!
+31	(hoton waya)
+32	(yana buƙatar waya mai fitilar infrared).
+33	(an yi watsi da {1})
+34	· an haɗa
+35	(Wannan ya bambanta da haɗa Bluetooth, wanda ba ya maye gurbinsa.)
+36	(Android TV, Samsung, LG, dikoda…).
+37	(yana kuma aiki don jerin manhajoji).
+38	(yana kunna/kashe {1}).
+39	(ko menu na Bluetooth): TV ya bayyana.
+40	(misali tsohuwar manhajar «Télécommande TV», ko manhajar madannai/linzamin Bluetooth):
+41	(tsohon ajiya: Downloads → Télécommande TV).
+42	1. A kan TV, buɗe Saituna → Rimot da kayan haɗi → Ƙara kayan haɗi
+43	1. Taɓa maɓallin da ke ƙasa: waya tana bayyana kanta a matsayin rimot.
+44	2. Nan, taɓa «Nemi TV», sannan sunan TV.
+45	2. A kan TV: Saituna → Rimot da kayan haɗi → Ƙara kayan haɗi,
+46	3. Karɓi haɗawa a kan TV da waya: OmniZap yana haɗawa.
+47	3. «An haɗa da …» ya bayyana a sama: gwada Gida.
+48	Gida
+49	Shiga na har abada · {1}
+50	An dawo da sayen OmniZap Pro, na gode!
+51	Kunna Bluetooth
+52	Adireshin IP
+53	Babu adireshin IP
+54	Adireshin MAC (don kunna TV)
+55	Adireshin MAC na TV
+56	Ba a san adireshin MAC na TV ba: kunna TV da hannu sau ɗaya ko shigar da shi a ⚙
+57	Ba a sami adireshin MAC kai tsaye ba. Shigar da shi a sama: a kan TV,
+58	Adireshin MAC bai dace ba
+59	Adireshin MAC bai dace ba (misali: A4:B1:C2:D3:E4:F5)
+60	Ƙara TV
+61	Ana kunna {1}…
+62	Yana kunna TV, ko da a kashe yake
+63	Fara kunna TV
+64	Kunna TV kuma ka zauna a kan Wi-Fi ɗaya: zai bayyana a ƙasa.
+65	A kunne
+66	Android ba ta amsa buƙatar yanayin rimot na Bluetooth ba. A wasu wayoyi,
+67	Android ta ƙi haɗin Bluetooth da wannan TV. Cire tsohuwar manhajar
+68	Soke
+69	An katse haɗawa, sake farawa
+70	Na'urorin da aka riga aka haɗa (taɓa TV don haɗawa):
+71	Manhajoji
+72	Manhajojin TV
+73	Tsaya
+74	Sake haɗawa
+75	Saita infrared
+76	Saita Bluetooth
+77	Haɗa da wannan TV
+78	An haɗa ({1})
+79	Shawara: idan Menu ko Jagora bai yi komai ba, danna ka riƙe maɓallin don zaɓar
+80	Babu sayen OmniZap Pro a wannan asusun Google
+81	Babu asusu, babu tattara bayanai. Saitunanka suna zama a waya, ba wani wuri ba.
+82	Babu ɗaya daga cikin rukunin lambobi {1} da ya yi aiki.
+83	Babu hanyar haɗi da za a buɗe a TV
+84	Har yanzu ba a sami TV na Google Cast ba
+85	Babu TV da aka ajiye
+86	Babu manhajar da ta dace.
+87	Ba a aika da wani bayani
+88	Ba a zaɓi hoto ko bidiyo ba.
+89	Kai tsaye: Wi-Fi, Bluetooth idan TV bai amsa ba
+90	Kai tsaye: Wi-Fi, infrared idan TV bai amsa ba
+91	Ba da izini
+92	Ba OmniZap izinin amfani da Bluetooth («Na'urori na kusa»).
+93	Ba da izinin makirufo don bincike da murya
+94	Wata alama / ban sani ba
+95	Wata hanya: ta TV
+96	Wasu manhajoji
+97	Gaba da sauri
+98	Gaba daƙiƙa 30
+99	Ƙasa
+100	Fiye da rimot sosai
+101	Bluetooth: ba a haɗa TV ba
+102	Bluetooth: ana haɗawa da TV… sake gwadawa nan da ɗan lokaci
+103	Bluetooth: babu hanyar sadarwa
+104	An haɗa Bluetooth: rimot zai yi amfani da shi idan TV bai amsa ta Wi-Fi ba.
+105	Bluetooth na gargajiya (wasu TV, dikoda, kwamfutoci)…
+106	Bluetooth na gargajiya: ta waya
+107	Bluetooth · an haɗa
+108	Bluetooth · ana haɗawa… (TV a kunne, a kusa)
+109	Maɓallan rimot a sanarwa da allon kulle
+110	An ajiye hoton: {1}/{2}
+111	An ajiye hoton a cikin gidan hotuna (Pictures/OmniZap)
+112	Ɗaukar hoto ya kasa: {1}
+113	Wannan fayil ba ajiyar OmniZap ba ne
+114	Wannan waya tana da fitilar infrared: tana iya sarrafa kowane TV,
+115	Wannan waya ba ta da fitilar infrared
+116	Wannan waya ba ta da fitilar infrared. Wannan fasalin yana aiki a wayoyin da
+117	Wannan waya ba ta ba da damar yanayin rimot na Bluetooth ba (Android ta ƙi)
+118	Wannan waya ba ta ba da damar yanayin rimot na Bluetooth ba.
+119	Wannan TV ba ya karɓar sautin makirufo: taɓa Murya kawai
+120	Babu wannan maɓallin a Bluetooth
+121	Babu wannan maɓallin a wannan samfurin TV
+122	Canja TV
+123	Canja lambobi
+124	Tasha ta baya
+125	Tashoshi kai tsaye
+126	Zaɓi TV
+127	Madannai
+128	Lambar ba daidai ba: sabuwar lamba za ta bayyana a TV
+129	Lambobi: {1}
+130	Ba a tabbatar da lambobin a TV na gaske ba tukuna: gwajinka yana da muhimmanci!
+131	Umarnin murya
+132	Fara
+133	Saita infrared
+134	Saita Bluetooth
+135	Haɗa
+136	Haɗa TV ɗinka
+137	Haɗin ya yanke yayin rubutu
+138	Haɗin ya yanke, ana sake haɗawa…
+139	Ana haɗawa da allon TV…
+140	Ci gaba
+141	Kwafa
+142	Kwafi rahoton
+143	An kwafa ✓
+144	A Google Home, taɓa TV, sannan «Jefa allona»
+145	Nunin hotuna da bidiyo a cikakken allo a TV. Har ila yau daga Gidan hotuna: Raba → «Buɗe a TV».
+146	Dama
+147	Madubi
+148	Madubin allo
+149	Madubin allo, tare da sauti
+150	Madubi ya kasa: {1}
+151	Buɗe (gwaji)
+152	Buɗe OmniZap Pro
+153	Gano OmniZap Pro
+154	Buɗe saituna masu sauri ka taɓa «Jefa» ko «Smart View», sannan zaɓi TV
+155	Gano adireshin MAC kai tsaye
+156	Ana ganowa…
+157	Goge
+158	A jiran aiki
+159	Ajiye
+160	Aika
+161	Kuskure da ba a zata ba ({1})
+162	Gwaji kyauta: ƙarin kwana {1} tare da duk fasaloli.
+163	Gwaji {1} cikin {2}
+164	Gwada
+165	Gwada: Gida
+166	Gwaji: maɓallin Gida da ke ƙasa ya kamata ya yi aiki a TV.
+167	Fitar
+168	Abubuwan da aka fi so
+169	Rufe
+170	Kibiyoyi
+171	Fasalin OmniZap Pro
+172	Fasalin OmniZap Pro: buɗe OmniZap don buɗe shi
+173	Ajiye
+174	Bar wannan allo a buɗe yayin bidiyo: TV yana karanta fayil kai tsaye daga waya.
+175	Hagu
+176	Zame don motsawa
+177	Google Cast ya dakatar da jefawa a TV
+178	Babu Google Cast a wannan waya
+179	Babu Google Cast a wannan waya.
+180	Google Cast → babu komai
+181	Ba a iya isa ga Google Play ba
+182	Jagorar shirye-shirye
+183	Sama
+184	Ba hanyar sadarwa · Bluetooth
+185	Ba hanyar sadarwa · ana haɗawa ta Bluetooth…
+186	Ba hanyar sadarwa · infrared (nuna TV)
+187	Kana buƙatar waya mai fitilar infrared (yawancin Xiaomi, Redmi da Poco, wasu Huawei da Honor).
+188	Yanzu yana bayyana a allon TV.
+189	Hoto kawai, babu sauti. Abubuwan da aka kare (Netflix, tashoshin TV…)
+190	Ba zai yiwu ba da TV da ake sarrafawa ta infrared ko Bluetooth
+191	Ba a iya buɗe {1} ba: kunna «USB debugging» a TV
+192	Ba a iya ajiye fayil ba
+193	Ba a iya isa ga TV ba: duba cewa a kunne yake, adireshin da Wi-Fi
+194	Ba a iya karanta fayil ba
+195	Infrared
+196	Infrared: duk alamu
+197	An haɗa infrared: rimot zai yi amfani da shi idan TV bai amsa ta Wi-Fi ba.
+198	Infrared · nuna TV
+199	Ba a sami rukunin lambobin infrared ba: goge ka sake ƙara TV
+200	Rajista
+201	Rajistar Bluetooth
+202	Za a yi sayan ta Google Play idan an buga OmniZap a can. Kafin nan, ji daɗin gwajin.
+203	Manhajar ta gamu da kuskure. Taɓa «Kwafa» sannan ka liƙa wannan rubutu a cikin
+204	Buɗe manhajoji
+205	Allon TV a waya
+206	Allon waya (ko manhaja ɗaya kawai) yana bayyana a TV, ba tare da Google Cast ko
+207	TV ya karɓi fayil
+208	TV ya dakatar da madubi
+209	TV ya ƙi haɗin Bluetooth. Duba cewa an karɓi haɗawa
+210	TV ya ƙi fayil (lamba {1})
+211	TV ya amsa?
+212	TV ya riga ya kashe
+213	TV a kashe yake?
+214	TV bai fara haɗawa ba. Sake gwadawa.
+215	TV bai buɗe bincike da murya ba
+216	TV bai iya buɗe mai kallo ba: {1}
+217	TV bai amsa umarnin kunnawa ba.
+218	TV bai amsa umarnin kashewa ba. Kunna «USB debugging» a TV
+219	TV bai amsa yanayin jiran aiki ba.
+220	TV ba ya aika allonsa. Duba cewa an ba da izinin ADB debugging
+221	Ba a haɗa TV da waya ba: nemi shi ka karɓi haɗawa.
+222	TV bai sake gane wannan waya ta Wi-Fi ba.
+223	TV ba ya amsa tadawa: kunna a TV jiran aiki na hanyar sadarwa / «Wake on LAN» (duba ⚙)
+224	Gano adireshin MAC
+225	Jerin manhajoji
+226	Rubuta rubutu
+227	Rimot yana nan kyauta: duk maɓallai, faifan taɓawa, madannai, infrared da kunna TV.
+228	Rimot na duniya na TV ɗinka, a wayarka.
+229	Bluetooth yana buƙatar Android 9 ko sabo
+230	Bluetooth na waya a kashe yake.
+231	Wata manhaja tana amfani da yanayin rimot na Bluetooth na waya
+232	Ka'idar rimot na asali na Android TV.
+233	Waya da TV suna aiki tare.
+234	Waya tana bayyana kanta a matsayin rimot da zarar an buɗe wannan allo (layukan «BLE:» a rajista).
+235	Waya tana gabatar da kanta ga TV a matsayin rimot da madannai na Bluetooth:
+236	Kunna / dakata
+237	Ba za a iya kunnawa ba: kunna «USB debugging» a zaɓuɓɓukan
+238	Ba za a iya rubuta harufa masu alama da wasu alamomi ta Bluetooth ba
+239	Ba za a iya rubuta harufa masu alama da wasu alamomi daga nesa ba
+240	Ana maye gurbin harufa masu alama da harafi mai sauƙi (é → e).
+241	Manhajojin TV, tare da gumakansu
+242	Manhajojin TV, da taɓawa ɗaya
+243	Ba duk masana'antun ke amfani da umarni ɗaya ba. Taɓa «Gwada» don gwada
+244	An toshe sanarwar manhajar: ba da izini a shafin da zai buɗe
+245	Ana kuma kwafa saituna kai tsaye zuwa Downloads/OmniZap,
+246	Kunna
+247	Kunnawa, ƙara da sake kunnawa, ko da allon a kulle
+248	Ɓoye Bluetooth na gargajiya
+249	Menu na mahallin TV
+250	Menu na jefawa na waya (Miracast)
+251	Menu na abubuwan TV
+252	Babban menu (kafofin watsa labarai)
+253	Menu na Android na yau da kullum
+254	Na gode! An buɗe duk fasaloli har abada.
+255	TV na
+256	Miracast, ta ADB debugging, tare da sautin manhajoji (Android 10 ko sabo).
+257	Ana sabunta jerin…
+258	Kashe sauti
+259	Suna
+260	Ba a saita ba. Waya na iya zama rimot na Bluetooth idan Wi-Fi bai amsa ba,
+261	Ba a saita ba. Yana da amfani don kunna TV da aka kashe gaba ɗaya ko idan Wi-Fi bai amsa ba
+262	A'a, na gaba
+263	Ana buɗe {1}…
+264	Ana buɗe mai karɓa a {1}…
+265	Ana buɗewa a {1}…
+266	Inda za a sami adireshin MAC: a TV (Saituna → Game da → Matsayi, ko Hanyar sadarwa), a cikin
+267	Biya sau ɗaya. Babu biyan kuɗi na wata-wata, babu talla.
+268	Saituna
+269	Saituna (na ci gaba)
+270	Saituna → Hanyar sadarwa da Intanet → hanyar sadarwarka, ko Saituna → Game da → Matsayi.
+271	Yi magana…
+272	Babu fitilar infrared
+273	Har yanzu ba a haɗa da TV ba: zaɓi shi a jerin
+274	Tsallake
+275	Koma Bluetooth na gargajiya (don yanayin ƙaramin ƙarfi)
+276	Faifan lambobi
+277	Faifan taɓawa
+278	Hotuna, bidiyo da allo a TV
+279	Fara sanya alamar rubutu a cikin filin rubutu a TV (bincike, kalmar sirri…), sannan rubuta nan.
+280	Wasannin Play
+281	Daga baya
+282	TV da yawa
+283	Nuna saman waya ga TV ka gwada maɓallai.
+284	Don kunna TV da ke kashe, dole ya ci gaba da hanyar sadarwa a jiran aiki. A TV, kunna
+285	Don TV masu jera wayoyi (Samsung, LG, dikoda…). Android TV da Google TV
+286	Don ganin su duka, kunna «USB debugging» a TV ka taɓa maɓallin da ke sama.
+287	Don TV mai Chromecast a ciki, madubi yana wucewa ta Google Home: taɓa TV, sannan
+288	Farashin ƙaddamarwa
+289	Shirye-shirye
+290	Na baya
+291	Na baya
+292	Bayan haɗawa, TV yana bayyana a sama a matsayin «An haɗa».
+293	Wace alama ce TV?
+294	Rahoton OmniZap
+295	An kwafi rahoton
+296	Ana neman «{1}» a TV
+297	Ana nema… Idan babu abin da ya bayyana, duba cewa TV a kunne yake kuma a kan Wi-Fi ɗaya da wannan waya.
+298	Nemi TV
+299	Nemi manhaja
+300	Ana nema… Idan TV ya tambaya «Ba da izinin debugging?», karɓa da kibiyoyi.
+301	Sake farawa
+302	Babu gane murya a wannan waya
+303	Baya daƙiƙa 10
+304	Sake haɗawa ta Wi-Fi
+305	Sake haɗawa ta Wi-Fi: lambar haruffa 6 za ta bayyana a TV.
+306	Sake fara sanarwa (BLE)
+307	Sa waya ta bayyana (minti 2)
+308	Dawowa ya kasa: {1}
+309	Dawo da
+310	Dawo da sayena
+311	Dawo da ajiya
+312	Dawo da TV ɗinka daga ajiya: Downloads → OmniZap → {1}
+313	Cire
+314	Mayar baya
+315	Sake gwadawa
+316	Saituna
+317	Saitunan TV
+318	Saituna masu sauri
+319	Ana tada TV ta hanyar sadarwa…
+320	Shigar da adireshin IP na TV
+321	Shigar da adireshin IP na TV
+322	Shigar da lambar
+323	Ba tare da Google Cast ba: ana saka ƙaramin mai kallo a TV ta ADB debugging.
+324	Babu talla, babu biyan kuɗi na wata-wata
+325	Ba hanyar sadarwa ko infrared: waya na iya kuma zama rimot da madannai na Bluetooth
+326	An ajiye ajiya
+327	Ajiya ta gida
+328	Haɗa
+329	Manhajoji na yau da kullum da waɗanda aka riga aka buɗe a TV kawai ke bayyana.
+330	Idan TV ya tambaya «Ba da izinin debugging?», duba «Ba da izini koyaushe»
+331	An aika siginar tadawa: TV ya kamata ya bayyana a jerin cikin daƙiƙa 30.
+332	Fassarar rubutu
+333	Na gaba
+334	Goge
+335	Goge wannan TV
+336	Goge «{1}» daga rimot? Za a buƙaci sake haɗawa don dawo da shi.
+337	A TV: Saituna → Hanyar sadarwa da Intanet → Wi-Fi ɗinka.
+338	An haɗa TV
+339	TV kai tsaye
+340	Ba a iya isa ga TV ba
+341	Ba a haɗa TV ba
+342	TV da aka samu:
+343	TV a kashe: fara danna Kunna
+344	TV a kashe: fara danna ⏻
+345	Rubutun da za a aika…
+346	Maɓalli «{1}»
+347	Taɓa don OK
+348	Taɓa «Tsaya» don dakatar da madubi
+349	Infrared koyaushe
+350	Bluetooth koyaushe
+351	Wi-Fi koyaushe
+352	Duk manhajoji
+353	Duk TV ɗinka
+354	Tayil: saituna masu sauri → gyara → «TV». Raba: a YouTube ko a
+355	Rimot
+356	Rimot ({1})
+357	Rimot: {1}
+358	Rimot na Bluetooth
+359	Rimot na Bluetooth:
+360	Rimot na TV OmniZap
+361	An ƙara rimot a sanarwa: buɗe sashen sanarwa
+362	Rimot na ƙaramin ƙarfi (Android TV, Google TV)
+363	Rimot a sanarwa
+364	Rimot na infrared
+365	Rimot na infrared: {1}.
+366	Waya ba ta kan Wi-Fi · haɗa ta da Wi-Fi na TV
+367	Talabijin kai tsaye
+368	An sami matsala
+369	TV da aka haɗa da wayar Ethernet yana farkawa da tabbaci fiye da Wi-Fi.
+370	TV da aka kashe ba ya bayyana a hanyar sadarwa. Idan yana karɓar tadawa ta hanyar sadarwa,
+371	Yi amfani da wannan TV
+372	Yi amfani da infrared
+373	Yi amfani da Bluetooth
+374	Tabbatar
+375	Jiran aiki
+376	Mai kallo na rimot (ADB debugging). Zaɓi shi idan Google Cast ya dakatar da jefawa.
+377	Mai kallo na rimot a {1}
+378	An buɗe mai kallo a TV
+379	Kalli TV
+380	Kalli TV a waya
+381	Murya
+382	Bayananka suna tare da kai
+383	Gwajinka na kwana {1} ya ƙare.
+384	Ka taɓa amfani da manhajar a baya?
+385	Duba cewa babu abin da ke rufe fitilar (a saman waya) ka nuna na'urar firikwensin TV,
+386	Wi-Fi: ganowa kai tsaye
+387	Ba a sami Wi-Fi ba: dole waya ta kasance a hanyar sadarwa ɗaya da TV
+388	Wi-Fi don Android TV da Google TV, infrared da Bluetooth don sauran, ko da babu hanyar sadarwa.
+389	Widget: danna ka riƙe allon gida → Widgets → OmniZap.
+390	Widget, sanarwa da saituna masu sauri
+391	a TV, sannan sake taɓa TV a «Na'urorin da aka riga aka haɗa».
+392	suna bayyana baƙi. Taɓa hoton don «OK», zame don kibiyoyi.
+393	babu TV na Wi-Fi da aka ajiye
+394	an katse ɗaukar allo
+395	an ƙi ɗaukar allo
+396	kowane zaɓi a TV ka ajiye wanda ke aiki.
+397	kamar rimot na yau da kullum.
+398	an haɗa
+399	ba a iya isa ga ADB debugging na TV ba ({1})
+400	cire ta, kashe ka kunna Bluetooth, sannan taɓa «Sake gwadawa».
+401	an dakata
+402	babu mai ɓoye bidiyo
+403	kuskuren kunnawa (TV ba ya goyon bayan tsarin?)
+404	ka jera manhajoji sau ɗaya: rimot zai iya kashe shi.
+405	ba a iya isa ga fayil ba
+406	ba a iya isa ga gidan hotuna ba
+407	rukunin lambobi da ba a sani ba
+408	TV bai buɗe mai karɓa ba: {1}
+409	TV bai dawo da wani hoto ba
+410	umarnin da ya dace da TV ɗinka.
+411	masana'anta ya kashe wannan fasalin. Taɓa «Sake gwadawa» bayan kashe da kunna Bluetooth.
+412	ana kunnawa
+413	masu haɓakawa na TV, sannan karɓi buƙatar izini.
+414	jerin na'urorin rautar ɗinka, ko a alamar bayan TV.
+415	saƙonka don a gyara shi.
+416	sau da yawa suna nuna madannai da masu sarrafa wasa kawai: sai ka yi amfani da hanyar da ke sama.
+417	burauza, Raba → «Buɗe a TV».
+418	ba a sanar ba
+419	ba a haɗa ba (TV dole ya kasance a kunne kuma a kusa)
+420	ba a karanta ba
+421	suke da ita (yawancin Xiaomi, Redmi da Poco, wasu Huawei da Honor).
+422	mai dacewa
+423	sannan zaɓi OK da kibiyoyin wannan rimot (minti 1).
+424	sannan zaɓi waya (sunanta na Bluetooth) ka karɓi haɗawa.
+425	shigar da adireshin MAC ɗinsa: zai kunna sannan ya bayyana a jerin da ke sama.
+426	ba hanyar sadarwa, a nisan kusan mita goma.
+427	ba hanyar sadarwa, a nisan kusan mita goma. (Siga {1})
+428	gwargwadon samfurin «Wake on LAN», «Tada ta hanyar sadarwa», «Jiran aiki na hanyar sadarwa» ko
+429	ya ƙare
+430	fayil da ke zama ko da an cire manhajar.
+431	{1}: ba a haɗa Bluetooth ba
+432	An dawo da TV {1}. Idan TV ya buƙata, sake haɗawa.
+433	An ƙara {1}.
+434	An ƙara {1}. Nuna saman waya ga TV.
+435	Manhajoji {1}: cikakken jerin TV, da sunayensu na gaske.
+436	Manhajoji {1} da aka saka (sunaye na kusa: karatun dalla-dalla ya kasa).
+437	Ba a iya isa ga {1} ba
+438	Ba a iya isa ga {1} ba: fara kunna shi
+439	An zaɓi fayil {1}
+440	Babu {1} da TV da ake sarrafawa ta Bluetooth
+441	Babu {1} da TV da ake sarrafawa ta infrared
+442	{1} · an riga an ƙara
+443	«Jefa allona». («Smart View» na Samsung yana amfani da Miracast, wanda Android TV da yawa ke watsi da shi.)
+444	«Farawa da sauri» (Saituna → Hanyar sadarwa da Intanet, ko Tsarin → Wuta).
+445	«Buɗe Netflix» da murya
+446	«Buɗe Netflix», «fina-finan faɗa»…
+447	«Télécommande TV» idan har yanzu tana nan, sake kunna Bluetooth na waya ka sake gwadawa.
+448	«Kalli TV» yana aiki da Android TV da aka haɗa ta Wi-Fi.
+449	«{1}»: ba a haɗa TV ba
+450	«{1}» yana cikin OmniZap Pro. Gwajinka na kwana {2} ya ƙare.
+451	Ajiya ta kasa: {1}
+452	Allo
+453	Allon TV kai tsaye
+454	Babu allon TV: {1}
+455	Allon waya yana bayyana a TV
+456	An aika allon waya zuwa TV ({1} × {2})
+457	An yi madubin allo a TV
+458	An aika allo ba tare da sauti ba (an ƙi izinin «Makirufo»)
+459	A kashe · danna Kunna
+460	daga nisan ƙasa da mita 3. Kana iya sake farawa ko gwada «Wata alama».
+461	○ Ana shirya rimot na Bluetooth na waya…
+462	● Waya a shirye take a matsayin rimot na Bluetooth
+463	● Waya tana bayyana a matsayin rimot na ƙaramin ƙarfi
+464	✓ An sami adireshin MAC kuma an ajiye shi: {1}
+465	＋ Ƙara TV
+466	An haɗa da {1}
+467	Hotuna da bidiyo a kan TV
+468	Koma

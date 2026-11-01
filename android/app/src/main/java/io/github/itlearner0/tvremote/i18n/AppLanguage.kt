@@ -16,6 +16,20 @@ object AppLanguage {
     val SUPPORTED = listOf(
         "fr" to "Français",
         "en" to "English",
+        "es" to "Español",
+        "pt" to "Português (Brasil)",
+        "de" to "Deutsch",
+        "it" to "Italiano",
+        "hi" to "हिन्दी",
+        "ar" to "العربية",
+        "ary" to "الدارجة المغربية",
+        // Afrique de l'Ouest, centrale et de l'Est.
+        "ha" to "Hausa",
+        "yo" to "Yorùbá",
+        "wo" to "Wolof",
+        "ln" to "Lingála",
+        "sw" to "Kiswahili",
+        "am" to "አማርኛ",
     )
 
     private const val PREFS = "ui"
@@ -34,6 +48,18 @@ object AppLanguage {
     fun apply(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) return // géré par Android
         prefs(context).getString(KEY, null)?.takeIf { it.isNotEmpty() }?.let { Locale.setDefault(Locale(it)) }
+    }
+
+    /**
+     * Avant Android 13 : contexte d'activité dans la langue choisie, pour que la mise
+     * en page suive son sens d'écriture (de droite à gauche en arabe et en darija).
+     */
+    fun wrap(base: Context): Context {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) return base
+        val code = runCatching { prefs(base).getString(KEY, null) }.getOrNull()?.takeIf { it.isNotEmpty() } ?: return base
+        val config = android.content.res.Configuration(base.resources.configuration)
+        config.setLocale(Locale(code))
+        return base.createConfigurationContext(config)
     }
 
     /** Choisit la langue [code] ; l'écran doit ensuite être recréé. */

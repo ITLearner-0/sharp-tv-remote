@@ -4,12 +4,17 @@ import java.util.Locale
 
 /**
  * Traduction des textes de l'application. Le français est la langue du code ;
- * sur un téléphone dans une autre langue, le texte anglais est renvoyé
- * (dictionnaire [EN], produit par tools/i18n/build_en.py).
+ * pour une autre langue, son dictionnaire ([dictionary], tools/i18n/build_langs.py),
+ * à défaut le texte anglais ([EN], tools/i18n/build_en.py).
  * Les valeurs variables s'écrivent {1}, {2}… : tr("Connecté à {1}", nom).
  */
 fun tr(fr: String, vararg args: Any?): String {
-    val text = if (french()) fr else EN[fr] ?: fr
+    val language = Locale.getDefault().language
+    val text = when (language) {
+        "fr" -> fr
+        // Autres langues : leur dictionnaire, puis l'anglais (journaux de diagnostic).
+        else -> dictionary(language)?.get(fr) ?: EN[fr] ?: fr
+    }
     if (args.isEmpty()) return text
     var result = text
     args.forEachIndexed { i, value -> result = result.replace("{${i + 1}}", value.toString()) }

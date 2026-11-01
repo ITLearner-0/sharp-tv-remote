@@ -1,0 +1,469 @@
+0	  Turn on the TV
+1	  Stop mirroring
+2	  Stop slideshow
+3	  TV screenshot
+4	  Capturing…
+5	  Choose other files
+6	  Choose photos and videos
+7	  Choose another brand
+8	  Connected to {1}
+9	  Slideshow (6 s per photo)
+10	  Mirror the screen (Google Home)
+11	  Mirror the screen to the TV
+12	  Pro trial: {1} day(s) left
+13	  Install Google Home to mirror the screen
+14	  Loading…
+15	  List all the TV's apps
+16	  Yes, add this TV
+17	  Yes, use these codes
+18	  Upgrade to OmniZap Pro
+19	  Phone photos and videos
+20	  Photos and videos on the TV
+21	  Looking for Google Cast TVs (Chromecast built-in)…
+22	  Looking for TVs on the network
+23	  Searching…
+24	  Back
+25	  Back to the remote
+26	  Non-smart or older TV?
+27	  TV found!
+28	  {1}: without Google Cast
+29	  {1}: remote's viewer
+30	  {1} TVs found!
+31	 (phone's image)
+32	 (requires a phone with an infrared blaster).
+33	 ({1} skipped)
+34	 · connected
+35	(This is different from Bluetooth pairing, which does not replace it.)
+36	(Android TV, Samsung, LG, set-top boxes…).
+37	(it is also used for the app list).
+38	(power {1}).
+39	(or the Bluetooth menu): the TV becomes visible.\n
+40	(for example the old "Télécommande TV" app, or a Bluetooth keyboard/mouse app): 
+41	(older backup: Downloads → Télécommande TV).
+42	1. On the TV, open Settings → Remotes & Accessories → Add accessory 
+43	1. Tap the button below: the phone announces itself as a remote.\n
+44	2. Here, tap "Find the TV", then the TV's name.\n
+45	2. On the TV: Settings → Remotes & Accessories → Add accessory, 
+46	3. Accept the pairing on the TV and on the phone: OmniZap connects.
+47	3. "Connected to …" appears above: try Home.
+48	Home
+49	Lifetime access · {1}
+50	OmniZap Pro purchase restored, thank you!
+51	Turn on Bluetooth
+52	IP address
+53	IP address missing
+54	MAC address (to turn on the TV)
+55	TV's MAC address
+56	TV's MAC address unknown: turn the TV on by hand once, or enter it in ⚙
+57	MAC address not found automatically. Enter it above: on the TV, 
+58	Invalid MAC address
+59	Invalid MAC address (example: A4:B1:C2:D3:E4:F5)
+60	Add a TV
+61	Turning on {1}…
+62	Turns the TV on, even when off
+63	Turn the TV on first
+64	Turn the TV on and stay on the same Wi-Fi: it will appear below.
+65	On
+66	Android does not answer the Bluetooth remote mode request. On some phones, 
+67	Android refuses the Bluetooth connection to this TV. Uninstall the old app 
+68	Cancel
+69	Pairing interrupted, start again
+70	Already paired devices (tap the TV to connect):
+71	Apps
+72	TV apps
+73	Stop
+74	Pair again
+75	Set up infrared
+76	Set up Bluetooth
+77	Link to this TV
+78	Paired ({1})
+79	Tip: if Menu or Guide does nothing, press and hold the key to choose 
+80	No OmniZap Pro purchase on this Google account
+81	No account, no data collection. Your settings are saved on the phone, never anywhere else.
+82	None of the {1} code sets worked.
+83	No link to open on the TV
+84	No Google Cast TV found yet
+85	No TV saved
+86	No matching app.
+87	No data sent
+88	No photo or video chosen.
+89	Automatic: Wi-Fi, Bluetooth if the TV does not respond
+90	Automatic: Wi-Fi, infrared if the TV does not respond
+91	Allow
+92	Allow OmniZap to use Bluetooth ("Nearby devices").
+93	Allow the microphone for voice search
+94	Other brand / I don't know
+95	Other method: from the TV
+96	Other apps
+97	Fast forward
+98	Forward 30 s
+99	Down
+100	Much more than a remote
+101	Bluetooth: TV not connected
+102	Bluetooth: connecting to the TV… try again in a moment
+103	Bluetooth: no network needed
+104	Bluetooth linked: the remote will use it if the TV does not respond over Wi-Fi.
+105	Classic Bluetooth (other TVs, set-top boxes, computers)…
+106	Classic Bluetooth: from the phone
+107	Bluetooth · connected
+108	Bluetooth · connecting… (TV on, in range)
+109	Remote buttons in notifications and on the lock screen
+110	Screenshot saved: {1}/{2}
+111	Screenshot saved in the gallery (Pictures/OmniZap)
+112	Screenshot failed: {1}
+113	This file is not an OmniZap backup
+114	This phone has an infrared blaster: it can control any TV, 
+115	This phone has no infrared blaster
+116	This phone has no infrared blaster. This feature works on phones that 
+117	This phone does not allow the Bluetooth remote mode (refused by Android)
+118	This phone does not allow the Bluetooth remote mode.
+119	This TV does not accept microphone audio: just tap Voice
+120	This key does not exist over Bluetooth
+121	This key does not exist for this TV model
+122	Switch TV
+123	Change codes
+124	Previous channel
+125	Live Channels
+126	Choose the TV
+127	Keyboard
+128	Wrong code: a new code will appear on the TV
+129	Codes: {1}
+130	Codes not yet confirmed on a real TV: your test counts!
+131	Voice commands
+132	Get started
+133	Set up infrared
+134	Set up Bluetooth
+135	Connect
+136	Connect your TV
+137	Connection lost while typing
+138	Connection lost, reconnecting…
+139	Connecting to the TV screen…
+140	Continue
+141	Copy
+142	Copy the report
+143	Copied ✓
+144	In Google Home, tap the TV then "Cast my screen"
+145	Full-screen slideshow and videos on the TV. Also from the Gallery: Share → "Open on TV".
+146	Right
+147	Mirroring
+148	Screen mirroring
+149	Screen mirroring, with sound
+150	Mirroring failed: {1}
+151	Unlock (test)
+152	Unlock OmniZap Pro
+153	Discover OmniZap Pro
+154	Pull down quick settings and tap "Cast" or "Smart View", then choose the TV
+155	Detect the MAC address automatically
+156	Detecting…
+157	Delete
+158	Standby
+159	Save
+160	Send
+161	Unexpected error ({1})
+162	Free trial: {1} more day(s) with every feature.
+163	Try {1} of {2}
+164	Try
+165	Try: Home
+166	Try it: the Home key below should act on the TV.
+167	Export
+168	Favorites
+169	Close
+170	Arrows
+171	OmniZap Pro feature
+172	OmniZap Pro feature: open OmniZap to unlock it
+173	Keep
+174	Keep this screen open while a video plays: the TV reads the file directly from the phone.
+175	Left
+176	Swipe to navigate
+177	Google Cast stopped casting to the TV
+178	Google Cast is not available on this phone
+179	Google Cast is not available on this phone.
+180	Google Cast → nothing
+181	Google Play cannot be reached
+182	TV guide
+183	Up
+184	Off network · Bluetooth
+185	Off network · connecting over Bluetooth…
+186	Off network · infrared (aim at the TV)
+187	This needs a phone with an infrared blaster (many Xiaomi, Redmi and Poco, some Huawei and Honor).
+188	It is now shown on the TV screen.
+189	Picture only, no sound. Protected content (Netflix, TV channels…) 
+190	Not possible with a TV controlled by infrared or Bluetooth
+191	Cannot open {1}: turn on "USB debugging" on the TV
+192	Cannot write the file
+193	Cannot reach the TV: check that it is on, the address and the Wi-Fi
+194	Cannot read the file
+195	Infrared
+196	Infrared: every brand
+197	Infrared linked: the remote will use it if the TV does not respond over Wi-Fi.
+198	Infrared · aim at the TV
+199	Infrared code set not found: delete the TV and add it again
+200	Log
+201	Bluetooth log
+202	Purchases will go through Google Play once OmniZap is published there. Meanwhile, enjoy the trial.
+203	The app ran into an error. Tap "Copy" then paste this text into your 
+204	Opening apps
+205	The TV screen on your phone
+206	The phone screen (or a single app) is shown on the TV, without Google Cast or 
+207	The TV accepted the file
+208	The TV stopped the mirroring
+209	The TV refused the Bluetooth connection. Check that the pairing was 
+210	The TV refused the file (code {1})
+211	Did the TV react?
+212	The TV is already off
+213	Is the TV off?
+214	The TV did not start pairing. Try again.
+215	The TV did not open voice search
+216	The TV could not open the viewer: {1}
+217	The TV did not react to the power-on command.
+218	The TV did not react to the power-off command. Turn on "USB debugging" on the TV 
+219	The TV did not react to standby.
+220	The TV is not sending its screen. Check that ADB debugging is allowed 
+221	The TV is not paired with the phone: find it and accept the pairing.
+222	The TV no longer recognizes this phone over Wi-Fi.
+223	The TV does not respond to wake-up: turn on network standby / "Wake on LAN" on the TV (see ⚙)
+224	MAC address detection
+225	The app list
+226	Text input
+227	The remote stays free: every key, the touchpad, the keyboard, infrared and turning the TV on.
+228	The universal remote for your TV, in your phone.
+229	Bluetooth requires Android 9 or later
+230	The phone's Bluetooth is off.
+231	The phone's Bluetooth remote mode is already used by another app 
+232	The protocol of Android TVs' original remotes.\n
+233	The phone and the TV work together.
+234	The phone already announces itself as a remote when this screen opens ("BLE:" lines in the log).
+235	The phone presents itself to the TV as a Bluetooth remote and keyboard: 
+236	Play / pause
+237	Cannot read: turn on "USB debugging" in the options for 
+238	Accents and some symbols cannot be typed over Bluetooth
+239	Accents and some symbols cannot be typed remotely
+240	Accented letters are replaced by the plain letter (é → e).
+241	The TV's apps, with their icons
+242	The TV's apps, in one tap
+243	Manufacturers don't all use the same command. Tap "Try" to test 
+244	The app's notifications are blocked: allow them on the page that opens
+245	Settings are also copied automatically to Downloads/OmniZap, 
+246	Power
+247	Power, volume and playback, even on the lock screen
+248	Hide classic Bluetooth
+249	TV context menu
+250	Phone's cast menu (Miracast)
+251	TV contents menu
+252	Main menu (media)
+253	Standard Android menu
+254	Thank you! Every feature is unlocked, forever.
+255	My TVs
+256	Miracast, through ADB debugging, with app sound (Android 10 and later).
+257	Updating the list…
+258	Mute
+259	Name
+260	Not set up. The phone can act as a Bluetooth remote when Wi-Fi does not respond, 
+261	Not set up. Useful to turn on a fully powered-off TV, or when Wi-Fi does not respond
+262	No, next
+263	Opening {1}…
+264	Opening the receiver on {1}…
+265	Opening on {1}…
+266	Where to find the MAC address: on the TV (Settings → About → Status, or Network), in the 
+267	One-time payment. No subscription, no ads.
+268	Settings
+269	Settings (advanced)
+270	Settings → Network & Internet → your network, or Settings → About → Status.\n\n
+271	Speak…
+272	No infrared blaster
+273	Not connected to a TV yet: choose it in the list
+274	Skip
+275	Switch to classic Bluetooth (stops Low Energy)
+276	Keypad
+277	Touchpad
+278	Photos, videos and screen on the TV
+279	First place the cursor in a text field on the TV (search, password…), then type here. 
+280	Play Games
+281	Later
+282	Several TVs
+283	Point the top of the phone at the TV, then try the keys.
+284	To turn the TV on when it is off, it must keep the network on in standby. On the TV, turn on 
+285	For TVs that list phones (Samsung, LG, set-top boxes…). Android and Google TVs 
+286	To see them all, turn on "USB debugging" on the TV, then tap the button above.
+287	For a TV with Chromecast built-in, mirroring goes through Google Home: tap the TV, then 
+288	Launch price
+289	Schedule
+290	Previous
+291	Previous
+292	Once the TV is paired, it appears above as "Connected".
+293	What brand is the TV?
+294	OmniZap report
+295	Report copied
+296	Searching for "{1}" on the TV
+297	Searching… If nothing appears, check that the TV is on and on the same Wi-Fi as this phone.
+298	Find the TV
+299	Search for an app
+300	Searching… If the TV asks "Allow debugging?", accept with the arrows.
+301	Start again
+302	Voice recognition unavailable on this phone
+303	Back 10 s
+304	Pair again over Wi-Fi
+305	Pair again over Wi-Fi: a 6-character code will appear on the TV. 
+306	Restart advertising (BLE)
+307	Make the phone visible (2 min)
+308	Restore failed: {1}
+309	Restore
+310	Restore my purchase
+311	Restore a backup
+312	Restore your TVs from the backup: Downloads → OmniZap → {1} 
+313	Remove
+314	Rewind
+315	Try again
+316	Settings
+317	TV settings
+318	Quick settings
+319	Waking the TV over the network…
+320	Enter the TV's IP address
+321	Enter the TV's IP address
+322	Enter the code
+323	Without Google Cast: a small viewer is installed on the TV through ADB debugging.
+324	No ads, no subscription
+325	Without network or infrared: the phone can also act as a Bluetooth remote and keyboard 
+326	Backup saved
+327	Local backup
+328	Connect
+329	Only common apps and the ones already opened on the TV are shown. 
+330	If the TV asks "Allow debugging?", check "Always allow" 
+331	Wake-up signal sent: the TV should appear in the list within 30 seconds.
+332	Subtitles
+333	Next
+334	Delete
+335	Delete this TV
+336	Delete "{1}" from the remote? You will need to pair again to get it back.
+337	On the TV: Settings → Network & Internet → your Wi-Fi.
+338	TV connected
+339	Live TV
+340	TV unreachable
+341	TV not connected
+342	TVs found: 
+343	TV off: press Power first
+344	TV off: press ⏻ first
+345	Text to send…
+346	"{1}" key
+347	Tap for OK
+348	Tap "Stop" to stop mirroring
+349	Always infrared
+350	Always Bluetooth
+351	Always Wi-Fi
+352	All apps
+353	All your TVs
+354	Tile: quick settings → edit → "TV". Share: in YouTube or the 
+355	Remote
+356	Remote ({1})
+357	Remote: {1}
+358	Bluetooth remote
+359	Bluetooth remote: 
+360	OmniZap TV remote
+361	Remote added to notifications: pull down the notification shade
+362	Low Energy remote (Android TV, Google TV)
+363	Remote in notifications
+364	Infrared remote
+365	Infrared remote: {1}.
+366	Phone not on Wi-Fi · connect it to the TV's Wi-Fi
+367	Live television
+368	Something went wrong
+369	A TV connected by Ethernet cable wakes up more reliably than over Wi-Fi.
+370	A TV that is off is not visible on the network. If it accepts wake-up over the network, 
+371	Use this TV
+372	Use infrared
+373	Use Bluetooth
+374	Confirm
+375	Standby
+376	Remote's viewer (ADB debugging). Choose it if Google Cast stops casting.
+377	Remote's viewer on {1}
+378	Viewer opened on the TV
+379	View TV
+380	View the TV on your phone
+381	Voice
+382	Your data stays with you
+383	Your {1}-day trial has ended.
+384	Used the app before?
+385	Check that nothing covers the blaster (at the top of the phone) and aim at the TV's sensor, 
+386	Wi-Fi: automatic detection
+387	Wi-Fi not found: the phone must be on the same network as the TV
+388	Wi-Fi for Android and Google TVs, infrared and Bluetooth for the others, even without a network.
+389	Widget: long-press the home screen → Widgets → OmniZap. 
+390	Widget, notification and quick settings
+391	accepted on the TV, then tap the TV again in "Already paired devices".
+392	appears black. Tap the picture for "OK", swipe it for the arrows.
+393	no Wi-Fi TV saved
+394	screen capture stopped
+395	screen capture denied
+396	each option on the TV, then keep the one that works.
+397	like a regular remote.
+398	connected
+399	TV's ADB debugging unreachable ({1})
+400	uninstall it, turn Bluetooth off and on again, then tap "Try again".
+401	paused
+402	video encoder unavailable
+403	playback error (format not supported by the TV?)
+404	and list the apps once: the remote will then be able to turn it off.
+405	file not accessible
+406	gallery not accessible
+407	unknown code set
+408	the TV did not open the receiver: {1}
+409	the TV did not return an image
+410	the command that suits your TV.
+411	the manufacturer has disabled this feature. Tap "Try again" after turning Bluetooth off and on again.
+412	playing
+413	developers on the TV, then accept the permission request.
+414	device list of your Internet router, or on the label at the back of the TV.
+415	message so it can be fixed.
+416	often only show keyboards and gamepads: then use the method above.
+417	browser, Share → "Open on TV".
+418	not announced
+419	not connected (the TV must be on, in range)
+420	not read
+421	have one (many Xiaomi, Redmi and Poco, some Huawei and Honor).
+422	supported
+423	then choose OK with this remote's arrows (1 minute).
+424	then choose the phone (its Bluetooth name) and accept the pairing.\n
+425	enter its MAC address: it will turn on and then appear in the list above.
+426	no network needed, up to about 10 meters.
+427	no network needed, up to about 10 meters. (Version {1})
+428	depending on the model "Wake on LAN", "Network standby", "Networked standby" or 
+429	finished
+430	a file kept if the app is uninstalled.
+431	{1}: Bluetooth not connected
+432	{1} TV(s) restored. If the TV asks, pair again.
+433	{1} added.
+434	{1} added. Aim at the TV with the top of the phone.
+435	{1} apps: exact list from the TV, with their real names.
+436	{1} installed apps (approximate names: detailed reading failed).
+437	{1} is unreachable
+438	{1} is unreachable: turn it on first
+439	{1} file(s) chosen
+440	{1} is not available with a TV controlled over Bluetooth
+441	{1} is not available with a TV controlled by infrared
+442	{1} · already added
+443	"Cast my screen". (Samsung's "Smart View" uses Miracast, which many Android TVs ignore.)
+444	"Quick start" (Settings → Network & Internet, or System → Power). 
+445	"Open Netflix" by voice
+446	"Open Netflix", "action movies"…
+447	"Télécommande TV" if it is still there, restart the phone's Bluetooth, then try again.
+448	"View TV" works with an Android TV connected over Wi-Fi.
+449	"{1}": TV not connected
+450	"{1}" is part of OmniZap Pro. Your {2}-day trial has ended.
+451	Backup failed: {1}
+452	Screen
+453	TV screen live
+454	TV screen unavailable: {1}
+455	Phone screen shown on the TV
+456	Phone screen sent to the TV ({1} × {2})
+457	Screen mirrored to the TV
+458	Screen sent without sound ("Microphone" permission denied)
+459	Off · press Power
+460	within 3 meters. You can start again, or try "Other brand".
+461	○ Preparing the phone's Bluetooth remote…
+462	● Phone ready as a Bluetooth remote
+463	● Phone visible as a Low Energy remote
+464	✓ MAC address found and saved: {1}
+465	＋ Add a TV
+466	Connected to {1}
+467	Photos and videos on the TV
+468	Back

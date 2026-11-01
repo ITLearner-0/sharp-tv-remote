@@ -3,4 +3,17 @@
 <locale-config xmlns:android="http://schemas.android.com/apk/res/android">
     <locale android:name="en" />
     <locale android:name="fr" />
+    <locale android:name="es" />
+    <locale android:name="pt-BR" />
+    <locale android:name="de" />
+    <locale android:name="it" />
+    <locale android:name="hi" />
+    <locale android:name="ar" />
+    <locale android:name="ary" />
+    <locale android:name="ha" />
+    <locale android:name="yo" />
+    <locale android:name="wo" />
+    <locale android:name="ln" />
+    <locale android:name="sw" />
+    <locale android:name="am" />
 </locale-config>

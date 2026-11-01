@@ -132,7 +132,7 @@ fun LanguageScreen(onDone: () -> Unit) {
             Spacer(Modifier.height(40.dp))
             // Titre dans les deux langues : l'utilisateur ne l'a pas encore choisie.
             Text(
-                if (selected == "fr") "Choisissez votre langue" else "Choose your language",
+                languageTitle(selected),
                 fontSize = 32.sp,
                 lineHeight = 38.sp,
                 fontWeight = FontWeight.Bold,
@@ -154,7 +154,7 @@ fun LanguageScreen(onDone: () -> Unit) {
                             .background(if (chosen) AccentBrush else BodyBrush)
                             .border(1.dp, if (chosen) AccentSoft else BorderColor, RoundedCornerShape(22.dp))
                             .clickable { selected = code }
-                            .padding(horizontal = 20.dp, vertical = 20.dp),
+                            .padding(horizontal = 20.dp, vertical = 16.dp),
                     ) {
                         Text(name, color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
                         if (chosen) {
@@ -169,13 +169,38 @@ fun LanguageScreen(onDone: () -> Unit) {
                 }
             }
             Spacer(Modifier.height(16.dp))
-            GradientButton(if (selected == "fr") "Continuer" else "Continue") {
+            GradientButton(continueLabel(selected)) {
                 (context as? android.app.Activity)?.let { io.github.itlearner0.tvremote.i18n.AppLanguage.switchTo(it, selected) }
                 onDone()
             }
             Spacer(Modifier.height(16.dp))
         }
     }
+}
+
+/** Titre de l'écran de choix, dans la langue sélectionnée (pas encore appliquée). */
+private fun languageTitle(code: String): String = when (code) {
+    "fr" -> "Choisissez votre langue"
+    "es" -> "Elige tu idioma"
+    "pt" -> "Escolha seu idioma"
+    "de" -> "Wählen Sie Ihre Sprache"
+    "it" -> "Scegli la tua lingua"
+    "hi" -> "अपनी भाषा चुनें"
+    "ar" -> "اختر لغتك"
+    "ary" -> "ختار اللغة ديالك"
+    "ha" -> "Zaɓi harshenka"
+    "yo" -> "Yan èdè rẹ"
+    "wo" -> "Tànnal sa làkk"
+    "ln" -> "Pona monoko na yo"
+    "sw" -> "Chagua lugha yako"
+    "am" -> "ቋንቋዎን ይምረጡ"
+    else -> "Choose your language"
+}
+
+private fun continueLabel(code: String): String = when (code) {
+    "fr" -> "Continuer"
+    "en" -> "Continue"
+    else -> io.github.itlearner0.tvremote.i18n.dictionary(code)?.get("Continuer") ?: "Continue"
 }
 
 /** Présentation au premier lancement. */

@@ -11,6 +11,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.itlearner0.tvremote.protocol.Keys
 
 class MainActivity : ComponentActivity() {
+
+    override fun attachBaseContext(base: android.content.Context) {
+        super.attachBaseContext(io.github.itlearner0.tvremote.i18n.AppLanguage.wrap(base))
+    }
     private val viewModel: RemoteViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
