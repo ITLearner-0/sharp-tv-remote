@@ -67,6 +67,11 @@ fun App(state: UiState, message: String?, vm: RemoteViewModel) {
 
     // Présentation au premier lancement.
     val context = androidx.compose.ui.platform.LocalContext.current
+    var languageChosen by rememberSaveable { mutableStateOf(io.github.itlearner0.tvremote.i18n.AppLanguage.chosen(context)) }
+    if (!languageChosen) {
+        LanguageScreen(onDone = { languageChosen = true })
+        return
+    }
     var onboarded by rememberSaveable { mutableStateOf(onboardingDone(context)) }
     if (!onboarded) {
         OnboardingScreen(onDone = {
@@ -191,6 +196,18 @@ private fun TvListDialog(state: UiState, vm: RemoteViewModel, onDismiss: () -> U
                 Row {
                     TextButton(onClick = { exportLauncher.launch(LocalBackup.FILE_NAME) }) { Text(tr("Exporter")) }
                     TextButton(onClick = { importLauncher.launch(arrayOf("application/json", "*/*")) }) { Text(tr("Restaurer")) }
+                }
+                // Langue de l'application (redémarre OmniZap si elle change).
+                Text(tr("Langue / Language"), style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 16.dp))
+                val activity = androidx.compose.ui.platform.LocalContext.current as? android.app.Activity
+                Row {
+                    for ((code, name) in io.github.itlearner0.tvremote.i18n.AppLanguage.SUPPORTED) {
+                        val current = code == io.github.itlearner0.tvremote.i18n.AppLanguage.current()
+                        TextButton(
+                            onClick = { activity?.let { io.github.itlearner0.tvremote.i18n.AppLanguage.switchTo(it, code) } },
+                            enabled = !current,
+                        ) { Text(if (current) "✓ $name" else name) }
+                    }
                 }
             }
         },

@@ -19,6 +19,8 @@ class TvRemoteApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        // Langue choisie dans OmniZap (avant Android 13 ; ensuite, Android l'applique lui-même).
+        runCatching { io.github.itlearner0.tvremote.i18n.AppLanguage.apply(this) }
         // OmniZap Pro : essai gratuit et achat Google Play.
         runCatching { io.github.itlearner0.tvremote.pro.Pro.init(this) }
         val previous = Thread.getDefaultUncaughtExceptionHandler()
