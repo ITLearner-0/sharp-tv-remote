@@ -267,14 +267,26 @@ private fun VoiceKey(state: UiState, vm: RemoteViewModel) {
     }
 }
 
+/** Le téléphone est connecté à un réseau Wi-Fi (ou Ethernet). */
+private fun onWifi(context: android.content.Context): Boolean {
+    val cm = context.getSystemService(android.net.ConnectivityManager::class.java) ?: return true
+    val caps = cm.getNetworkCapabilities(cm.activeNetwork) ?: return false
+    return caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI) ||
+        caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_ETHERNET)
+}
+
 @Composable
 private fun Header(state: UiState, onSettings: () -> Unit, onSwitchTv: () -> Unit) {
     val tv = state.tv
+    val context = LocalContext.current
+    // Le téléphone n'est sur aucun Wi-Fi (4G seulement) : la TV est injoignable par le réseau.
+    val noWifi = state.connection != Connection.CONNECTED && !onWifi(context)
     val status = when {
         state.isBt -> if (state.btConnected) "Bluetooth · connecté" else "Bluetooth · connexion… (TV allumée, à portée)"
         state.usesBt -> if (state.btConnected) "Hors réseau · Bluetooth" else "Hors réseau · connexion Bluetooth…"
         state.isIr -> "Infrarouge · visez la TV"
         state.usesIr -> "Hors réseau · infrarouge (visez la TV)"
+        noWifi -> "Téléphone hors Wi-Fi · connectez-le au Wi-Fi de la TV"
         state.connection != Connection.CONNECTED -> "Éteinte · appuyez sur Marche"
         !tv.isOn -> "En veille"
         else -> "Allumée"
@@ -294,6 +306,7 @@ private fun Header(state: UiState, onSettings: () -> Unit, onSwitchTv: () -> Uni
             Column(Modifier.padding(start = 10.dp).weight(1f)) {
                 Text(
                     state.current?.name ?: "TV",
+                    color = Color.White,
                     fontWeight = FontWeight.SemiBold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,

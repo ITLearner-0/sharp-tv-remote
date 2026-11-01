@@ -194,21 +194,25 @@ object BtRemote {
                 }
             }
         })
-        log("Enregistrement demandé : " + if (registered) "accepté, en attente de confirmation" else "refusé")
-        if (!registered) {
+        log("Enregistrement demandé : " + if (registered) "accepté" else "réponse négative, attente de confirmation")
+        if (registered) return
+        // Certains téléphones (Samsung) répondent « non » puis confirment l'enregistrement juste après :
+        // on attend la confirmation avant de conclure.
+        main.postDelayed({
+            if (_state.value.registered) return@postDelayed
             // Un enregistrement précédent de l'application peut subsister : on le retire et on réessaie une fois.
             if (!retriedRegistration) {
                 retriedRegistration = true
                 runCatching { h.unregisterApp() }
                 main.postDelayed({ register(h) }, 1000)
-                return
+                return@postDelayed
             }
             fail(
                 "Le mode télécommande Bluetooth du téléphone est déjà pris par une autre application " +
                     "(par exemple l'ancienne « Télécommande TV », ou une application clavier/souris Bluetooth) : " +
                     "désinstallez-la, éteignez puis rallumez le Bluetooth, puis touchez « Réessayer ».",
             )
-        }
+        }, 3000)
     }
 
     /** Se connecte à la TV [address] (déjà associée au téléphone). */
