@@ -170,13 +170,18 @@ object BtRemote {
             override fun onConnectionStateChanged(d: BluetoothDevice, state: Int) {
                 when (state) {
                     BluetoothProfile.STATE_CONNECTED -> {
+                        log("Connecté à ${d.name ?: d.address}")
                         device = d
                         _state.update {
                             it.copy(connectedAddress = d.address, connectedName = d.name ?: d.address, connecting = false, message = null)
                         }
                     }
-                    BluetoothProfile.STATE_CONNECTING -> _state.update { it.copy(connecting = true) }
+                    BluetoothProfile.STATE_CONNECTING -> {
+                        log("La TV répond, connexion en cours…")
+                        _state.update { it.copy(connecting = true) }
+                    }
                     BluetoothProfile.STATE_DISCONNECTED -> {
+                        log("Déconnecté de ${d.name ?: d.address}")
                         if (device?.address == d.address) device = null
                         _state.update {
                             when {
@@ -243,7 +248,9 @@ object BtRemote {
             return
         }
         _state.update { it.copy(connecting = true, message = null) }
+        log("Connexion à ${target.name ?: address}…")
         if (h.connect(target)) return
+        log("Connexion refusée par Android (essai ${attempts + 1})")
         // Refus immédiat : nouvel essai, puis réenregistrement de la télécommande.
         attempts++
         when {
@@ -309,12 +316,12 @@ object BtRemote {
         runCatching {
             when (key) {
                 is BtHidKeys.Key.Keyboard -> {
-                    h.sendReport(d, BtHidKeys.REPORT_KEYBOARD, BtHidKeys.keyboardReport(key))
+                    if (!h.sendReport(d, BtHidKeys.REPORT_KEYBOARD, BtHidKeys.keyboardReport(key))) log("Touche non transmise")
                     Thread.sleep(25)
                     h.sendReport(d, BtHidKeys.REPORT_KEYBOARD, BtHidKeys.keyboardReport(null))
                 }
                 is BtHidKeys.Key.Consumer -> {
-                    h.sendReport(d, BtHidKeys.REPORT_CONSUMER, BtHidKeys.consumerReport(key.usage))
+                    if (!h.sendReport(d, BtHidKeys.REPORT_CONSUMER, BtHidKeys.consumerReport(key.usage))) log("Touche non transmise")
                     Thread.sleep(40)
                     h.sendReport(d, BtHidKeys.REPORT_CONSUMER, BtHidKeys.consumerReport(0))
                 }
