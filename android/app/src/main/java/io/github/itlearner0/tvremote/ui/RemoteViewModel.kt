@@ -857,6 +857,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
     // --- Bluetooth ---
 
     private fun btKey(keyCode: Int) {
+        if (!io.github.itlearner0.tvremote.pro.Pro.require(getApplication(), io.github.itlearner0.tvremote.pro.ProFeature.BLUETOOTH)) return
         val bt = io.github.itlearner0.tvremote.bt.BtRemote
         if (!_state.value.btConnected) {
             _state.value.current?.btAddress?.let { bt.init(getApplication(), it) }
@@ -868,6 +869,7 @@ class RemoteViewModel(application: Application) : AndroidViewModel(application) 
 
     /** Ouvre l'assistant Bluetooth ; [attach] : associer le Bluetooth à la TV Wi-Fi affichée. */
     fun startBtSetup(attach: Boolean = false) {
+        if (!io.github.itlearner0.tvremote.pro.Pro.require(getApplication(), io.github.itlearner0.tvremote.pro.ProFeature.BLUETOOTH)) return
         if (!attach) {
             stopKeepAlive()
             closeSession()

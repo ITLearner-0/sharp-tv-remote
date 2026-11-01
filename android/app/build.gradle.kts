@@ -16,6 +16,9 @@ android {
         // Numéro de version fourni par GitHub Actions pour que chaque APK remplace le précédent.
         versionCode = (System.getenv("VERSION_CODE") ?: "1").toInt()
         versionName = "0.1.${System.getenv("VERSION_CODE") ?: "0"}"
+        // Versions de test (hors Play Store) : bouton de déblocage de Pro pour les essais.
+        // À la publication, compiler avec PLAY_RELEASE=1 pour le retirer.
+        buildConfigField("boolean", "TEST_UNLOCK", (System.getenv("PLAY_RELEASE") == null).toString())
     }
 
     signingConfigs {
@@ -51,6 +54,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     packaging {
         resources.excludes += setOf("/META-INF/{AL2.0,LGPL2.1}", "META-INF/versions/9/previous-compilation-data.bin")
@@ -71,6 +75,8 @@ dependencies {
     implementation("dev.mobile:dadb:1.2.10")
     // Google Cast : affichage des photos et vidéos du téléphone sur la TV.
     implementation("com.google.android.gms:play-services-cast-framework:21.5.0")
+    // Google Play : achat unique d'OmniZap Pro.
+    implementation("com.android.billingclient:billing-ktx:7.1.1")
 
     testImplementation("junit:junit:4.13.2")
 }

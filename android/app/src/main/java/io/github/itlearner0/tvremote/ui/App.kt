@@ -28,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -92,6 +93,8 @@ fun App(state: UiState, message: String?, vm: RemoteViewModel) {
         }
     }
 
+    val proOffer by io.github.itlearner0.tvremote.pro.Pro.offer.collectAsState()
+    proOffer?.let { ProDialog(it.feature) }
     if (showSettings && state.current != null) SettingsDialog(state, vm, onDismiss = { showSettings = false })
     if (showTvs) TvListDialog(state, vm, onDismiss = { showTvs = false })
     state.crashReport?.let { CrashReportDialog(it, vm) }
@@ -190,8 +193,12 @@ private fun TvListDialog(state: UiState, vm: RemoteViewModel, onDismiss: () -> U
             }
         },
         confirmButton = {
+            val context = androidx.compose.ui.platform.LocalContext.current
             TextButton(onClick = {
-                vm.addTv()
+                // Une TV est gratuite ; les suivantes font partie d'OmniZap Pro.
+                if (state.tvs.isEmpty() || io.github.itlearner0.tvremote.pro.Pro.require(context, io.github.itlearner0.tvremote.pro.ProFeature.MULTI_TV)) {
+                    vm.addTv()
+                }
                 onDismiss()
             }) { Text("＋ Ajouter une TV") }
         },
@@ -340,6 +347,7 @@ private fun SettingsDialog(state: UiState, vm: RemoteViewModel, onDismiss: () ->
 /** Télécommande dans les notifications (et sur l'écran verrouillé). */
 @Composable
 private fun NotificationSwitch(state: UiState, vm: RemoteViewModel) {
+    val context = androidx.compose.ui.platform.LocalContext.current
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
         if (granted) vm.setNotificationEnabled(true)
     }
@@ -351,7 +359,9 @@ private fun NotificationSwitch(state: UiState, vm: RemoteViewModel) {
         Switch(
             checked = state.notificationEnabled,
             onCheckedChange = { enabled ->
-                if (enabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (enabled && !io.github.itlearner0.tvremote.pro.Pro.require(context, io.github.itlearner0.tvremote.pro.ProFeature.QUICK)) {
+                    // Fonction Pro : l'offre s'affiche.
+                } else if (enabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     permission.launch(Manifest.permission.POST_NOTIFICATIONS)
                 } else {
                     vm.setNotificationEnabled(enabled)

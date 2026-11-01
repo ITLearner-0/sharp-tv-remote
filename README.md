@@ -54,6 +54,22 @@ version (GitHub Actions), qui s'installe par-dessus la précédente.
 > Elle convient pour les essais, pas pour le Play Store : il faudra une clé
 > privée avant toute publication.
 
+### ⭐ Gratuit et OmniZap Pro
+
+**Gratuit, pour toujours :** une TV, toutes les touches, le pavé tactile, le
+clavier, le pavé numérique, l'infrarouge et l'allumage de la TV.
+
+**OmniZap Pro** (achat unique par Google Play, produit `omnizap_pro`, prix de
+lancement prévu : 9,99 €, sans abonnement ni publicité) : plusieurs TV, les
+applications de la TV, la voix, les photos et vidéos sur la TV, la duplication
+d'écran, « Voir la TV », le Bluetooth, le widget, la notification, la tuile et
+le partage vers la TV.
+
+**Essai gratuit de 7 jours** de toutes les fonctions Pro dès le premier
+lancement ; aucun écran de paiement avant d'avoir utilisé l'application.
+Les versions de test (GitHub) proposent « Débloquer (test) » ; la version Play
+Store est compilée avec `PLAY_RELEASE=1`, qui retire ce bouton.
+
 ### 💾 Sauvegarde locale (sans Google)
 
 Les réglages (TV, adresses IP et MAC, infrarouge, touches personnalisées,

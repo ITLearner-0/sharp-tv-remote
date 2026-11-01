@@ -41,6 +41,12 @@ object QuickRemote {
     /** Lance [action] en arrière-plan et appelle [done] à la fin (pour les récepteurs de diffusion). */
     fun run(context: Context, done: () -> Unit = {}, action: suspend (Context) -> Unit) {
         val app = context.applicationContext
+        // Widget, notification, tuile et partage : fonctions OmniZap Pro (après l'essai).
+        if (!io.github.itlearner0.tvremote.pro.Pro.isUnlocked(app)) {
+            toast(app, "Fonction OmniZap Pro : ouvrez OmniZap pour la débloquer")
+            done()
+            return
+        }
         scope.launch {
             try {
                 action(app)

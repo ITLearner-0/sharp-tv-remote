@@ -76,6 +76,16 @@ class CastActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Photos et vidéos sur la TV : fonction OmniZap Pro (après l'essai) → offre dans l'application.
+        if (!io.github.itlearner0.tvremote.pro.Pro.isUnlocked(this)) {
+            io.github.itlearner0.tvremote.pro.Pro.showOffer(io.github.itlearner0.tvremote.pro.ProFeature.MEDIA)
+            startActivity(
+                android.content.Intent(this, io.github.itlearner0.tvremote.ui.MainActivity::class.java)
+                    .addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK),
+            )
+            finish()
+            return
+        }
         vm.setItems(sharedUris(intent))
         setContent {
             RemoteTheme { CastScreen(vm, onClose = ::finish) }

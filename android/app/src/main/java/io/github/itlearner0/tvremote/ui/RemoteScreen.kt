@@ -73,6 +73,8 @@ import io.github.itlearner0.tvremote.cast.CastActivity
 import io.github.itlearner0.tvremote.cast.ScreenMirroring
 import io.github.itlearner0.tvremote.cast.MirrorActivity
 import io.github.itlearner0.tvremote.cast.MirrorService
+import io.github.itlearner0.tvremote.pro.Pro
+import io.github.itlearner0.tvremote.pro.ProFeature
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -129,6 +131,7 @@ fun RemoteScreen(state: UiState, vm: RemoteViewModel, onSettings: () -> Unit, on
     }
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Header(state, onSettings, onSwitchTv)
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) { ProBadge() }
 
         if (state.needsPairing) {
             Column(
@@ -233,6 +236,7 @@ private fun VoiceKey(state: UiState, vm: RemoteViewModel) {
         color = if (state.listening) Accent else KeyColor,
         onLongPress = {
             when {
+                !Pro.require(context, ProFeature.VOICE) -> Unit
                 !tvVoice -> Toast.makeText(context, "Cette TV n'accepte pas le son du micro : touchez simplement Voix", Toast.LENGTH_LONG).show()
                 ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED ->
                     vm.toggleVoice()
@@ -244,6 +248,7 @@ private fun VoiceKey(state: UiState, vm: RemoteViewModel) {
             vm.stopVoice()
             return@RoundKey
         }
+        if (!Pro.require(context, ProFeature.VOICE)) return@RoundKey
         runCatching {
             dictation.launch(
                 Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
@@ -470,6 +475,13 @@ private fun RowScope.Rocker(
     }
 }
 
+/** Panneau Pro : affiché pendant l'essai ou après l'achat, verrou sinon. */
+@Composable
+private fun ProGate(feature: ProFeature, content: @Composable () -> Unit) {
+    val pro by Pro.state.collectAsState()
+    if (pro.unlocked) content() else ProLock(feature)
+}
+
 /** Onglets sous la télécommande : applications, pavé numérique, clavier. */
 @Composable
 private fun ExtraPanels(state: UiState, vm: RemoteViewModel, dim: Modifier) {
@@ -535,11 +547,11 @@ private fun ExtraPanels(state: UiState, vm: RemoteViewModel, dim: Modifier) {
         }
         Column(Modifier.padding(14.dp).then(dim)) {
             when (tab) {
-                0 -> AppsPanel(state, vm)
+                0 -> ProGate(ProFeature.APPS) { AppsPanel(state, vm) }
                 1 -> NumPad(vm)
                 2 -> TextInput(vm)
                 3 -> ScreenPanel()
-                else -> TvViewPanel(state, vm)
+                else -> ProGate(ProFeature.TV_VIEW) { TvViewPanel(state, vm) }
             }
         }
     }
@@ -551,7 +563,7 @@ private fun ScreenPanel() {
     val context = LocalContext.current
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Button(
-            onClick = { CastActivity.start(context, emptyList()) },
+            onClick = { if (Pro.require(context, ProFeature.MEDIA)) CastActivity.start(context, emptyList()) },
             modifier = Modifier.fillMaxWidth().height(52.dp),
         ) {
             Icon(Icons.Filled.PhotoLibrary, contentDescription = null, modifier = Modifier.size(18.dp))
@@ -565,7 +577,12 @@ private fun ScreenPanel() {
         val mirroring by MirrorService.running.collectAsState()
         val mirrorStatus by MirrorService.status.collectAsState()
         Button(
-            onClick = { if (mirroring) MirrorService.stop(context) else MirrorActivity.start(context) },
+            onClick = {
+                when {
+                    mirroring -> MirrorService.stop(context)
+                    Pro.require(context, ProFeature.MIRROR) -> MirrorActivity.start(context)
+                }
+            },
             modifier = Modifier.fillMaxWidth().height(52.dp),
         ) {
             Icon(Icons.Filled.ScreenShare, contentDescription = null, modifier = Modifier.size(18.dp))
