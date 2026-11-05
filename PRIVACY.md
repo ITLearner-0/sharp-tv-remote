@@ -46,7 +46,7 @@ aucune donnée les concernant.
 
 ## Contact
 
-Questions : **{{CONTACT_EMAIL}}**
+Éditeur : AnthLab · Questions : **contact.anthlab@gmail.com**
 
 ---
 
@@ -96,4 +96,4 @@ OmniZap is not directed at children under 13 and does not knowingly collect data
 
 ## Contact
 
-Questions: **{{CONTACT_EMAIL}}**
+Publisher: AnthLab · Questions: **contact.anthlab@gmail.com**

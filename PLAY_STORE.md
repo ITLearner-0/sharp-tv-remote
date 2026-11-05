@@ -52,7 +52,7 @@ par défaut Français, **Application**, **Gratuite**. Accepter les déclarations
 - Icône : `images/icon.png` · Image de présentation : `images/featureGraphic.png`.
 - **Captures d'écran du téléphone : à prendre vous-même** (au moins 2, idéalement 4 à 8) :
   la télécommande, les applications, le pavé tactile, l'écran Pro, « Voir la TV ».
-- Catégorie : **Outils** (ou Lecteurs et éditeurs vidéo) · E-mail de contact.
+- Catégorie : **Outils** (ou Lecteurs et éditeurs vidéo) · E-mail de contact : contact.anthlab@gmail.com.
 
 ### Contenu de l'application (Règles → Contenu de l'application)
 
