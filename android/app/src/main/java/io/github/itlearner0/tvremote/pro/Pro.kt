@@ -151,6 +151,8 @@ object Pro {
         val billing = BillingClient.newBuilder(ctx)
             .setListener { result, purchases -> onPurchases(result, purchases) }
             .enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
+            // Bibliothèque Google Play Billing 8 : reconnexion automatique au service.
+            .enableAutoServiceReconnection()
             .build()
         client = billing
         runCatching {
@@ -180,8 +182,8 @@ object Pro {
                 ),
             )
             .build()
-        billing.queryProductDetailsAsync(params) { _, list ->
-            val details = list.firstOrNull() ?: return@queryProductDetailsAsync
+        billing.queryProductDetailsAsync(params) { _, result ->
+            val details = result.productDetailsList.firstOrNull() ?: return@queryProductDetailsAsync
             product = details
             _state.update { it.copy(price = details.oneTimePurchaseOfferDetails?.formattedPrice) }
         }

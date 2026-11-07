@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "io.github.itlearner0.tvremote.helper"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "io.github.itlearner0.tvremote.helper"
         minSdk = 21
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 7
         versionName = "7"
     }

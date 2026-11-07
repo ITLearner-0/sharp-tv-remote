@@ -6,13 +6,13 @@ plugins {
 
 android {
     namespace = "io.github.itlearner0.tvremote"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         // Identifiant définitif (Play Store) ; le code garde son nom de paquet d'origine.
         applicationId = "app.omnizap.remote"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         // Numéro de version fourni par GitHub Actions pour que chaque APK remplace le précédent.
         versionCode = (System.getenv("VERSION_CODE") ?: "1").toInt()
         versionName = System.getenv("VERSION_NAME") ?: "0.1.${System.getenv("VERSION_CODE") ?: "0"}"
@@ -87,7 +87,7 @@ dependencies {
     // Google Cast : affichage des photos et vidéos du téléphone sur la TV.
     implementation("com.google.android.gms:play-services-cast-framework:21.5.0")
     // Google Play : achat unique d'OmniZap Pro.
-    implementation("com.android.billingclient:billing-ktx:7.1.1")
+    implementation("com.android.billingclient:billing-ktx:8.0.0")
 
     testImplementation("junit:junit:4.13.2")
 }
