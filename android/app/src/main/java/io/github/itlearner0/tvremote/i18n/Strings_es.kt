@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_ES: Map<String, String> by lazy {
-    HashMap<String, String>(960).also { m ->
+    HashMap<String, String>(998).also { m ->
         l_esa(m)
         l_esb(m)
     }
@@ -249,9 +249,6 @@ private fun l_esa(m: HashMap<String, String>) {
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Lectura imposible: active la «Depuración USB» en las opciones para "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Los acentos y algunos signos no se pueden escribir por Bluetooth"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "Los acentos y algunos signos no se pueden escribir a distancia"
-}
-
-private fun l_esb(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "Los acentos se sustituyen por la letra simple (é → e)."
     m["Les applications de la TV, avec leurs icônes"] = "Las aplicaciones de la TV, con sus iconos"
     m["Les applications de la TV, d'un geste"] = "Las aplicaciones de la TV, con un toque"
@@ -261,6 +258,9 @@ private fun l_esb(m: HashMap<String, String>) {
     m["Marche"] = "Encendido"
     m["Marche, volume et lecture, même écran verrouillé"] = "Encendido, volumen y reproducción, incluso con la pantalla bloqueada"
     m["Masquer le Bluetooth classique"] = "Ocultar el Bluetooth clásico"
+}
+
+private fun l_esb(m: HashMap<String, String>) {
     m["Menu contextuel TV"] = "Menú contextual de la TV"
     m["Menu de diffusion du téléphone (Miracast)"] = "Menú de emisión del teléfono (Miracast)"
     m["Menu des contenus TV"] = "Menú de contenidos de la TV"
@@ -492,4 +492,23 @@ private fun l_esb(m: HashMap<String, String>) {
     m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "Aparece una solicitud de acceso en el televisor: acéptala con el mando original (1 minuto)."
     m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "solo para Android TV y Google TV (en Samsung o LG, usa «Smart View» o «Enviar» del teléfono)"
     m["Ouvrir sur la TV"] = "Abrir en el televisor"
+    m["  Capture"] = "  Captura"
+    m["  Son coupé"] = "  Sonido apagado"
+    m["  Son sur le téléphone"] = "  Sonido en el teléfono"
+    m["(application protégée, ou son de la TV en direct non accessible)."] = "(aplicación protegida, o sonido de la TV en directo no accesible)."
+    m["Aucun son capté : la source actuelle ne le permet pas "] = "No se capta sonido: la fuente actual no lo permite "
+    m["Capture d'écran de la TV"] = "Captura de pantalla del televisor"
+    m["Couper le son du téléphone"] = "Silenciar el teléfono"
+    m["Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image "] = "El sonido de las aplicaciones protegidas (Netflix, Prime Video…) no se transmite, y su imagen "
+    m["Plein écran"] = "Pantalla completa"
+    m["Quitter le plein écran"] = "Salir de pantalla completa"
+    m["Son : démarrage sur la TV…"] = "Sonido: iniciando en el televisor…"
+    m["Son indisponible : la TV ne l'envoie pas (Android 10 ou plus requis)"] = "Sonido no disponible: el televisor no lo envía (se necesita Android 10 o posterior)"
+    m["Son indisponible : {1}"] = "Sonido no disponible: {1}"
+    m["Son interrompu : {1}"] = "Sonido interrumpido: {1}"
+    m["Son sur le téléphone"] = "Sonido en el teléfono"
+    m["Volume +"] = "Volumen +"
+    m["Volume -"] = "Volumen -"
+    m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "aparece en negro. Toca la imagen para «OK», deslízala para las flechas."
+    m["réponse inattendue de la TV"] = "respuesta inesperada del televisor"
 }

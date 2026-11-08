@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_HI: Map<String, String> by lazy {
-    HashMap<String, String>(960).also { m ->
+    HashMap<String, String>(998).also { m ->
         l_hia(m)
         l_hib(m)
     }
@@ -249,9 +249,6 @@ private fun l_hia(m: HashMap<String, String>) {
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "चलाना संभव नहीं: टीवी के डेवलपर विकल्पों में «USB डीबगिंग» चालू करें "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "मात्राएँ और कुछ चिह्न Bluetooth से टाइप नहीं हो सकते"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "मात्राएँ और कुछ चिह्न दूर से टाइप नहीं हो सकते"
-}
-
-private fun l_hib(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "एक्सेंट वाले अक्षर सादे अक्षर से बदल दिए जाते हैं (é → e)।"
     m["Les applications de la TV, avec leurs icônes"] = "टीवी के ऐप्स, उनके आइकन के साथ"
     m["Les applications de la TV, d'un geste"] = "टीवी के ऐप्स, एक टैप में"
@@ -261,6 +258,9 @@ private fun l_hib(m: HashMap<String, String>) {
     m["Marche"] = "चालू करें"
     m["Marche, volume et lecture, même écran verrouillé"] = "चालू करना, आवाज़ और प्लेबैक, लॉक स्क्रीन पर भी"
     m["Masquer le Bluetooth classique"] = "क्लासिक Bluetooth छिपाएँ"
+}
+
+private fun l_hib(m: HashMap<String, String>) {
     m["Menu contextuel TV"] = "टीवी का कॉन्टेक्स्ट मेनू"
     m["Menu de diffusion du téléphone (Miracast)"] = "फ़ोन का कास्ट मेनू (Miracast)"
     m["Menu des contenus TV"] = "टीवी का कंटेंट मेनू"
@@ -492,4 +492,23 @@ private fun l_hib(m: HashMap<String, String>) {
     m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "टीवी पर एक्सेस का अनुरोध दिखेगा: उसे असली रिमोट से स्वीकार करें (1 मिनट)।"
     m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "सिर्फ़ Android TV और Google TV के लिए (Samsung या LG पर फ़ोन का «Smart View» या «कास्ट» इस्तेमाल करें)"
     m["Ouvrir sur la TV"] = "टीवी पर खोलें"
+    m["  Capture"] = "  कैप्चर"
+    m["  Son coupé"] = "  आवाज़ बंद"
+    m["  Son sur le téléphone"] = "  फ़ोन पर आवाज़"
+    m["(application protégée, ou son de la TV en direct non accessible)."] = "(सुरक्षित ऐप, या लाइव टीवी की आवाज़ उपलब्ध नहीं)।"
+    m["Aucun son capté : la source actuelle ne le permet pas "] = "कोई आवाज़ नहीं मिली: मौजूदा स्रोत इसकी अनुमति नहीं देता "
+    m["Capture d'écran de la TV"] = "टीवी का स्क्रीनशॉट"
+    m["Couper le son du téléphone"] = "फ़ोन की आवाज़ बंद करें"
+    m["Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image "] = "सुरक्षित ऐप्स (Netflix, Prime Video…) की आवाज़ नहीं भेजी जाती, और उनकी तस्वीर "
+    m["Plein écran"] = "फ़ुल स्क्रीन"
+    m["Quitter le plein écran"] = "फ़ुल स्क्रीन से बाहर"
+    m["Son : démarrage sur la TV…"] = "आवाज़: टीवी पर शुरू हो रही है…"
+    m["Son indisponible : la TV ne l'envoie pas (Android 10 ou plus requis)"] = "आवाज़ उपलब्ध नहीं: टीवी इसे नहीं भेजता (Android 10 या नया चाहिए)"
+    m["Son indisponible : {1}"] = "आवाज़ उपलब्ध नहीं: {1}"
+    m["Son interrompu : {1}"] = "आवाज़ रुक गई: {1}"
+    m["Son sur le téléphone"] = "फ़ोन पर आवाज़"
+    m["Volume +"] = "आवाज़ +"
+    m["Volume -"] = "आवाज़ -"
+    m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "काली दिखती है। «OK» के लिए तस्वीर पर टैप करें, तीरों के लिए स्वाइप करें।"
+    m["réponse inattendue de la TV"] = "टीवी से अनपेक्षित जवाब"
 }

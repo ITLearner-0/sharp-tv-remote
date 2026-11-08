@@ -478,3 +478,22 @@
 477	Buƙatar shiga za ta bayyana a TV: karɓe ta da rimot na asali (minti 1).
 478	don Android TV da Google TV kawai (a Samsung ko LG, yi amfani da «Smart View» ko «Jefa» na waya)
 479	Buɗe a TV
+480	Ɗauka
+481	An kashe sauti
+482	Sauti a waya
+483	(manhaja mai kariya, ko sautin TV kai tsaye ba ya samuwa).
+484	Ba a kama sauti ba: tushen yanzu bai yarda ba 
+485	Hoton allon TV
+486	Kashe sautin waya
+487	Ba a aika sautin manhajoji masu kariya (Netflix, Prime Video…), kuma hotonsu 
+488	Cikakken allo
+489	Fita daga cikakken allo
+490	Sauti: ana farawa a TV…
+491	Babu sauti: TV ba ta aika shi (ana buƙatar Android 10 ko sabo)
+492	Babu sauti: {1}
+493	Sauti ya katse: {1}
+494	Sauti a waya
+495	Ƙara sauti
+496	Rage sauti
+497	yana bayyana baƙi. Taɓa hoton don «OK», zame don kibiyoyi.
+498	amsar da ba a zata ba daga TV

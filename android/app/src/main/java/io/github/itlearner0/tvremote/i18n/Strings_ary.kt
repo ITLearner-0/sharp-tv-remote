@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_ARY: Map<String, String> by lazy {
-    HashMap<String, String>(960).also { m ->
+    HashMap<String, String>(998).also { m ->
         l_arya(m)
         l_aryb(m)
     }
@@ -249,9 +249,6 @@ private fun l_arya(m: HashMap<String, String>) {
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "ما قدرناش نشغّلو: شعل «USB debugging» فالخيارات ديال "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "الحروف بالعلامات و شي رموز ما يمكنش تكتبهم بالبلوتوث"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "الحروف بالعلامات و شي رموز ما يمكنش تكتبهم من بعيد"
-}
-
-private fun l_aryb(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "الحروف بالعلامات كيتبدلو بالحرف العادي (é ← e)."
     m["Les applications de la TV, avec leurs icônes"] = "التطبيقات ديال التلفزة، مع الأيقونات ديالهم"
     m["Les applications de la TV, d'un geste"] = "التطبيقات ديال التلفزة، بضغطة وحدة"
@@ -261,6 +258,9 @@ private fun l_aryb(m: HashMap<String, String>) {
     m["Marche"] = "شعل"
     m["Marche, volume et lecture, même écran verrouillé"] = "التشعال، الصوت و التشغيل، واخا الشاشة مسدودة"
     m["Masquer le Bluetooth classique"] = "خبّي البلوتوث الكلاسيكي"
+}
+
+private fun l_aryb(m: HashMap<String, String>) {
     m["Menu contextuel TV"] = "مينو السياق ديال التلفزة"
     m["Menu de diffusion du téléphone (Miracast)"] = "مينو البث ديال التيليفون (Miracast)"
     m["Menu des contenus TV"] = "مينو المحتوى ديال التلفزة"
@@ -492,4 +492,23 @@ private fun l_aryb(m: HashMap<String, String>) {
     m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "طلب ديال الدخول كيبان فالتلفزة: قبلو بالتيليكوموند الأصلي (دقيقة وحدة)."
     m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "غير ل Android TV و Google TV (ف Samsung ولا LG، خدم ب «Smart View» ولا «بث» ديال التيليفون)"
     m["Ouvrir sur la TV"] = "حل فالتلفزة"
+    m["  Capture"] = "  تصويرة"
+    m["  Son coupé"] = "  الصوت مقطوع"
+    m["  Son sur le téléphone"] = "  الصوت فالتيليفون"
+    m["(application protégée, ou son de la TV en direct non accessible)."] = "(تطبيق محمي، ولا الصوت ديال التلفزة مباشرة ما كاينش)."
+    m["Aucun son capté : la source actuelle ne le permet pas "] = "ما تلقط حتى صوت: المصدر الحالي ما كيسمحش "
+    m["Capture d'écran de la TV"] = "تصويرة ديال شاشة التلفزة"
+    m["Couper le son du téléphone"] = "قطع الصوت ديال التيليفون"
+    m["Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image "] = "الصوت ديال التطبيقات المحمية (Netflix، Prime Video…) ما كيتصيفطش، و الصورة ديالهم "
+    m["Plein écran"] = "الشاشة كاملة"
+    m["Quitter le plein écran"] = "خرج من الشاشة كاملة"
+    m["Son : démarrage sur la TV…"] = "الصوت: كيبدا فالتلفزة…"
+    m["Son indisponible : la TV ne l'envoie pas (Android 10 ou plus requis)"] = "الصوت ما كاينش: التلفزة ما كتصيفطوش (خاص Android 10 ولا كتر)"
+    m["Son indisponible : {1}"] = "الصوت ما كاينش: {1}"
+    m["Son interrompu : {1}"] = "الصوت تقطع: {1}"
+    m["Son sur le téléphone"] = "الصوت فالتيليفون"
+    m["Volume +"] = "زيد الصوت"
+    m["Volume -"] = "نقص الصوت"
+    m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "كتبان كحلة. ضغط على الصورة ل «OK»، زلّق للفليشات."
+    m["réponse inattendue de la TV"] = "جواب ما متوقعش من التلفزة"
 }

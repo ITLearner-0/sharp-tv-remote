@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_SW: Map<String, String> by lazy {
-    HashMap<String, String>(960).also { m ->
+    HashMap<String, String>(998).also { m ->
         l_swa(m)
         l_swb(m)
     }
@@ -249,9 +249,6 @@ private fun l_swa(m: HashMap<String, String>) {
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Haiwezi kucheza: washa «USB debugging» katika chaguo za "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Herufi zenye alama na baadhi ya alama haziwezi kuandikwa kwa Bluetooth"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "Herufi zenye alama na baadhi ya alama haziwezi kuandikwa kwa mbali"
-}
-
-private fun l_swb(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "Herufi zenye alama zinabadilishwa na herufi rahisi (é → e)."
     m["Les applications de la TV, avec leurs icônes"] = "Programu za TV, pamoja na aikoni zake"
     m["Les applications de la TV, d'un geste"] = "Programu za TV, kwa mguso mmoja"
@@ -261,6 +258,9 @@ private fun l_swb(m: HashMap<String, String>) {
     m["Marche"] = "Washa"
     m["Marche, volume et lecture, même écran verrouillé"] = "Kuwasha, sauti na uchezaji, hata skrini ikiwa imefungwa"
     m["Masquer le Bluetooth classique"] = "Ficha Bluetooth ya kawaida"
+}
+
+private fun l_swb(m: HashMap<String, String>) {
     m["Menu contextuel TV"] = "Menyu ya muktadha ya TV"
     m["Menu de diffusion du téléphone (Miracast)"] = "Menyu ya kutuma ya simu (Miracast)"
     m["Menu des contenus TV"] = "Menyu ya maudhui ya TV"
@@ -492,4 +492,23 @@ private fun l_swb(m: HashMap<String, String>) {
     m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "Ombi la ufikiaji linaonekana kwenye TV: likubali kwa rimoti asili (dakika 1)."
     m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "kwa Android TV na Google TV pekee (kwenye Samsung au LG, tumia «Smart View» au «Tuma» ya simu)"
     m["Ouvrir sur la TV"] = "Fungua kwenye TV"
+    m["  Capture"] = "  Picha"
+    m["  Son coupé"] = "  Sauti imezimwa"
+    m["  Son sur le téléphone"] = "  Sauti kwenye simu"
+    m["(application protégée, ou son de la TV en direct non accessible)."] = "(programu inayolindwa, au sauti ya TV ya moja kwa moja haipatikani)."
+    m["Aucun son capté : la source actuelle ne le permet pas "] = "Hakuna sauti iliyonaswa: chanzo cha sasa hakiruhusu "
+    m["Capture d'écran de la TV"] = "Picha ya skrini ya TV"
+    m["Couper le son du téléphone"] = "Zima sauti ya simu"
+    m["Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image "] = "Sauti ya programu zinazolindwa (Netflix, Prime Video…) haitumwi, na picha yake "
+    m["Plein écran"] = "Skrini nzima"
+    m["Quitter le plein écran"] = "Toka kwenye skrini nzima"
+    m["Son : démarrage sur la TV…"] = "Sauti: inaanza kwenye TV…"
+    m["Son indisponible : la TV ne l'envoie pas (Android 10 ou plus requis)"] = "Sauti haipatikani: TV haitumi (inahitaji Android 10 au mpya zaidi)"
+    m["Son indisponible : {1}"] = "Sauti haipatikani: {1}"
+    m["Son interrompu : {1}"] = "Sauti imekatika: {1}"
+    m["Son sur le téléphone"] = "Sauti kwenye simu"
+    m["Volume +"] = "Sauti +"
+    m["Volume -"] = "Sauti -"
+    m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "inaonekana nyeusi. Gusa picha kwa «OK», telezesha kwa mishale."
+    m["réponse inattendue de la TV"] = "jibu lisilotarajiwa kutoka kwa TV"
 }

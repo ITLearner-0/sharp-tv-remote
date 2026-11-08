@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_DE: Map<String, String> by lazy {
-    HashMap<String, String>(960).also { m ->
+    HashMap<String, String>(998).also { m ->
         l_dea(m)
         l_deb(m)
     }
@@ -249,9 +249,6 @@ private fun l_dea(m: HashMap<String, String>) {
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Wiedergabe nicht möglich: Aktivieren Sie das „USB-Debugging“ in den "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Akzente und einige Symbole können per Bluetooth nicht eingegeben werden"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "Akzente und einige Symbole können aus der Ferne nicht eingegeben werden"
-}
-
-private fun l_deb(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "Buchstaben mit Akzent werden durch den einfachen Buchstaben ersetzt (é → e)."
     m["Les applications de la TV, avec leurs icônes"] = "Die Apps des TVs, mit ihren Symbolen"
     m["Les applications de la TV, d'un geste"] = "Die Apps des TVs, mit einem Tippen"
@@ -261,6 +258,9 @@ private fun l_deb(m: HashMap<String, String>) {
     m["Marche"] = "Einschalten"
     m["Marche, volume et lecture, même écran verrouillé"] = "Einschalten, Lautstärke und Wiedergabe, auch bei gesperrtem Bildschirm"
     m["Masquer le Bluetooth classique"] = "Klassisches Bluetooth ausblenden"
+}
+
+private fun l_deb(m: HashMap<String, String>) {
     m["Menu contextuel TV"] = "Kontextmenü des TVs"
     m["Menu de diffusion du téléphone (Miracast)"] = "Übertragungsmenü des Handys (Miracast)"
     m["Menu des contenus TV"] = "Inhaltsmenü des TVs"
@@ -492,4 +492,23 @@ private fun l_deb(m: HashMap<String, String>) {
     m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "Auf dem TV erscheint eine Zugriffsanfrage: Bestätigen Sie sie mit der Original-Fernbedienung (1 Minute)."
     m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "nur für Android TV und Google TV (bei Samsung oder LG nutzen Sie „Smart View“ oder „Übertragen“ des Handys)"
     m["Ouvrir sur la TV"] = "Auf dem TV öffnen"
+    m["  Capture"] = "  Aufnahme"
+    m["  Son coupé"] = "  Ton aus"
+    m["  Son sur le téléphone"] = "  Ton auf dem Handy"
+    m["(application protégée, ou son de la TV en direct non accessible)."] = "(geschützte App, oder Ton des Live-TV nicht zugänglich)."
+    m["Aucun son capté : la source actuelle ne le permet pas "] = "Kein Ton empfangen: Die aktuelle Quelle erlaubt es nicht "
+    m["Capture d'écran de la TV"] = "TV-Bildschirmfoto"
+    m["Couper le son du téléphone"] = "Handyton stummschalten"
+    m["Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image "] = "Der Ton geschützter Apps (Netflix, Prime Video…) wird nicht übertragen, und ihr Bild "
+    m["Plein écran"] = "Vollbild"
+    m["Quitter le plein écran"] = "Vollbild beenden"
+    m["Son : démarrage sur la TV…"] = "Ton: wird auf dem TV gestartet…"
+    m["Son indisponible : la TV ne l'envoie pas (Android 10 ou plus requis)"] = "Ton nicht verfügbar: Der TV sendet ihn nicht (Android 10 oder neuer nötig)"
+    m["Son indisponible : {1}"] = "Ton nicht verfügbar: {1}"
+    m["Son interrompu : {1}"] = "Ton unterbrochen: {1}"
+    m["Son sur le téléphone"] = "Ton auf dem Handy"
+    m["Volume +"] = "Lauter"
+    m["Volume -"] = "Leiser"
+    m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "erscheint schwarz. Tippen Sie auf das Bild für „OK“, wischen Sie für die Pfeile."
+    m["réponse inattendue de la TV"] = "unerwartete Antwort des TVs"
 }

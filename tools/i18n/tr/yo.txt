@@ -478,3 +478,22 @@
 477	Ìbéèrè ìwọlé yóò hàn lórí TV: gbà á pẹ̀lú rìmóòtì àkọ́kọ́ (ìṣẹ́jú 1).
 478	fún Android TV àti Google TV nìkan (lórí Samsung tàbí LG, lo «Smart View» tàbí «Cast» fóònù)
 479	Ṣí lórí TV
+480	Yàwòrán
+481	Ohùn ti pa
+482	Ohùn lórí fóònù
+483	(áàpù tí a dáàbò bò, tàbí ohùn TV tààrà kò sí).
+484	A kò gba ohùn kankan: orísun yìí kò gbà á láàyè 
+485	Àwòrán iboju TV
+486	Pa ohùn fóònù
+487	A kì í fi ohùn àwọn áàpù tí a dáàbò bò (Netflix, Prime Video…) ránṣẹ́, àwòrán wọn sì 
+488	Iboju kíkún
+489	Jáde kúrò ní iboju kíkún
+490	Ohùn: ó ń bẹ̀rẹ̀ lórí TV…
+491	Ohùn kò sí: TV kò fi ránṣẹ́ (ó nílò Android 10 tàbí tuntun)
+492	Ohùn kò sí: {1}
+493	Ohùn dáwọ́ dúró: {1}
+494	Ohùn lórí fóònù
+495	Ohùn +
+496	Ohùn -
+497	ń hàn ní dúdú. Tẹ àwòrán fún «OK», fa ìka fún àwọn ọfà.
+498	èsì àìròtẹ́lẹ̀ láti TV

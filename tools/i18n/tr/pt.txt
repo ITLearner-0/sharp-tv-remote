@@ -478,3 +478,22 @@
 477	Um pedido de acesso aparece na TV: aceite com o controle original (1 minuto).
 478	só para Android TV e Google TV (em Samsung ou LG, use «Smart View» ou «Transmitir» do celular)
 479	Abrir na TV
+480	Captura
+481	Som desligado
+482	Som no celular
+483	(app protegido, ou som da TV ao vivo não acessível).
+484	Nenhum som captado: a fonte atual não permite 
+485	Captura de tela da TV
+486	Silenciar o celular
+487	O som dos apps protegidos (Netflix, Prime Video…) não é transmitido, e a imagem deles 
+488	Tela cheia
+489	Sair da tela cheia
+490	Som: iniciando na TV…
+491	Som indisponível: a TV não o envia (requer Android 10 ou mais recente)
+492	Som indisponível: {1}
+493	Som interrompido: {1}
+494	Som no celular
+495	Volume +
+496	Volume -
+497	aparece em preto. Toque na imagem para «OK», deslize para as setas.
+498	resposta inesperada da TV

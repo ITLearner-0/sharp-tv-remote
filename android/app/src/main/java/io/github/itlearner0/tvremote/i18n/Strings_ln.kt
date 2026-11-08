@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_LN: Map<String, String> by lazy {
-    HashMap<String, String>(960).also { m ->
+    HashMap<String, String>(998).also { m ->
         l_lna(m)
         l_lnb(m)
     }
@@ -249,9 +249,6 @@ private fun l_lna(m: HashMap<String, String>) {
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Ekoki kotambwisa te: pelisa «USB debugging» na ba-option ya "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Bilembo ya accent mpe bilembo mosusu ekoki kokomama na Bluetooth te"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "Bilembo ya accent mpe bilembo mosusu ekoki kokomama mosika te"
-}
-
-private fun l_lnb(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "Ba-lettre na accent ebongolamaka na lettre ya pete (é → e)."
     m["Les applications de la TV, avec leurs icônes"] = "Ba-application ya TV, elongo na ba-icône na yango"
     m["Les applications de la TV, d'un geste"] = "Ba-application ya TV, na kofina moko"
@@ -261,6 +258,9 @@ private fun l_lnb(m: HashMap<String, String>) {
     m["Marche"] = "Pelisa"
     m["Marche, volume et lecture, même écran verrouillé"] = "Kopelisa, mongongo mpe kotambwisa, ata ekrani ekangami"
     m["Masquer le Bluetooth classique"] = "Bomba Bluetooth classique"
+}
+
+private fun l_lnb(m: HashMap<String, String>) {
     m["Menu contextuel TV"] = "Menu ya contexte ya TV"
     m["Menu de diffusion du téléphone (Miracast)"] = "Menu ya kotinda ya telefone (Miracast)"
     m["Menu des contenus TV"] = "Menu ya biloko ya TV"
@@ -492,4 +492,23 @@ private fun l_lnb(m: HashMap<String, String>) {
     m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "Bosenga ya kokota ekomonana na TV: ndima yango na télécommande ya ebandeli (miniti 1)."
     m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "kaka mpo na Android TV mpe Google TV (na Samsung to LG, salela «Smart View» to «Cast» ya telefone)"
     m["Ouvrir sur la TV"] = "Fungola na TV"
+    m["  Capture"] = "  Kozwa foto"
+    m["  Son coupé"] = "  Mongongo ekufi"
+    m["  Son sur le téléphone"] = "  Mongongo na telefone"
+    m["(application protégée, ou son de la TV en direct non accessible)."] = "(application ebatelami, to mongongo ya TV na live ezali te)."
+    m["Aucun son capté : la source actuelle ne le permet pas "] = "Mongongo moko te ezwami: source oyo endimaka te "
+    m["Capture d'écran de la TV"] = "Foto ya ekrani ya TV"
+    m["Couper le son du téléphone"] = "Kokangisa mongongo ya telefone"
+    m["Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image "] = "Mongongo ya ba-application oyo ebatelami (Netflix, Prime Video…) etindamaka te, mpe elili na yango "
+    m["Plein écran"] = "Ekrani mobimba"
+    m["Quitter le plein écran"] = "Bima na ekrani mobimba"
+    m["Son : démarrage sur la TV…"] = "Mongongo: ezali kobanda na TV…"
+    m["Son indisponible : la TV ne l'envoie pas (Android 10 ou plus requis)"] = "Mongongo ezali te: TV etindaka yango te (esengeli Android 10 to ya sika)"
+    m["Son indisponible : {1}"] = "Mongongo ezali te: {1}"
+    m["Son interrompu : {1}"] = "Mongongo ekatani: {1}"
+    m["Son sur le téléphone"] = "Mongongo na telefone"
+    m["Volume +"] = "Mongongo +"
+    m["Volume -"] = "Mongongo -"
+    m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "emonanaka moindo. Finá elili mpo na «OK», benda mosapi mpo na ba-flèche."
+    m["réponse inattendue de la TV"] = "eyano oyo ezalaki kozelama te ya TV"
 }

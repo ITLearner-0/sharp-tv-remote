@@ -478,3 +478,22 @@
 477	Aparece una solicitud de acceso en el televisor: acéptala con el mando original (1 minuto).
 478	solo para Android TV y Google TV (en Samsung o LG, usa «Smart View» o «Enviar» del teléfono)
 479	Abrir en el televisor
+480	Captura
+481	Sonido apagado
+482	Sonido en el teléfono
+483	(aplicación protegida, o sonido de la TV en directo no accesible).
+484	No se capta sonido: la fuente actual no lo permite 
+485	Captura de pantalla del televisor
+486	Silenciar el teléfono
+487	El sonido de las aplicaciones protegidas (Netflix, Prime Video…) no se transmite, y su imagen 
+488	Pantalla completa
+489	Salir de pantalla completa
+490	Sonido: iniciando en el televisor…
+491	Sonido no disponible: el televisor no lo envía (se necesita Android 10 o posterior)
+492	Sonido no disponible: {1}
+493	Sonido interrumpido: {1}
+494	Sonido en el teléfono
+495	Volumen +
+496	Volumen -
+497	aparece en negro. Toca la imagen para «OK», deslízala para las flechas.
+498	respuesta inesperada del televisor

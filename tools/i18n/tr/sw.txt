@@ -478,3 +478,22 @@
 477	Ombi la ufikiaji linaonekana kwenye TV: likubali kwa rimoti asili (dakika 1).
 478	kwa Android TV na Google TV pekee (kwenye Samsung au LG, tumia «Smart View» au «Tuma» ya simu)
 479	Fungua kwenye TV
+480	Picha
+481	Sauti imezimwa
+482	Sauti kwenye simu
+483	(programu inayolindwa, au sauti ya TV ya moja kwa moja haipatikani).
+484	Hakuna sauti iliyonaswa: chanzo cha sasa hakiruhusu 
+485	Picha ya skrini ya TV
+486	Zima sauti ya simu
+487	Sauti ya programu zinazolindwa (Netflix, Prime Video…) haitumwi, na picha yake 
+488	Skrini nzima
+489	Toka kwenye skrini nzima
+490	Sauti: inaanza kwenye TV…
+491	Sauti haipatikani: TV haitumi (inahitaji Android 10 au mpya zaidi)
+492	Sauti haipatikani: {1}
+493	Sauti imekatika: {1}
+494	Sauti kwenye simu
+495	Sauti +
+496	Sauti -
+497	inaonekana nyeusi. Gusa picha kwa «OK», telezesha kwa mishale.
+498	jibu lisilotarajiwa kutoka kwa TV

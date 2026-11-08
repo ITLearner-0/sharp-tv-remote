@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_AM: Map<String, String> by lazy {
-    HashMap<String, String>(960).also { m ->
+    HashMap<String, String>(998).also { m ->
         l_ama(m)
         l_amb(m)
     }
@@ -249,9 +249,6 @@ private fun l_ama(m: HashMap<String, String>) {
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "ማጫወት አልተቻለም: «USB debugging»ን በቲቪው "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "የአነባበብ ምልክቶችና አንዳንድ ምልክቶች በብሉቱዝ ሊተየቡ አይችሉም"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "የአነባበብ ምልክቶችና አንዳንድ ምልክቶች ከርቀት ሊተየቡ አይችሉም"
-}
-
-private fun l_amb(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "ምልክት ያላቸው ፊደላት በቀላሉ ፊደል ይተካሉ (é → e)።"
     m["Les applications de la TV, avec leurs icônes"] = "የቲቪው መተግበሪያዎች፣ ከአዶዎቻቸው ጋር"
     m["Les applications de la TV, d'un geste"] = "የቲቪው መተግበሪያዎች፣ በአንድ ንክኪ"
@@ -261,6 +258,9 @@ private fun l_amb(m: HashMap<String, String>) {
     m["Marche"] = "አብራ"
     m["Marche, volume et lecture, même écran verrouillé"] = "ማብራት፣ ድምፅና ማጫወት፣ ማያ ገጹ ተቆልፎም ቢሆን"
     m["Masquer le Bluetooth classique"] = "ክላሲክ ብሉቱዝን ደብቅ"
+}
+
+private fun l_amb(m: HashMap<String, String>) {
     m["Menu contextuel TV"] = "የቲቪው አውድ ምናሌ"
     m["Menu de diffusion du téléphone (Miracast)"] = "የስልኩ የመውሰድ ምናሌ (Miracast)"
     m["Menu des contenus TV"] = "የቲቪው የይዘት ምናሌ"
@@ -492,4 +492,23 @@ private fun l_amb(m: HashMap<String, String>) {
     m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "በቲቪው ላይ የመዳረሻ ጥያቄ ይታያል: በኦሪጅናል ሪሞቱ ተቀበል (1 ደቂቃ)።"
     m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "ለAndroid TV እና Google TV ብቻ (በSamsung ወይም LG ላይ የስልኩን «Smart View» ወይም «Cast» ተጠቀም)"
     m["Ouvrir sur la TV"] = "በቲቪ ክፈት"
+    m["  Capture"] = "  ቀረጻ"
+    m["  Son coupé"] = "  ድምፅ ጠፍቷል"
+    m["  Son sur le téléphone"] = "  ድምፅ በስልክ"
+    m["(application protégée, ou son de la TV en direct non accessible)."] = "(የተጠበቀ መተግበሪያ፣ ወይም የቀጥታ ቲቪ ድምፅ አይገኝም)።"
+    m["Aucun son capté : la source actuelle ne le permet pas "] = "ምንም ድምፅ አልተያዘም: የአሁኑ ምንጭ አይፈቅድም "
+    m["Capture d'écran de la TV"] = "የቲቪ ማያ ገጽ ቅጽበታዊ ፎቶ"
+    m["Couper le son du téléphone"] = "የስልኩን ድምፅ አጥፋ"
+    m["Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image "] = "የተጠበቁ መተግበሪያዎች (Netflix፣ Prime Video…) ድምፅ አይላክም፣ ምስላቸውም "
+    m["Plein écran"] = "ሙሉ ማያ ገጽ"
+    m["Quitter le plein écran"] = "ከሙሉ ማያ ገጽ ውጣ"
+    m["Son : démarrage sur la TV…"] = "ድምፅ: በቲቪው ላይ በመጀመር ላይ…"
+    m["Son indisponible : la TV ne l'envoie pas (Android 10 ou plus requis)"] = "ድምፅ አይገኝም: ቲቪው አይልከውም (Android 10 ወይም ከዚያ በላይ ያስፈልጋል)"
+    m["Son indisponible : {1}"] = "ድምፅ አይገኝም: {1}"
+    m["Son interrompu : {1}"] = "ድምፅ ተቋርጧል: {1}"
+    m["Son sur le téléphone"] = "ድምፅ በስልክ"
+    m["Volume +"] = "ድምፅ +"
+    m["Volume -"] = "ድምፅ -"
+    m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "ጥቁር ሆኖ ይታያል። ለ«OK» ምስሉን ንካ፣ ለቀስቶች አንሸራት።"
+    m["réponse inattendue de la TV"] = "ከቲቪው ያልተጠበቀ ምላሽ"
 }

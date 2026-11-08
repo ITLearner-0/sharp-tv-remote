@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_YO: Map<String, String> by lazy {
-    HashMap<String, String>(960).also { m ->
+    HashMap<String, String>(998).also { m ->
         l_yoa(m)
         l_yob(m)
     }
@@ -249,9 +249,6 @@ private fun l_yoa(m: HashMap<String, String>) {
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "A kò lè ṣeré: tan «USB debugging» nínú àwọn àṣàyàn "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "A kò lè tẹ àwọn lẹ́tà ohùn àti àwọn àmì kan nípasẹ̀ Bluetooth"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "A kò lè tẹ àwọn lẹ́tà ohùn àti àwọn àmì kan láti ọ̀nà jíjìn"
-}
-
-private fun l_yob(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "A ń fi lẹ́tà lásán rọ́pò àwọn lẹ́tà tí ó ní àmì (é → e)."
     m["Les applications de la TV, avec leurs icônes"] = "Àwọn áàpù TV, pẹ̀lú àwọn àmì wọn"
     m["Les applications de la TV, d'un geste"] = "Àwọn áàpù TV, pẹ̀lú ìfọwọ́kàn kan"
@@ -261,6 +258,9 @@ private fun l_yob(m: HashMap<String, String>) {
     m["Marche"] = "Tan"
     m["Marche, volume et lecture, même écran verrouillé"] = "Títàn, ohùn àti ṣíṣeré, kódà nígbà tí iboju bá wà ní títìpa"
     m["Masquer le Bluetooth classique"] = "Fi Bluetooth àtijọ́ pamọ́"
+}
+
+private fun l_yob(m: HashMap<String, String>) {
     m["Menu contextuel TV"] = "Àkójọ àyíká TV"
     m["Menu de diffusion du téléphone (Miracast)"] = "Àkójọ ìgbéjáde fóònù (Miracast)"
     m["Menu des contenus TV"] = "Àkójọ àkóónú TV"
@@ -492,4 +492,23 @@ private fun l_yob(m: HashMap<String, String>) {
     m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "Ìbéèrè ìwọlé yóò hàn lórí TV: gbà á pẹ̀lú rìmóòtì àkọ́kọ́ (ìṣẹ́jú 1)."
     m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "fún Android TV àti Google TV nìkan (lórí Samsung tàbí LG, lo «Smart View» tàbí «Cast» fóònù)"
     m["Ouvrir sur la TV"] = "Ṣí lórí TV"
+    m["  Capture"] = "  Yàwòrán"
+    m["  Son coupé"] = "  Ohùn ti pa"
+    m["  Son sur le téléphone"] = "  Ohùn lórí fóònù"
+    m["(application protégée, ou son de la TV en direct non accessible)."] = "(áàpù tí a dáàbò bò, tàbí ohùn TV tààrà kò sí)."
+    m["Aucun son capté : la source actuelle ne le permet pas "] = "A kò gba ohùn kankan: orísun yìí kò gbà á láàyè "
+    m["Capture d'écran de la TV"] = "Àwòrán iboju TV"
+    m["Couper le son du téléphone"] = "Pa ohùn fóònù"
+    m["Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image "] = "A kì í fi ohùn àwọn áàpù tí a dáàbò bò (Netflix, Prime Video…) ránṣẹ́, àwòrán wọn sì "
+    m["Plein écran"] = "Iboju kíkún"
+    m["Quitter le plein écran"] = "Jáde kúrò ní iboju kíkún"
+    m["Son : démarrage sur la TV…"] = "Ohùn: ó ń bẹ̀rẹ̀ lórí TV…"
+    m["Son indisponible : la TV ne l'envoie pas (Android 10 ou plus requis)"] = "Ohùn kò sí: TV kò fi ránṣẹ́ (ó nílò Android 10 tàbí tuntun)"
+    m["Son indisponible : {1}"] = "Ohùn kò sí: {1}"
+    m["Son interrompu : {1}"] = "Ohùn dáwọ́ dúró: {1}"
+    m["Son sur le téléphone"] = "Ohùn lórí fóònù"
+    m["Volume +"] = "Ohùn +"
+    m["Volume -"] = "Ohùn -"
+    m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "ń hàn ní dúdú. Tẹ àwòrán fún «OK», fa ìka fún àwọn ọfà."
+    m["réponse inattendue de la TV"] = "èsì àìròtẹ́lẹ̀ láti TV"
 }

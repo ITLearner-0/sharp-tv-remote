@@ -5,7 +5,7 @@ package io.github.itlearner0.tvremote.i18n
 internal val EN: Map<String, String> by lazy { buildEn() }
 
 private fun buildEn(): Map<String, String> {
-    val m = HashMap<String, String>(1112)
+    val m = HashMap<String, String>(1150)
     part0(m)
     part1(m)
     part2(m)
@@ -579,4 +579,23 @@ private fun part3(m: HashMap<String, String>) {
     m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "An access request appears on the TV: accept it with the original remote (1 minute)."
     m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "only for Android TV and Google TV (on Samsung or LG, use the phone's \"Smart View\" or \"Cast\")"
     m["Ouvrir sur la TV"] = "Open on TV"
+    m["  Capture"] = "Screenshot"
+    m["  Son coupé"] = "Sound off"
+    m["  Son sur le téléphone"] = "Sound on phone"
+    m["(application protégée, ou son de la TV en direct non accessible)."] = "(protected app, or live TV sound not accessible)."
+    m["Aucun son capté : la source actuelle ne le permet pas "] = "No sound captured: the current source does not allow it "
+    m["Capture d'écran de la TV"] = "TV screenshot"
+    m["Couper le son du téléphone"] = "Mute phone sound"
+    m["Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image "] = "Sound from protected apps (Netflix, Prime Video…) is not sent, and their picture "
+    m["Plein écran"] = "Full screen"
+    m["Quitter le plein écran"] = "Exit full screen"
+    m["Son : démarrage sur la TV…"] = "Sound: starting on the TV…"
+    m["Son indisponible : la TV ne l'envoie pas (Android 10 ou plus requis)"] = "Sound unavailable: the TV does not send it (Android 10 or later required)"
+    m["Son indisponible : {1}"] = "Sound unavailable: {1}"
+    m["Son interrompu : {1}"] = "Sound interrupted: {1}"
+    m["Son sur le téléphone"] = "Sound on phone"
+    m["Volume +"] = "Volume +"
+    m["Volume -"] = "Volume -"
+    m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "appears black. Tap the picture for \"OK\", swipe it for the arrows."
+    m["réponse inattendue de la TV"] = "unexpected reply from the TV"
 }

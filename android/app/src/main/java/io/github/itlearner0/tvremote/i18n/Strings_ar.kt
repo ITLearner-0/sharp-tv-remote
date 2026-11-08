@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_AR: Map<String, String> by lazy {
-    HashMap<String, String>(960).also { m ->
+    HashMap<String, String>(998).also { m ->
         l_ara(m)
         l_arb(m)
     }
@@ -249,9 +249,6 @@ private fun l_ara(m: HashMap<String, String>) {
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "تعذّر التشغيل: فعّل «تصحيح أخطاء USB» في خيارات "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "لا يمكن كتابة الحركات وبعض الرموز عبر البلوتوث"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "لا يمكن كتابة الحركات وبعض الرموز عن بُعد"
-}
-
-private fun l_arb(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "تُستبدل الحروف ذات العلامات بالحرف البسيط (é ← e)."
     m["Les applications de la TV, avec leurs icônes"] = "تطبيقات التلفاز مع أيقوناتها"
     m["Les applications de la TV, d'un geste"] = "تطبيقات التلفاز بلمسة واحدة"
@@ -261,6 +258,9 @@ private fun l_arb(m: HashMap<String, String>) {
     m["Marche"] = "تشغيل"
     m["Marche, volume et lecture, même écran verrouillé"] = "التشغيل والصوت والتحكم بالتشغيل، حتى مع قفل الشاشة"
     m["Masquer le Bluetooth classique"] = "إخفاء البلوتوث الكلاسيكي"
+}
+
+private fun l_arb(m: HashMap<String, String>) {
     m["Menu contextuel TV"] = "قائمة السياق في التلفاز"
     m["Menu de diffusion du téléphone (Miracast)"] = "قائمة البث في الهاتف (Miracast)"
     m["Menu des contenus TV"] = "قائمة المحتوى في التلفاز"
@@ -492,4 +492,23 @@ private fun l_arb(m: HashMap<String, String>) {
     m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "يظهر طلب وصول على التلفاز: اقبله بجهاز التحكم الأصلي (دقيقة واحدة)."
     m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "فقط لأجهزة Android TV وGoogle TV (على Samsung أو LG، استخدم «Smart View» أو «بث» في الهاتف)"
     m["Ouvrir sur la TV"] = "فتح على التلفاز"
+    m["  Capture"] = "  لقطة"
+    m["  Son coupé"] = "  الصوت متوقف"
+    m["  Son sur le téléphone"] = "  الصوت على الهاتف"
+    m["(application protégée, ou son de la TV en direct non accessible)."] = "(تطبيق محمي، أو صوت التلفاز المباشر غير متاح)."
+    m["Aucun son capté : la source actuelle ne le permet pas "] = "لم يُلتقط أي صوت: المصدر الحالي لا يسمح بذلك "
+    m["Capture d'écran de la TV"] = "لقطة شاشة التلفاز"
+    m["Couper le son du téléphone"] = "كتم صوت الهاتف"
+    m["Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image "] = "لا يُنقل صوت التطبيقات المحمية (Netflix وPrime Video…)، وتظهر صورتها "
+    m["Plein écran"] = "ملء الشاشة"
+    m["Quitter le plein écran"] = "الخروج من ملء الشاشة"
+    m["Son : démarrage sur la TV…"] = "الصوت: جارٍ البدء على التلفاز…"
+    m["Son indisponible : la TV ne l'envoie pas (Android 10 ou plus requis)"] = "الصوت غير متوفر: التلفاز لا يرسله (يتطلب Android 10 أو أحدث)"
+    m["Son indisponible : {1}"] = "الصوت غير متوفر: {1}"
+    m["Son interrompu : {1}"] = "انقطع الصوت: {1}"
+    m["Son sur le téléphone"] = "الصوت على الهاتف"
+    m["Volume +"] = "رفع الصوت"
+    m["Volume -"] = "خفض الصوت"
+    m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "باللون الأسود. اضغط على الصورة لـ «OK»، واسحب للأسهم."
+    m["réponse inattendue de la TV"] = "رد غير متوقع من التلفاز"
 }

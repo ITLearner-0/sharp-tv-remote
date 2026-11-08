@@ -478,3 +478,22 @@ La liste complète des applications	The full list of apps
 Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute).	An access request appears on the TV: accept it with the original remote (1 minute).
 réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)	only for Android TV and Google TV (on Samsung or LG, use the phone's "Smart View" or "Cast")
 Ouvrir sur la TV	Open on TV
+  Capture	Screenshot
+  Son coupé	Sound off
+  Son sur le téléphone	Sound on phone
+(application protégée, ou son de la TV en direct non accessible).	(protected app, or live TV sound not accessible).
+Aucun son capté : la source actuelle ne le permet pas 	No sound captured: the current source does not allow it 
+Capture d'écran de la TV	TV screenshot
+Couper le son du téléphone	Mute phone sound
+Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image 	Sound from protected apps (Netflix, Prime Video…) is not sent, and their picture 
+Plein écran	Full screen
+Quitter le plein écran	Exit full screen
+Son : démarrage sur la TV…	Sound: starting on the TV…
+Son indisponible : la TV ne l'envoie pas (Android 10 ou plus requis)	Sound unavailable: the TV does not send it (Android 10 or later required)
+Son indisponible : {1}	Sound unavailable: {1}
+Son interrompu : {1}	Sound interrupted: {1}
+Son sur le téléphone	Sound on phone
+Volume +	Volume +
+Volume -	Volume -
+apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches.	appears black. Tap the picture for "OK", swipe it for the arrows.
+réponse inattendue de la TV	unexpected reply from the TV

@@ -478,3 +478,22 @@
 477	Bosenga ya kokota ekomonana na TV: ndima yango na télécommande ya ebandeli (miniti 1).
 478	kaka mpo na Android TV mpe Google TV (na Samsung to LG, salela «Smart View» to «Cast» ya telefone)
 479	Fungola na TV
+480	Kozwa foto
+481	Mongongo ekufi
+482	Mongongo na telefone
+483	(application ebatelami, to mongongo ya TV na live ezali te).
+484	Mongongo moko te ezwami: source oyo endimaka te 
+485	Foto ya ekrani ya TV
+486	Kokangisa mongongo ya telefone
+487	Mongongo ya ba-application oyo ebatelami (Netflix, Prime Video…) etindamaka te, mpe elili na yango 
+488	Ekrani mobimba
+489	Bima na ekrani mobimba
+490	Mongongo: ezali kobanda na TV…
+491	Mongongo ezali te: TV etindaka yango te (esengeli Android 10 to ya sika)
+492	Mongongo ezali te: {1}
+493	Mongongo ekatani: {1}
+494	Mongongo na telefone
+495	Mongongo +
+496	Mongongo -
+497	emonanaka moindo. Finá elili mpo na «OK», benda mosapi mpo na ba-flèche.
+498	eyano oyo ezalaki kozelama te ya TV

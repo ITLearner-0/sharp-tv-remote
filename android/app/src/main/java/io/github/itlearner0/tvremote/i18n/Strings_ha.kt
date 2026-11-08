@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_HA: Map<String, String> by lazy {
-    HashMap<String, String>(960).also { m ->
+    HashMap<String, String>(998).also { m ->
         l_haa(m)
         l_hab(m)
     }
@@ -249,9 +249,6 @@ private fun l_haa(m: HashMap<String, String>) {
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Ba za a iya kunnawa ba: kunna «USB debugging» a zaɓuɓɓukan "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Ba za a iya rubuta harufa masu alama da wasu alamomi ta Bluetooth ba"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "Ba za a iya rubuta harufa masu alama da wasu alamomi daga nesa ba"
-}
-
-private fun l_hab(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "Ana maye gurbin harufa masu alama da harafi mai sauƙi (é → e)."
     m["Les applications de la TV, avec leurs icônes"] = "Manhajojin TV, tare da gumakansu"
     m["Les applications de la TV, d'un geste"] = "Manhajojin TV, da taɓawa ɗaya"
@@ -261,6 +258,9 @@ private fun l_hab(m: HashMap<String, String>) {
     m["Marche"] = "Kunna"
     m["Marche, volume et lecture, même écran verrouillé"] = "Kunnawa, ƙara da sake kunnawa, ko da allon a kulle"
     m["Masquer le Bluetooth classique"] = "Ɓoye Bluetooth na gargajiya"
+}
+
+private fun l_hab(m: HashMap<String, String>) {
     m["Menu contextuel TV"] = "Menu na mahallin TV"
     m["Menu de diffusion du téléphone (Miracast)"] = "Menu na jefawa na waya (Miracast)"
     m["Menu des contenus TV"] = "Menu na abubuwan TV"
@@ -492,4 +492,23 @@ private fun l_hab(m: HashMap<String, String>) {
     m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "Buƙatar shiga za ta bayyana a TV: karɓe ta da rimot na asali (minti 1)."
     m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "don Android TV da Google TV kawai (a Samsung ko LG, yi amfani da «Smart View» ko «Jefa» na waya)"
     m["Ouvrir sur la TV"] = "Buɗe a TV"
+    m["  Capture"] = "  Ɗauka"
+    m["  Son coupé"] = "  An kashe sauti"
+    m["  Son sur le téléphone"] = "  Sauti a waya"
+    m["(application protégée, ou son de la TV en direct non accessible)."] = "(manhaja mai kariya, ko sautin TV kai tsaye ba ya samuwa)."
+    m["Aucun son capté : la source actuelle ne le permet pas "] = "Ba a kama sauti ba: tushen yanzu bai yarda ba "
+    m["Capture d'écran de la TV"] = "Hoton allon TV"
+    m["Couper le son du téléphone"] = "Kashe sautin waya"
+    m["Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image "] = "Ba a aika sautin manhajoji masu kariya (Netflix, Prime Video…), kuma hotonsu "
+    m["Plein écran"] = "Cikakken allo"
+    m["Quitter le plein écran"] = "Fita daga cikakken allo"
+    m["Son : démarrage sur la TV…"] = "Sauti: ana farawa a TV…"
+    m["Son indisponible : la TV ne l'envoie pas (Android 10 ou plus requis)"] = "Babu sauti: TV ba ta aika shi (ana buƙatar Android 10 ko sabo)"
+    m["Son indisponible : {1}"] = "Babu sauti: {1}"
+    m["Son interrompu : {1}"] = "Sauti ya katse: {1}"
+    m["Son sur le téléphone"] = "Sauti a waya"
+    m["Volume +"] = "Ƙara sauti"
+    m["Volume -"] = "Rage sauti"
+    m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "yana bayyana baƙi. Taɓa hoton don «OK», zame don kibiyoyi."
+    m["réponse inattendue de la TV"] = "amsar da ba a zata ba daga TV"
 }

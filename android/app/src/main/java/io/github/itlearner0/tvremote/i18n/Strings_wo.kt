@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_WO: Map<String, String> by lazy {
-    HashMap<String, String>(960).also { m ->
+    HashMap<String, String>(998).also { m ->
         l_woa(m)
         l_wob(m)
     }
@@ -249,9 +249,6 @@ private fun l_woa(m: HashMap<String, String>) {
     m["Lecture impossible : activez le « Débogage USB » dans les options pour "] = "Mënuñu dox: taalal «USB debugging» ci tànneefu "
     m["Les accents et certains signes ne peuvent pas être tapés en Bluetooth"] = "Mënuñu bind araf yu am aksaŋ ak yenn màndarga ci Bluetooth"
     m["Les accents et certains signes ne peuvent pas être tapés à distance"] = "Mënuñu bind araf yu am aksaŋ ak yenn màndarga ci sore"
-}
-
-private fun l_wob(m: HashMap<String, String>) {
     m["Les accents sont remplacés par la lettre simple (é → e)."] = "Araf yu am aksaŋ dañuy soppi ak araf bu woyof (é → e)."
     m["Les applications de la TV, avec leurs icônes"] = "Aplikasioŋu TV bi, ak seeni ikon"
     m["Les applications de la TV, d'un geste"] = "Aplikasioŋu TV bi, ak benn bës"
@@ -261,6 +258,9 @@ private fun l_wob(m: HashMap<String, String>) {
     m["Marche"] = "Taal"
     m["Marche, volume et lecture, même écran verrouillé"] = "Taal, baat ak dox, su ekraan bi tëju sax"
     m["Masquer le Bluetooth classique"] = "Nëbb Bluetooth klasik"
+}
+
+private fun l_wob(m: HashMap<String, String>) {
     m["Menu contextuel TV"] = "Menuw konteks bu TV bi"
     m["Menu de diffusion du téléphone (Miracast)"] = "Menuw yónnee bu telefon bi (Miracast)"
     m["Menu des contenus TV"] = "Menuw li TV bi am"
@@ -492,4 +492,23 @@ private fun l_wob(m: HashMap<String, String>) {
     m["Une demande d'accès s'affiche sur la TV : acceptez-la avec la télécommande d'origine (1 minute)."] = "Laaju dugg dina feeñ ci TV bi: nangu ko ak telekomand bu njëkk bi (1 simili)."
     m["réservée aux TV Android et Google TV (sur Samsung ou LG, utilisez « Smart View » ou « Caster » du téléphone)"] = "ngir Android TV ak Google TV rekk (ci Samsung walla LG, jëfandikool «Smart View» walla «Cast» bu telefon bi)"
     m["Ouvrir sur la TV"] = "Ubbi ci TV bi"
+    m["  Capture"] = "  Nataal"
+    m["  Son coupé"] = "  Baat bi dog na"
+    m["  Son sur le téléphone"] = "  Baat ci telefon bi"
+    m["(application protégée, ou son de la TV en direct non accessible)."] = "(aplikasioŋ bu ñu aar, walla baatu TV bu dundu amul)."
+    m["Aucun son capté : la source actuelle ne le permet pas "] = "Amul benn baat bu ñu jël: li ngay xool mayul ko "
+    m["Capture d'écran de la TV"] = "Nataalu ekraanu TV bi"
+    m["Couper le son du téléphone"] = "Ñibbi baatu telefon bi"
+    m["Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image "] = "Baatu aplikasioŋ yu ñu aar (Netflix, Prime Video…) duñu ko yónnee, te seen nataal "
+    m["Plein écran"] = "Ekraan bu mat"
+    m["Quitter le plein écran"] = "Génn ci ekraan bu mat"
+    m["Son : démarrage sur la TV…"] = "Baat: mi ngi tàmbali ci TV bi…"
+    m["Son indisponible : la TV ne l'envoie pas (Android 10 ou plus requis)"] = "Baat amul: TV bi yónneewul ko (soxla na Android 10 walla bu gën a bees)"
+    m["Son indisponible : {1}"] = "Baat amul: {1}"
+    m["Son interrompu : {1}"] = "Baat bi dog na: {1}"
+    m["Son sur le téléphone"] = "Baat ci telefon bi"
+    m["Volume +"] = "Yokk baat"
+    m["Volume -"] = "Wàññi baat"
+    m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "dafay ñuul. Bësal nataal bi ngir «OK», wëñal ngir fes yi."
+    m["réponse inattendue de la TV"] = "tontu bu ñu séentuwul jóge ci TV bi"
 }

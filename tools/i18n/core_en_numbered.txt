@@ -478,3 +478,22 @@
 477	An access request appears on the TV: accept it with the original remote (1 minute).
 478	only for Android TV and Google TV (on Samsung or LG, use the phone's "Smart View" or "Cast")
 479	Open on TV
+480	Screenshot
+481	Sound off
+482	Sound on phone
+483	(protected app, or live TV sound not accessible).
+484	No sound captured: the current source does not allow it 
+485	TV screenshot
+486	Mute phone sound
+487	Sound from protected apps (Netflix, Prime Video…) is not sent, and their picture 
+488	Full screen
+489	Exit full screen
+490	Sound: starting on the TV…
+491	Sound unavailable: the TV does not send it (Android 10 or later required)
+492	Sound unavailable: {1}
+493	Sound interrupted: {1}
+494	Sound on phone
+495	Volume +
+496	Volume -
+497	appears black. Tap the picture for "OK", swipe it for the arrows.
+498	unexpected reply from the TV

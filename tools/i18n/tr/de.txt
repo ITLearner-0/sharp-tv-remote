@@ -478,3 +478,22 @@
 477	Auf dem TV erscheint eine Zugriffsanfrage: Bestätigen Sie sie mit der Original-Fernbedienung (1 Minute).
 478	nur für Android TV und Google TV (bei Samsung oder LG nutzen Sie „Smart View“ oder „Übertragen“ des Handys)
 479	Auf dem TV öffnen
+480	Aufnahme
+481	Ton aus
+482	Ton auf dem Handy
+483	(geschützte App, oder Ton des Live-TV nicht zugänglich).
+484	Kein Ton empfangen: Die aktuelle Quelle erlaubt es nicht 
+485	TV-Bildschirmfoto
+486	Handyton stummschalten
+487	Der Ton geschützter Apps (Netflix, Prime Video…) wird nicht übertragen, und ihr Bild 
+488	Vollbild
+489	Vollbild beenden
+490	Ton: wird auf dem TV gestartet…
+491	Ton nicht verfügbar: Der TV sendet ihn nicht (Android 10 oder neuer nötig)
+492	Ton nicht verfügbar: {1}
+493	Ton unterbrochen: {1}
+494	Ton auf dem Handy
+495	Lauter
+496	Leiser
+497	erscheint schwarz. Tippen Sie auf das Bild für „OK“, wischen Sie für die Pfeile.
+498	unerwartete Antwort des TVs

@@ -478,3 +478,22 @@
 477	Sulla TV appare una richiesta di accesso: accettala con il telecomando originale (1 minuto).
 478	solo per Android TV e Google TV (su Samsung o LG, usa «Smart View» o «Trasmetti» del telefono)
 479	Apri sulla TV
+480	Cattura
+481	Audio spento
+482	Audio sul telefono
+483	(app protetta, o audio della TV in diretta non accessibile).
+484	Nessun audio catturato: la sorgente attuale non lo consente 
+485	Screenshot della TV
+486	Disattiva l'audio del telefono
+487	L'audio delle app protette (Netflix, Prime Video…) non viene trasmesso, e la loro immagine 
+488	Schermo intero
+489	Esci dallo schermo intero
+490	Audio: avvio sulla TV…
+491	Audio non disponibile: la TV non lo invia (serve Android 10 o successivo)
+492	Audio non disponibile: {1}
+493	Audio interrotto: {1}
+494	Audio sul telefono
+495	Volume +
+496	Volume -
+497	appare nera. Tocca l'immagine per «OK», scorri per le frecce.
+498	risposta inattesa dalla TV
