@@ -222,7 +222,13 @@ object Pro {
         for (purchase in purchases) {
             if (PRODUCT_ID !in purchase.products || purchase.purchaseState != Purchase.PurchaseState.PURCHASED) continue
             acknowledge(billing, purchase)
-            app?.let { setPurchased(it, true, fromPlay = true) }
+            app?.let {
+                setPurchased(it, true, fromPlay = true)
+                // La fenêtre Pro se ferme après l'achat : remerciement affiché à part.
+                android.os.Handler(android.os.Looper.getMainLooper()).post {
+                    Toast.makeText(it, tr("Merci ! Toutes les fonctions sont débloquées, pour toujours."), Toast.LENGTH_LONG).show()
+                }
+            }
             _offer.value = null
         }
     }
