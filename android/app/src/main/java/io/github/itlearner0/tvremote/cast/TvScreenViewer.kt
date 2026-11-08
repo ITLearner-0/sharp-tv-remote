@@ -22,11 +22,42 @@ class TvScreenViewer(
     @Volatile private var running = false
     @Volatile private var stream: AutoCloseable? = null
     private var worker: Thread? = null
+    @Volatile private var codec: MediaCodec? = null
 
+    /** Surfaces d'affichage : celle du plein écran passe avant celle de l'onglet. */
+    private var panelSurface: Surface? = null
+    private var fullSurface: Surface? = null
+    private var shownOn: Surface? = null
+
+    /** Surface de l'onglet « Voir la TV » prête : démarre l'affichage. */
     fun start(surface: Surface) {
-        if (running) return
+        panelSurface = surface
+        if (running) {
+            route()
+            return
+        }
         running = true
-        worker = thread(name = "tv-screen") { loop(surface) }
+        worker = thread(name = "tv-screen") { loop(fullSurface ?: surface) }
+    }
+
+    /** Surface du plein écran (null quand il se ferme) : l'image y passe sans couper le flux. */
+    fun setFullscreenSurface(surface: Surface?) {
+        fullSurface = surface
+        route()
+    }
+
+    /** Surface de l'onglet détruite (changement d'onglet) : arrêt, sauf en plein écran. */
+    fun panelGone() {
+        panelSurface = null
+        if (fullSurface == null) stop() else route()
+    }
+
+    @Synchronized
+    private fun route() {
+        val target = fullSurface ?: panelSurface ?: return
+        val c = codec ?: return
+        if (target === shownOn || !target.isValid) return
+        runCatching { c.setOutputSurface(target) }.onSuccess { shownOn = target }
     }
 
     fun stop() {
@@ -52,6 +83,10 @@ class TvScreenViewer(
                 configure(format, surface, null, 0)
                 start()
             }
+        }.also {
+            this.codec = it.getOrNull()
+            shownOn = surface
+            route()
         }.getOrElse {
             onStatus(tr("Décodeur vidéo du téléphone indisponible ({1})", it))
             return
@@ -103,6 +138,8 @@ class TvScreenViewer(
             }
         } catch (_: InterruptedException) {
         } finally {
+            this.codec = null
+            shownOn = null
             runCatching { codec.stop() }
             codec.release()
         }

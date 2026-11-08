@@ -110,6 +110,24 @@ class TvAdb(private val keyDir: File) {
             .getOrElse { "journal de la TV illisible (${it.message})" }
     }
 
+    /**
+     * « Voir la TV » avec le son : autorise l'application d'aide à capter le son des
+     * applications de la TV (sans fenêtre de confirmation sur la TV) et démarre la capture.
+     * Renvoie null, ou l'erreur.
+     */
+    fun startTvAudio(host: String, helperApk: File?): String? = withAdb(host) { adb ->
+        ensureHelper(adb, host, helperApk)?.let { return@withAdb it }
+        val sdk = runCatching { adb.shell("getprop ro.build.version.sdk").allOutput.trim().toInt() }.getOrDefault(0)
+        if (sdk in 1..28) return@withAdb "Android 10 ou plus requis sur la TV"
+        runCatching { adb.shell("pm grant $HELPER_PACKAGE android.permission.RECORD_AUDIO") }
+        runCatching { adb.shell("appops set $HELPER_PACKAGE PROJECT_MEDIA allow") }
+        startHelper(adb, host, "TvAudio", "")
+    }
+
+    fun stopTvAudio(host: String) {
+        withAdb(host) { adb -> adb.shell("am start -n $HELPER_PACKAGE/.TvAudio --es cmd stop") }
+    }
+
     fun stopMirror(host: String) {
         withAdb(host) { adb -> adb.shell("am start -n $HELPER_PACKAGE/.Mirror --es cmd stop") }
     }
@@ -270,7 +288,7 @@ class TvAdb(private val keyDir: File) {
         const val HELPER_PACKAGE = "io.github.itlearner0.tvremote.helper"
         private const val STOP_SCREENRECORD = "pkill -2 screenrecord 2>/dev/null || killall -2 screenrecord 2>/dev/null; true"
         /** versionCode de tvhelper/build.gradle.kts. */
-        private const val HELPER_VERSION = 7
+        private const val HELPER_VERSION = 8
         /** TV sur lesquelles la visionneuse est déjà installée (pendant cette session). */
         private val viewerReady: MutableSet<String> = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
 

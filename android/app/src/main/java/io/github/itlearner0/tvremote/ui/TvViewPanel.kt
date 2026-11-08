@@ -54,6 +54,24 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.compose.material.icons.automirrored.filled.VolumeOff
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Fullscreen
+import androidx.compose.material.icons.filled.FullscreenExit
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Remove
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.window.DialogWindowProvider
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import io.github.itlearner0.tvremote.cast.TvAudioPlayer
 import io.github.itlearner0.tvremote.cast.TvScreenViewer
 import io.github.itlearner0.tvremote.data.TvAdb
 import io.github.itlearner0.tvremote.protocol.Keys
@@ -67,9 +85,9 @@ import java.util.Locale
 import kotlin.math.abs
 
 /**
- * Onglet « Voir la TV » : l'écran de la TV en direct sur le téléphone (sans le son),
- * les touches de navigation juste en dessous et la capture d'écran.
- * Toucher l'image = OK ; la faire glisser = flèches.
+ * Onglet « Voir la TV » : l'écran de la TV en direct sur le téléphone, avec le son
+ * des applications qui le permettent, les touches de navigation et la capture d'écran.
+ * Toucher l'image = OK ; la faire glisser = flèches. Bouton plein écran : paysage.
  */
 @Composable
 fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
@@ -80,12 +98,46 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
         return
     }
     var status by remember(tv.id) { mutableStateOf(tr("Connexion à l'écran de la TV…")) }
+    var audioStatus by remember(tv.id) { mutableStateOf<String?>(null) }
     var capturing by remember { mutableStateOf(false) }
+    var fullscreen by remember { mutableStateOf(false) }
     var surfaceView by remember { mutableStateOf<SurfaceView?>(null) }
+    val prefs = remember { context.getSharedPreferences("ui", Context.MODE_PRIVATE) }
+    var soundOn by remember { mutableStateOf(prefs.getBoolean(KEY_SOUND, true)) }
     val scope = rememberCoroutineScope()
     val adb = remember { TvAdb(context.filesDir) }
     val viewer = remember(tv.id, tv.host) { TvScreenViewer(adb, tv.host) { status = it } }
+    val audio = remember(tv.id, tv.host) {
+        TvAudioPlayer(adb, tv.host, { TvAdb.helperApk(context) }) { audioStatus = it }
+    }
     DisposableEffect(viewer) { onDispose { viewer.stop() } }
+    DisposableEffect(audio, soundOn) {
+        if (soundOn) audio.start() else audioStatus = null
+        onDispose { audio.stop() }
+    }
+
+    fun toggleSound() {
+        soundOn = !soundOn
+        prefs.edit().putBoolean(KEY_SOUND, soundOn).apply()
+    }
+
+    fun capture() {
+        if (capturing) return
+        capturing = true
+        scope.launch {
+            val message = withContext(Dispatchers.IO) {
+                runCatching { saveScreenshot(context, adb.screenshot(tv.host, context.cacheDir)) }
+                    .recoverCatching { tvError ->
+                        // Secours : l'image affichée sur le téléphone (720p).
+                        val png = surfaceView?.let { copyFrame(it) } ?: throw tvError
+                        saveScreenshot(context, png) + tr(" (image du téléphone)")
+                    }
+                    .getOrElse { tr("Capture impossible : {1}", it.message ?: it.javaClass.simpleName) }
+            }
+            capturing = false
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        }
+    }
 
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Box(
@@ -102,42 +154,18 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
                         holder.addCallback(object : SurfaceHolder.Callback {
                             override fun surfaceCreated(holder: SurfaceHolder) = viewer.start(holder.surface)
                             override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) = Unit
-                            override fun surfaceDestroyed(holder: SurfaceHolder) = viewer.stop()
+                            override fun surfaceDestroyed(holder: SurfaceHolder) = viewer.panelGone()
                         })
                     }
                 },
             )
-            // Calque transparent au-dessus de la vidéo : gestes de navigation.
-            Box(
-                Modifier
-                    .fillMaxSize()
-                    .pointerInput(tv.id) {
-                        detectTapGestures(onTap = { vm.key(Keys.DPAD_CENTER) })
-                    }
-                    .pointerInput(tv.id) {
-                        var total = Offset.Zero
-                        detectDragGestures(
-                            onDragStart = { total = Offset.Zero },
-                            onDrag = { change, amount ->
-                                change.consume()
-                                total += amount
-                            },
-                            onDragEnd = {
-                                if (maxOf(abs(total.x), abs(total.y)) > 40f) {
-                                    vm.key(
-                                        if (abs(total.x) > abs(total.y)) {
-                                            if (total.x > 0) Keys.DPAD_RIGHT else Keys.DPAD_LEFT
-                                        } else {
-                                            if (total.y > 0) Keys.DPAD_DOWN else Keys.DPAD_UP
-                                        },
-                                    )
-                                }
-                            },
-                        )
-                    },
-            )
+            Box(Modifier.fillMaxSize().navGestures(tv.id, vm))
+            FilledTonalIconButton(
+                onClick = { fullscreen = true },
+                modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp).size(40.dp),
+            ) { Icon(Icons.Filled.Fullscreen, contentDescription = tr("Plein écran")) }
         }
-        Text(status, color = Muted, fontSize = 12.sp)
+        Text(audioStatus?.let { "$status · $it" } ?: status, color = Muted, fontSize = 12.sp)
         Row(
             Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
@@ -151,37 +179,195 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
             NavKey(Icons.AutoMirrored.Filled.KeyboardArrowRight, tr("Droite")) { vm.key(Keys.DPAD_RIGHT) }
             NavKey(Icons.Filled.Home, tr("Accueil")) { vm.key(Keys.HOME) }
         }
-        OutlinedButton(
-            onClick = {
-                if (capturing) return@OutlinedButton
-                capturing = true
-                scope.launch {
-                    val message = withContext(Dispatchers.IO) {
-                        runCatching { saveScreenshot(context, adb.screenshot(tv.host, context.cacheDir)) }
-                            .recoverCatching { tvError ->
-                                // Secours : l'image affichée sur le téléphone (720p).
-                                val png = surfaceView?.let { copyFrame(it) } ?: throw tvError
-                                saveScreenshot(context, png) + tr(" (image du téléphone)")
-                            }
-                            .getOrElse { tr("Capture impossible : {1}", it.message ?: it.javaClass.simpleName) }
-                    }
-                    capturing = false
-                    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-                }
-            },
-            modifier = Modifier.fillMaxWidth().height(48.dp),
-        ) {
-            Icon(Icons.Filled.CameraAlt, contentDescription = null, modifier = Modifier.size(18.dp))
-            Text(if (capturing) tr("  Capture en cours…") else tr("  Capture d'écran de la TV"))
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            OutlinedButton(onClick = ::toggleSound, modifier = Modifier.weight(1f).height(48.dp)) {
+                Icon(
+                    if (soundOn) Icons.AutoMirrored.Filled.VolumeUp else Icons.AutoMirrored.Filled.VolumeOff,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                )
+                Text(if (soundOn) tr("  Son sur le téléphone") else tr("  Son coupé"))
+            }
+            OutlinedButton(onClick = ::capture, modifier = Modifier.weight(1f).height(48.dp)) {
+                Icon(Icons.Filled.CameraAlt, contentDescription = null, modifier = Modifier.size(18.dp))
+                Text(if (capturing) tr("  Capture en cours…") else tr("  Capture"))
+            }
         }
         Text(
-            tr("Image seulement, sans le son. Les contenus protégés (Netflix, chaînes TV…) ") +
-                tr("apparaissent en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."),
+            tr("Le son des applications protégées (Netflix, Prime Video…) n'est pas transmis, et leur image ") +
+                tr("apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."),
             color = Muted,
             fontSize = 11.sp,
         )
     }
+
+    if (fullscreen) {
+        FullscreenTv(
+            viewer = viewer,
+            vm = vm,
+            tvId = tv.id,
+            soundOn = soundOn,
+            status = audioStatus,
+            onToggleSound = ::toggleSound,
+            onCapture = ::capture,
+            onClose = { fullscreen = false },
+        )
+    }
 }
+
+/** Gestes sur l'image : toucher = OK, glisser = flèches. */
+private fun Modifier.navGestures(tvId: String, vm: RemoteViewModel, onActivity: () -> Unit = {}): Modifier =
+    this
+        .pointerInput(tvId) {
+            detectTapGestures(onTap = {
+                onActivity()
+                vm.key(Keys.DPAD_CENTER)
+            })
+        }
+        .pointerInput(tvId) {
+            var total = Offset.Zero
+            detectDragGestures(
+                onDragStart = { total = Offset.Zero },
+                onDrag = { change, amount ->
+                    change.consume()
+                    total += amount
+                },
+                onDragEnd = {
+                    onActivity()
+                    if (maxOf(abs(total.x), abs(total.y)) > 40f) {
+                        vm.key(
+                            if (abs(total.x) > abs(total.y)) {
+                                if (total.x > 0) Keys.DPAD_RIGHT else Keys.DPAD_LEFT
+                            } else {
+                                if (total.y > 0) Keys.DPAD_DOWN else Keys.DPAD_UP
+                            },
+                        )
+                    }
+                },
+            )
+        }
+
+/**
+ * Plein écran en paysage : l'image de la TV occupe tout l'écran, l'écran du téléphone
+ * reste allumé ; les commandes s'affichent au toucher et se masquent après 4 secondes.
+ */
+@Composable
+private fun FullscreenTv(
+    viewer: TvScreenViewer,
+    vm: RemoteViewModel,
+    tvId: String,
+    soundOn: Boolean,
+    status: String?,
+    onToggleSound: () -> Unit,
+    onCapture: () -> Unit,
+    onClose: () -> Unit,
+) {
+    val activity = LocalContext.current as? android.app.Activity
+    DisposableEffect(Unit) {
+        val previous = activity?.requestedOrientation
+        activity?.requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+        onDispose {
+            viewer.setFullscreenSurface(null)
+            activity?.requestedOrientation = previous ?: android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        }
+    }
+    var controls by remember { mutableStateOf(true) }
+    var touchedAt by remember { mutableStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(touchedAt) {
+        controls = true
+        kotlinx.coroutines.delay(4_000)
+        controls = false
+    }
+    val wake = { touchedAt = System.currentTimeMillis() }
+
+    Dialog(
+        onDismissRequest = onClose,
+        properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false),
+    ) {
+        val view = LocalView.current
+        DisposableEffect(view) {
+            val window = (view.parent as? DialogWindowProvider)?.window
+            window?.setLayout(
+                android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+            )
+            window?.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            window?.let {
+                WindowCompat.getInsetsController(it, view).apply {
+                    systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                    hide(WindowInsetsCompat.Type.systemBars())
+                }
+            }
+            onDispose { }
+        }
+        Box(Modifier.fillMaxSize().background(Color.Black), contentAlignment = Alignment.Center) {
+            AndroidView(
+                modifier = Modifier.aspectRatio(16f / 9f, matchHeightConstraintsFirst = true),
+                factory = { ctx ->
+                    SurfaceView(ctx).apply {
+                        holder.addCallback(object : SurfaceHolder.Callback {
+                            override fun surfaceCreated(holder: SurfaceHolder) = viewer.setFullscreenSurface(holder.surface)
+                            override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) = Unit
+                            override fun surfaceDestroyed(holder: SurfaceHolder) = viewer.setFullscreenSurface(null)
+                        })
+                    }
+                },
+            )
+            Box(Modifier.fillMaxSize().navGestures(tvId, vm, wake))
+            if (controls) {
+                Row(
+                    Modifier.align(Alignment.TopEnd).padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                ) {
+                    OverlayKey(
+                        if (soundOn) Icons.AutoMirrored.Filled.VolumeUp else Icons.AutoMirrored.Filled.VolumeOff,
+                        if (soundOn) tr("Couper le son du téléphone") else tr("Son sur le téléphone"),
+                    ) { wake(); onToggleSound() }
+                    OverlayKey(Icons.Filled.CameraAlt, tr("Capture d'écran de la TV")) { wake(); onCapture() }
+                    OverlayKey(Icons.Filled.FullscreenExit, tr("Quitter le plein écran"), onClose)
+                }
+                Row(
+                    Modifier.align(Alignment.BottomCenter).padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    OverlayKey(Icons.AutoMirrored.Filled.ArrowBack, tr("Retour")) { wake(); vm.key(Keys.BACK) }
+                    OverlayKey(Icons.Filled.Home, tr("Accueil")) { wake(); vm.key(Keys.HOME) }
+                    OverlayKey(Icons.Filled.Remove, tr("Volume -")) { wake(); vm.key(Keys.VOLUME_DOWN) }
+                    OverlayKey(Icons.Filled.Add, tr("Volume +")) { wake(); vm.key(Keys.VOLUME_UP) }
+                    OverlayKey(Icons.Filled.PlayArrow, tr("Lecture / pause")) { wake(); vm.key(Keys.MEDIA_PLAY_PAUSE) }
+                }
+                status?.let {
+                    Text(
+                        it,
+                        color = Color.White,
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .padding(16.dp)
+                            .widthIn(max = 360.dp)
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(Color(0x99000000))
+                            .padding(horizontal = 10.dp, vertical = 6.dp),
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun OverlayKey(icon: ImageVector, description: String, onClick: () -> Unit) {
+    FilledTonalIconButton(
+        onClick = onClick,
+        modifier = Modifier.size(48.dp),
+        colors = androidx.compose.material3.IconButtonDefaults.filledTonalIconButtonColors(
+            containerColor = Color(0x99000000),
+            contentColor = Color.White,
+        ),
+    ) { Icon(icon, contentDescription = description) }
+}
+
+private const val KEY_SOUND = "tv_view_sound"
 
 @Composable
 private fun NavKey(icon: ImageVector, description: String, onClick: () -> Unit) {

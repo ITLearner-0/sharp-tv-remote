@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
     <!-- Visionneuse : télécharge les photos et vidéos servies par le téléphone. -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- « Voir la TV » avec le son : capture du son des applications (accordée par ADB). -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
 
     <application
         android:label="OmniZap (aide)"
@@ -25,6 +29,19 @@
             android:launchMode="singleTask"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+
+        <!-- Son de la TV vers le téléphone : autorisation (invisible), puis service de capture. -->
+        <activity
+            android:name=".TvAudio"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <service
+            android:name=".AudioCapture"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
     </application>
 
     <instrumentation
