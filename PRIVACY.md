@@ -1,6 +1,6 @@
 # Politique de confidentialité — OmniZap
 
-*Dernière mise à jour : 1er novembre 2026* · [English version below](#privacy-policy--omnizap)
+*Dernière mise à jour : 9 novembre 2026* · [English version below](#privacy-policy--omnizap)
 
 OmniZap est une télécommande universelle pour TV. Elle fonctionne **entre votre
 téléphone et votre TV, sur votre réseau local** (Wi-Fi), par infrarouge ou par
@@ -16,7 +16,7 @@ d'audience** et **n'envoie aucune donnée à un serveur d'OmniZap** : il n'en ex
 | Son du micro (recherche vocale) | Envoyé à la TV pendant que vous parlez | Directement à votre TV ; rien n'est enregistré |
 | Photos, vidéos choisies | Affichées sur la TV | Lues par la TV depuis le téléphone, sur le réseau local |
 | Image et son de l'écran (duplication) | Affichés sur la TV, à votre demande | Directement à votre TV, sur le réseau local |
-| Image de la TV (« Voir la TV ») | Affichée sur le téléphone | Reçue de votre TV ; capture enregistrée dans votre galerie seulement si vous la demandez |
+| Image et son de la TV (« Voir la TV ») | Affichés et joués sur le téléphone | Reçus de votre TV sur le réseau local ; rien n'est enregistré, sauf une capture d'écran que vous demandez (galerie). Le son des applications qui l'interdisent (Netflix…) n'est jamais capté |
 | Rapport d'erreur | Vous aider à signaler un problème | Sur le téléphone ; partagé seulement si vous le copiez vous-même |
 
 ## Services de Google
@@ -52,7 +52,7 @@ aucune donnée les concernant.
 
 # Privacy policy — OmniZap
 
-*Last updated: November 1, 2026*
+*Last updated: November 9, 2026*
 
 OmniZap is a universal TV remote. It works **between your phone and your TV, on
 your local network** (Wi-Fi), over infrared or Bluetooth. It has **no account**,
@@ -67,7 +67,7 @@ your local network** (Wi-Fi), over infrared or Bluetooth. It has **no account**,
 | Microphone audio (voice search) | Sent to the TV while you speak | Directly to your TV; nothing is recorded |
 | Chosen photos and videos | Shown on the TV | Read by the TV from the phone, over the local network |
 | Screen image and sound (mirroring) | Shown on the TV, on request | Directly to your TV, over the local network |
-| TV picture ("Watch TV") | Shown on the phone | Received from your TV; a screenshot is saved to your gallery only if you ask |
+| TV picture and sound ("Watch TV") | Shown and played on the phone | Received from your TV over the local network; nothing is recorded, except a screenshot you ask for (gallery). Sound from apps that forbid it (Netflix…) is never captured |
 | Error report | Help you report a problem | On the phone; shared only if you copy it yourself |
 
 ## Google services
