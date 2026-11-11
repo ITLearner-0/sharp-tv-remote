@@ -497,3 +497,7 @@
 496	Ohùn -
 497	ń hàn ní dúdú. Tẹ àwòrán fún «OK», fa ìka fún àwọn ọfà.
 498	èsì àìròtẹ́lẹ̀ láti TV
+499	Ó ń ka àyẹ̀wò…
+500	A kò lè dé TV: {1}
+501	Àyẹ̀wò ohùn
+502	A ti dàkọ ìròyìn

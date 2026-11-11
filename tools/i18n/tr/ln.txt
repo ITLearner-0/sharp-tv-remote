@@ -497,3 +497,7 @@
 496	Mongongo -
 497	emonanaka moindo. Finá elili mpo na «OK», benda mosapi mpo na ba-flèche.
 498	eyano oyo ezalaki kozelama te ya TV
+499	Ezali kotanga botali…
+500	TV ekoki kokomama te: {1}
+501	Botali ya mongongo
+502	Rapport ekopiami

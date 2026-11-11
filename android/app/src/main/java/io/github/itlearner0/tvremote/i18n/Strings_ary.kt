@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_ARY: Map<String, String> by lazy {
-    HashMap<String, String>(998).also { m ->
+    HashMap<String, String>(1006).also { m ->
         l_arya(m)
         l_aryb(m)
     }
@@ -258,11 +258,11 @@ private fun l_arya(m: HashMap<String, String>) {
     m["Marche"] = "شعل"
     m["Marche, volume et lecture, même écran verrouillé"] = "التشعال، الصوت و التشغيل، واخا الشاشة مسدودة"
     m["Masquer le Bluetooth classique"] = "خبّي البلوتوث الكلاسيكي"
+    m["Menu contextuel TV"] = "مينو السياق ديال التلفزة"
+    m["Menu de diffusion du téléphone (Miracast)"] = "مينو البث ديال التيليفون (Miracast)"
 }
 
 private fun l_aryb(m: HashMap<String, String>) {
-    m["Menu contextuel TV"] = "مينو السياق ديال التلفزة"
-    m["Menu de diffusion du téléphone (Miracast)"] = "مينو البث ديال التيليفون (Miracast)"
     m["Menu des contenus TV"] = "مينو المحتوى ديال التلفزة"
     m["Menu principal (média)"] = "المينو الرئيسي (ميديا)"
     m["Menu standard Android"] = "مينو Android العادي"
@@ -511,4 +511,8 @@ private fun l_aryb(m: HashMap<String, String>) {
     m["Volume -"] = "نقص الصوت"
     m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "كتبان كحلة. ضغط على الصورة ل «OK»، زلّق للفليشات."
     m["réponse inattendue de la TV"] = "جواب ما متوقعش من التلفزة"
+    m["Lecture du diagnostic…"] = "كنقراو التشخيص…"
+    m["TV injoignable : {1}"] = "ما قدرناش نوصلو للتلفزة: {1}"
+    m["Diagnostic du son"] = "تشخيص الصوت"
+    m["Rapport copié"] = "الرابور تكوبى"
 }

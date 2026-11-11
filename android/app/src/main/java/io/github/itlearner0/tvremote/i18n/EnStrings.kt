@@ -5,7 +5,7 @@ package io.github.itlearner0.tvremote.i18n
 internal val EN: Map<String, String> by lazy { buildEn() }
 
 private fun buildEn(): Map<String, String> {
-    val m = HashMap<String, String>(1150)
+    val m = HashMap<String, String>(1158)
     part0(m)
     part1(m)
     part2(m)
@@ -598,4 +598,8 @@ private fun part3(m: HashMap<String, String>) {
     m["Volume -"] = "Volume -"
     m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "appears black. Tap the picture for \"OK\", swipe it for the arrows."
     m["réponse inattendue de la TV"] = "unexpected reply from the TV"
+    m["Lecture du diagnostic…"] = "Reading diagnostics…"
+    m["TV injoignable : {1}"] = "TV unreachable: {1}"
+    m["Diagnostic du son"] = "Sound diagnostics"
+    m["Rapport copié"] = "Report copied"
 }

@@ -31,6 +31,7 @@ public class TvAudio extends Activity {
             finish();
             return;
         }
+        Log.i(AudioCapture.TAG, "demande de l'autorisation de capture");
         MediaProjectionManager manager = (MediaProjectionManager) getSystemService(Context.MEDIA_PROJECTION_SERVICE);
         startActivityForResult(manager.createScreenCaptureIntent(), REQUEST);
     }
@@ -44,7 +45,7 @@ public class TvAudio extends Activity {
                     .putExtra("data", data);
             startForegroundService(service);
         } else {
-            Log.w(AudioCapture.TAG, "capture du son refusée");
+            Log.w(AudioCapture.TAG, "capture du son refusée (résultat " + resultCode + ")");
         }
         finish();
         overridePendingTransition(0, 0);

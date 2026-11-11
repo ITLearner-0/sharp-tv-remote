@@ -497,3 +497,7 @@
 496	Volumen -
 497	aparece en negro. Toca la imagen para «OK», deslízala para las flechas.
 498	respuesta inesperada del televisor
+499	Leyendo el diagnóstico…
+500	Televisor inaccesible: {1}
+501	Diagnóstico del sonido
+502	Informe copiado

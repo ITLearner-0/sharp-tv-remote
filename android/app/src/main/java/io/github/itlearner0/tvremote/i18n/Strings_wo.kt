@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_WO: Map<String, String> by lazy {
-    HashMap<String, String>(998).also { m ->
+    HashMap<String, String>(1006).also { m ->
         l_woa(m)
         l_wob(m)
     }
@@ -258,11 +258,11 @@ private fun l_woa(m: HashMap<String, String>) {
     m["Marche"] = "Taal"
     m["Marche, volume et lecture, même écran verrouillé"] = "Taal, baat ak dox, su ekraan bi tëju sax"
     m["Masquer le Bluetooth classique"] = "Nëbb Bluetooth klasik"
+    m["Menu contextuel TV"] = "Menuw konteks bu TV bi"
+    m["Menu de diffusion du téléphone (Miracast)"] = "Menuw yónnee bu telefon bi (Miracast)"
 }
 
 private fun l_wob(m: HashMap<String, String>) {
-    m["Menu contextuel TV"] = "Menuw konteks bu TV bi"
-    m["Menu de diffusion du téléphone (Miracast)"] = "Menuw yónnee bu telefon bi (Miracast)"
     m["Menu des contenus TV"] = "Menuw li TV bi am"
     m["Menu principal (média)"] = "Menu bu mag (miidiya)"
     m["Menu standard Android"] = "Menuw Android bu ñu miin"
@@ -511,4 +511,8 @@ private fun l_wob(m: HashMap<String, String>) {
     m["Volume -"] = "Wàññi baat"
     m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "dafay ñuul. Bësal nataal bi ngir «OK», wëñal ngir fes yi."
     m["réponse inattendue de la TV"] = "tontu bu ñu séentuwul jóge ci TV bi"
+    m["Lecture du diagnostic…"] = "Mi ngi jàng saytu bi…"
+    m["TV injoignable : {1}"] = "Mënuñu agsi ci TV bi: {1}"
+    m["Diagnostic du son"] = "Saytu baat bi"
+    m["Rapport copié"] = "Rapoor bi duppi nañu ko"
 }

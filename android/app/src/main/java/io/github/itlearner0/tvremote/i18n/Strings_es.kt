@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_ES: Map<String, String> by lazy {
-    HashMap<String, String>(998).also { m ->
+    HashMap<String, String>(1006).also { m ->
         l_esa(m)
         l_esb(m)
     }
@@ -258,11 +258,11 @@ private fun l_esa(m: HashMap<String, String>) {
     m["Marche"] = "Encendido"
     m["Marche, volume et lecture, même écran verrouillé"] = "Encendido, volumen y reproducción, incluso con la pantalla bloqueada"
     m["Masquer le Bluetooth classique"] = "Ocultar el Bluetooth clásico"
+    m["Menu contextuel TV"] = "Menú contextual de la TV"
+    m["Menu de diffusion du téléphone (Miracast)"] = "Menú de emisión del teléfono (Miracast)"
 }
 
 private fun l_esb(m: HashMap<String, String>) {
-    m["Menu contextuel TV"] = "Menú contextual de la TV"
-    m["Menu de diffusion du téléphone (Miracast)"] = "Menú de emisión del teléfono (Miracast)"
     m["Menu des contenus TV"] = "Menú de contenidos de la TV"
     m["Menu principal (média)"] = "Menú principal (multimedia)"
     m["Menu standard Android"] = "Menú estándar de Android"
@@ -511,4 +511,8 @@ private fun l_esb(m: HashMap<String, String>) {
     m["Volume -"] = "Volumen -"
     m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "aparece en negro. Toca la imagen para «OK», deslízala para las flechas."
     m["réponse inattendue de la TV"] = "respuesta inesperada del televisor"
+    m["Lecture du diagnostic…"] = "Leyendo el diagnóstico…"
+    m["TV injoignable : {1}"] = "Televisor inaccesible: {1}"
+    m["Diagnostic du son"] = "Diagnóstico del sonido"
+    m["Rapport copié"] = "Informe copiado"
 }

@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_YO: Map<String, String> by lazy {
-    HashMap<String, String>(998).also { m ->
+    HashMap<String, String>(1006).also { m ->
         l_yoa(m)
         l_yob(m)
     }
@@ -258,11 +258,11 @@ private fun l_yoa(m: HashMap<String, String>) {
     m["Marche"] = "Tan"
     m["Marche, volume et lecture, même écran verrouillé"] = "Títàn, ohùn àti ṣíṣeré, kódà nígbà tí iboju bá wà ní títìpa"
     m["Masquer le Bluetooth classique"] = "Fi Bluetooth àtijọ́ pamọ́"
+    m["Menu contextuel TV"] = "Àkójọ àyíká TV"
+    m["Menu de diffusion du téléphone (Miracast)"] = "Àkójọ ìgbéjáde fóònù (Miracast)"
 }
 
 private fun l_yob(m: HashMap<String, String>) {
-    m["Menu contextuel TV"] = "Àkójọ àyíká TV"
-    m["Menu de diffusion du téléphone (Miracast)"] = "Àkójọ ìgbéjáde fóònù (Miracast)"
     m["Menu des contenus TV"] = "Àkójọ àkóónú TV"
     m["Menu principal (média)"] = "Àkójọ àkọ́kọ́ (mídíà)"
     m["Menu standard Android"] = "Àkójọ Android lásán"
@@ -511,4 +511,8 @@ private fun l_yob(m: HashMap<String, String>) {
     m["Volume -"] = "Ohùn -"
     m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "ń hàn ní dúdú. Tẹ àwòrán fún «OK», fa ìka fún àwọn ọfà."
     m["réponse inattendue de la TV"] = "èsì àìròtẹ́lẹ̀ láti TV"
+    m["Lecture du diagnostic…"] = "Ó ń ka àyẹ̀wò…"
+    m["TV injoignable : {1}"] = "A kò lè dé TV: {1}"
+    m["Diagnostic du son"] = "Àyẹ̀wò ohùn"
+    m["Rapport copié"] = "A ti dàkọ ìròyìn"
 }

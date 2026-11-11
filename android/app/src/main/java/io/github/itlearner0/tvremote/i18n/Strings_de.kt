@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_DE: Map<String, String> by lazy {
-    HashMap<String, String>(998).also { m ->
+    HashMap<String, String>(1006).also { m ->
         l_dea(m)
         l_deb(m)
     }
@@ -258,11 +258,11 @@ private fun l_dea(m: HashMap<String, String>) {
     m["Marche"] = "Einschalten"
     m["Marche, volume et lecture, même écran verrouillé"] = "Einschalten, Lautstärke und Wiedergabe, auch bei gesperrtem Bildschirm"
     m["Masquer le Bluetooth classique"] = "Klassisches Bluetooth ausblenden"
+    m["Menu contextuel TV"] = "Kontextmenü des TVs"
+    m["Menu de diffusion du téléphone (Miracast)"] = "Übertragungsmenü des Handys (Miracast)"
 }
 
 private fun l_deb(m: HashMap<String, String>) {
-    m["Menu contextuel TV"] = "Kontextmenü des TVs"
-    m["Menu de diffusion du téléphone (Miracast)"] = "Übertragungsmenü des Handys (Miracast)"
     m["Menu des contenus TV"] = "Inhaltsmenü des TVs"
     m["Menu principal (média)"] = "Hauptmenü (Medien)"
     m["Menu standard Android"] = "Standard-Android-Menü"
@@ -511,4 +511,8 @@ private fun l_deb(m: HashMap<String, String>) {
     m["Volume -"] = "Leiser"
     m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "erscheint schwarz. Tippen Sie auf das Bild für „OK“, wischen Sie für die Pfeile."
     m["réponse inattendue de la TV"] = "unerwartete Antwort des TVs"
+    m["Lecture du diagnostic…"] = "Diagnose wird gelesen…"
+    m["TV injoignable : {1}"] = "TV nicht erreichbar: {1}"
+    m["Diagnostic du son"] = "Tondiagnose"
+    m["Rapport copié"] = "Bericht kopiert"
 }

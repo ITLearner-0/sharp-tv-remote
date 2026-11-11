@@ -497,3 +497,7 @@
 496	Volume -
 497	appears black. Tap the picture for "OK", swipe it for the arrows.
 498	unexpected reply from the TV
+499	Reading diagnostics…
+500	TV unreachable: {1}
+501	Sound diagnostics
+502	Report copied

@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_HI: Map<String, String> by lazy {
-    HashMap<String, String>(998).also { m ->
+    HashMap<String, String>(1006).also { m ->
         l_hia(m)
         l_hib(m)
     }
@@ -258,11 +258,11 @@ private fun l_hia(m: HashMap<String, String>) {
     m["Marche"] = "चालू करें"
     m["Marche, volume et lecture, même écran verrouillé"] = "चालू करना, आवाज़ और प्लेबैक, लॉक स्क्रीन पर भी"
     m["Masquer le Bluetooth classique"] = "क्लासिक Bluetooth छिपाएँ"
+    m["Menu contextuel TV"] = "टीवी का कॉन्टेक्स्ट मेनू"
+    m["Menu de diffusion du téléphone (Miracast)"] = "फ़ोन का कास्ट मेनू (Miracast)"
 }
 
 private fun l_hib(m: HashMap<String, String>) {
-    m["Menu contextuel TV"] = "टीवी का कॉन्टेक्स्ट मेनू"
-    m["Menu de diffusion du téléphone (Miracast)"] = "फ़ोन का कास्ट मेनू (Miracast)"
     m["Menu des contenus TV"] = "टीवी का कंटेंट मेनू"
     m["Menu principal (média)"] = "मुख्य मेनू (मीडिया)"
     m["Menu standard Android"] = "सामान्य Android मेनू"
@@ -511,4 +511,8 @@ private fun l_hib(m: HashMap<String, String>) {
     m["Volume -"] = "आवाज़ -"
     m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "काली दिखती है। «OK» के लिए तस्वीर पर टैप करें, तीरों के लिए स्वाइप करें।"
     m["réponse inattendue de la TV"] = "टीवी से अनपेक्षित जवाब"
+    m["Lecture du diagnostic…"] = "जाँच पढ़ी जा रही है…"
+    m["TV injoignable : {1}"] = "टीवी तक पहुँच नहीं: {1}"
+    m["Diagnostic du son"] = "आवाज़ की जाँच"
+    m["Rapport copié"] = "रिपोर्ट कॉपी हो गई"
 }

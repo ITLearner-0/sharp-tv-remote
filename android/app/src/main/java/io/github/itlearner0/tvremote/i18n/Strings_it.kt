@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_IT: Map<String, String> by lazy {
-    HashMap<String, String>(998).also { m ->
+    HashMap<String, String>(1006).also { m ->
         l_ita(m)
         l_itb(m)
     }
@@ -258,11 +258,11 @@ private fun l_ita(m: HashMap<String, String>) {
     m["Marche"] = "Accendi"
     m["Marche, volume et lecture, même écran verrouillé"] = "Accensione, volume e riproduzione, anche a schermo bloccato"
     m["Masquer le Bluetooth classique"] = "Nascondi il Bluetooth classico"
+    m["Menu contextuel TV"] = "Menu contestuale della TV"
+    m["Menu de diffusion du téléphone (Miracast)"] = "Menu di trasmissione del telefono (Miracast)"
 }
 
 private fun l_itb(m: HashMap<String, String>) {
-    m["Menu contextuel TV"] = "Menu contestuale della TV"
-    m["Menu de diffusion du téléphone (Miracast)"] = "Menu di trasmissione del telefono (Miracast)"
     m["Menu des contenus TV"] = "Menu dei contenuti della TV"
     m["Menu principal (média)"] = "Menu principale (media)"
     m["Menu standard Android"] = "Menu Android standard"
@@ -511,4 +511,8 @@ private fun l_itb(m: HashMap<String, String>) {
     m["Volume -"] = "Volume -"
     m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "appare nera. Tocca l'immagine per «OK», scorri per le frecce."
     m["réponse inattendue de la TV"] = "risposta inattesa dalla TV"
+    m["Lecture du diagnostic…"] = "Lettura della diagnostica…"
+    m["TV injoignable : {1}"] = "TV irraggiungibile: {1}"
+    m["Diagnostic du son"] = "Diagnostica audio"
+    m["Rapport copié"] = "Rapporto copiato"
 }

@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_LN: Map<String, String> by lazy {
-    HashMap<String, String>(998).also { m ->
+    HashMap<String, String>(1006).also { m ->
         l_lna(m)
         l_lnb(m)
     }
@@ -258,11 +258,11 @@ private fun l_lna(m: HashMap<String, String>) {
     m["Marche"] = "Pelisa"
     m["Marche, volume et lecture, même écran verrouillé"] = "Kopelisa, mongongo mpe kotambwisa, ata ekrani ekangami"
     m["Masquer le Bluetooth classique"] = "Bomba Bluetooth classique"
+    m["Menu contextuel TV"] = "Menu ya contexte ya TV"
+    m["Menu de diffusion du téléphone (Miracast)"] = "Menu ya kotinda ya telefone (Miracast)"
 }
 
 private fun l_lnb(m: HashMap<String, String>) {
-    m["Menu contextuel TV"] = "Menu ya contexte ya TV"
-    m["Menu de diffusion du téléphone (Miracast)"] = "Menu ya kotinda ya telefone (Miracast)"
     m["Menu des contenus TV"] = "Menu ya biloko ya TV"
     m["Menu principal (média)"] = "Menu monene (média)"
     m["Menu standard Android"] = "Menu ya Android ya momesano"
@@ -511,4 +511,8 @@ private fun l_lnb(m: HashMap<String, String>) {
     m["Volume -"] = "Mongongo -"
     m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "emonanaka moindo. Finá elili mpo na «OK», benda mosapi mpo na ba-flèche."
     m["réponse inattendue de la TV"] = "eyano oyo ezalaki kozelama te ya TV"
+    m["Lecture du diagnostic…"] = "Ezali kotanga botali…"
+    m["TV injoignable : {1}"] = "TV ekoki kokomama te: {1}"
+    m["Diagnostic du son"] = "Botali ya mongongo"
+    m["Rapport copié"] = "Rapport ekopiami"
 }

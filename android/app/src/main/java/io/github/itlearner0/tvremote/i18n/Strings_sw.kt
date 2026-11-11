@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_SW: Map<String, String> by lazy {
-    HashMap<String, String>(998).also { m ->
+    HashMap<String, String>(1006).also { m ->
         l_swa(m)
         l_swb(m)
     }
@@ -258,11 +258,11 @@ private fun l_swa(m: HashMap<String, String>) {
     m["Marche"] = "Washa"
     m["Marche, volume et lecture, même écran verrouillé"] = "Kuwasha, sauti na uchezaji, hata skrini ikiwa imefungwa"
     m["Masquer le Bluetooth classique"] = "Ficha Bluetooth ya kawaida"
+    m["Menu contextuel TV"] = "Menyu ya muktadha ya TV"
+    m["Menu de diffusion du téléphone (Miracast)"] = "Menyu ya kutuma ya simu (Miracast)"
 }
 
 private fun l_swb(m: HashMap<String, String>) {
-    m["Menu contextuel TV"] = "Menyu ya muktadha ya TV"
-    m["Menu de diffusion du téléphone (Miracast)"] = "Menyu ya kutuma ya simu (Miracast)"
     m["Menu des contenus TV"] = "Menyu ya maudhui ya TV"
     m["Menu principal (média)"] = "Menyu kuu (midia)"
     m["Menu standard Android"] = "Menyu ya kawaida ya Android"
@@ -511,4 +511,8 @@ private fun l_swb(m: HashMap<String, String>) {
     m["Volume -"] = "Sauti -"
     m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "inaonekana nyeusi. Gusa picha kwa «OK», telezesha kwa mishale."
     m["réponse inattendue de la TV"] = "jibu lisilotarajiwa kutoka kwa TV"
+    m["Lecture du diagnostic…"] = "Inasoma uchunguzi…"
+    m["TV injoignable : {1}"] = "TV haifikiki: {1}"
+    m["Diagnostic du son"] = "Uchunguzi wa sauti"
+    m["Rapport copié"] = "Ripoti imenakiliwa"
 }

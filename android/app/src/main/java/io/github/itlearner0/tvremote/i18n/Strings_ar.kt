@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_AR: Map<String, String> by lazy {
-    HashMap<String, String>(998).also { m ->
+    HashMap<String, String>(1006).also { m ->
         l_ara(m)
         l_arb(m)
     }
@@ -258,11 +258,11 @@ private fun l_ara(m: HashMap<String, String>) {
     m["Marche"] = "تشغيل"
     m["Marche, volume et lecture, même écran verrouillé"] = "التشغيل والصوت والتحكم بالتشغيل، حتى مع قفل الشاشة"
     m["Masquer le Bluetooth classique"] = "إخفاء البلوتوث الكلاسيكي"
+    m["Menu contextuel TV"] = "قائمة السياق في التلفاز"
+    m["Menu de diffusion du téléphone (Miracast)"] = "قائمة البث في الهاتف (Miracast)"
 }
 
 private fun l_arb(m: HashMap<String, String>) {
-    m["Menu contextuel TV"] = "قائمة السياق في التلفاز"
-    m["Menu de diffusion du téléphone (Miracast)"] = "قائمة البث في الهاتف (Miracast)"
     m["Menu des contenus TV"] = "قائمة المحتوى في التلفاز"
     m["Menu principal (média)"] = "القائمة الرئيسية (الوسائط)"
     m["Menu standard Android"] = "قائمة Android القياسية"
@@ -511,4 +511,8 @@ private fun l_arb(m: HashMap<String, String>) {
     m["Volume -"] = "خفض الصوت"
     m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "باللون الأسود. اضغط على الصورة لـ «OK»، واسحب للأسهم."
     m["réponse inattendue de la TV"] = "رد غير متوقع من التلفاز"
+    m["Lecture du diagnostic…"] = "جارٍ قراءة التشخيص…"
+    m["TV injoignable : {1}"] = "تعذّر الوصول إلى التلفاز: {1}"
+    m["Diagnostic du son"] = "تشخيص الصوت"
+    m["Rapport copié"] = "تم نسخ التقرير"
 }

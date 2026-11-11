@@ -497,3 +497,7 @@
 496	Wàññi baat
 497	dafay ñuul. Bësal nataal bi ngir «OK», wëñal ngir fes yi.
 498	tontu bu ñu séentuwul jóge ci TV bi
+499	Mi ngi jàng saytu bi…
+500	Mënuñu agsi ci TV bi: {1}
+501	Saytu baat bi
+502	Rapoor bi duppi nañu ko

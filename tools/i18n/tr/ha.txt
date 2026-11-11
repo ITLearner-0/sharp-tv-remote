@@ -497,3 +497,7 @@
 496	Rage sauti
 497	yana bayyana baƙi. Taɓa hoton don «OK», zame don kibiyoyi.
 498	amsar da ba a zata ba daga TV
+499	Ana karanta bincike…
+500	Ba a iya isa ga TV ba: {1}
+501	Binciken sauti
+502	An kwafi rahoton

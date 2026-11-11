@@ -497,3 +497,7 @@
 496	Leiser
 497	erscheint schwarz. Tippen Sie auf das Bild für „OK“, wischen Sie für die Pfeile.
 498	unerwartete Antwort des TVs
+499	Diagnose wird gelesen…
+500	TV nicht erreichbar: {1}
+501	Tondiagnose
+502	Bericht kopiert

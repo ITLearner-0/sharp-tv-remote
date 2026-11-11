@@ -124,6 +124,22 @@ class TvAdb(private val keyDir: File) {
         startHelper(adb, host, "TvAudio", "")
     }
 
+    /** Diagnostic du son de « Voir la TV » : version d'Android, autorisations, service, journal. */
+    fun tvAudioReport(host: String): String = withAdb(host) { adb ->
+        fun sh(command: String): String = runCatching { adb.shell(command).allOutput.trim() }.getOrElse { "? (${it.message})" }
+        buildString {
+            appendLine("TV : ${sh("getprop ro.product.manufacturer")} ${sh("getprop ro.product.model")}, Android ${sh("getprop ro.build.version.release")} (API ${sh("getprop ro.build.version.sdk")})")
+            appendLine("Aide : ${sh("dumpsys package $HELPER_PACKAGE | grep -m1 versionCode")}")
+            appendLine("Micro : ${sh("dumpsys package $HELPER_PACKAGE | grep -m1 'android.permission.RECORD_AUDIO'")}")
+            appendLine("PROJECT_MEDIA : ${sh("appops get $HELPER_PACKAGE PROJECT_MEDIA")}")
+            appendLine("Service : ${sh("dumpsys activity services $HELPER_PACKAGE | grep -c AudioCapture")}")
+            // 47321 = 0xB8D9 : le service écoute-t-il ?
+            appendLine("Port 47321 ouvert : ${sh("cat /proc/net/tcp /proc/net/tcp6 2>/dev/null | grep -ci ':B8D9 '")}")
+            appendLine("Journal de la TV :")
+            append(sh("logcat -d -v brief -s OmniZapAudio:V AndroidRuntime:E | tail -n 30"))
+        }
+    }
+
     fun stopTvAudio(host: String) {
         withAdb(host) { adb -> adb.shell("am start -n $HELPER_PACKAGE/.TvAudio --es cmd stop") }
     }
@@ -288,7 +304,7 @@ class TvAdb(private val keyDir: File) {
         const val HELPER_PACKAGE = "io.github.itlearner0.tvremote.helper"
         private const val STOP_SCREENRECORD = "pkill -2 screenrecord 2>/dev/null || killall -2 screenrecord 2>/dev/null; true"
         /** versionCode de tvhelper/build.gradle.kts. */
-        private const val HELPER_VERSION = 8
+        private const val HELPER_VERSION = 9
         /** TV sur lesquelles la visionneuse est déjà installée (pendant cette session). */
         private val viewerReady: MutableSet<String> = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
 

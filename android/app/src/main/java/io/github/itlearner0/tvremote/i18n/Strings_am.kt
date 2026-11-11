@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_AM: Map<String, String> by lazy {
-    HashMap<String, String>(998).also { m ->
+    HashMap<String, String>(1006).also { m ->
         l_ama(m)
         l_amb(m)
     }
@@ -258,11 +258,11 @@ private fun l_ama(m: HashMap<String, String>) {
     m["Marche"] = "አብራ"
     m["Marche, volume et lecture, même écran verrouillé"] = "ማብራት፣ ድምፅና ማጫወት፣ ማያ ገጹ ተቆልፎም ቢሆን"
     m["Masquer le Bluetooth classique"] = "ክላሲክ ብሉቱዝን ደብቅ"
+    m["Menu contextuel TV"] = "የቲቪው አውድ ምናሌ"
+    m["Menu de diffusion du téléphone (Miracast)"] = "የስልኩ የመውሰድ ምናሌ (Miracast)"
 }
 
 private fun l_amb(m: HashMap<String, String>) {
-    m["Menu contextuel TV"] = "የቲቪው አውድ ምናሌ"
-    m["Menu de diffusion du téléphone (Miracast)"] = "የስልኩ የመውሰድ ምናሌ (Miracast)"
     m["Menu des contenus TV"] = "የቲቪው የይዘት ምናሌ"
     m["Menu principal (média)"] = "ዋና ምናሌ (ሚዲያ)"
     m["Menu standard Android"] = "መደበኛ የAndroid ምናሌ"
@@ -511,4 +511,8 @@ private fun l_amb(m: HashMap<String, String>) {
     m["Volume -"] = "ድምፅ -"
     m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "ጥቁር ሆኖ ይታያል። ለ«OK» ምስሉን ንካ፣ ለቀስቶች አንሸራት።"
     m["réponse inattendue de la TV"] = "ከቲቪው ያልተጠበቀ ምላሽ"
+    m["Lecture du diagnostic…"] = "ምርመራውን በማንበብ ላይ…"
+    m["TV injoignable : {1}"] = "ቲቪው ሊደረስበት አልቻለም: {1}"
+    m["Diagnostic du son"] = "የድምፅ ምርመራ"
+    m["Rapport copié"] = "ሪፖርቱ ተቀድቷል"
 }

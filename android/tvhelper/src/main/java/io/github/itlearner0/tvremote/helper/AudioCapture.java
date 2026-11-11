@@ -127,10 +127,24 @@ public class AudioCapture extends Service {
                     out.writeInt(RATE);
                     out.writeInt(CHANNELS);
                     out.flush();
+                    long nextReport = System.currentTimeMillis() + 5000;
+                    int peak = 0;
+                    long total = 0;
                     while (running) {
                         int n = record.read(buffer, 0, buffer.length);
                         if (n < 0) throw new IllegalStateException("lecture du son : " + n);
                         if (n > 0) raw.write(buffer, 0, n);
+                        total += n;
+                        for (int i = 0; i + 1 < n; i += 8) {
+                            int sample = Math.abs((short) ((buffer[i] & 0xFF) | (buffer[i + 1] << 8)));
+                            if (sample > peak) peak = sample;
+                        }
+                        // Diagnostic : niveau du son capté toutes les 5 s (0 = silence).
+                        if (System.currentTimeMillis() > nextReport) {
+                            Log.i(TAG, "son capté : " + total + " octets, niveau max " + peak);
+                            nextReport = System.currentTimeMillis() + 5000;
+                            peak = 0;
+                        }
                     }
                 } catch (Exception e) {
                     Log.i(TAG, "téléphone déconnecté : " + e.getMessage());

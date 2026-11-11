@@ -497,3 +497,7 @@
 496	Volume -
 497	appare nera. Tocca l'immagine per «OK», scorri per le frecce.
 498	risposta inattesa dalla TV
+499	Lettura della diagnostica…
+500	TV irraggiungibile: {1}
+501	Diagnostica audio
+502	Rapporto copiato

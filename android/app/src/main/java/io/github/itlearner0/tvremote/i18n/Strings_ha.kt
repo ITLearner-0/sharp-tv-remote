@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_HA: Map<String, String> by lazy {
-    HashMap<String, String>(998).also { m ->
+    HashMap<String, String>(1006).also { m ->
         l_haa(m)
         l_hab(m)
     }
@@ -258,11 +258,11 @@ private fun l_haa(m: HashMap<String, String>) {
     m["Marche"] = "Kunna"
     m["Marche, volume et lecture, même écran verrouillé"] = "Kunnawa, ƙara da sake kunnawa, ko da allon a kulle"
     m["Masquer le Bluetooth classique"] = "Ɓoye Bluetooth na gargajiya"
+    m["Menu contextuel TV"] = "Menu na mahallin TV"
+    m["Menu de diffusion du téléphone (Miracast)"] = "Menu na jefawa na waya (Miracast)"
 }
 
 private fun l_hab(m: HashMap<String, String>) {
-    m["Menu contextuel TV"] = "Menu na mahallin TV"
-    m["Menu de diffusion du téléphone (Miracast)"] = "Menu na jefawa na waya (Miracast)"
     m["Menu des contenus TV"] = "Menu na abubuwan TV"
     m["Menu principal (média)"] = "Babban menu (kafofin watsa labarai)"
     m["Menu standard Android"] = "Menu na Android na yau da kullum"
@@ -511,4 +511,8 @@ private fun l_hab(m: HashMap<String, String>) {
     m["Volume -"] = "Rage sauti"
     m["apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."] = "yana bayyana baƙi. Taɓa hoton don «OK», zame don kibiyoyi."
     m["réponse inattendue de la TV"] = "amsar da ba a zata ba daga TV"
+    m["Lecture du diagnostic…"] = "Ana karanta bincike…"
+    m["TV injoignable : {1}"] = "Ba a iya isa ga TV ba: {1}"
+    m["Diagnostic du son"] = "Binciken sauti"
+    m["Rapport copié"] = "An kwafi rahoton"
 }

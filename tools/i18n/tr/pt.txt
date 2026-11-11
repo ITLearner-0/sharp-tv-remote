@@ -497,3 +497,7 @@
 496	Volume -
 497	aparece em preto. Toque na imagem para «OK», deslize para as setas.
 498	resposta inesperada da TV
+499	Lendo o diagnóstico…
+500	TV inacessível: {1}
+501	Diagnóstico do som
+502	Relatório copiado

@@ -497,3 +497,7 @@
 496	Sauti -
 497	inaonekana nyeusi. Gusa picha kwa «OK», telezesha kwa mishale.
 498	jibu lisilotarajiwa kutoka kwa TV
+499	Inasoma uchunguzi…
+500	TV haifikiki: {1}
+501	Uchunguzi wa sauti
+502	Ripoti imenakiliwa

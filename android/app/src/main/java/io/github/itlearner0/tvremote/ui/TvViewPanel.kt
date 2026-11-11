@@ -11,6 +11,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -101,6 +102,7 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
     var audioStatus by remember(tv.id) { mutableStateOf<String?>(null) }
     var capturing by remember { mutableStateOf(false) }
     var fullscreen by remember { mutableStateOf(false) }
+    var report by remember { mutableStateOf<String?>(null) }
     var surfaceView by remember { mutableStateOf<SurfaceView?>(null) }
     val prefs = remember { context.getSharedPreferences("ui", Context.MODE_PRIVATE) }
     var soundOn by remember { mutableStateOf(prefs.getBoolean(KEY_SOUND, true)) }
@@ -166,6 +168,17 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
             ) { Icon(Icons.Filled.Fullscreen, contentDescription = tr("Plein écran")) }
         }
         Text(audioStatus?.let { "$status · $it" } ?: status, color = Muted, fontSize = 12.sp)
+        if (soundOn) {
+            androidx.compose.material3.TextButton(onClick = {
+                report = tr("Lecture du diagnostic…")
+                scope.launch {
+                    val tvPart = withContext(Dispatchers.IO) {
+                        runCatching { adb.tvAudioReport(tv.host) }.getOrElse { tr("TV injoignable : {1}", it.message ?: "") }
+                    }
+                    report = audio.phoneReport() + "\n" + tvPart
+                }
+            }) { Text(tr("Diagnostic du son"), fontSize = 12.sp) }
+        }
         Row(
             Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
@@ -198,6 +211,28 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
                 tr("apparaît en noir. Touchez l'image pour « OK », faites-la glisser pour les flèches."),
             color = Muted,
             fontSize = 11.sp,
+        )
+    }
+
+    report?.let { text ->
+        val clipboard = androidx.compose.ui.platform.LocalClipboardManager.current
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { report = null },
+            title = { Text(tr("Diagnostic du son")) },
+            text = {
+                Text(
+                    text,
+                    fontSize = 11.sp,
+                    modifier = Modifier.verticalScroll(androidx.compose.foundation.rememberScrollState()),
+                )
+            },
+            confirmButton = {
+                androidx.compose.material3.TextButton(onClick = {
+                    clipboard.setText(androidx.compose.ui.text.AnnotatedString(text))
+                    Toast.makeText(context, tr("Rapport copié"), Toast.LENGTH_SHORT).show()
+                }) { Text(tr("Copier")) }
+            },
+            dismissButton = { androidx.compose.material3.TextButton(onClick = { report = null }) { Text(tr("Fermer")) } },
         )
     }
 

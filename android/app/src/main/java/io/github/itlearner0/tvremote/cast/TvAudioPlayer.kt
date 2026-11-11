@@ -27,6 +27,21 @@ class TvAudioPlayer(
     @Volatile private var socket: Socket? = null
     private var worker: Thread? = null
 
+    // Diagnostic, côté téléphone.
+    @Volatile private var lastStart: String = "pas encore lancé"
+    @Volatile private var connections = 0
+    @Volatile private var connectFailures = 0
+    @Volatile private var bytes = 0L
+    @Volatile private var peak = 0
+    @Volatile private var lastError: String? = null
+
+    fun phoneReport(): String = buildString {
+        appendLine("Téléphone : démarrage sur la TV = $lastStart")
+        appendLine("Connexions au son de la TV : $connections réussie(s), $connectFailures échec(s)")
+        appendLine("Son reçu : $bytes octets, niveau max $peak (0 = silence)")
+        lastError?.let { appendLine("Dernière erreur : $it") }
+    }
+
     fun start() {
         if (running) return
         running = true
@@ -49,6 +64,7 @@ class TvAudioPlayer(
             if (!started) {
                 onStatus(tr("Son : démarrage sur la TV…"))
                 val error = runCatching { adb.startTvAudio(host, helperApk()) }.getOrElse { it.message ?: it.javaClass.simpleName }
+                lastStart = error ?: "accepté"
                 if (error != null) {
                     onStatus(tr("Son indisponible : {1}", error))
                     return
@@ -56,6 +72,7 @@ class TvAudioPlayer(
                 started = true
             }
             val received = runCatching { play() }.getOrElse { e ->
+                lastError = e.message ?: e.javaClass.simpleName
                 if (!running) return
                 onStatus(tr("Son interrompu : {1}", e.message ?: e.javaClass.simpleName))
                 0L
@@ -83,7 +100,12 @@ class TvAudioPlayer(
             if (s != null) break
             Thread.sleep(400)
         }
-        val connected = s ?: return 0
+        val connected = s ?: run {
+            connectFailures++
+            lastError = "port $PORT de la TV injoignable"
+            return 0
+        }
+        connections++
         socket = connected
         connected.use { sock ->
             sock.soTimeout = 5000
@@ -128,6 +150,7 @@ class TvAudioPlayer(
                     }
                     if (n < 0) break
                     total += n
+                    bytes += n
                     // Retard qui s'accumule (réseau, horloges) : on saute ce morceau.
                     val lag = writtenFrames - (track.playbackHeadPosition.toLong() and 0xFFFFFFFFL)
                     if (lag <= maxLagFrames) {
@@ -161,12 +184,15 @@ class TvAudioPlayer(
 
     private fun isSilent(pcm: ByteArray, length: Int): Boolean {
         var i = 0
+        var silent = true
         while (i + 1 < length) {
             val sample = (pcm[i].toInt() and 0xFF) or (pcm[i + 1].toInt() shl 8)
-            if (sample > 40 || sample < -40) return false
+            val level = kotlin.math.abs(sample)
+            if (level > peak) peak = level
+            if (sample > 40 || sample < -40) silent = false
             i += 8
         }
-        return true
+        return silent
     }
 
     companion object {
