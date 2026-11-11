@@ -61,5 +61,12 @@ private val colors = darkColorScheme(
 
 @Composable
 fun RemoteTheme(content: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = colors, content = content)
+    MaterialTheme(colorScheme = colors) {
+        // Texte clair par défaut sur le fond sombre, même hors d'une Surface
+        // (sinon noir : titres illisibles sur les écrans d'ajout de TV).
+        androidx.compose.runtime.CompositionLocalProvider(
+            androidx.compose.material3.LocalContentColor provides colors.onBackground,
+            content = content,
+        )
+    }
 }

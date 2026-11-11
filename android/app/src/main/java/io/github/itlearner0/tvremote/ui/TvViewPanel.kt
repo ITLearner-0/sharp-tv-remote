@@ -219,17 +219,29 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
             NavKey(Icons.Filled.Home, tr("Accueil")) { vm.key(Keys.HOME) }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            OutlinedButton(onClick = ::toggleSound, modifier = Modifier.weight(1f).height(48.dp)) {
+            OutlinedButton(onClick = ::toggleSound, modifier = Modifier.weight(1f).height(48.dp), contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 10.dp)) {
                 Icon(
                     if (soundOn) Icons.AutoMirrored.Filled.VolumeUp else Icons.AutoMirrored.Filled.VolumeOff,
                     contentDescription = null,
                     modifier = Modifier.size(18.dp),
                 )
-                Text(if (soundOn) tr("  Son sur le téléphone") else tr("  Son coupé"))
+                Text(
+                    if (soundOn) tr("  Son sur le téléphone") else tr("  Son coupé"),
+                    maxLines = 1,
+                    softWrap = false,
+                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                    fontSize = 13.sp,
+                )
             }
-            OutlinedButton(onClick = ::capture, modifier = Modifier.weight(1f).height(48.dp)) {
+            OutlinedButton(onClick = ::capture, modifier = Modifier.weight(1f).height(48.dp), contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 10.dp)) {
                 Icon(Icons.Filled.CameraAlt, contentDescription = null, modifier = Modifier.size(18.dp))
-                Text(if (capturing) tr("  Capture en cours…") else tr("  Capture"))
+                Text(
+                    if (capturing) tr("  Capture en cours…") else tr("  Capture"),
+                    maxLines = 1,
+                    softWrap = false,
+                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                    fontSize = 13.sp,
+                )
             }
         }
         Text(
