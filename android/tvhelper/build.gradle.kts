@@ -12,8 +12,8 @@ android {
         applicationId = "io.github.itlearner0.tvremote.helper"
         minSdk = 21
         targetSdk = 36
-        versionCode = 9
-        versionName = "9"
+        versionCode = 10
+        versionName = "10"
     }
 
     signingConfigs {

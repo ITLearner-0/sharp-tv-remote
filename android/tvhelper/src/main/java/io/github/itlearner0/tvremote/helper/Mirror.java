@@ -80,11 +80,25 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if ("stop".equals(intent.getStringExtra("cmd"))) {
+            Log.i(TAG, "arrêt demandé par le téléphone");
             finish();
             return;
         }
         readTarget(intent);
+        Log.i(TAG, "nouvelle demande du téléphone : redémarrage");
         restart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "écran de duplication en pause (autre fenêtre au premier plan ?)");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "écran de duplication masqué (une autre application est passée devant)");
     }
 
     private void readTarget(Intent intent) {
@@ -106,6 +120,7 @@ public class Mirror extends Activity implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        Log.i(TAG, "surface d'affichage détruite : arrêt de la réception");
         stopWorker();
         surface = null;
     }

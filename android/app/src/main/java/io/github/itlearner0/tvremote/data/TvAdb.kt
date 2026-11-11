@@ -304,7 +304,7 @@ class TvAdb(private val keyDir: File) {
         const val HELPER_PACKAGE = "io.github.itlearner0.tvremote.helper"
         private const val STOP_SCREENRECORD = "pkill -2 screenrecord 2>/dev/null || killall -2 screenrecord 2>/dev/null; true"
         /** versionCode de tvhelper/build.gradle.kts. */
-        private const val HELPER_VERSION = 9
+        private const val HELPER_VERSION = 10
         /** TV sur lesquelles la visionneuse est déjà installée (pendant cette session). */
         private val viewerReady: MutableSet<String> = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
 
