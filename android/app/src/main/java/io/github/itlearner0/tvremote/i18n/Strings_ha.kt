@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_HA: Map<String, String> by lazy {
-    HashMap<String, String>(1006).also { m ->
+    HashMap<String, String>(1008).also { m ->
         l_haa(m)
         l_hab(m)
     }
@@ -260,10 +260,10 @@ private fun l_haa(m: HashMap<String, String>) {
     m["Masquer le Bluetooth classique"] = "Ɓoye Bluetooth na gargajiya"
     m["Menu contextuel TV"] = "Menu na mahallin TV"
     m["Menu de diffusion du téléphone (Miracast)"] = "Menu na jefawa na waya (Miracast)"
+    m["Menu des contenus TV"] = "Menu na abubuwan TV"
 }
 
 private fun l_hab(m: HashMap<String, String>) {
-    m["Menu des contenus TV"] = "Menu na abubuwan TV"
     m["Menu principal (média)"] = "Babban menu (kafofin watsa labarai)"
     m["Menu standard Android"] = "Menu na Android na yau da kullum"
     m["Merci ! Toutes les fonctions sont débloquées, pour toujours."] = "Na gode! An buɗe duk fasaloli har abada."
@@ -515,4 +515,5 @@ private fun l_hab(m: HashMap<String, String>) {
     m["TV injoignable : {1}"] = "Ba a iya isa ga TV ba: {1}"
     m["Diagnostic du son"] = "Binciken sauti"
     m["Rapport copié"] = "An kwafi rahoton"
+    m["Cette TV ne transmet pas son son (il est joué hors d'Android) : le son est désactivé pour elle."] = "Wannan TV ba ta ba da sautinta (ana kunna shi a wajen Android): an kashe sauti gare ta."
 }

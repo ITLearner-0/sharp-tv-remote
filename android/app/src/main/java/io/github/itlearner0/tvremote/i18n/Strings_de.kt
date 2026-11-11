@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_DE: Map<String, String> by lazy {
-    HashMap<String, String>(1006).also { m ->
+    HashMap<String, String>(1008).also { m ->
         l_dea(m)
         l_deb(m)
     }
@@ -260,10 +260,10 @@ private fun l_dea(m: HashMap<String, String>) {
     m["Masquer le Bluetooth classique"] = "Klassisches Bluetooth ausblenden"
     m["Menu contextuel TV"] = "Kontextmenü des TVs"
     m["Menu de diffusion du téléphone (Miracast)"] = "Übertragungsmenü des Handys (Miracast)"
+    m["Menu des contenus TV"] = "Inhaltsmenü des TVs"
 }
 
 private fun l_deb(m: HashMap<String, String>) {
-    m["Menu des contenus TV"] = "Inhaltsmenü des TVs"
     m["Menu principal (média)"] = "Hauptmenü (Medien)"
     m["Menu standard Android"] = "Standard-Android-Menü"
     m["Merci ! Toutes les fonctions sont débloquées, pour toujours."] = "Danke! Alle Funktionen sind für immer freigeschaltet."
@@ -515,4 +515,5 @@ private fun l_deb(m: HashMap<String, String>) {
     m["TV injoignable : {1}"] = "TV nicht erreichbar: {1}"
     m["Diagnostic du son"] = "Tondiagnose"
     m["Rapport copié"] = "Bericht kopiert"
+    m["Cette TV ne transmet pas son son (il est joué hors d'Android) : le son est désactivé pour elle."] = "Dieser TV gibt seinen Ton nicht weiter (er wird außerhalb von Android abgespielt): Ton für ihn deaktiviert."
 }

@@ -501,3 +501,4 @@
 500	TV irraggiungibile: {1}
 501	Diagnostica audio
 502	Rapporto copiato
+503	Questa TV non trasmette il suo audio (viene riprodotto fuori da Android): l'audio è disattivato per lei.

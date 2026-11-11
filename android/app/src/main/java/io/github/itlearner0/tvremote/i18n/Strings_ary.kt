@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_ARY: Map<String, String> by lazy {
-    HashMap<String, String>(1006).also { m ->
+    HashMap<String, String>(1008).also { m ->
         l_arya(m)
         l_aryb(m)
     }
@@ -260,10 +260,10 @@ private fun l_arya(m: HashMap<String, String>) {
     m["Masquer le Bluetooth classique"] = "خبّي البلوتوث الكلاسيكي"
     m["Menu contextuel TV"] = "مينو السياق ديال التلفزة"
     m["Menu de diffusion du téléphone (Miracast)"] = "مينو البث ديال التيليفون (Miracast)"
+    m["Menu des contenus TV"] = "مينو المحتوى ديال التلفزة"
 }
 
 private fun l_aryb(m: HashMap<String, String>) {
-    m["Menu des contenus TV"] = "مينو المحتوى ديال التلفزة"
     m["Menu principal (média)"] = "المينو الرئيسي (ميديا)"
     m["Menu standard Android"] = "مينو Android العادي"
     m["Merci ! Toutes les fonctions sont débloquées, pour toujours."] = "شكرا! جميع الخاصيات تحلّو للأبد."
@@ -515,4 +515,5 @@ private fun l_aryb(m: HashMap<String, String>) {
     m["TV injoignable : {1}"] = "ما قدرناش نوصلو للتلفزة: {1}"
     m["Diagnostic du son"] = "تشخيص الصوت"
     m["Rapport copié"] = "الرابور تكوبى"
+    m["Cette TV ne transmet pas son son (il est joué hors d'Android) : le son est désactivé pour elle."] = "هاد التلفزة ما كتعطيش الصوت ديالها (كيتشغّل برا Android): الصوت تقطع ليها."
 }

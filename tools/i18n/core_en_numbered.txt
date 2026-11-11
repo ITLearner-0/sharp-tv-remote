@@ -501,3 +501,4 @@
 500	TV unreachable: {1}
 501	Sound diagnostics
 502	Report copied
+503	This TV does not provide its sound (it is played outside Android): sound is turned off for it.

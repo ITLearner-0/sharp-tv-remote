@@ -501,3 +501,4 @@
 500	Ba a iya isa ga TV ba: {1}
 501	Binciken sauti
 502	An kwafi rahoton
+503	Wannan TV ba ta ba da sautinta (ana kunna shi a wajen Android): an kashe sauti gare ta.

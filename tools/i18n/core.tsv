@@ -501,3 +501,4 @@ Lecture du diagnostic…	Reading diagnostics…
 TV injoignable : {1}	TV unreachable: {1}
 Diagnostic du son	Sound diagnostics
 Rapport copié	Report copied
+Cette TV ne transmet pas son son (il est joué hors d'Android) : le son est désactivé pour elle.	This TV does not provide its sound (it is played outside Android): sound is turned off for it.

@@ -501,3 +501,4 @@
 500	TV nicht erreichbar: {1}
 501	Tondiagnose
 502	Bericht kopiert
+503	Dieser TV gibt seinen Ton nicht weiter (er wird außerhalb von Android abgespielt): Ton für ihn deaktiviert.

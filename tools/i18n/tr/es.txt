@@ -501,3 +501,4 @@
 500	Televisor inaccesible: {1}
 501	Diagnóstico del sonido
 502	Informe copiado
+503	Este televisor no transmite su sonido (se reproduce fuera de Android): el sonido se desactiva para él.

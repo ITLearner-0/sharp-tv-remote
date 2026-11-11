@@ -22,6 +22,8 @@ class TvAudioPlayer(
     private val host: String,
     private val helperApk: () -> File?,
     private val onStatus: (String?) -> Unit,
+    /** Silence complet prolongé : la TV ne transmet pas son son (appelé une fois). */
+    private val onUnsupported: () -> Unit = {},
 ) {
     @Volatile private var running = false
     @Volatile private var socket: Socket? = null
@@ -163,6 +165,13 @@ class TvAudioPlayer(
                             warnedSilence = false
                             onStatus(null)
                         }
+                    }
+                    // Silence absolu pendant 15 s alors que rien n'a jamais été entendu : la TV
+                    // ne fournit pas son son à la capture (son joué hors d'Android).
+                    if (peak == 0 && silentBytes > bytesPerSecond * 15L) {
+                        onUnsupported()
+                        running = false
+                        break
                     }
                     if (!warnedSilence && silentBytes > bytesPerSecond * 6L) {
                         warnedSilence = true

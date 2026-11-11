@@ -105,22 +105,44 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
     var report by remember { mutableStateOf<String?>(null) }
     var surfaceView by remember { mutableStateOf<SurfaceView?>(null) }
     val prefs = remember { context.getSharedPreferences("ui", Context.MODE_PRIVATE) }
-    var soundOn by remember { mutableStateOf(prefs.getBoolean(KEY_SOUND, true)) }
+    val unsupportedKey = KEY_SOUND_UNSUPPORTED + tv.id
+    var soundOn by remember(tv.id) {
+        mutableStateOf(prefs.getBoolean(KEY_SOUND, true) && !prefs.getBoolean(unsupportedKey, false))
+    }
     val scope = rememberCoroutineScope()
     val adb = remember { TvAdb(context.filesDir) }
     val viewer = remember(tv.id, tv.host) { TvScreenViewer(adb, tv.host) { status = it } }
     val audio = remember(tv.id, tv.host) {
-        TvAudioPlayer(adb, tv.host, { TvAdb.helperApk(context) }) { audioStatus = it }
+        TvAudioPlayer(
+            adb,
+            tv.host,
+            { TvAdb.helperApk(context) },
+            onStatus = { audioStatus = it },
+            onUnsupported = {
+                prefs.edit().putBoolean(unsupportedKey, true).apply()
+                soundOn = false
+                audioStatus = tr("Cette TV ne transmet pas son son (il est joué hors d'Android) : le son est désactivé pour elle.")
+            },
+        )
     }
     DisposableEffect(viewer) { onDispose { viewer.stop() } }
     DisposableEffect(audio, soundOn) {
-        if (soundOn) audio.start() else audioStatus = null
+        if (soundOn) {
+            audio.start()
+        } else {
+            audioStatus = if (prefs.getBoolean(unsupportedKey, false)) {
+                tr("Cette TV ne transmet pas son son (il est joué hors d'Android) : le son est désactivé pour elle.")
+            } else {
+                null
+            }
+        }
         onDispose { audio.stop() }
     }
 
     fun toggleSound() {
         soundOn = !soundOn
-        prefs.edit().putBoolean(KEY_SOUND, soundOn).apply()
+        // Réactivé à la main : nouvel essai (par exemple après une mise à jour de la TV).
+        prefs.edit().putBoolean(KEY_SOUND, soundOn).remove(unsupportedKey).apply()
     }
 
     fun capture() {
@@ -407,6 +429,7 @@ private fun OverlayKey(icon: ImageVector, description: String, onClick: () -> Un
 }
 
 private const val KEY_SOUND = "tv_view_sound"
+private const val KEY_SOUND_UNSUPPORTED = "tv_view_sound_unsupported_"
 
 @Composable
 private fun NavKey(icon: ImageVector, description: String, onClick: () -> Unit) {

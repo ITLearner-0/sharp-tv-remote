@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_LN: Map<String, String> by lazy {
-    HashMap<String, String>(1006).also { m ->
+    HashMap<String, String>(1008).also { m ->
         l_lna(m)
         l_lnb(m)
     }
@@ -260,10 +260,10 @@ private fun l_lna(m: HashMap<String, String>) {
     m["Masquer le Bluetooth classique"] = "Bomba Bluetooth classique"
     m["Menu contextuel TV"] = "Menu ya contexte ya TV"
     m["Menu de diffusion du téléphone (Miracast)"] = "Menu ya kotinda ya telefone (Miracast)"
+    m["Menu des contenus TV"] = "Menu ya biloko ya TV"
 }
 
 private fun l_lnb(m: HashMap<String, String>) {
-    m["Menu des contenus TV"] = "Menu ya biloko ya TV"
     m["Menu principal (média)"] = "Menu monene (média)"
     m["Menu standard Android"] = "Menu ya Android ya momesano"
     m["Merci ! Toutes les fonctions sont débloquées, pour toujours."] = "Matondi! Makoki nyonso efungwami mpo na libela."
@@ -515,4 +515,5 @@ private fun l_lnb(m: HashMap<String, String>) {
     m["TV injoignable : {1}"] = "TV ekoki kokomama te: {1}"
     m["Diagnostic du son"] = "Botali ya mongongo"
     m["Rapport copié"] = "Rapport ekopiami"
+    m["Cette TV ne transmet pas son son (il est joué hors d'Android) : le son est désactivé pour elle."] = "TV oyo epesaka mongongo na yango te (etambolaka libanda ya Android): mongongo ekufisami mpo na yango."
 }

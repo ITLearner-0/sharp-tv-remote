@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_YO: Map<String, String> by lazy {
-    HashMap<String, String>(1006).also { m ->
+    HashMap<String, String>(1008).also { m ->
         l_yoa(m)
         l_yob(m)
     }
@@ -260,10 +260,10 @@ private fun l_yoa(m: HashMap<String, String>) {
     m["Masquer le Bluetooth classique"] = "Fi Bluetooth àtijọ́ pamọ́"
     m["Menu contextuel TV"] = "Àkójọ àyíká TV"
     m["Menu de diffusion du téléphone (Miracast)"] = "Àkójọ ìgbéjáde fóònù (Miracast)"
+    m["Menu des contenus TV"] = "Àkójọ àkóónú TV"
 }
 
 private fun l_yob(m: HashMap<String, String>) {
-    m["Menu des contenus TV"] = "Àkójọ àkóónú TV"
     m["Menu principal (média)"] = "Àkójọ àkọ́kọ́ (mídíà)"
     m["Menu standard Android"] = "Àkójọ Android lásán"
     m["Merci ! Toutes les fonctions sont débloquées, pour toujours."] = "Ẹ ṣé! Gbogbo ẹ̀yà ti ṣí sílẹ̀ títí láé."
@@ -515,4 +515,5 @@ private fun l_yob(m: HashMap<String, String>) {
     m["TV injoignable : {1}"] = "A kò lè dé TV: {1}"
     m["Diagnostic du son"] = "Àyẹ̀wò ohùn"
     m["Rapport copié"] = "A ti dàkọ ìròyìn"
+    m["Cette TV ne transmet pas son son (il est joué hors d'Android) : le son est désactivé pour elle."] = "TV yìí kò fi ohùn rẹ̀ ránṣẹ́ (ó ń ṣeré lẹ́yìn Android): a ti pa ohùn fún un."
 }

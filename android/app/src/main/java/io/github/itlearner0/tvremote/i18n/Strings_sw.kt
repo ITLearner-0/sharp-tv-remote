@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_SW: Map<String, String> by lazy {
-    HashMap<String, String>(1006).also { m ->
+    HashMap<String, String>(1008).also { m ->
         l_swa(m)
         l_swb(m)
     }
@@ -260,10 +260,10 @@ private fun l_swa(m: HashMap<String, String>) {
     m["Masquer le Bluetooth classique"] = "Ficha Bluetooth ya kawaida"
     m["Menu contextuel TV"] = "Menyu ya muktadha ya TV"
     m["Menu de diffusion du téléphone (Miracast)"] = "Menyu ya kutuma ya simu (Miracast)"
+    m["Menu des contenus TV"] = "Menyu ya maudhui ya TV"
 }
 
 private fun l_swb(m: HashMap<String, String>) {
-    m["Menu des contenus TV"] = "Menyu ya maudhui ya TV"
     m["Menu principal (média)"] = "Menyu kuu (midia)"
     m["Menu standard Android"] = "Menyu ya kawaida ya Android"
     m["Merci ! Toutes les fonctions sont débloquées, pour toujours."] = "Asante! Vipengele vyote vimefunguliwa milele."
@@ -515,4 +515,5 @@ private fun l_swb(m: HashMap<String, String>) {
     m["TV injoignable : {1}"] = "TV haifikiki: {1}"
     m["Diagnostic du son"] = "Uchunguzi wa sauti"
     m["Rapport copié"] = "Ripoti imenakiliwa"
+    m["Cette TV ne transmet pas son son (il est joué hors d'Android) : le son est désactivé pour elle."] = "TV hii haitoi sauti yake (inachezwa nje ya Android): sauti imezimwa kwa ajili yake."
 }

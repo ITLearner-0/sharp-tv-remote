@@ -501,3 +501,4 @@
 500	A kò lè dé TV: {1}
 501	Àyẹ̀wò ohùn
 502	A ti dàkọ ìròyìn
+503	TV yìí kò fi ohùn rẹ̀ ránṣẹ́ (ó ń ṣeré lẹ́yìn Android): a ti pa ohùn fún un.

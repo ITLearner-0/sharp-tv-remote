@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_AM: Map<String, String> by lazy {
-    HashMap<String, String>(1006).also { m ->
+    HashMap<String, String>(1008).also { m ->
         l_ama(m)
         l_amb(m)
     }
@@ -260,10 +260,10 @@ private fun l_ama(m: HashMap<String, String>) {
     m["Masquer le Bluetooth classique"] = "ክላሲክ ብሉቱዝን ደብቅ"
     m["Menu contextuel TV"] = "የቲቪው አውድ ምናሌ"
     m["Menu de diffusion du téléphone (Miracast)"] = "የስልኩ የመውሰድ ምናሌ (Miracast)"
+    m["Menu des contenus TV"] = "የቲቪው የይዘት ምናሌ"
 }
 
 private fun l_amb(m: HashMap<String, String>) {
-    m["Menu des contenus TV"] = "የቲቪው የይዘት ምናሌ"
     m["Menu principal (média)"] = "ዋና ምናሌ (ሚዲያ)"
     m["Menu standard Android"] = "መደበኛ የAndroid ምናሌ"
     m["Merci ! Toutes les fonctions sont débloquées, pour toujours."] = "እናመሰግናለን! ሁሉም ባህሪያት ለዘላለም ተከፍተዋል።"
@@ -515,4 +515,5 @@ private fun l_amb(m: HashMap<String, String>) {
     m["TV injoignable : {1}"] = "ቲቪው ሊደረስበት አልቻለም: {1}"
     m["Diagnostic du son"] = "የድምፅ ምርመራ"
     m["Rapport copié"] = "ሪፖርቱ ተቀድቷል"
+    m["Cette TV ne transmet pas son son (il est joué hors d'Android) : le son est désactivé pour elle."] = "ይህ ቲቪ ድምፁን አያቀርብም (ከAndroid ውጭ ይጫወታል): ድምፁ ለእሱ ጠፍቷል።"
 }

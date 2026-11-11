@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_HI: Map<String, String> by lazy {
-    HashMap<String, String>(1006).also { m ->
+    HashMap<String, String>(1008).also { m ->
         l_hia(m)
         l_hib(m)
     }
@@ -260,10 +260,10 @@ private fun l_hia(m: HashMap<String, String>) {
     m["Masquer le Bluetooth classique"] = "क्लासिक Bluetooth छिपाएँ"
     m["Menu contextuel TV"] = "टीवी का कॉन्टेक्स्ट मेनू"
     m["Menu de diffusion du téléphone (Miracast)"] = "फ़ोन का कास्ट मेनू (Miracast)"
+    m["Menu des contenus TV"] = "टीवी का कंटेंट मेनू"
 }
 
 private fun l_hib(m: HashMap<String, String>) {
-    m["Menu des contenus TV"] = "टीवी का कंटेंट मेनू"
     m["Menu principal (média)"] = "मुख्य मेनू (मीडिया)"
     m["Menu standard Android"] = "सामान्य Android मेनू"
     m["Merci ! Toutes les fonctions sont débloquées, pour toujours."] = "धन्यवाद! सभी सुविधाएँ हमेशा के लिए अनलॉक हो गईं।"
@@ -515,4 +515,5 @@ private fun l_hib(m: HashMap<String, String>) {
     m["TV injoignable : {1}"] = "टीवी तक पहुँच नहीं: {1}"
     m["Diagnostic du son"] = "आवाज़ की जाँच"
     m["Rapport copié"] = "रिपोर्ट कॉपी हो गई"
+    m["Cette TV ne transmet pas son son (il est joué hors d'Android) : le son est désactivé pour elle."] = "यह टीवी अपनी आवाज़ नहीं देता (वह Android के बाहर चलती है): इसके लिए आवाज़ बंद कर दी गई है।"
 }

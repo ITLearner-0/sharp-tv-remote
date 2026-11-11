@@ -2,7 +2,7 @@
 package io.github.itlearner0.tvremote.i18n
 
 internal val L_WO: Map<String, String> by lazy {
-    HashMap<String, String>(1006).also { m ->
+    HashMap<String, String>(1008).also { m ->
         l_woa(m)
         l_wob(m)
     }
@@ -260,10 +260,10 @@ private fun l_woa(m: HashMap<String, String>) {
     m["Masquer le Bluetooth classique"] = "Nëbb Bluetooth klasik"
     m["Menu contextuel TV"] = "Menuw konteks bu TV bi"
     m["Menu de diffusion du téléphone (Miracast)"] = "Menuw yónnee bu telefon bi (Miracast)"
+    m["Menu des contenus TV"] = "Menuw li TV bi am"
 }
 
 private fun l_wob(m: HashMap<String, String>) {
-    m["Menu des contenus TV"] = "Menuw li TV bi am"
     m["Menu principal (média)"] = "Menu bu mag (miidiya)"
     m["Menu standard Android"] = "Menuw Android bu ñu miin"
     m["Merci ! Toutes les fonctions sont débloquées, pour toujours."] = "Jërëjëf! Jumtukaay yépp ubbiku nañu ba fàww."
@@ -515,4 +515,5 @@ private fun l_wob(m: HashMap<String, String>) {
     m["TV injoignable : {1}"] = "Mënuñu agsi ci TV bi: {1}"
     m["Diagnostic du son"] = "Saytu baat bi"
     m["Rapport copié"] = "Rapoor bi duppi nañu ko"
+    m["Cette TV ne transmet pas son son (il est joué hors d'Android) : le son est désactivé pour elle."] = "TV bii joxul baatam (dafay dox ci biti Android): baat bi dañ ko fey ngir moom."
 }
