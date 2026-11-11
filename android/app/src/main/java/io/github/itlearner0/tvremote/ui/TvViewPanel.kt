@@ -170,12 +170,16 @@ fun TvViewPanel(state: UiState, vm: RemoteViewModel) {
         Text(audioStatus?.let { "$status · $it" } ?: status, color = Muted, fontSize = 12.sp)
         if (soundOn) {
             androidx.compose.material3.TextButton(onClick = {
-                report = tr("Lecture du diagnostic…")
+                // Partie téléphone tout de suite ; partie TV ajoutée dès qu'elle répond (20 s au plus).
+                val phonePart = audio.phoneReport()
+                report = phonePart + "\n" + tr("Lecture du diagnostic…")
                 scope.launch {
-                    val tvPart = withContext(Dispatchers.IO) {
-                        runCatching { adb.tvAudioReport(tv.host) }.getOrElse { tr("TV injoignable : {1}", it.message ?: "") }
-                    }
-                    report = audio.phoneReport() + "\n" + tvPart
+                    val tvPart = kotlinx.coroutines.withTimeoutOrNull(20_000) {
+                        kotlinx.coroutines.runInterruptible(Dispatchers.IO) {
+                            runCatching { adb.tvAudioReport(tv.host) }.getOrElse { tr("TV injoignable : {1}", it.message ?: "") }
+                        }
+                    } ?: tr("TV injoignable : {1}", "20 s")
+                    if (report != null) report = phonePart + "\n" + tvPart
                 }
             }) { Text(tr("Diagnostic du son"), fontSize = 12.sp) }
         }
