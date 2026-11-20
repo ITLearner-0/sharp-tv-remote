@@ -86,6 +86,8 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     // Google Cast : affichage des photos et vidéos du téléphone sur la TV.
     implementation("com.google.android.gms:play-services-cast-framework:21.5.0")
+    // Cast tire fragment 1.1.0 (via mediarouter), signalé obsolète par Google Play.
+    implementation("androidx.fragment:fragment:1.8.5")
     // Google Play : achat unique d'OmniZap Pro.
     implementation("com.android.billingclient:billing-ktx:8.0.0")
 
